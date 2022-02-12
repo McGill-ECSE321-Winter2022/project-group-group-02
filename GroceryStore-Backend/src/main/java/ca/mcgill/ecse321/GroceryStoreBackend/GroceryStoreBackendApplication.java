@@ -18,5 +18,4 @@ public class GroceryStoreBackendApplication {
 	    return "Hello world!";
 	  }
 	
-	
 }
