@@ -17,6 +17,6 @@ public class GroceryStoreBackendApplication {
 	  public String greeting(){
 	    return "Hello world!";
 	  }
-	
-	
+	  
+	  
 }
