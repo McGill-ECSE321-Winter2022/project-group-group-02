@@ -1,15 +1,10 @@
-package ca.mcgill.ecse321.GroceryStoreBackend.model;
-
-import javax.persistence.Entity;
-
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 
 
-// line 68 "model.ump"
-// line 153 "model.ump"
-@Entity
+// line 64 "model.ump"
+// line 125 "model.ump"
 public class UnavailableItem extends Item
 {
 
@@ -21,9 +16,9 @@ public class UnavailableItem extends Item
   // CONSTRUCTOR
   //------------------------
 
-  public UnavailableItem(String aName, double aPrice, GroceryStoreApplication aGroceryStoreApplication)
+  public UnavailableItem(String aName, double aPrice)
   {
-    super(aName, aPrice, aGroceryStoreApplication);
+    super(aName, aPrice);
   }
 
   //------------------------

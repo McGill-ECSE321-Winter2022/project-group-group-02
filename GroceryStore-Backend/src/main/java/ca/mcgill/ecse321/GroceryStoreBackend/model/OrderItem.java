@@ -1,19 +1,10 @@
-package ca.mcgill.ecse321.GroceryStoreBackend.model;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 
 
-// line 57 "model.ump"
-// line 165 "model.ump"
-@Entity
+// line 53 "model.ump"
+// line 137 "model.ump"
 public class OrderItem
 {
 
@@ -35,25 +26,19 @@ public class OrderItem
 
   //OrderItem Associations
   private ShoppableItem item;
-  private GroceryStoreApplication groceryStoreApplication;
   private Order order;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public OrderItem(int aQuantity, ShoppableItem aItem, GroceryStoreApplication aGroceryStoreApplication, Order aOrder)
+  public OrderItem(int aQuantity, ShoppableItem aItem, Order aOrder)
   {
     quantity = aQuantity;
     id = nextId++;
     if (!setItem(aItem))
     {
       throw new RuntimeException("Unable to create OrderItem due to aItem. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    boolean didAddGroceryStoreApplication = setGroceryStoreApplication(aGroceryStoreApplication);
-    if (!didAddGroceryStoreApplication)
-    {
-      throw new RuntimeException("Unable to create orderItem due to groceryStoreApplication. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
     boolean didAddOrder = setOrder(aOrder);
     if (!didAddOrder)
@@ -79,25 +64,16 @@ public class OrderItem
     return quantity;
   }
 
-  @Id
   public int getId()
   {
     return id;
   }
   /* Code from template association_GetOne */
-  @ManyToOne(optional=false)
   public ShoppableItem getItem()
   {
     return item;
   }
   /* Code from template association_GetOne */
-  
-  public GroceryStoreApplication getGroceryStoreApplication()
-  {
-    return groceryStoreApplication;
-  }
-  /* Code from template association_GetOne */
-  @ManyToOne(optional=false)
   public Order getOrder()
   {
     return order;
@@ -111,25 +87,6 @@ public class OrderItem
       item = aNewItem;
       wasSet = true;
     }
-    return wasSet;
-  }
-  /* Code from template association_SetOneToMany */
-  public boolean setGroceryStoreApplication(GroceryStoreApplication aGroceryStoreApplication)
-  {
-    boolean wasSet = false;
-    if (aGroceryStoreApplication == null)
-    {
-      return wasSet;
-    }
-
-    GroceryStoreApplication existingGroceryStoreApplication = groceryStoreApplication;
-    groceryStoreApplication = aGroceryStoreApplication;
-    if (existingGroceryStoreApplication != null && !existingGroceryStoreApplication.equals(aGroceryStoreApplication))
-    {
-      existingGroceryStoreApplication.removeOrderItem(this);
-    }
-    groceryStoreApplication.addOrderItem(this);
-    wasSet = true;
     return wasSet;
   }
   /* Code from template association_SetOneToMany */
@@ -155,12 +112,6 @@ public class OrderItem
   public void delete()
   {
     item = null;
-    GroceryStoreApplication placeholderGroceryStoreApplication = groceryStoreApplication;
-    this.groceryStoreApplication = null;
-    if(placeholderGroceryStoreApplication != null)
-    {
-      placeholderGroceryStoreApplication.removeOrderItem(this);
-    }
     Order placeholderOrder = order;
     this.order = null;
     if(placeholderOrder != null)
@@ -176,7 +127,6 @@ public class OrderItem
             "id" + ":" + getId()+ "," +
             "quantity" + ":" + getQuantity()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "item = "+(getItem()!=null?Integer.toHexString(System.identityHashCode(getItem())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "groceryStoreApplication = "+(getGroceryStoreApplication()!=null?Integer.toHexString(System.identityHashCode(getGroceryStoreApplication())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "order = "+(getOrder()!=null?Integer.toHexString(System.identityHashCode(getOrder())):"null");
   }
 }

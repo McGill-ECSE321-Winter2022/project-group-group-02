@@ -4,31 +4,36 @@
 
 import java.util.*;
 
-// line 38 "model.ump"
-// line 107 "model.ump"
-public class Employee extends User
+/**
+ * The start of a very beautiful class diagram
+ */
+// line 4 "model.ump"
+// line 159 "model.ump"
+// line 166 "model.ump"
+public class Store
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //Employee Attributes
-  private double salary;
-  private String password;
+  //Store Attributes
+  private double deliveryFee;
+  private String town;
+  private String name;
 
-  //Employee Associations
+  //Store Associations
   private List<DailySchedule> dailySchedules;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Employee(String aEmail, String aPassword, String aName, double aSalary)
+  public Store(double aDeliveryFee, String aTown, String aName)
   {
-    super(aEmail, aPassword, aName);
-    salary = aSalary;
-    password = "1234";
+    deliveryFee = aDeliveryFee;
+    town = aTown;
+    name = aName;
     dailySchedules = new ArrayList<DailySchedule>();
   }
 
@@ -36,30 +41,35 @@ public class Employee extends User
   // INTERFACE
   //------------------------
 
-  public boolean setSalary(double aSalary)
+  public boolean setDeliveryFee(double aDeliveryFee)
   {
     boolean wasSet = false;
-    salary = aSalary;
+    deliveryFee = aDeliveryFee;
     wasSet = true;
     return wasSet;
   }
 
-  public boolean setPassword(String aPassword)
+  public boolean setTown(String aTown)
   {
     boolean wasSet = false;
-    password = aPassword;
+    town = aTown;
     wasSet = true;
     return wasSet;
   }
 
-  public double getSalary()
+  public double getDeliveryFee()
   {
-    return salary;
+    return deliveryFee;
   }
 
-  public String getPassword()
+  public String getTown()
   {
-    return password;
+    return town;
+  }
+
+  public String getName()
+  {
+    return name;
   }
   /* Code from template association_GetMany */
   public DailySchedule getDailySchedule(int index)
@@ -184,14 +194,14 @@ public class Employee extends User
   public void delete()
   {
     dailySchedules.clear();
-    super.delete();
   }
 
 
   public String toString()
   {
     return super.toString() + "["+
-            "salary" + ":" + getSalary()+ "," +
-            "password" + ":" + getPassword()+ "]";
+            "deliveryFee" + ":" + getDeliveryFee()+ "," +
+            "town" + ":" + getTown()+ "," +
+            "name" + ":" + getName()+ "]";
   }
 }

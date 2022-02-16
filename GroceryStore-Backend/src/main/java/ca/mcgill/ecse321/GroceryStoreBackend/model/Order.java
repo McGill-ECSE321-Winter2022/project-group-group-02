@@ -1,5 +1,3 @@
-package ca.mcgill.ecse321.GroceryStoreBackend.model;
-
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
@@ -7,16 +5,9 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
-// line 72 "model.ump"
-// line 158 "model.ump"
-@Entity
+// line 68 "model.ump"
+// line 130 "model.ump"
 public class Order
 {
 
@@ -38,7 +29,7 @@ public class Order
   //------------------------
 
   //Order Attributes
-  private OrderType order;
+  private OrderType orderType;
   private OrderStatus orderStatus;
   private Date date;
   private Time time;
@@ -49,15 +40,14 @@ public class Order
   //Order Associations
   private Customer customer;
   private List<OrderItem> orderItems;
-  private GroceryStoreApplication groceryStoreApplication;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Order(OrderType aOrder, OrderStatus aOrderStatus, Date aDate, Time aTime, Customer aCustomer, GroceryStoreApplication aGroceryStoreApplication)
+  public Order(OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, Customer aCustomer)
   {
-    order = aOrder;
+    orderType = aOrderType;
     orderStatus = aOrderStatus;
     date = aDate;
     time = aTime;
@@ -67,21 +57,16 @@ public class Order
       throw new RuntimeException("Unable to create Order due to aCustomer. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
     orderItems = new ArrayList<OrderItem>();
-    boolean didAddGroceryStoreApplication = setGroceryStoreApplication(aGroceryStoreApplication);
-    if (!didAddGroceryStoreApplication)
-    {
-      throw new RuntimeException("Unable to create order due to groceryStoreApplication. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setOrder(OrderType aOrder)
+  public boolean setOrderType(OrderType aOrderType)
   {
     boolean wasSet = false;
-    order = aOrder;
+    orderType = aOrderType;
     wasSet = true;
     return wasSet;
   }
@@ -110,9 +95,9 @@ public class Order
     return wasSet;
   }
 
-  public OrderType getOrder()
+  public OrderType getOrderType()
   {
-    return order;
+    return orderType;
   }
 
   public OrderStatus getOrderStatus()
@@ -130,26 +115,22 @@ public class Order
     return time;
   }
 
-  @Id
   public int getId()
   {
     return id;
   }
   /* Code from template association_GetOne */
-  @ManyToOne(optional=false)
   public Customer getCustomer()
   {
     return customer;
   }
   /* Code from template association_GetMany */
-  
   public OrderItem getOrderItem(int index)
   {
     OrderItem aOrderItem = orderItems.get(index);
     return aOrderItem;
   }
 
-  @OneToMany(cascade={CascadeType.ALL})
   public List<OrderItem> getOrderItems()
   {
     List<OrderItem> newOrderItems = Collections.unmodifiableList(orderItems);
@@ -173,11 +154,6 @@ public class Order
     int index = orderItems.indexOf(aOrderItem);
     return index;
   }
-  /* Code from template association_GetOne */
-  public GroceryStoreApplication getGroceryStoreApplication()
-  {
-    return groceryStoreApplication;
-  }
   /* Code from template association_SetUnidirectionalOne */
   public boolean setCustomer(Customer aNewCustomer)
   {
@@ -195,9 +171,9 @@ public class Order
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public OrderItem addOrderItem(int aQuantity, ShoppableItem aItem, GroceryStoreApplication aGroceryStoreApplication)
+  public OrderItem addOrderItem(int aQuantity, ShoppableItem aItem)
   {
-    return new OrderItem(aQuantity, aItem, aGroceryStoreApplication, this);
+    return new OrderItem(aQuantity, aItem, this);
   }
 
   public boolean addOrderItem(OrderItem aOrderItem)
@@ -261,25 +237,6 @@ public class Order
     }
     return wasAdded;
   }
-  /* Code from template association_SetOneToMany */
-  public boolean setGroceryStoreApplication(GroceryStoreApplication aGroceryStoreApplication)
-  {
-    boolean wasSet = false;
-    if (aGroceryStoreApplication == null)
-    {
-      return wasSet;
-    }
-
-    GroceryStoreApplication existingGroceryStoreApplication = groceryStoreApplication;
-    groceryStoreApplication = aGroceryStoreApplication;
-    if (existingGroceryStoreApplication != null && !existingGroceryStoreApplication.equals(aGroceryStoreApplication))
-    {
-      existingGroceryStoreApplication.removeOrder(this);
-    }
-    groceryStoreApplication.addOrder(this);
-    wasSet = true;
-    return wasSet;
-  }
 
   public void delete()
   {
@@ -291,12 +248,6 @@ public class Order
       orderItems.remove(aOrderItem);
     }
     
-    GroceryStoreApplication placeholderGroceryStoreApplication = groceryStoreApplication;
-    this.groceryStoreApplication = null;
-    if(placeholderGroceryStoreApplication != null)
-    {
-      placeholderGroceryStoreApplication.removeOrder(this);
-    }
   }
 
 
@@ -304,11 +255,10 @@ public class Order
   {
     return super.toString() + "["+
             "id" + ":" + getId()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "order" + "=" + (getOrder() != null ? !getOrder().equals(this)  ? getOrder().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "orderType" + "=" + (getOrderType() != null ? !getOrderType().equals(this)  ? getOrderType().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "orderStatus" + "=" + (getOrderStatus() != null ? !getOrderStatus().equals(this)  ? getOrderStatus().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "date" + "=" + (getDate() != null ? !getDate().equals(this)  ? getDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "time" + "=" + (getTime() != null ? !getTime().equals(this)  ? getTime().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "customer = "+(getCustomer()!=null?Integer.toHexString(System.identityHashCode(getCustomer())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "groceryStoreApplication = "+(getGroceryStoreApplication()!=null?Integer.toHexString(System.identityHashCode(getGroceryStoreApplication())):"null");
+            "  " + "customer = "+(getCustomer()!=null?Integer.toHexString(System.identityHashCode(getCustomer())):"null");
   }
 }
