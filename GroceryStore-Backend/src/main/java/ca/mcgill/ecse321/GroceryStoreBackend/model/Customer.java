@@ -1,11 +1,18 @@
+package ca.mcgill.ecse321.GroceryStoreBackend.model;
+
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 
 import java.util.*;
+import javax.persistence.*;
+
+
 
 // line 24 "model.ump"
 // line 102 "model.ump"
+
+@Entity
 public class Customer extends User
 {
 
@@ -19,7 +26,7 @@ public class Customer extends User
   //------------------------
   // CONSTRUCTOR
   //------------------------
-
+  
   public Customer(String aEmail, String aPassword, String aName, String aAddress)
   {
     super(aEmail, aPassword, aName);

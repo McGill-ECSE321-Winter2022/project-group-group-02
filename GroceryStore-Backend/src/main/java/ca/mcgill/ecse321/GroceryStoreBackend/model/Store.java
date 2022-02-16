@@ -1,8 +1,11 @@
+package ca.mcgill.ecse321.GroceryStoreBackend.model;
+
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 
 import java.util.*;
+import javax.persistence.*;
 
 /**
  * The start of a very beautiful class diagram
@@ -10,6 +13,7 @@ import java.util.*;
 // line 4 "model.ump"
 // line 159 "model.ump"
 // line 166 "model.ump"
+@Entity
 public class Store
 {
 
@@ -67,6 +71,7 @@ public class Store
     return town;
   }
 
+  @Id
   public String getName()
   {
     return name;
@@ -77,7 +82,8 @@ public class Store
     DailySchedule aDailySchedule = dailySchedules.get(index);
     return aDailySchedule;
   }
-
+  
+  @ManyToMany
   public List<DailySchedule> getDailySchedules()
   {
     List<DailySchedule> newDailySchedules = Collections.unmodifiableList(dailySchedules);

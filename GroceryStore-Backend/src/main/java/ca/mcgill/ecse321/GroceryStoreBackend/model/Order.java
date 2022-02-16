@@ -1,13 +1,19 @@
+package ca.mcgill.ecse321.GroceryStoreBackend.model;
+
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 
 import java.sql.Date;
+import javax.persistence.*;
+
 import java.sql.Time;
 import java.util.*;
 
 // line 68 "model.ump"
 // line 130 "model.ump"
+
+@Entity
 public class Order
 {
 
@@ -115,11 +121,14 @@ public class Order
     return time;
   }
 
+  @Id
   public int getId()
   {
     return id;
   }
   /* Code from template association_GetOne */
+  
+  @ManyToOne
   public Customer getCustomer()
   {
     return customer;
@@ -131,6 +140,7 @@ public class Order
     return aOrderItem;
   }
 
+  @OneToMany
   public List<OrderItem> getOrderItems()
   {
     List<OrderItem> newOrderItems = Collections.unmodifiableList(orderItems);
