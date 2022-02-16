@@ -17,36 +17,35 @@ import ca.mcgill.ecse321.GroceryStoreBackend.model.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class TestCustomerPersistence {
+public class TestOwnerPersistence {
 
   
   @Autowired
   EntityManager entityManager;
   
   @Autowired
-  private CustomerRepository customerRepository;
+  private OwnerRepository ownerRepository;
   
   @AfterEach
   public void clearDatabase() {
-      customerRepository.deleteAll();
+      ownerRepository.deleteAll();
   }
   
   @Test
-  public void testPersistAndLoadCustomer() {
-      String name = "testCustomer";
-      String email = "testCustomer@mail.com";
-      String password = "testPassword";
-      String address = "town";
-      Customer customer = new Customer(email, password, name, address);
+  public void testPersistAndLoadOwner() {
+      String name = "owner";
+      String email = "owner@store.com";
+      String password = "1234";
+      Owner owner = new Owner(email, password, name);
       
-      customerRepository.save(customer);
+      ownerRepository.save(owner);
 
 
-      customer = null;
+      owner = null;
 
-      customer = customerRepository.findCustomerByEmail(email);
-      assertNotNull(customer);
-      assertEquals(email, customer.getEmail());
+      owner = ownerRepository.findOwnerByEmail(email);
+      assertNotNull(owner);
+      assertEquals(email, owner.getEmail());
   }
   
 }
