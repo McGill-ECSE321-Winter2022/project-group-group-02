@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
+
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /*PLEASE DO NOT EDIT THIS CODE*/
@@ -9,7 +11,7 @@ import javax.persistence.ManyToOne;
 
 
 // line 84 "model.ump"
-// line 171 "model.ump"
+// line 172 "model.ump"
 @Entity
 public class Review
 {
@@ -21,12 +23,21 @@ public class Review
   public enum Rating { VeryPoor, Poor, Okay, Good, VeryGood }
 
   //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static int nextId = 1;
+
+  //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //Review Attributes
   private Rating rating;
   private String description;
+
+  //Autounique Attributes
+  private int id;
 
   //Review Associations
   private Customer customer;
@@ -40,6 +51,7 @@ public class Review
   {
     rating = aRating;
     description = aDescription;
+    id = nextId++;
     if (!setCustomer(aCustomer))
     {
       throw new RuntimeException("Unable to create Review due to aCustomer. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
@@ -69,7 +81,6 @@ public class Review
     wasSet = true;
     return wasSet;
   }
-  
 
   public Rating getRating()
   {
@@ -79,6 +90,12 @@ public class Review
   public String getDescription()
   {
     return description;
+  }
+
+  @Id
+  public int getId()
+  {
+    return id;
   }
   /* Code from template association_GetOne */
   @ManyToOne(optional=false)
@@ -124,6 +141,7 @@ public class Review
   public String toString()
   {
     return super.toString() + "["+
+            "id" + ":" + getId()+ "," +
             "description" + ":" + getDescription()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "rating" + "=" + (getRating() != null ? !getRating().equals(this)  ? getRating().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "customer = "+(getCustomer()!=null?Integer.toHexString(System.identityHashCode(getCustomer())):"null") + System.getProperties().getProperty("line.separator") +
