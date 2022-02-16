@@ -10,7 +10,7 @@ public interface ReviewRepository extends CrudRepository<Review, Integer> {
   
   boolean existsByCustomerAndOrder(Customer customerEmail, Order orderId);
 
-  Review findByCustomerAndOrder(Customer customerEmail, Order orderId);
+  Review findReviewByCustomerAndOrder(Customer customerEmail, Order orderId);
   
   Review findReviewById(Integer reviewId);
 
