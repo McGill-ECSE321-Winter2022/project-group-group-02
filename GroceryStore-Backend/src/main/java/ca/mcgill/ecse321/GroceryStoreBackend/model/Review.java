@@ -97,6 +97,7 @@ public class Review
   {
     return id;
   }
+ 
   /* Code from template association_GetOne */
   @ManyToOne(optional=false)
   public Customer getCustomer()
