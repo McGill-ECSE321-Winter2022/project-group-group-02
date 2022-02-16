@@ -5,9 +5,14 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
 
 import java.util.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 // line 42 "model.ump"
 // line 135 "model.ump"
+@Entity
 public class Employee extends User
 {
 
@@ -75,7 +80,8 @@ public class Employee extends User
     DailySchedule aDailySchedule = dailySchedules.get(index);
     return aDailySchedule;
   }
-
+  
+  @ManyToMany
   public List<DailySchedule> getDailySchedules()
   {
     List<DailySchedule> newDailySchedules = Collections.unmodifiableList(dailySchedules);

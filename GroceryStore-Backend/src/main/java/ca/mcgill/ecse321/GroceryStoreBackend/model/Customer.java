@@ -5,9 +5,14 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
 
 import java.util.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 // line 28 "model.ump"
 // line 130 "model.ump"
+@Entity
 public class Customer extends User
 {
 
@@ -25,6 +30,7 @@ public class Customer extends User
   // CONSTRUCTOR
   //------------------------
 
+  
   public Customer(String aEmail, String aPassword, String aName, String aAddress, GroceryStoreApplication aGroceryStoreApplication)
   {
     super(aEmail, aPassword, aName);
@@ -53,10 +59,12 @@ public class Customer extends User
     return address;
   }
   /* Code from template association_GetOne */
+  @ManyToOne(optional=false)
   public GroceryStoreApplication getGroceryStoreApplication()
   {
     return groceryStoreApplication;
   }
+  
   /* Code from template association_SetOneToMany */
   public boolean setGroceryStoreApplication(GroceryStoreApplication aGroceryStoreApplication)
   {

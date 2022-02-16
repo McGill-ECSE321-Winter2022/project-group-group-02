@@ -5,6 +5,9 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
 
 import java.util.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -15,6 +18,8 @@ import java.sql.Time;
 // line 100 "model.ump"
 // line 120 "model.ump"
 // line 182 "model.ump"
+
+@Entity
 public class GroceryStoreApplication
 {
 
@@ -66,6 +71,7 @@ public class GroceryStoreApplication
     return deliveryFee;
   }
   /* Code from template association_GetOne */
+ 
   public Owner getOwner()
   {
     return owner;
@@ -77,6 +83,7 @@ public class GroceryStoreApplication
     return has;
   }
   /* Code from template association_GetMany */
+  @OneToMany(cascade={CascadeType.ALL})
   public Customer getCustomer(int index)
   {
     Customer aCustomer = customers.get(index);
@@ -107,6 +114,7 @@ public class GroceryStoreApplication
     return index;
   }
   /* Code from template association_GetMany */
+  @OneToMany(cascade={CascadeType.ALL})
   public Employee getEmployee(int index)
   {
     Employee aEmployee = employees.get(index);
@@ -137,6 +145,7 @@ public class GroceryStoreApplication
     return index;
   }
   /* Code from template association_GetMany */
+  @OneToMany(cascade={CascadeType.ALL})
   public Item getItem(int index)
   {
     Item aItem = items.get(index);
@@ -167,6 +176,7 @@ public class GroceryStoreApplication
     return index;
   }
   /* Code from template association_GetMany */
+  @OneToMany(cascade={CascadeType.ALL})
   public Order getOrder(int index)
   {
     Order aOrder = orders.get(index);
@@ -197,6 +207,7 @@ public class GroceryStoreApplication
     return index;
   }
   /* Code from template association_GetMany */
+  @OneToMany(cascade={CascadeType.ALL})
   public OrderItem getOrderItem(int index)
   {
     OrderItem aOrderItem = orderItems.get(index);
@@ -227,6 +238,7 @@ public class GroceryStoreApplication
     return index;
   }
   /* Code from template association_GetMany */
+  @OneToMany(cascade={CascadeType.ALL})
   public DailySchedule getDailySchedule(int index)
   {
     DailySchedule aDailySchedule = dailySchedules.get(index);

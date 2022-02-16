@@ -7,9 +7,16 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 // line 72 "model.ump"
 // line 158 "model.ump"
+@Entity
 public class Order
 {
 
@@ -123,22 +130,26 @@ public class Order
     return time;
   }
 
+  @Id
   public int getId()
   {
     return id;
   }
   /* Code from template association_GetOne */
+  @ManyToOne(optional=false)
   public Customer getCustomer()
   {
     return customer;
   }
   /* Code from template association_GetMany */
+  
   public OrderItem getOrderItem(int index)
   {
     OrderItem aOrderItem = orderItems.get(index);
     return aOrderItem;
   }
 
+  @OneToMany(cascade={CascadeType.ALL})
   public List<OrderItem> getOrderItems()
   {
     List<OrderItem> newOrderItems = Collections.unmodifiableList(orderItems);

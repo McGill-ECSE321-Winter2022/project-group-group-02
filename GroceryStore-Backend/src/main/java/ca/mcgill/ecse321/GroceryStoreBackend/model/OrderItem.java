@@ -1,5 +1,11 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
@@ -7,6 +13,7 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
 // line 57 "model.ump"
 // line 165 "model.ump"
+@Entity
 public class OrderItem
 {
 
@@ -72,21 +79,25 @@ public class OrderItem
     return quantity;
   }
 
+  @Id
   public int getId()
   {
     return id;
   }
   /* Code from template association_GetOne */
+  @ManyToOne(optional=false)
   public ShoppableItem getItem()
   {
     return item;
   }
   /* Code from template association_GetOne */
+  
   public GroceryStoreApplication getGroceryStoreApplication()
   {
     return groceryStoreApplication;
   }
   /* Code from template association_GetOne */
+  @ManyToOne(optional=false)
   public Order getOrder()
   {
     return order;

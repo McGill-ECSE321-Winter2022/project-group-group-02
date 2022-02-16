@@ -5,9 +5,11 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
 
 import java.util.*;
+import javax.persistence.Entity;
 
 // line 22 "model.ump"
 // line 125 "model.ump"
+@Entity
 public class Owner extends User
 {
 

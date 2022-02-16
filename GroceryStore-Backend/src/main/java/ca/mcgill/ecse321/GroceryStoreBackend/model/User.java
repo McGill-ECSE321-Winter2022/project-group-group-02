@@ -5,10 +5,14 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
 
 import java.util.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 // line 15 "model.ump"
 // line 95 "model.ump"
 // line 187 "model.ump"
+
+@Entity
 public abstract class User
 {
 
@@ -30,7 +34,7 @@ public abstract class User
   //------------------------
   // CONSTRUCTOR
   //------------------------
-
+  
   public User(String aEmail, String aPassword, String aName)
   {
     password = aPassword;
@@ -80,6 +84,7 @@ public abstract class User
     return wasSet;
   }
 
+  @Id
   public String getEmail()
   {
     return email;

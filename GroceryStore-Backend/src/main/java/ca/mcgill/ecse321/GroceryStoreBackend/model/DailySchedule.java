@@ -5,9 +5,12 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
 
 import java.sql.Time;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 // line 33 "model.ump"
 // line 177 "model.ump"
+@Entity
 public class DailySchedule
 {
 
@@ -93,6 +96,7 @@ public class DailySchedule
     return endTime;
   }
 
+  @Id
   public int getId()
   {
     return id;
