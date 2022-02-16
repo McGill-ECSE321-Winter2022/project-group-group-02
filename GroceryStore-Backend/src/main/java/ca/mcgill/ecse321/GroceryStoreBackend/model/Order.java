@@ -4,14 +4,13 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 
-import java.sql.Date;
-import javax.persistence.*;
-
-import java.sql.Time;
 import java.util.*;
 
-// line 68 "model.ump"
-// line 130 "model.ump"
+import java.sql.Date;
+import java.sql.Time;
+import javax.persistence.*;
+// line 67 "model.ump"
+// line 129 "model.ump"
 
 @Entity
 public class Order
@@ -28,20 +27,18 @@ public class Order
   // STATIC VARIABLES
   //------------------------
 
-  private static int nextId = 1;
+  private static Map<String, Order> ordersById = new HashMap<String, Order>();
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //Order Attributes
+  private String id;
   private OrderType orderType;
   private OrderStatus orderStatus;
   private Date date;
   private Time time;
-
-  //Autounique Attributes
-  private int id;
 
   //Order Associations
   private Customer customer;
@@ -51,13 +48,16 @@ public class Order
   // CONSTRUCTOR
   //------------------------
 
-  public Order(OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, Customer aCustomer)
+  public Order(String aId, OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, Customer aCustomer)
   {
     orderType = aOrderType;
     orderStatus = aOrderStatus;
     date = aDate;
     time = aTime;
-    id = nextId++;
+    if (!setId(aId))
+    {
+      throw new RuntimeException("Cannot create due to duplicate id. See http://manual.umple.org?RE003ViolationofUniqueness.html");
+    }
     if (!setCustomer(aCustomer))
     {
       throw new RuntimeException("Unable to create Order due to aCustomer. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
@@ -68,6 +68,25 @@ public class Order
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setId(String aId)
+  {
+    boolean wasSet = false;
+    String anOldId = getId();
+    if (anOldId != null && anOldId.equals(aId)) {
+      return true;
+    }
+    if (hasWithId(aId)) {
+      return wasSet;
+    }
+    id = aId;
+    wasSet = true;
+    if (anOldId != null) {
+      ordersById.remove(anOldId);
+    }
+    ordersById.put(aId, this);
+    return wasSet;
+  }
 
   public boolean setOrderType(OrderType aOrderType)
   {
@@ -101,6 +120,22 @@ public class Order
     return wasSet;
   }
 
+  @Id
+  public String getId()
+  {
+    return id;
+  }
+  /* Code from template attribute_GetUnique */
+  public static Order getWithId(String aId)
+  {
+    return ordersById.get(aId);
+  }
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithId(String aId)
+  {
+    return getWithId(aId) != null;
+  }
+
   public OrderType getOrderType()
   {
     return orderType;
@@ -120,14 +155,8 @@ public class Order
   {
     return time;
   }
-
-  @Id
-  public int getId()
-  {
-    return id;
-  }
-  /* Code from template association_GetOne */
   
+  /* Code from template association_GetOne */
   @ManyToOne(optional=false)
   public Customer getCustomer()
   {
@@ -181,9 +210,9 @@ public class Order
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public OrderItem addOrderItem(int aQuantity, ShoppableItem aItem)
+  public OrderItem addOrderItem(String aId, int aQuantity, ShoppableItem aItem)
   {
-    return new OrderItem(aQuantity, aItem, this);
+    return new OrderItem(aId, aQuantity, aItem, this);
   }
 
   public boolean addOrderItem(OrderItem aOrderItem)
@@ -250,6 +279,7 @@ public class Order
 
   public void delete()
   {
+    ordersById.remove(getId());
     customer = null;
     while (orderItems.size() > 0)
     {

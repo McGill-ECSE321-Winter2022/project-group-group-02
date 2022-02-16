@@ -4,12 +4,12 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 
+import java.util.*;
 import java.sql.Time;
 import javax.persistence.*;
 
 // line 29 "model.ump"
-// line 149 "model.ump"
-
+// line 148 "model.ump"
 @Entity
 public class DailySchedule
 {
@@ -24,35 +24,55 @@ public class DailySchedule
   // STATIC VARIABLES
   //------------------------
 
-  private static int nextId = 1;
+  private static Map<String, DailySchedule> dailyschedulesById = new HashMap<String, DailySchedule>();
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //DailySchedule Attributes
+  private String id;
   private DayOfWeek dayOfWeek;
   private Time startTime;
   private Time endTime;
-
-  //Autounique Attributes
-  private int id;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public DailySchedule(DayOfWeek aDayOfWeek, Time aStartTime, Time aEndTime)
+  public DailySchedule(String aId, DayOfWeek aDayOfWeek, Time aStartTime, Time aEndTime)
   {
     dayOfWeek = aDayOfWeek;
     startTime = aStartTime;
     endTime = aEndTime;
-    id = nextId++;
+    if (!setId(aId))
+    {
+      throw new RuntimeException("Cannot create due to duplicate id. See http://manual.umple.org?RE003ViolationofUniqueness.html");
+    }
   }
 
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setId(String aId)
+  {
+    boolean wasSet = false;
+    String anOldId = getId();
+    if (anOldId != null && anOldId.equals(aId)) {
+      return true;
+    }
+    if (hasWithId(aId)) {
+      return wasSet;
+    }
+    id = aId;
+    wasSet = true;
+    if (anOldId != null) {
+      dailyschedulesById.remove(anOldId);
+    }
+    dailyschedulesById.put(aId, this);
+    return wasSet;
+  }
 
   public boolean setDayOfWeek(DayOfWeek aDayOfWeek)
   {
@@ -78,6 +98,22 @@ public class DailySchedule
     return wasSet;
   }
 
+  @Id
+  public String getId()
+  {
+    return id;
+  }
+  /* Code from template attribute_GetUnique */
+  public static DailySchedule getWithId(String aId)
+  {
+    return dailyschedulesById.get(aId);
+  }
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithId(String aId)
+  {
+    return getWithId(aId) != null;
+  }
+
   public DayOfWeek getDayOfWeek()
   {
     return dayOfWeek;
@@ -93,14 +129,10 @@ public class DailySchedule
     return endTime;
   }
 
-  @Id
-  public int getId()
-  {
-    return id;
-  }
-
   public void delete()
-  {}
+  {
+    dailyschedulesById.remove(getId());
+  }
 
 
   public String toString()

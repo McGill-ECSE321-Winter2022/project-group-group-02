@@ -4,9 +4,11 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 
+import java.util.*;
 import javax.persistence.*;
-// line 64 "model.ump"
-// line 125 "model.ump"
+
+// line 63 "model.ump"
+// line 124 "model.ump"
 @Entity
 public class UnavailableItem extends Item
 {
