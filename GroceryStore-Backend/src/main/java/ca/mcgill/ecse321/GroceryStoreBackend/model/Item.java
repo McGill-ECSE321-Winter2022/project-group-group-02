@@ -1,15 +1,15 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 
+import java.util.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 // line 49 "model.ump"
-// line 143 "model.ump"
+// line 144 "model.ump"
 @Entity
 public abstract class Item
 {
@@ -18,7 +18,7 @@ public abstract class Item
   // STATIC VARIABLES
   //------------------------
 
-  private static int nextId = 1;
+  private static Map<String, Item> itemsByName = new HashMap<String, Item>();
 
   //------------------------
   // MEMBER VARIABLES
@@ -27,9 +27,6 @@ public abstract class Item
   //Item Attributes
   private String name;
   private double price;
-
-  //Autounique Attributes
-  private int id;
 
   //Item Associations
   private GroceryStoreApplication groceryStoreApplication;
@@ -40,9 +37,11 @@ public abstract class Item
 
   public Item(String aName, double aPrice, GroceryStoreApplication aGroceryStoreApplication)
   {
-    name = aName;
     price = aPrice;
-    id = nextId++;
+    if (!setName(aName))
+    {
+      throw new RuntimeException("Cannot create due to duplicate name. See http://manual.umple.org?RE003ViolationofUniqueness.html");
+    }
     boolean didAddGroceryStoreApplication = setGroceryStoreApplication(aGroceryStoreApplication);
     if (!didAddGroceryStoreApplication)
     {
@@ -57,8 +56,19 @@ public abstract class Item
   public boolean setName(String aName)
   {
     boolean wasSet = false;
+    String anOldName = getName();
+    if (anOldName != null && anOldName.equals(aName)) {
+      return true;
+    }
+    if (hasWithName(aName)) {
+      return wasSet;
+    }
     name = aName;
     wasSet = true;
+    if (anOldName != null) {
+      itemsByName.remove(anOldName);
+    }
+    itemsByName.put(aName, this);
     return wasSet;
   }
 
@@ -70,20 +80,25 @@ public abstract class Item
     return wasSet;
   }
 
+  @Id
   public String getName()
   {
     return name;
+  }
+  /* Code from template attribute_GetUnique */
+  public static Item getWithName(String aName)
+  {
+    return itemsByName.get(aName);
+  }
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithName(String aName)
+  {
+    return getWithName(aName) != null;
   }
 
   public double getPrice()
   {
     return price;
-  }
-
-  @Id
-  public int getId()
-  {
-    return id;
   }
   /* Code from template association_GetOne */
   public GroceryStoreApplication getGroceryStoreApplication()
@@ -112,6 +127,7 @@ public abstract class Item
 
   public void delete()
   {
+    itemsByName.remove(getName());
     GroceryStoreApplication placeholderGroceryStoreApplication = groceryStoreApplication;
     this.groceryStoreApplication = null;
     if(placeholderGroceryStoreApplication != null)
@@ -124,7 +140,6 @@ public abstract class Item
   public String toString()
   {
     return super.toString() + "["+
-            "id" + ":" + getId()+ "," +
             "name" + ":" + getName()+ "," +
             "price" + ":" + getPrice()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "groceryStoreApplication = "+(getGroceryStoreApplication()!=null?Integer.toHexString(System.identityHashCode(getGroceryStoreApplication())):"null");
