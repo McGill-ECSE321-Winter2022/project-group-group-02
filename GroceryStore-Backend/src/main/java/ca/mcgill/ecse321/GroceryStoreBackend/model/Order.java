@@ -128,7 +128,7 @@ public class Order
   }
   /* Code from template association_GetOne */
   
-  @ManyToOne
+  @ManyToOne(optional=false)
   public Customer getCustomer()
   {
     return customer;
@@ -140,7 +140,7 @@ public class Order
     return aOrderItem;
   }
 
-  @OneToMany
+  @OneToMany(cascade={CascadeType.ALL})
   public List<OrderItem> getOrderItems()
   {
     List<OrderItem> newOrderItems = Collections.unmodifiableList(orderItems);
