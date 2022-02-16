@@ -36,7 +36,7 @@ public class TestCustomerPersistence {
   }
   
   @Test
-  public void testPersistAndLoadAssitant() {
+  public void testPersistAndLoadCustomer() {
       String name = "testCustomer";
       String email = "testCustomer@mail.com";
       String password = "testPassword";
