@@ -11,8 +11,8 @@ public interface OrderItemRepository extends CrudRepository<OrderItem, Long>  {
 
   
 //  boolean existsByOrderAndShoppableItem(Order orderId, ShoppableItem itemName);
-//
-//  OrderItem findByOrderAndShoppableItem(Order orderId, ShoppableItem itemName);
+
+  List<OrderItem> findByOrder(Order orderId);
   
   OrderItem findOrderItemById(Long orderItemId);
   
