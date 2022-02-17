@@ -65,6 +65,8 @@ public class OrderItem
   }
 
   @Id
+  @GeneratedValue(generator = "increment")
+  @GenericGenerator(name = "increment", strategy = "increment")
   public Long getId()
   {
     return id;
@@ -80,12 +82,17 @@ public class OrderItem
   {
     return item;
   }
+  
+  
+ 
   /* Code from template association_GetOne */
   @ManyToOne(optional=false)
   public Order getOrder()
   {
     return order;
   }
+  
+  
   /* Code from template association_SetUnidirectionalOne */
   public boolean setItem(ShoppableItem aNewItem)
   {

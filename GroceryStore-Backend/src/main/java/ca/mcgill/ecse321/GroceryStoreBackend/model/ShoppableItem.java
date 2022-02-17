@@ -9,6 +9,7 @@ import java.util.*;
 // line 58 "model.ump"
 // line 114 "model.ump"
 @Entity
+@Table(name = "ShoppableItem")
 public class ShoppableItem extends Item
 {
 

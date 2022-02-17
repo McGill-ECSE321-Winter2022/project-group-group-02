@@ -10,6 +10,7 @@ import javax.persistence.*;
 // line 63 "model.ump"
 // line 119 "model.ump"
 @Entity
+@Table(name = "UnavailableItem")
 public class UnavailableItem extends Item
 {
 

@@ -9,7 +9,10 @@ import javax.persistence.*;
 // line 45 "model.ump"
 // line 109 "model.ump"
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="descriminatorColumn")
+@Table(name="Item")
 public abstract class Item
 {
 
