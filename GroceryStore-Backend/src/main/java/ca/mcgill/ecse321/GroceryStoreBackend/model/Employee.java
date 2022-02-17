@@ -6,11 +6,11 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
 import java.util.*;
 import javax.persistence.*;
-
 // line 38 "model.ump"
-// line 107 "model.ump"
+// line 101 "model.ump"
 @Entity
-public class Employee extends User
+@Table(name = "Employee")
+public class Employee extends Person
 {
 
   //------------------------
@@ -60,6 +60,12 @@ public class Employee extends User
   {
     return salary;
   }
+  
+  @Id
+  public String getEmail()
+  {
+    return this.getEmail();
+  }
 
   public String getPassword()
   {
@@ -72,7 +78,7 @@ public class Employee extends User
     return aDailySchedule;
   }
 
-  @ManyToMany 
+  @ManyToMany
   public List<DailySchedule> getDailySchedules()
   {
     List<DailySchedule> newDailySchedules = Collections.unmodifiableList(dailySchedules);

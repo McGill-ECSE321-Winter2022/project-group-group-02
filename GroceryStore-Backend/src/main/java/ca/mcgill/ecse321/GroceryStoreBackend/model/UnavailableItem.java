@@ -8,7 +8,7 @@ import java.util.*;
 import javax.persistence.*;
 
 // line 63 "model.ump"
-// line 124 "model.ump"
+// line 119 "model.ump"
 @Entity
 public class UnavailableItem extends Item
 {
@@ -26,6 +26,11 @@ public class UnavailableItem extends Item
     super(aName, aPrice);
   }
 
+  @Id
+  public String getName()
+  {
+    return this.getName();
+  }
   //------------------------
   // INTERFACE
   //------------------------

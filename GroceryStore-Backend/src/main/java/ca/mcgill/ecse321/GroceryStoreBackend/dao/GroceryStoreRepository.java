@@ -40,8 +40,8 @@ public class GroceryStoreRepository {
   }
   
   @Transactional
-  public DailySchedule createDailySchedule(DayOfWeek dayOfWeek, Time startTime, Time endTime, int id) {
-      DailySchedule d = new DailySchedule(dayOfWeek, startTime, endTime, id);
+  public DailySchedule createDailySchedule(Long id,DayOfWeek dayOfWeek, Time startTime, Time endTime) {
+      DailySchedule d = new DailySchedule(id, dayOfWeek, startTime, endTime);
       entityManager.persist(d);
       return d;
   }
@@ -66,8 +66,8 @@ public class GroceryStoreRepository {
   }
   
   @Transactional
-  public Order createOrder(OrderType orderType, OrderStatus orderStatus, Date date, Time time, Customer customer) {
-	  Order o = new Order(orderType, orderStatus, date, time, customer);
+  public Order createOrder(Long id, OrderType orderType, OrderStatus orderStatus, Date date, Time time, Customer customer) {
+	  Order o = new Order(id, orderType, orderStatus, date, time, customer);
 	  entityManager.persist(o);
 	  return o;
   }
@@ -79,8 +79,8 @@ public class GroceryStoreRepository {
   }
   
   @Transactional
-  public OrderItem createOrderItem(int quantity, ShoppableItem item, Order order) {
-	  OrderItem oi =  new OrderItem(quantity, item, order);
+  public OrderItem createOrderItem(Long id, int quantity, ShoppableItem item, Order order) {
+	  OrderItem oi =  new OrderItem(id, quantity, item, order);
 	  return oi;
   }
   
@@ -104,8 +104,8 @@ public class GroceryStoreRepository {
   }
   
   @Transactional
-  public Review createReview(Rating rating, String description, Customer customer, Order order) {
-	  Review r = new Review(rating, description, customer, order);
+  public Review createReview(Long id, Rating rating, String description, Customer customer, Order order) {
+	  Review r = new Review(id, rating, description, customer, order);
 	  entityManager.persist(r);
 	  return r;
   }

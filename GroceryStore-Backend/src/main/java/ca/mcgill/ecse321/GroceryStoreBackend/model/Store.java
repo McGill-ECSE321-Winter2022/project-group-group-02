@@ -7,12 +7,13 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 import java.util.*;
 import javax.persistence.*;
 
+import org.hibernate.annotations.GenericGenerator;
 /**
  * The start of a very beautiful class diagram
  */
 // line 4 "model.ump"
-// line 159 "model.ump"
-// line 166 "model.ump"
+// line 149 "model.ump"
+// line 156 "model.ump"
 @Entity
 public class Store
 {
@@ -24,7 +25,7 @@ public class Store
   //Store Attributes
   private double deliveryFee;
   private String town;
-  private String name;
+  private Long id;
 
   //Store Associations
   private List<DailySchedule> dailySchedules;
@@ -33,11 +34,11 @@ public class Store
   // CONSTRUCTOR
   //------------------------
 
-  public Store(double aDeliveryFee, String aTown, String aName)
+  public Store(double aDeliveryFee, String aTown, Long aId)
   {
     deliveryFee = aDeliveryFee;
     town = aTown;
-    name = aName;
+    id = aId;
     dailySchedules = new ArrayList<DailySchedule>();
   }
 
@@ -61,6 +62,14 @@ public class Store
     return wasSet;
   }
 
+  public boolean setId(Long aId)
+  {
+    boolean wasSet = false;
+    id = aId;
+    wasSet = true;
+    return wasSet;
+  }
+
   public double getDeliveryFee()
   {
     return deliveryFee;
@@ -70,11 +79,13 @@ public class Store
   {
     return town;
   }
-
+  
   @Id
-  public String getName()
+  @GeneratedValue(generator = "increment")
+  @GenericGenerator(name = "increment", strategy = "increment")
+  public Long getId()
   {
-    return name;
+    return id;
   }
   /* Code from template association_GetMany */
   public DailySchedule getDailySchedule(int index)
@@ -82,8 +93,8 @@ public class Store
     DailySchedule aDailySchedule = dailySchedules.get(index);
     return aDailySchedule;
   }
-  
-  @ManyToMany
+
+  @OneToMany(cascade={CascadeType.ALL})
   public List<DailySchedule> getDailySchedules()
   {
     List<DailySchedule> newDailySchedules = Collections.unmodifiableList(dailySchedules);
@@ -208,6 +219,6 @@ public class Store
     return super.toString() + "["+
             "deliveryFee" + ":" + getDeliveryFee()+ "," +
             "town" + ":" + getTown()+ "," +
-            "name" + ":" + getName()+ "]";
+            "id" + ":" + getId()+ "]";
   }
 }

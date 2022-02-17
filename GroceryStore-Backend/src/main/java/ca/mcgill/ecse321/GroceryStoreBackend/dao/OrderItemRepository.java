@@ -9,11 +9,10 @@ import ca.mcgill.ecse321.GroceryStoreBackend.model.ShoppableItem;
 
 public interface OrderItemRepository extends CrudRepository<OrderItem, Integer>  {
 
-  List<OrderItem> findByOrderAndShoppableItem(Order orderId, ShoppableItem itemName);
   
-  boolean existsByOrderAndShoppableItem(Order orderId, ShoppableItem itemName);
-
-  OrderItem findOrderItemByOrderAndShoppableItem(Order orderId, ShoppableItem itemName);
+//  boolean existsByOrderAndShoppableItem(Order orderId, ShoppableItem itemName);
+//
+//  OrderItem findByOrderAndShoppableItem(Order orderId, ShoppableItem itemName);
   
   OrderItem findOrderItemById(Integer orderItemId);
   

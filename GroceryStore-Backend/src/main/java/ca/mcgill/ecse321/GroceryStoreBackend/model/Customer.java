@@ -7,13 +7,11 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 import java.util.*;
 import javax.persistence.*;
 
-
-
 // line 24 "model.ump"
-// line 102 "model.ump"
-
+// line 96 "model.ump"
 @Entity
-public class Customer extends User
+@Table(name = "Customer")
+public class Customer extends Person
 {
 
   //------------------------
@@ -26,7 +24,7 @@ public class Customer extends User
   //------------------------
   // CONSTRUCTOR
   //------------------------
-  
+
   public Customer(String aEmail, String aPassword, String aName, String aAddress)
   {
     super(aEmail, aPassword, aName);
@@ -53,6 +51,12 @@ public class Customer extends User
   public void delete()
   {
     super.delete();
+  }
+  
+  @Id
+  public String getEmail()
+  {
+    return this.getEmail();
   }
 
 

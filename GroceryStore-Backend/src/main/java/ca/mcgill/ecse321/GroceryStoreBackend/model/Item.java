@@ -6,10 +6,10 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
 import java.util.*;
 import javax.persistence.*;
-
 // line 45 "model.ump"
-// line 114 "model.ump"
-@Entity
+// line 109 "model.ump"
+
+@MappedSuperclass
 public abstract class Item
 {
 

@@ -3,29 +3,22 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
-
-import java.util.*;
 import javax.persistence.*;
 
-// line 52 "model.ump"
-// line 136 "model.ump"
+import org.hibernate.annotations.GenericGenerator;
 
+// line 52 "model.ump"
+// line 131 "model.ump"
 @Entity
 public class OrderItem
 {
-
-  //------------------------
-  // STATIC VARIABLES
-  //------------------------
-
-  private static Map<String, OrderItem> orderitemsById = new HashMap<String, OrderItem>();
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //OrderItem Attributes
-  private String id;
+  private Long id;
   private int quantity;
 
   //OrderItem Associations
@@ -36,13 +29,10 @@ public class OrderItem
   // CONSTRUCTOR
   //------------------------
 
-  public OrderItem(String aId, int aQuantity, ShoppableItem aItem, Order aOrder)
+  public OrderItem(Long aId, int aQuantity, ShoppableItem aItem, Order aOrder)
   {
+    id = aId;
     quantity = aQuantity;
-    if (!setId(aId))
-    {
-      throw new RuntimeException("Cannot create due to duplicate id. See http://manual.umple.org?RE003ViolationofUniqueness.html");
-    }
     if (!setItem(aItem))
     {
       throw new RuntimeException("Unable to create OrderItem due to aItem. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
@@ -58,22 +48,11 @@ public class OrderItem
   // INTERFACE
   //------------------------
 
-  public boolean setId(String aId)
+  public boolean setId(Long aId)
   {
     boolean wasSet = false;
-    String anOldId = getId();
-    if (anOldId != null && anOldId.equals(aId)) {
-      return true;
-    }
-    if (hasWithId(aId)) {
-      return wasSet;
-    }
     id = aId;
     wasSet = true;
-    if (anOldId != null) {
-      orderitemsById.remove(anOldId);
-    }
-    orderitemsById.put(aId, this);
     return wasSet;
   }
 
@@ -86,19 +65,11 @@ public class OrderItem
   }
 
   @Id
-  public String getId()
+  @GeneratedValue(generator = "increment")
+  @GenericGenerator(name = "increment", strategy = "increment")	
+  public Long getId()
   {
     return id;
-  }
-  /* Code from template attribute_GetUnique */
-  public static OrderItem getWithId(String aId)
-  {
-    return orderitemsById.get(aId);
-  }
-  /* Code from template attribute_HasUnique */
-  public static boolean hasWithId(String aId)
-  {
-    return getWithId(aId) != null;
   }
 
   public int getQuantity()
@@ -150,7 +121,6 @@ public class OrderItem
 
   public void delete()
   {
-    orderitemsById.remove(getId());
     item = null;
     Order placeholderOrder = order;
     this.order = null;

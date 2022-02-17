@@ -3,12 +3,12 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
-
-import java.util.*;
 import javax.persistence.*;
 
+import org.hibernate.annotations.GenericGenerator;
+
 // line 79 "model.ump"
-// line 142 "model.ump"
+// line 137 "model.ump"
 @Entity
 public class Review
 {
@@ -20,17 +20,12 @@ public class Review
   public enum Rating { VeryPoor, Poor, Okay, Good, VeryGood }
 
   //------------------------
-  // STATIC VARIABLES
-  //------------------------
-
-  private static Map<String, Review> reviewsById = new HashMap<String, Review>();
-
-  //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //Review Attributes
-  private String id;
+
+  private Long id;
   private Rating rating;
   private String description;
 
@@ -42,14 +37,11 @@ public class Review
   // CONSTRUCTOR
   //------------------------
 
-  public Review(String aId, Rating aRating, String aDescription, Customer aCustomer, Order aOrder)
+  public Review(Long aId, Rating aRating, String aDescription, Customer aCustomer, Order aOrder)
   {
+    id = aId;
     rating = aRating;
     description = aDescription;
-    if (!setId(aId))
-    {
-      throw new RuntimeException("Cannot create due to duplicate id. See http://manual.umple.org?RE003ViolationofUniqueness.html");
-    }
     if (!setCustomer(aCustomer))
     {
       throw new RuntimeException("Unable to create Review due to aCustomer. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
@@ -64,22 +56,11 @@ public class Review
   // INTERFACE
   //------------------------
 
-  public boolean setId(String aId)
+  public boolean setId(Long aId)
   {
     boolean wasSet = false;
-    String anOldId = getId();
-    if (anOldId != null && anOldId.equals(aId)) {
-      return true;
-    }
-    if (hasWithId(aId)) {
-      return wasSet;
-    }
     id = aId;
     wasSet = true;
-    if (anOldId != null) {
-      reviewsById.remove(anOldId);
-    }
-    reviewsById.put(aId, this);
     return wasSet;
   }
 
@@ -100,19 +81,11 @@ public class Review
   }
 
   @Id
-  public String getId()
+  @GeneratedValue(generator = "increment")
+  @GenericGenerator(name = "increment", strategy = "increment")
+  public Long getId()
   {
     return id;
-  }
-  /* Code from template attribute_GetUnique */
-  public static Review getWithId(String aId)
-  {
-    return reviewsById.get(aId);
-  }
-  /* Code from template attribute_HasUnique */
-  public static boolean hasWithId(String aId)
-  {
-    return getWithId(aId) != null;
   }
 
   public Rating getRating()
@@ -131,8 +104,9 @@ public class Review
   {
     return customer;
   }
+  
   /* Code from template association_GetOne */
-  @ManyToMany
+  @ManyToOne(optional=false)
   public Order getOrder()
   {
     return order;
@@ -162,7 +136,6 @@ public class Review
 
   public void delete()
   {
-    reviewsById.remove(getId());
     customer = null;
     order = null;
   }

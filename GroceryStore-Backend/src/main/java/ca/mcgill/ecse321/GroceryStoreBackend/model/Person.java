@@ -6,28 +6,29 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
 import java.util.*;
 
+
 import javax.persistence.*;
 
 // line 11 "model.ump"
-// line 92 "model.ump"
-// line 154 "model.ump"
-
+// line 161 "model.ump"
 @Entity
-@Table(name = "Accounts")
-public abstract class User
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="descriminatorColumn")
+@Table(name="Person")
+public abstract class Person
 {
 
   //------------------------
   // STATIC VARIABLES
   //------------------------
 
-  private static Map<String, User> usersByEmail = new HashMap<String, User>();
+  private static Map<String, Person> personsByEmail = new HashMap<String, Person>();
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //User Attributes
+  //Person Attributes
   private String email;
   private String password;
   private String name;
@@ -36,7 +37,7 @@ public abstract class User
   // CONSTRUCTOR
   //------------------------
 
-  public User(String aEmail, String aPassword, String aName)
+  public Person(String aEmail, String aPassword, String aName)
   {
     password = aPassword;
     name = aName;
@@ -63,9 +64,9 @@ public abstract class User
     email = aEmail;
     wasSet = true;
     if (anOldEmail != null) {
-      usersByEmail.remove(anOldEmail);
+      personsByEmail.remove(anOldEmail);
     }
-    usersByEmail.put(aEmail, this);
+    personsByEmail.put(aEmail, this);
     return wasSet;
   }
 
@@ -91,9 +92,9 @@ public abstract class User
     return email;
   }
   /* Code from template attribute_GetUnique */
-  public static User getWithEmail(String aEmail)
+  public static Person getWithEmail(String aEmail)
   {
-    return usersByEmail.get(aEmail);
+    return personsByEmail.get(aEmail);
   }
   /* Code from template attribute_HasUnique */
   public static boolean hasWithEmail(String aEmail)
@@ -113,7 +114,7 @@ public abstract class User
 
   public void delete()
   {
-    usersByEmail.remove(getEmail());
+    personsByEmail.remove(getEmail());
   }
 
 
