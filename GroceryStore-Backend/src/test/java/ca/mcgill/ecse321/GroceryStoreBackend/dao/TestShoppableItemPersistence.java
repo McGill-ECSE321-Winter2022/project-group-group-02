@@ -39,4 +39,5 @@ public class TestShoppableItemPersistence {
 	      shoppableItem = shoppableItemRepository.findShoppableItemByName(name);
 	      assertNotNull(shoppableItem);
 	      assertEquals(name, shoppableItem.getName());
+	  }
 }

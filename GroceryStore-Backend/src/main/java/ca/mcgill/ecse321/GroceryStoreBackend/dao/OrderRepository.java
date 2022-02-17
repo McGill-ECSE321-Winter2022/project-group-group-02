@@ -5,9 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order;
 
-public interface OrderRepository extends CrudRepository<Order, Integer> {
+public interface OrderRepository extends CrudRepository<Order, Long> {
     
- List<Order> findOrderByCustomer(Customer customerEmail);
+  List<Order> findOrderByCustomer(Customer customerEmail);
   
   boolean existsByCustomer(Customer customerEmail);
   

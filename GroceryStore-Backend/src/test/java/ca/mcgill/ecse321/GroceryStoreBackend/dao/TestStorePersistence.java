@@ -44,7 +44,7 @@ public class TestStorePersistence {
 
       store = null;
 
-      store = StoreRepository.findStoreByName(id);
+      store = StoreRepository.findStoreById(id);
       assertNotNull(store);
       assertEquals(id, store.getId());
   }

@@ -3,10 +3,9 @@ package ca.mcgill.ecse321.GroceryStoreBackend.dao;
 import org.springframework.data.repository.CrudRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Store;
 
-public interface StoreRepository extends CrudRepository<Store, String>{
+public interface StoreRepository extends CrudRepository<Store, Long>{
 	
-	Store findStoreById(Integer id);
+	Store findStoreById(Long id);
 
-	Store findStoreByName(Long id);
 	
 }

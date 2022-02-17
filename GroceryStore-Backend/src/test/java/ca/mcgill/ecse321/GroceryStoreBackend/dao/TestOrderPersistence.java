@@ -53,7 +53,7 @@ public class TestOrderPersistence {
 
       order = null;
 
-      order = orderRepository.findOrderById(Integer.parseInt(orderId));
+      order = orderRepository.findOrderById(orderId);
       assertNotNull(order);
       assertEquals(orderId, order.getId());
   }

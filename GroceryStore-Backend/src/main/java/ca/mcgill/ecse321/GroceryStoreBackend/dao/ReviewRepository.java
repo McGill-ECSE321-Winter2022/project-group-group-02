@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.*;
 
-public interface ReviewRepository extends CrudRepository<Review, Integer> {
+public interface ReviewRepository extends CrudRepository<Review, Long> {
   
   List<Review> findByCustomer(Customer customerEmail);
   

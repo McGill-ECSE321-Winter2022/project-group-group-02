@@ -7,7 +7,7 @@ import ca.mcgill.ecse321.GroceryStoreBackend.model.OrderItem;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.ShoppableItem;
 
 
-public interface OrderItemRepository extends CrudRepository<OrderItem, Integer>  {
+public interface OrderItemRepository extends CrudRepository<OrderItem, Long>  {
 
   
 //  boolean existsByOrderAndShoppableItem(Order orderId, ShoppableItem itemName);
