@@ -11,6 +11,6 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
   
   boolean existsByCustomer(Customer customerEmail);
   
-  Order findOrderById(Integer orderId);
+  Order findOrderById(Long orderId);
   
 }

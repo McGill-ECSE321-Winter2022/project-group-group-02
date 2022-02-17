@@ -12,6 +12,6 @@ public interface ReviewRepository extends CrudRepository<Review, Integer> {
 
   Review findReviewByCustomerAndOrder(Customer customerEmail, Order orderId);
   
-  Review findReviewById(Integer reviewId);
+  Review findReviewById(Long reviewId);
 
 }

@@ -5,6 +5,6 @@ import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule;
 
 public interface DailyScheduleRepository extends CrudRepository<DailySchedule, String>{
 
-    DailySchedule findDailyScheduleById(String id);
+    DailySchedule findDailyScheduleById(Long id);
   
 }

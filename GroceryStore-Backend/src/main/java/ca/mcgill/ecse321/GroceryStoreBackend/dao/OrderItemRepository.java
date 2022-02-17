@@ -14,7 +14,7 @@ public interface OrderItemRepository extends CrudRepository<OrderItem, Integer> 
 //
 //  OrderItem findByOrderAndShoppableItem(Order orderId, ShoppableItem itemName);
   
-  OrderItem findOrderItemById(Integer orderItemId);
+  OrderItem findOrderItemById(Long orderItemId);
   
   
 }

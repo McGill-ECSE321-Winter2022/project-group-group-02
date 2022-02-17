@@ -42,7 +42,7 @@ public class TestOrderItemPersistence {
     Customer customer = new Customer(email, password, name, address);
     
     
-    String orderId = "321";
+    Long orderId = (long) 1234;
     OrderType orderType = OrderType.Delivery;
     OrderStatus orderStatus = OrderStatus.Confirmed;
     Date date = new Date(0);
@@ -55,7 +55,7 @@ public class TestOrderItemPersistence {
     int quantityAvailable = 10;
     ShoppableItem shoppableItem = new ShoppableItem (itemName, price, quantityAvailable);
     
-    String orderItemId = "123";
+    Long orderItemId = (long) 1234;
     int quantityWanted = 2;
     OrderItem orderItem = new OrderItem (orderItemId, quantityWanted, shoppableItem, order);
     
@@ -64,7 +64,7 @@ public class TestOrderItemPersistence {
 
       orderItem = null;
 
-      orderItem = orderItemRepository.findOrderItemById(Integer.parseInt(orderItemId));
+      orderItem = orderItemRepository.findOrderItemById(orderItemId);
       assertNotNull(orderItem);
       assertEquals(orderItemId, orderItem.getId());
   }

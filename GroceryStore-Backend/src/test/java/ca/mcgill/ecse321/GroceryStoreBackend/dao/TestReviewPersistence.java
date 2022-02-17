@@ -46,7 +46,7 @@ public class TestReviewPersistence {
       Customer customer = new Customer(email, password, name, address);
       
       
-      String orderId = "321";
+      Long orderId = (long) 1234;
       OrderType orderType = OrderType.Delivery;
       OrderStatus orderStatus = OrderStatus.Confirmed;
       Date date = new Date(0);
@@ -55,7 +55,7 @@ public class TestReviewPersistence {
       
       String description = "The order was processed quickly";
       Rating rating = Rating.Good;
-      String reviewId = "231";
+      Long reviewId = (long) 1234;
       Review review = new Review(reviewId, rating,description, customer, order);
       
       reviewRepository.save(review);
@@ -63,7 +63,7 @@ public class TestReviewPersistence {
 
       review = null;
 
-      review = reviewRepository.findReviewById(Integer.parseInt(reviewId));
+      review = reviewRepository.findReviewById(reviewId);
       assertNotNull(review);
       assertEquals(reviewId, review.getId());
       

@@ -35,7 +35,7 @@ public class TestDailySchedulePersistence {
   
   @Test
   public void testPersistAndLoadDailySchedule() {
-      String id = "1234";
+      Long id = (long) 1234;
       DayOfWeek dayofweek = DayOfWeek.Monday;
       Time startTime = Time.valueOf("08:00:00");
       Time endTime = Time.valueOf("20:00:00");

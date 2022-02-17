@@ -42,7 +42,7 @@ public class TestOrderPersistence {
     Customer customer = new Customer(email, password, name, address);
     
     
-    String orderId = "321";
+    Long orderId = (long) 1234;
     OrderType orderType = OrderType.Delivery;
     OrderStatus orderStatus = OrderStatus.Confirmed;
     Date date = new Date(0);
