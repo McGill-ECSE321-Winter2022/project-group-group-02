@@ -12,8 +12,7 @@ import javax.persistence.*;
 // line 11 "model.ump"
 // line 161 "model.ump"
 @Entity
-@Inheritance
-@DiscriminatorColumn(name="personColumn")
+@Table(name = "Accounts")
 public abstract class Person
 {
 

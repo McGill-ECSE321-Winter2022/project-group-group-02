@@ -10,7 +10,6 @@ import javax.persistence.*;
 // line 24 "model.ump"
 // line 96 "model.ump"
 @Entity
-@DiscriminatorValue("Customer")
 public class Customer extends Person
 {
 
@@ -32,7 +31,7 @@ public class Customer extends Person
   }
   
   public Customer() {
-    
+      super();
   }
 
   //------------------------
@@ -57,11 +56,6 @@ public class Customer extends Person
     super.delete();
   }
   
-  @Id
-  public String getEmail()
-  {
-    return super.getEmail();
-  }
 
 
   public String toString()

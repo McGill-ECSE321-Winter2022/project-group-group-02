@@ -9,7 +9,6 @@ import java.util.*;
 // line 58 "model.ump"
 // line 114 "model.ump"
 @Entity
-@DiscriminatorValue("ShoppableItem")
 public class ShoppableItem extends Item
 {
 
@@ -45,12 +44,6 @@ public class ShoppableItem extends Item
     return wasSet;
   }
   
-  @Id
-  public String getName()
-  {
-    return this.getName();
-  }
-
   public int getQuantityAvailable()
   {
     return quantityAvailable;

@@ -10,7 +10,6 @@ import javax.persistence.*;
 // line 63 "model.ump"
 // line 119 "model.ump"
 @Entity
-@DiscriminatorValue("UnavailableItem")
 public class UnavailableItem extends Item
 {
 
@@ -31,11 +30,6 @@ public class UnavailableItem extends Item
     
   }
   
-  @Id
-  public String getName()
-  {
-    return this.getName();
-  }
   //------------------------
   // INTERFACE
   //------------------------

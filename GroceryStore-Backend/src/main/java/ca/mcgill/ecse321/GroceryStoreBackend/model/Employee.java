@@ -9,7 +9,6 @@ import javax.persistence.*;
 // line 38 "model.ump"
 // line 101 "model.ump"
 @Entity
-@DiscriminatorValue("Employee")
 public class Employee extends Person
 {
 
@@ -64,11 +63,6 @@ public class Employee extends Person
     return salary;
   }
   
-  @Id
-  public String getEmail()
-  {
-    return this.getEmail();
-  }
 
   public String getPassword()
   {

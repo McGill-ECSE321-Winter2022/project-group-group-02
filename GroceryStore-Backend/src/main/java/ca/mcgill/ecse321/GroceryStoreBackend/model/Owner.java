@@ -10,7 +10,6 @@ import javax.persistence.*;
 // line 91 "model.ump"
 
 @Entity
-@DiscriminatorValue("Owner")
 public class Owner extends Person
 {
 
@@ -57,11 +56,6 @@ public class Owner extends Person
     return wasSet;
   }
 
-  @Id
-  public String getEmail()
-  {
-    return email;
-  }
 
   public String getPassword()
   {
