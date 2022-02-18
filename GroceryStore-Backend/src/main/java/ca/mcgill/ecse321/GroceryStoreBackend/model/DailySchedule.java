@@ -11,6 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 // line 29 "model.ump"
 // line 144 "model.ump"
 @Entity
+@Table(name = "DailySchedules")
 public class DailySchedule
 {
 
@@ -48,13 +49,7 @@ public class DailySchedule
   // INTERFACE
   //------------------------
 
-  public boolean setId(Long aId)
-  {
-    boolean wasSet = false;
-    id = aId;
-    wasSet = true;
-    return wasSet;
-  }
+  
 
   public boolean setDayOfWeek(DayOfWeek aDayOfWeek)
   {
@@ -85,7 +80,13 @@ public class DailySchedule
   @GenericGenerator(name = "increment", strategy = "increment")
   public Long getId()
   {
-    return id;
+    return this.id;
+  }
+  
+  public void setId(Long aId)
+  {
+    this.id = aId;
+    
   }
 
   public DayOfWeek getDayOfWeek()

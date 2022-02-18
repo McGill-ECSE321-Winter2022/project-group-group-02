@@ -35,13 +35,18 @@ public class TestDailySchedulePersistence {
   
   @Test
   public void testPersistAndLoadDailySchedule() {
-      Long id = (long) 1234;
+      
       DayOfWeek dayofweek = DayOfWeek.Monday;
       Time startTime = Time.valueOf("08:00:00");
       Time endTime = Time.valueOf("20:00:00");
      
-      DailySchedule dailyschedule = new DailySchedule(dayofweek,startTime,endTime);
-      dailyschedule.setId(id);
+      DailySchedule dailyschedule = new DailySchedule();
+      dailyschedule.setDayOfWeek(dayofweek);
+      dailyschedule.setStartTime(startTime);
+      dailyschedule.setEndTime(endTime);
+      
+      Long id = dailyschedule.getId();
+      
       
       DailyScheduleRepository.save(dailyschedule);
 
@@ -49,6 +54,7 @@ public class TestDailySchedulePersistence {
       dailyschedule = null;
 
       dailyschedule = DailyScheduleRepository.findDailyScheduleById(id);
+      assertNotNull(id);
       assertNotNull(dailyschedule);
       assertEquals(id, dailyschedule.getId());
   }
