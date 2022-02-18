@@ -32,42 +32,66 @@ public class TestReviewPersistence {
   @Autowired
   private ReviewRepository reviewRepository;
   
+  @Autowired
+  private OrderRepository orderRepository;
+  
+  @Autowired
+  private CustomerRepository customerRepository;
+  
   @AfterEach
   public void clearDatabase() {
       reviewRepository.deleteAll();
+      orderRepository.deleteAll();
+      customerRepository.deleteAll();
   }
   
   @Test
   public void testPersistAndLoadReview() {
+      
+    
       String name = "testCustomer";
       String email = "testCustomer@mail.com";
       String password = "testPassword";
       String address = "town";
-      Customer customer = new Customer(email, password, name, address);
+      Customer customer = new Customer();
+      customer.setAddress(address);
+      customer.setEmail(email);
+      customer.setPassword(password);
       
       
-      Long orderId = (long) 1234;
       OrderType orderType = OrderType.Delivery;
       OrderStatus orderStatus = OrderStatus.Confirmed;
       Date date = new Date(0);
       Time time = new Time(0);
-      Order order = new Order(orderType, orderStatus, date, time, customer);
-      order.setId(orderId);
+      Order order = new Order();
+      
+      order.setCustomer(customer);
+      order.setDate(date);
+      order.setTime(time);
+      order.setOrderStatus(orderStatus);
+      order.setOrderType(orderType);
+      
+      
       
       String description = "The order was processed quickly";
       Rating rating = Rating.Good;
-      Long reviewId = (long) 1234;
-      Review review = new Review(rating,description, customer, order);
-      review.setId(reviewId);
+      Review review = new Review();
       
+      review.setRating(rating);
+      review.setDescription(description);
+      review.setOrder(order);
+      review.setCustomer(customer);
+      
+      customerRepository.save(customer);
+      orderRepository.save(order);
       reviewRepository.save(review);
 
-
       review = null;
-
-      review = reviewRepository.findReviewById(reviewId);
+      
+      
+      review = reviewRepository.findReviewById((long) 1);
       assertNotNull(review);
-      assertEquals(reviewId, review.getId());
+      assertEquals(description, review.getDescription());
       
   }
   

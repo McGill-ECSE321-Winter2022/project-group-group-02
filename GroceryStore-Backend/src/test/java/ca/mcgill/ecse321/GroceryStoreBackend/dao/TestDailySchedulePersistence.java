@@ -46,7 +46,8 @@ public class TestDailySchedulePersistence {
       dailyschedule.setDayOfWeek(dayofweek);
       dailyschedule.setStartTime(startTime);
       dailyschedule.setEndTime(endTime);
-      dailyschedule.setId((long) 568978);
+ 
+      
 
       
       
