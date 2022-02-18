@@ -51,6 +51,8 @@ public class Review
       throw new RuntimeException("Unable to create Review due to aOrder. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
   }
+  
+  public Review(){}
 
   //------------------------
   // INTERFACE

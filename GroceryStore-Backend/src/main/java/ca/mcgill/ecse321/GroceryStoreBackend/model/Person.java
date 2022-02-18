@@ -12,9 +12,8 @@ import javax.persistence.*;
 // line 11 "model.ump"
 // line 161 "model.ump"
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="descriminatorColumn")
-@Table(name="Person")
+@Inheritance
+@DiscriminatorColumn(name="personColumn")
 public abstract class Person
 {
 
@@ -45,6 +44,10 @@ public abstract class Person
     {
       throw new RuntimeException("Cannot create due to duplicate email. See http://manual.umple.org?RE003ViolationofUniqueness.html");
     }
+  }
+  
+  public Person() {
+    super();
   }
 
   //------------------------
@@ -91,11 +94,13 @@ public abstract class Person
   {
     return email;
   }
+  
   /* Code from template attribute_GetUnique */
   public static Person getWithEmail(String aEmail)
   {
     return personsByEmail.get(aEmail);
   }
+  
   /* Code from template attribute_HasUnique */
   public static boolean hasWithEmail(String aEmail)
   {

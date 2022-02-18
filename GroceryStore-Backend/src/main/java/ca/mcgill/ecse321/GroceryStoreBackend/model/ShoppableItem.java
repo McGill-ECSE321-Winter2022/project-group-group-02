@@ -9,7 +9,7 @@ import java.util.*;
 // line 58 "model.ump"
 // line 114 "model.ump"
 @Entity
-@Table(name = "ShoppableItem")
+@DiscriminatorValue("ShoppableItem")
 public class ShoppableItem extends Item
 {
 
@@ -30,6 +30,9 @@ public class ShoppableItem extends Item
     quantityAvailable = aQuantityAvailable;
   }
 
+  public ShoppableItem() {
+    super();
+  }
   //------------------------
   // INTERFACE
   //------------------------

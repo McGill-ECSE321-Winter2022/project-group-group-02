@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 // line 52 "model.ump"
 // line 131 "model.ump"
 @Entity
+@Table(name="OrderItem")
 public class OrderItem
 {
 
@@ -43,6 +44,8 @@ public class OrderItem
       throw new RuntimeException("Unable to create orderItem due to order. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
   }
+  
+  public OrderItem() {}
 
   //------------------------
   // INTERFACE
@@ -123,6 +126,7 @@ public class OrderItem
     wasSet = true;
     return wasSet;
   }
+  
 
   public void delete()
   {
@@ -143,5 +147,6 @@ public class OrderItem
             "quantity" + ":" + getQuantity()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "item = "+(getItem()!=null?Integer.toHexString(System.identityHashCode(getItem())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "order = "+(getOrder()!=null?Integer.toHexString(System.identityHashCode(getOrder())):"null");
+    
   }
 }

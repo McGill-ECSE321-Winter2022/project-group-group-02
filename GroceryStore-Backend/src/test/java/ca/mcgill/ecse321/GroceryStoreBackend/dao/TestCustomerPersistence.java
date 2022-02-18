@@ -37,7 +37,11 @@ public class TestCustomerPersistence {
       String email = "testCustomer@mail.com";
       String password = "testPassword";
       String address = "town";
-      Customer customer = new Customer(email, password, name, address);
+      Customer customer = new Customer();
+      customer.setName(name);
+      customer.setEmail(email);
+      customer.setPassword(password);
+      customer.setAddress(address);
       
       customerRepository.save(customer);
 

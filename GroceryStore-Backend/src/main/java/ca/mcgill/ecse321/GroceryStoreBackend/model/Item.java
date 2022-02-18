@@ -10,9 +10,8 @@ import javax.persistence.*;
 // line 109 "model.ump"
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="descriminatorColumn")
-@Table(name="Item")
+@Inheritance
+@DiscriminatorColumn(name="itemColumn")
 public abstract class Item
 {
 
@@ -41,6 +40,10 @@ public abstract class Item
     {
       throw new RuntimeException("Cannot create due to duplicate name. See http://manual.umple.org?RE003ViolationofUniqueness.html");
     }
+  }
+  
+  public Item() {
+    
   }
 
   //------------------------

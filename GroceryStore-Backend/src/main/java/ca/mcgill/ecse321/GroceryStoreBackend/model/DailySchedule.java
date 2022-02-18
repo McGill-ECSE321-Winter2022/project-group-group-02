@@ -42,6 +42,8 @@ public class DailySchedule
     startTime = aStartTime;
     endTime = aEndTime;
   }
+  
+  public DailySchedule() {}
 
   //------------------------
   // INTERFACE

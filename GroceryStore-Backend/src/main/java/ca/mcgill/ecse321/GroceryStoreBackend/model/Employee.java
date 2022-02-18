@@ -9,7 +9,7 @@ import javax.persistence.*;
 // line 38 "model.ump"
 // line 101 "model.ump"
 @Entity
-@Table(name = "Employee")
+@DiscriminatorValue("Employee")
 public class Employee extends Person
 {
 
@@ -36,6 +36,9 @@ public class Employee extends Person
     dailySchedules = new ArrayList<DailySchedule>();
   }
 
+  public Employee() {
+    super();
+  }
   //------------------------
   // INTERFACE
   //------------------------

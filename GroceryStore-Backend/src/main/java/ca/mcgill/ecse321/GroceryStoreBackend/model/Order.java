@@ -58,6 +58,8 @@ public class Order
     }
     orderItems = new ArrayList<OrderItem>();
   }
+  
+  public Order() {}
 
   //------------------------
   // INTERFACE
@@ -197,9 +199,10 @@ public class Order
   /* Code from template association_AddManyToOne */
   public OrderItem addOrderItem(Long aId, int aQuantity, ShoppableItem aItem)
   {
-    return new OrderItem(aId, aQuantity, aItem, this);
+    return new OrderItem(aId, aQuantity, aItem , this);
   }
 
+  
   public boolean addOrderItem(OrderItem aOrderItem)
   {
     boolean wasAdded = false;
@@ -217,7 +220,9 @@ public class Order
     wasAdded = true;
     return wasAdded;
   }
+  
 
+  
   public boolean removeOrderItem(OrderItem aOrderItem)
   {
     boolean wasRemoved = false;
@@ -229,6 +234,7 @@ public class Order
     }
     return wasRemoved;
   }
+  
   /* Code from template association_AddIndexControlFunctions */
   public boolean addOrderItemAt(OrderItem aOrderItem, int index)
   {  
@@ -243,7 +249,9 @@ public class Order
     }
     return wasAdded;
   }
+  
 
+  
   public boolean addOrMoveOrderItemAt(OrderItem aOrderItem, int index)
   {
     boolean wasAdded = false;
@@ -261,6 +269,7 @@ public class Order
     }
     return wasAdded;
   }
+  
 
   public void delete()
   {

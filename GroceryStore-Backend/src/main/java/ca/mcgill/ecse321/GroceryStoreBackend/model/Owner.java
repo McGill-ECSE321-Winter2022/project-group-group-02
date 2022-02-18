@@ -10,7 +10,7 @@ import javax.persistence.*;
 // line 91 "model.ump"
 
 @Entity
-@Table(name = "Owner")
+@DiscriminatorValue("Owner")
 public class Owner extends Person
 {
 
@@ -33,6 +33,9 @@ public class Owner extends Person
     password = "1234";
   }
 
+  public Owner() {
+    super();
+  }
   //------------------------
   // INTERFACE
   //------------------------

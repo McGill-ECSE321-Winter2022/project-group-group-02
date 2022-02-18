@@ -41,6 +41,8 @@ public class Store
     id = aId;
     dailySchedules = new ArrayList<DailySchedule>();
   }
+  
+  public Store() {}
 
   //------------------------
   // INTERFACE
