@@ -10,7 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 // line 52 "model.ump"
 // line 131 "model.ump"
 @Entity
-@Table(name="OrderItem")
+@Table(name="orderItems")
 public class OrderItem
 {
 

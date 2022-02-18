@@ -15,6 +15,7 @@ import java.util.*;
 // line 67 "model.ump"
 // line 124 "model.ump"
 @Entity
+@Table(name = "orders")
 public class Order
 {
 
