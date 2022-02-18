@@ -34,11 +34,10 @@ public class Store
   // CONSTRUCTOR
   //------------------------
 
-  public Store(double aDeliveryFee, String aTown, Long aId)
+  public Store(double aDeliveryFee, String aTown)
   {
     deliveryFee = aDeliveryFee;
     town = aTown;
-    id = aId;
     dailySchedules = new ArrayList<DailySchedule>();
   }
   
@@ -64,12 +63,11 @@ public class Store
     return wasSet;
   }
 
-  public boolean setId(Long aId)
+  public void setId(Long aId)
   {
-    boolean wasSet = false;
-    id = aId;
-    wasSet = true;
-    return wasSet;
+    
+    this.id = aId;
+    
   }
 
   public double getDeliveryFee()
@@ -89,6 +87,8 @@ public class Store
   {
     return id;
   }
+  
+  
   /* Code from template association_GetMany */
   public DailySchedule getDailySchedule(int index)
   {
@@ -99,9 +99,17 @@ public class Store
   @OneToMany(cascade={CascadeType.ALL})
   public List<DailySchedule> getDailySchedules()
   {
-    List<DailySchedule> newDailySchedules = Collections.unmodifiableList(dailySchedules);
-    return newDailySchedules;
+    
+    return dailySchedules;
   }
+  
+  public void setDailySchedules(List<DailySchedule> dailySchedules)
+  {
+    
+    this.dailySchedules = dailySchedules;
+  }
+  
+  
 
   public int numberOfDailySchedules()
   {

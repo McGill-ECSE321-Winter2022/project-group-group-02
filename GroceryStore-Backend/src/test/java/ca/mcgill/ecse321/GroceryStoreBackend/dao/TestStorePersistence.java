@@ -36,9 +36,10 @@ public class TestStorePersistence {
       double deliveryfee = 5;
       String town = "townn";
       Long id = (long) 1234;
-     
-      Store store = new Store(deliveryfee, town, id);
+      Store store = new Store(deliveryfee, town);
       
+      
+      store.setId(id);
       StoreRepository.save(store);
 
 

@@ -47,7 +47,8 @@ public class TestOrderItemPersistence {
     OrderStatus orderStatus = OrderStatus.Confirmed;
     Date date = new Date(0);
     Time time = new Time(0);
-    Order order = new Order(orderId, orderType, orderStatus, date, time, customer);
+    Order order = new Order(orderType, orderStatus, date, time, customer);
+    order.setId(orderId);
     
     
     String itemName = "Milk";
@@ -57,7 +58,8 @@ public class TestOrderItemPersistence {
     
     Long orderItemId = (long) 1234;
     int quantityWanted = 2;
-    OrderItem orderItem = new OrderItem (orderItemId, quantityWanted, shoppableItem, order);
+    OrderItem orderItem = new OrderItem(quantityWanted, shoppableItem, order);
+    orderItem.setId(orderItemId);
     
    
     orderItemRepository.save(orderItem);

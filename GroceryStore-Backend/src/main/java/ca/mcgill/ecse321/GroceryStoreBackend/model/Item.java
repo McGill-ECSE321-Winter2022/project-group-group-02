@@ -51,21 +51,8 @@ public abstract class Item
 
   public boolean setName(String aName)
   {
-    boolean wasSet = false;
-    String anOldName = getName();
-    if (anOldName != null && anOldName.equals(aName)) {
-      return true;
-    }
-    if (hasWithName(aName)) {
-      return wasSet;
-    }
-    name = aName;
-    wasSet = true;
-    if (anOldName != null) {
-      itemsByName.remove(anOldName);
-    }
-    itemsByName.put(aName, this);
-    return wasSet;
+    this.name = aName;
+    return true;
   }
 
   public boolean setPrice(double aPrice)
@@ -81,6 +68,7 @@ public abstract class Item
   {
     return name;
   }
+  
   /* Code from template attribute_GetUnique */
   public static Item getWithName(String aName)
   {

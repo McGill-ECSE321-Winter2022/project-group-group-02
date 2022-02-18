@@ -55,21 +55,9 @@ public abstract class Person
 
   public boolean setEmail(String aEmail)
   {
-    boolean wasSet = false;
-    String anOldEmail = getEmail();
-    if (anOldEmail != null && anOldEmail.equals(aEmail)) {
+      
+      this.email = aEmail;
       return true;
-    }
-    if (hasWithEmail(aEmail)) {
-      return wasSet;
-    }
-    email = aEmail;
-    wasSet = true;
-    if (anOldEmail != null) {
-      personsByEmail.remove(anOldEmail);
-    }
-    personsByEmail.put(aEmail, this);
-    return wasSet;
   }
 
   public boolean setPassword(String aPassword)

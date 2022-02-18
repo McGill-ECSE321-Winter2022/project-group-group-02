@@ -13,8 +13,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.model.*;
+
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class TestShoppableItemPersistence {
-	@Autowired
+	
+      @Autowired
 	  EntityManager entityManager;
 	  
 	  @Autowired
@@ -26,11 +30,11 @@ public class TestShoppableItemPersistence {
 	  }
 	  
 	  @Test
-	  public void testPersistAndLoadCustomer() {
-	      String name = "Bred";
+	  public void testPersistAndLoadShoppableItem() {
+	      String name = "Bread";
 	      double price = 5.0;
 	      Integer quantityAvailable=4;
-	      ShoppableItem shoppableItem=new ShoppableItem(name, price, quantityAvailable);
+	      ShoppableItem shoppableItem = new ShoppableItem(name, price, quantityAvailable);
 	      
 	      shoppableItemRepository.save(shoppableItem);
 

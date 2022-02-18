@@ -35,9 +35,8 @@ public class DailySchedule
   // CONSTRUCTOR
   //------------------------
 
-  public DailySchedule(Long aId, DayOfWeek aDayOfWeek, Time aStartTime, Time aEndTime)
+  public DailySchedule(DayOfWeek aDayOfWeek, Time aStartTime, Time aEndTime)
   {
-    id = aId;
     dayOfWeek = aDayOfWeek;
     startTime = aStartTime;
     endTime = aEndTime;

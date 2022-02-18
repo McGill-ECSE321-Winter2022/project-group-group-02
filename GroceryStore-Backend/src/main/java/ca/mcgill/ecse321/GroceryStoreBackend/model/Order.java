@@ -46,9 +46,8 @@ public class Order
   // CONSTRUCTOR
   //------------------------
 
-  public Order(Long aId, OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, Customer aCustomer)
+  public Order(OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, Customer aCustomer)
   {
-    id = aId;
     orderType = aOrderType;
     orderStatus = aOrderStatus;
     date = aDate;
@@ -200,7 +199,7 @@ public class Order
   /* Code from template association_AddManyToOne */
   public OrderItem addOrderItem(Long aId, int aQuantity, ShoppableItem aItem)
   {
-    return new OrderItem(aId, aQuantity, aItem , this);
+    return new OrderItem(aQuantity, aItem , this);
   }
 
   

@@ -47,7 +47,8 @@ public class TestOrderPersistence {
     OrderStatus orderStatus = OrderStatus.Confirmed;
     Date date = new Date(0);
     Time time = new Time(0);
-    Order order = new Order(orderId, orderType, orderStatus, date, time, customer);
+    Order order = new Order(orderType, orderStatus, date, time, customer);
+    order.setId(orderId);
    
       orderRepository.save(order);
 

@@ -37,9 +37,8 @@ public class Review
   // CONSTRUCTOR
   //------------------------
 
-  public Review(Long aId, Rating aRating, String aDescription, Customer aCustomer, Order aOrder)
+  public Review(Rating aRating, String aDescription, Customer aCustomer, Order aOrder)
   {
-    id = aId;
     rating = aRating;
     description = aDescription;
     if (!setCustomer(aCustomer))

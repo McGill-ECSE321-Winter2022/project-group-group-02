@@ -40,7 +40,8 @@ public class TestDailySchedulePersistence {
       Time startTime = Time.valueOf("08:00:00");
       Time endTime = Time.valueOf("20:00:00");
      
-      DailySchedule dailyschedule = new DailySchedule(id,dayofweek,startTime,endTime);
+      DailySchedule dailyschedule = new DailySchedule(dayofweek,startTime,endTime);
+      dailyschedule.setId(id);
       
       DailyScheduleRepository.save(dailyschedule);
 

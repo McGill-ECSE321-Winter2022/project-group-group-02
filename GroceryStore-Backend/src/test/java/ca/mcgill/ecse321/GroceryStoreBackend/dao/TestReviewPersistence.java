@@ -51,12 +51,14 @@ public class TestReviewPersistence {
       OrderStatus orderStatus = OrderStatus.Confirmed;
       Date date = new Date(0);
       Time time = new Time(0);
-      Order order = new Order(orderId, orderType, orderStatus, date, time, customer);
+      Order order = new Order(orderType, orderStatus, date, time, customer);
+      order.setId(orderId);
       
       String description = "The order was processed quickly";
       Rating rating = Rating.Good;
       Long reviewId = (long) 1234;
-      Review review = new Review(reviewId, rating,description, customer, order);
+      Review review = new Review(rating,description, customer, order);
+      review.setId(reviewId);
       
       reviewRepository.save(review);
 
@@ -67,7 +69,6 @@ public class TestReviewPersistence {
       assertNotNull(review);
       assertEquals(reviewId, review.getId());
       
-      //A lot of stuff to correct when we correct the id thing
   }
   
 }

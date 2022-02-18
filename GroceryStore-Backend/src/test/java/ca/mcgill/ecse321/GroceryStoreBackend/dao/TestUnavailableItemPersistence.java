@@ -13,8 +13,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.model.*;
+
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class TestUnavailableItemPersistence {
-	@Autowired
+	  @Autowired
 	  EntityManager entityManager;
 	  
 	  @Autowired
@@ -26,7 +29,7 @@ public class TestUnavailableItemPersistence {
 	  }
 	  
 	  @Test
-	  public void testPersistAndLoadCustomer() {
+	  public void testPersistAndLoadUnavailableItem() {
 	      String name = "magazine";
 	      double price = 11.0;
 	      UnavailableItem unavailableItem=new UnavailableItem(name, price);

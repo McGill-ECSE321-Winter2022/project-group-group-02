@@ -39,13 +39,6 @@ public class Owner extends Person
   // INTERFACE
   //------------------------
 
-  public boolean setEmail(String aEmail)
-  {
-    boolean wasSet = false;
-    email = aEmail;
-    wasSet = true;
-    return wasSet;
-  }
 
 
   public boolean setPassword(String aPassword)

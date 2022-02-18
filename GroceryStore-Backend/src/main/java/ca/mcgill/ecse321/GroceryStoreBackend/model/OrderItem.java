@@ -30,9 +30,8 @@ public class OrderItem
   // CONSTRUCTOR
   //------------------------
 
-  public OrderItem(Long aId, int aQuantity, ShoppableItem aItem, Order aOrder)
+  public OrderItem(int aQuantity, ShoppableItem aItem, Order aOrder)
   {
-    id = aId;
     quantity = aQuantity;
     if (!setItem(aItem))
     {
