@@ -28,47 +28,47 @@ public class TestOrderItemPersistence {
   @Autowired
   private OrderItemRepository orderItemRepository;
   
+  
+  @Autowired
+  private ShoppableItemRepository shoppableItemRepository;
+  
   @AfterEach
   public void clearDatabase() {
     orderItemRepository.deleteAll();
+    shoppableItemRepository.deleteAll();
+    
   }
   
   @Test
   public void testPersistAndLoadOrderItem() {
-    String name = "testCustomer";
-    String email = "testCustomer@mail.com";
-    String password = "testPassword";
-    String address = "town";
-    Customer customer = new Customer(email, password, name, address);
     
     
-    Long orderId = (long) 1234;
-    OrderType orderType = OrderType.Delivery;
-    OrderStatus orderStatus = OrderStatus.Confirmed;
-    Date date = new Date(0);
-    Time time = new Time(0);
-    Order order = new Order(orderType, orderStatus, date, time, customer);
-    order.setId(orderId);
-    
-    
+
     String itemName = "Milk";
     double price = 4.65;
     int quantityAvailable = 10;
     ShoppableItem shoppableItem = new ShoppableItem (itemName, price, quantityAvailable);
     
+    shoppableItemRepository.save(shoppableItem);
+    
+    
     Long orderItemId = (long) 1234;
     int quantityWanted = 2;
-    OrderItem orderItem = new OrderItem(quantityWanted, shoppableItem, order);
+    OrderItem orderItem = new OrderItem();
+    
+    orderItem.setQuantity(quantityWanted);
+    orderItem.setItem(shoppableItem);
     orderItem.setId(orderItemId);
     
+ 
    
     orderItemRepository.save(orderItem);
 
-      orderItem = null;
+    orderItem = null;
 
-      orderItem = orderItemRepository.findOrderItemById(orderItemId);
-      assertNotNull(orderItem);
-      assertEquals(orderItemId, orderItem.getId());
+    orderItem = orderItemRepository.findOrderItemById(orderItemId);
+    assertNotNull(orderItem);
+    assertEquals(orderItemId, orderItem.getId());
   }
   
 }

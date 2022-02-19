@@ -48,7 +48,7 @@ public class GroceryStoreRepository {
   }
   
   @Transactional
-  public DailySchedule getDailySchedule(Integer id) {
+  public DailySchedule getDailySchedule(Long id) {
 	  DailySchedule d = entityManager.find(DailySchedule.class, id);
 	  return d;
   }
@@ -61,9 +61,22 @@ public class GroceryStoreRepository {
   }
   
   @Transactional
-  public Employee getEmployee(String email) {
-	  Employee e = entityManager.find(Employee.class, email);
+  public Store getStore(Long id) {
+      Store e = entityManager.find(Store.class, id);
 	  return e;
+  }
+  
+  @Transactional
+  public Store createStore(double aDeliveryFee, String aTown) {
+      Store e = new Store(aDeliveryFee, aTown);
+      entityManager.persist(e);
+      return e;
+  }
+  
+  @Transactional
+  public Employee getEmployee(String email) {
+      Employee e = entityManager.find(Employee.class, email);
+      return e;
   }
   
   @Transactional
@@ -74,19 +87,21 @@ public class GroceryStoreRepository {
   }
   
   @Transactional
-  public Order getOrder(Integer id) {
+  public Order getOrder(Long id) {
 	  Order o = entityManager.find(Order.class, id);
 	  return o;
   }
   
   @Transactional
-  public OrderItem createOrderItem(int quantity, ShoppableItem item, Order order) {
-	  OrderItem oi =  new OrderItem(quantity, item, order);
+  public OrderItem createOrderItem(int quantity, ShoppableItem item) {
+	  OrderItem oi =  new OrderItem();
+	  oi.setItem(item);
+	  oi.setQuantity(quantity);
 	  return oi;
   }
   
   @Transactional
-  public OrderItem getOrderItem(Integer id) {
+  public OrderItem getOrderItem(Long id) {
 	  OrderItem oi = entityManager.find(OrderItem.class, id);
 	  return oi;
   }
@@ -112,7 +127,7 @@ public class GroceryStoreRepository {
   }
   
   @Transactional
-  public Review getReview(Integer id) {
+  public Review getReview(Long id) {
 	  Review r = entityManager.find(Review.class, id);
 	  return r;
   }
@@ -144,9 +159,5 @@ public class GroceryStoreRepository {
 	  return ui;
   }
   
-  @Transactional
-  public boolean cleanDatabase() {
-    return false;
-  }
   
 }

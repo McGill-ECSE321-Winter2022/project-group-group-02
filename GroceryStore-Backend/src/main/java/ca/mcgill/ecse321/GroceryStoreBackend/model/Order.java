@@ -106,8 +106,6 @@ public class Order
   }
 
   @Id
-  @GeneratedValue(generator = "increment")
-  @GenericGenerator(name = "increment", strategy = "increment")
   public Long getId()
   {
     return id;
@@ -138,48 +136,42 @@ public class Order
   {
     return customer;
   }
-  /* Code from template association_GetMany */
-
-  public OrderItem getOrderItem(int index)
-  {
-    OrderItem aOrderItem = orderItems.get(index);
-    return aOrderItem;
-  }
+//  /* Code from template association_GetMany */
+//
+//  public OrderItem getOrderItem(int index)
+//  {
+//    OrderItem aOrderItem = orderItems.get(index);
+//    return aOrderItem;
+//  }
   
   public boolean setOrderItems(List<OrderItem> orderItems) {
-	  if (orderItems != null) {
-		  this.orderItems = orderItems;	
-		  return true;
-	  } else {
-		  this.orderItems = new ArrayList<OrderItem>();
-		  return true;
-	  }
+	  this.orderItems = orderItems;
+	  return true;
   }
 
   @OneToMany(cascade={CascadeType.ALL})
   public List<OrderItem> getOrderItems()
   {
-    List<OrderItem> newOrderItems = Collections.unmodifiableList(orderItems);
-    return newOrderItems;
+    return orderItems;
   }
 
-  public int numberOfOrderItems()
-  {
-    int number = orderItems.size();
-    return number;
-  }
-
-  public boolean hasOrderItems()
-  {
-    boolean has = orderItems.size() > 0;
-    return has;
-  }
-
-  public int indexOfOrderItem(OrderItem aOrderItem)
-  {
-    int index = orderItems.indexOf(aOrderItem);
-    return index;
-  }
+//  public int numberOfOrderItems()
+//  {
+//    int number = orderItems.size();
+//    return number;
+//  }
+//
+//  public boolean hasOrderItems()
+//  {
+//    boolean has = orderItems.size() > 0;
+//    return has;
+//  }
+//
+//  public int indexOfOrderItem(OrderItem aOrderItem)
+//  {
+//    int index = orderItems.indexOf(aOrderItem);
+//    return index;
+//  }
   /* Code from template association_SetUnidirectionalOne */
   public boolean setCustomer(Customer aNewCustomer)
   {
@@ -191,84 +183,83 @@ public class Order
     }
     return wasSet;
   }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfOrderItems()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public OrderItem addOrderItem(Long aId, int aQuantity, ShoppableItem aItem)
-  {
-    return new OrderItem(aQuantity, aItem , this);
-  }
-
-  
-  public boolean addOrderItem(OrderItem aOrderItem)
-  {
-    boolean wasAdded = false;
-    if (orderItems.contains(aOrderItem)) { return false; }
-    Order existingOrder = aOrderItem.getOrder();
-    boolean isNewOrder = existingOrder != null && !this.equals(existingOrder);
-    if (isNewOrder)
-    {
-      aOrderItem.setOrder(this);
-    }
-    else
-    {
-      orderItems.add(aOrderItem);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-  
-
-  
-  public boolean removeOrderItem(OrderItem aOrderItem)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aOrderItem, as it must always have a order
-    if (!this.equals(aOrderItem.getOrder()))
-    {
-      orderItems.remove(aOrderItem);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addOrderItemAt(OrderItem aOrderItem, int index)
-  {  
-    boolean wasAdded = false;
-    if(addOrderItem(aOrderItem))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfOrderItems()) { index = numberOfOrderItems() - 1; }
-      orderItems.remove(aOrderItem);
-      orderItems.add(index, aOrderItem);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-  
-
-  
-  public boolean addOrMoveOrderItemAt(OrderItem aOrderItem, int index)
-  {
-    boolean wasAdded = false;
-    if(orderItems.contains(aOrderItem))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfOrderItems()) { index = numberOfOrderItems() - 1; }
-      orderItems.remove(aOrderItem);
-      orderItems.add(index, aOrderItem);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addOrderItemAt(aOrderItem, index);
-    }
-    return wasAdded;
-  }
+//  /* Code from template association_MinimumNumberOfMethod */
+//  public static int minimumNumberOfOrderItems()
+//  {
+//    return 0;
+//  }
+//  /* Code from template association_AddManyToOne */
+//  public OrderItem addOrderItem(int aQuantity, ShoppableItem aItem)
+//  {
+//    
+//    OrderItem orderItem = new OrderItem();
+//    orderItem.setItem(aItem);
+//    orderItem.setQuantity(aQuantity);
+//    
+//    this.orderItems.add(orderItem);
+//    
+//    
+//    return orderItem;
+//  }
+//
+//  
+//  public boolean addOrderItem(OrderItem aOrderItem)
+//  {
+//    
+//    this.orderItems.add(aOrderItem);
+//    
+//    
+//    return true;
+//  }
+//  
+//
+//  
+//  public boolean removeOrderItem(OrderItem aOrderItem)
+//  {
+//    boolean wasRemoved = false;
+//    //Unable to remove aOrderItem, as it must always have a order
+//    if (this.getOrderItems().contains(aOrderItem))
+//    {
+//      orderItems.remove(aOrderItem);
+//      wasRemoved = true;
+//    }
+//    return wasRemoved;
+//  }
+//  
+//  /* Code from template association_AddIndexControlFunctions */
+//  public boolean addOrderItemAt(OrderItem aOrderItem, int index)
+//  {  
+//    boolean wasAdded = false;
+//    if(addOrderItem(aOrderItem))
+//    {
+//      if(index < 0 ) { index = 0; }
+//      if(index > numberOfOrderItems()) { index = numberOfOrderItems() - 1; }
+//      orderItems.remove(aOrderItem);
+//      orderItems.add(index, aOrderItem);
+//      wasAdded = true;
+//    }
+//    return wasAdded;
+//  }
+//  
+//
+//  
+//  public boolean addOrMoveOrderItemAt(OrderItem aOrderItem, int index)
+//  {
+//    boolean wasAdded = false;
+//    if(orderItems.contains(aOrderItem))
+//    {
+//      if(index < 0 ) { index = 0; }
+//      if(index > numberOfOrderItems()) { index = numberOfOrderItems() - 1; }
+//      orderItems.remove(aOrderItem);
+//      orderItems.add(index, aOrderItem);
+//      wasAdded = true;
+//    } 
+//    else 
+//    {
+//      wasAdded = addOrderItemAt(aOrderItem, index);
+//    }
+//    return wasAdded;
+//  }
   
 
   public void delete()

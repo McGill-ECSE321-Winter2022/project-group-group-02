@@ -28,9 +28,13 @@ public class TestOrderPersistence {
   @Autowired
   private OrderRepository orderRepository;
   
+  @Autowired
+  private CustomerRepository customerRepository;
+  
   @AfterEach
   public void clearDatabase() {
       orderRepository.deleteAll();
+      customerRepository.deleteAll();
   }
   
   @Test
@@ -39,7 +43,13 @@ public class TestOrderPersistence {
     String email = "testCustomer@mail.com";
     String password = "testPassword";
     String address = "town";
-    Customer customer = new Customer(email, password, name, address);
+    Customer customer = new Customer();
+    customer.setName(name);
+    customer.setEmail(email);
+    customer.setPassword(password);
+    customer.setAddress(address);
+    
+    customerRepository.save(customer);
     
     
     Long orderId = (long) 1234;
@@ -47,16 +57,22 @@ public class TestOrderPersistence {
     OrderStatus orderStatus = OrderStatus.Confirmed;
     Date date = new Date(0);
     Time time = new Time(0);
-    Order order = new Order(orderType, orderStatus, date, time, customer);
+    Order order = new Order();
+    order.setOrderType(orderType);
+    order.setOrderStatus(orderStatus);
+    order.setDate(date);
+    order.setTime(time);
+    order.setCustomer(customer);
     order.setId(orderId);
    
-      orderRepository.save(order);
+    
+    orderRepository.save(order);
 
-      order = null;
+    order = null;
 
-      order = orderRepository.findOrderById(orderId);
-      assertNotNull(order);
-      assertEquals(orderId, order.getId());
+    order = orderRepository.findOrderById(orderId);
+    assertNotNull(order);
+    assertEquals(orderId, order.getId());
   }
   
 }

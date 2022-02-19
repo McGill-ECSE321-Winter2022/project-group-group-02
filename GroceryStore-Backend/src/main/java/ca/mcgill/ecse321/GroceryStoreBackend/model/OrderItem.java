@@ -24,25 +24,25 @@ public class OrderItem
 
   //OrderItem Associations
   private ShoppableItem item;
-  private Order order;
+  //private Order order;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public OrderItem(int aQuantity, ShoppableItem aItem, Order aOrder)
-  {
-    quantity = aQuantity;
-    if (!setItem(aItem))
-    {
-      throw new RuntimeException("Unable to create OrderItem due to aItem. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    boolean didAddOrder = setOrder(aOrder);
-    if (!didAddOrder)
-    {
-      throw new RuntimeException("Unable to create orderItem due to order. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-  }
+//  public OrderItem(int aQuantity, ShoppableItem aItem, Order aOrder)
+//  {
+//    quantity = aQuantity;
+//    if (!setItem(aItem))
+//    {
+//      throw new RuntimeException("Unable to create OrderItem due to aItem. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+//    }
+//    boolean didAddOrder = setOrder(aOrder);
+//    if (!didAddOrder)
+//    {
+//      throw new RuntimeException("Unable to create orderItem due to order. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+//    }
+//  }
   
   public OrderItem() {}
 
@@ -67,8 +67,6 @@ public class OrderItem
   }
 
   @Id
-  @GeneratedValue(generator = "increment")
-  @GenericGenerator(name = "increment", strategy = "increment")
   public Long getId()
   {
     return id;
@@ -87,12 +85,12 @@ public class OrderItem
   
   
  
-  /* Code from template association_GetOne */
-  @ManyToOne(optional=false)
-  public Order getOrder()
-  {
-    return order;
-  }
+//  /* Code from template association_GetOne */
+//  @ManyToOne(optional=false)
+//  public Order getOrder()
+//  {
+//    return order;
+//  }
   
   
   /* Code from template association_SetUnidirectionalOne */
@@ -106,36 +104,31 @@ public class OrderItem
     }
     return wasSet;
   }
-  /* Code from template association_SetOneToMany */
-  public boolean setOrder(Order aOrder)
-  {
-    boolean wasSet = false;
-    if (aOrder == null)
-    {
-      return wasSet;
-    }
-
-    Order existingOrder = order;
-    order = aOrder;
-    if (existingOrder != null && !existingOrder.equals(aOrder))
-    {
-      existingOrder.removeOrderItem(this);
-    }
-    order.addOrderItem(this);
-    wasSet = true;
-    return wasSet;
-  }
+//  /* Code from template association_SetOneToMany */
+//  public boolean setOrder(Order aOrder)
+//  {
+//    boolean wasSet = false;
+//    if (aOrder == null)
+//    {
+//      return wasSet;
+//    }
+//
+//    Order existingOrder = order;
+//    order = aOrder;
+//    if (existingOrder != null && !existingOrder.equals(aOrder))
+//    {
+//      existingOrder.removeOrderItem(this);
+//    }
+//    order.addOrderItem(this);
+//    wasSet = true;
+//    return wasSet;
+//  }
   
 
   public void delete()
   {
     item = null;
-    Order placeholderOrder = order;
-    this.order = null;
-    if(placeholderOrder != null)
-    {
-      placeholderOrder.removeOrderItem(this);
-    }
+
   }
 
 
@@ -144,8 +137,7 @@ public class OrderItem
     return super.toString() + "["+
             "id" + ":" + getId()+ "," +
             "quantity" + ":" + getQuantity()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "item = "+(getItem()!=null?Integer.toHexString(System.identityHashCode(getItem())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "order = "+(getOrder()!=null?Integer.toHexString(System.identityHashCode(getOrder())):"null");
+            "  " + "item = "+(getItem()!=null?Integer.toHexString(System.identityHashCode(getItem())):"null");
     
   }
 }

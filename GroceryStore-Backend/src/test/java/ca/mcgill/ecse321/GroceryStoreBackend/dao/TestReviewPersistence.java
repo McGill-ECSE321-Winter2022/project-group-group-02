@@ -57,12 +57,16 @@ public class TestReviewPersistence {
       customer.setAddress(address);
       customer.setEmail(email);
       customer.setPassword(password);
+      customer.setName(name);
       
+      
+      customerRepository.save(customer);
       
       OrderType orderType = OrderType.Delivery;
       OrderStatus orderStatus = OrderStatus.Confirmed;
       Date date = new Date(0);
       Time time = new Time(0);
+      Long orderId = (long) 21;
       Order order = new Order();
       
       order.setCustomer(customer);
@@ -70,9 +74,11 @@ public class TestReviewPersistence {
       order.setTime(time);
       order.setOrderStatus(orderStatus);
       order.setOrderType(orderType);
+      order.setId(orderId);
+      orderRepository.save(order);
       
       
-      
+      Long reviewId = (long) 21;
       String description = "The order was processed quickly";
       Rating rating = Rating.Good;
       Review review = new Review();
@@ -81,15 +87,16 @@ public class TestReviewPersistence {
       review.setDescription(description);
       review.setOrder(order);
       review.setCustomer(customer);
+      review.setId(reviewId);
       
-      customerRepository.save(customer);
-      orderRepository.save(order);
+      
+      
       reviewRepository.save(review);
 
       review = null;
       
       
-      review = reviewRepository.findReviewById((long) 1);
+      review = reviewRepository.findReviewById(reviewId);
       assertNotNull(review);
       assertEquals(description, review.getDescription());
       

@@ -41,16 +41,13 @@ public class TestDailySchedulePersistence {
       DayOfWeek dayofweek = DayOfWeek.Monday;
       Time startTime = Time.valueOf("08:00:00");
       Time endTime = Time.valueOf("20:00:00");
-     
+      Long id = (long) 321;
+      
       DailySchedule dailyschedule = new DailySchedule();
       dailyschedule.setDayOfWeek(dayofweek);
       dailyschedule.setStartTime(startTime);
       dailyschedule.setEndTime(endTime);
- 
-      
-
-      
-      
+      dailyschedule.setId(id);
       
       DailyScheduleRepository.save(dailyschedule);
       //The id is being changed after save, we have no idea how to get it
@@ -61,7 +58,7 @@ public class TestDailySchedulePersistence {
 
       
       
-      dailyschedule = DailyScheduleRepository.findDailyScheduleById((long) 1);
+      dailyschedule = DailyScheduleRepository.findDailyScheduleById(id);
       
       assertNotNull(dailyschedule);
       assertEquals(dayofweek, dailyschedule.getDayOfWeek());

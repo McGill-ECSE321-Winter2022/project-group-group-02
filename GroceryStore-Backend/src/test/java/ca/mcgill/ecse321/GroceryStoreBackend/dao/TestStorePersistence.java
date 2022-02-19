@@ -35,11 +35,13 @@ public class TestStorePersistence {
   public void testPersistAndLoadStore() {
       double deliveryfee = 5;
       String town = "townn";
-      Long id = (long) 1234;
+      Long id = (long) 76;
       Store store = new Store(deliveryfee, town);
       
-      
       store.setId(id);
+      
+  
+      
       StoreRepository.save(store);
 
 
@@ -47,7 +49,7 @@ public class TestStorePersistence {
 
       store = StoreRepository.findStoreById(id);
       assertNotNull(store);
-      assertEquals(id, store.getId());
+      assertEquals(deliveryfee, store.getDeliveryFee());
   }
   
 }

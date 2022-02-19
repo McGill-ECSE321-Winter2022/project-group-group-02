@@ -76,8 +76,6 @@ public class DailySchedule
   }
 
   @Id
-  @GeneratedValue(generator = "increment")
-  @GenericGenerator(name = "increment", strategy = "increment")
   public Long getId()
   {
     return this.id;
@@ -85,6 +83,7 @@ public class DailySchedule
   
   public void setId(Long aId)
   {
+    
     this.id = aId;
     
   }

@@ -15,6 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 // line 149 "model.ump"
 // line 156 "model.ump"
 @Entity
+@Table(name = "Store")
 public class Store
 {
 
@@ -63,11 +64,11 @@ public class Store
     return wasSet;
   }
 
-  public void setId(Long aId)
+  public boolean setId(Long aId)
   {
     
     this.id = aId;
-    
+    return true;
   }
 
   public double getDeliveryFee()
@@ -81,8 +82,6 @@ public class Store
   }
   
   @Id
-  @GeneratedValue(generator = "increment")
-  @GenericGenerator(name = "increment", strategy = "increment")
   public Long getId()
   {
     return id;

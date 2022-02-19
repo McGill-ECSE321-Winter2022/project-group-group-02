@@ -78,8 +78,8 @@ public class Employee extends Person
   @ManyToMany
   public List<DailySchedule> getDailySchedules()
   {
-    List<DailySchedule> newDailySchedules = Collections.unmodifiableList(dailySchedules);
-    return newDailySchedules;
+    
+    return dailySchedules;
   }
 
   public int numberOfDailySchedules()
@@ -133,29 +133,12 @@ public class Employee extends Person
     return wasRemoved;
   }
   /* Code from template association_SetUnidirectionalOptionalN */
-  public boolean setDailySchedules(DailySchedule... newDailySchedules)
+  public boolean setDailySchedules(List<DailySchedule> newDailySchedules)
   {
-    boolean wasSet = false;
-    ArrayList<DailySchedule> verifiedDailySchedules = new ArrayList<DailySchedule>();
-    for (DailySchedule aDailySchedule : newDailySchedules)
-    {
-      if (verifiedDailySchedules.contains(aDailySchedule))
-      {
-        continue;
-      }
-      verifiedDailySchedules.add(aDailySchedule);
-    }
-
-    if (verifiedDailySchedules.size() != newDailySchedules.length || verifiedDailySchedules.size() > maximumNumberOfDailySchedules())
-    {
-      return wasSet;
-    }
-
-    dailySchedules.clear();
-    dailySchedules.addAll(verifiedDailySchedules);
-    wasSet = true;
-    return wasSet;
+    this.dailySchedules = newDailySchedules;
+    return true;
   }
+  
   /* Code from template association_AddIndexControlFunctions */
   public boolean addDailyScheduleAt(DailySchedule aDailySchedule, int index)
   {  
