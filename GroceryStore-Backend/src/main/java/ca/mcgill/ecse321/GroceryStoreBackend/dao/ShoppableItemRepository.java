@@ -5,6 +5,6 @@ import ca.mcgill.ecse321.GroceryStoreBackend.model.ShoppableItem;
 
 public interface ShoppableItemRepository extends CrudRepository<ShoppableItem, String>{
 	
-	ShoppableItem findShoppableItemByName(String name);
+	ShoppableItem findByName(String name);
 	
 }

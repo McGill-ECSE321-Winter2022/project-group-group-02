@@ -40,7 +40,7 @@ public class TestShoppableItemPersistence {
 
 	      shoppableItem = null;
 
-	      shoppableItem = shoppableItemRepository.findShoppableItemByName(name);
+	      shoppableItem = shoppableItemRepository.findByName(name);
 	      assertNotNull(shoppableItem);
 	      assertEquals(name, shoppableItem.getName());
 	  }

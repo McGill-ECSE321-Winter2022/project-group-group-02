@@ -36,14 +36,19 @@ public class TestOwnerPersistence {
       String name = "owner";
       String email = "admin@grocerystore.com";
       String password = "1234";
-      Owner owner = new Owner(email, password, name);
+      Owner owner = new Owner();
+      
+      owner.setName(name);
+      owner.setEmail(email);
+      owner.setPassword(password);
+      
       
       ownerRepository.save(owner);
 
 
       owner = null;
 
-      owner = ownerRepository.findOwnerByEmail(email);
+      owner = ownerRepository.findByEmail(email);
       assertNotNull(owner);
       assertEquals(email, owner.getEmail());
   }

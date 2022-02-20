@@ -53,7 +53,7 @@ public class TestEmployeePersistence {
 
       employee = null;
 
-      employee = employeeRepository.findEmployeeByEmail(email);
+      employee = employeeRepository.findByEmail(email);
       assertNotNull(employee);
       assertEquals(email, employee.getEmail());
   }

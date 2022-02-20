@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 // line 149 "model.ump"
 // line 156 "model.ump"
 @Entity
-@Table(name = "Store")
+@Table(name = "Stores")
 public class Store
 {
 

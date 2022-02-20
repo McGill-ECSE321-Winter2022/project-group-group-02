@@ -38,7 +38,7 @@ public class TestUnavailableItemPersistence {
 
 	      unavailableItem = null;
 
-	      unavailableItem = unavailableItemRepository.findUnavailableItemByName(name);
+	      unavailableItem = unavailableItemRepository.findByName(name);
 	      assertNotNull(unavailableItem);
 	      assertEquals(name, unavailableItem.getName());
 	  }
