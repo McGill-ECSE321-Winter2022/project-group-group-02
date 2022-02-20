@@ -45,16 +45,26 @@ public class Owner extends Person
     super.delete();
   }
   
-  public String getPassword()
+  public boolean setEmail(String aEmail)
   {
-    
-    return super.getPassword();
+    boolean wasSet = false;
+    email = aEmail;
+    wasSet = true;
+    return wasSet;
   }
   
   public boolean setPassword(String aPassword)
   {
-    
-    return super.setPassword(aPassword);
+    boolean wasSet = false;
+    password = aPassword;
+    wasSet = true;
+    return wasSet;
+  }
+
+
+  public String getPassword()
+  {
+    return password;
   }
 
 

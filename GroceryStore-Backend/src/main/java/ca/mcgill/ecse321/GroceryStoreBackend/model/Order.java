@@ -128,7 +128,7 @@ public class Order
     return time;
   }
   /* Code from template association_GetOne */
-  @ManyToOne
+  @ManyToOne(optional=false)
   public Customer getCustomer()
   {
     return customer;

@@ -40,6 +40,7 @@ public class TestCustomerPersistence {
       String password = "testPassword";
       String address = "town";
       Customer customer = new Customer();
+      
       customer.setName(name);
       customer.setEmail(email);
       customer.setPassword(password);

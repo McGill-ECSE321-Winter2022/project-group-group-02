@@ -40,7 +40,10 @@ public abstract class Person
   {
     password = aPassword;
     name = aName;
-    email = aEmail;
+    if (!setEmail(aEmail))
+    {
+      throw new RuntimeException("Cannot create due to duplicate email. See http://manual.umple.org?RE003ViolationofUniqueness.html");
+    }
   }
   
   public Person() {
@@ -51,10 +54,13 @@ public abstract class Person
   // INTERFACE
   //------------------------
 
-  public void setEmail(String aEmail)
+  public boolean setEmail(String aEmail)
   {
-      this.email = aEmail;
+    this.email = aEmail;
+    
+    return true;
   }
+  
 
   public boolean setPassword(String aPassword)
   {
