@@ -95,11 +95,11 @@ public class Store
     return aDailySchedule;
   }
 
-  @OneToMany(cascade={CascadeType.ALL})
+  //@OneToMany(cascade={CascadeType.ALL})
+  @ManyToMany(fetch = FetchType.EAGER)
   public List<DailySchedule> getDailySchedules()
-  {
-    
-    return dailySchedules;
+  {    
+    return this.dailySchedules;
   }
   
   public void setDailySchedules(List<DailySchedule> dailySchedules)
@@ -160,30 +160,30 @@ public class Store
     }
     return wasRemoved;
   }
-  /* Code from template association_SetUnidirectionalOptionalN */
-  public boolean setDailySchedules(DailySchedule... newDailySchedules)
-  {
-    boolean wasSet = false;
-    ArrayList<DailySchedule> verifiedDailySchedules = new ArrayList<DailySchedule>();
-    for (DailySchedule aDailySchedule : newDailySchedules)
-    {
-      if (verifiedDailySchedules.contains(aDailySchedule))
-      {
-        continue;
-      }
-      verifiedDailySchedules.add(aDailySchedule);
-    }
-
-    if (verifiedDailySchedules.size() != newDailySchedules.length || verifiedDailySchedules.size() > maximumNumberOfDailySchedules())
-    {
-      return wasSet;
-    }
-
-    dailySchedules.clear();
-    dailySchedules.addAll(verifiedDailySchedules);
-    wasSet = true;
-    return wasSet;
-  }
+//  /* Code from template association_SetUnidirectionalOptionalN */
+//  public boolean setDailySchedules(DailySchedule... newDailySchedules)
+//  {
+//    boolean wasSet = false;
+//    ArrayList<DailySchedule> verifiedDailySchedules = new ArrayList<DailySchedule>();
+//    for (DailySchedule aDailySchedule : newDailySchedules)
+//    {
+//      if (verifiedDailySchedules.contains(aDailySchedule))
+//      {
+//        continue;
+//      }
+//      verifiedDailySchedules.add(aDailySchedule);
+//    }
+//
+//    if (verifiedDailySchedules.size() != newDailySchedules.length || verifiedDailySchedules.size() > maximumNumberOfDailySchedules())
+//    {
+//      return wasSet;
+//    }
+//
+//    dailySchedules.clear();
+//    dailySchedules.addAll(verifiedDailySchedules);
+//    wasSet = true;
+//    return wasSet;
+//  }
   /* Code from template association_AddIndexControlFunctions */
   public boolean addDailyScheduleAt(DailySchedule aDailySchedule, int index)
   {  

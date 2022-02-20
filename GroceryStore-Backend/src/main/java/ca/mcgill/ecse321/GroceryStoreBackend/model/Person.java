@@ -11,8 +11,9 @@ import javax.persistence.*;
 
 // line 11 "model.ump"
 // line 161 "model.ump"
+
 @Entity
-@Table(name = "Accounts")
+@Table(name = "person")
 public abstract class Person
 {
 

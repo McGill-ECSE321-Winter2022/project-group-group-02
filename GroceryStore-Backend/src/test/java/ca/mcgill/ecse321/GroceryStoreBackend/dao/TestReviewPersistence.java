@@ -60,7 +60,7 @@ public class TestReviewPersistence {
       customer.setName(name);
       
       
-      customerRepository.save(customer);
+
       
       OrderType orderType = OrderType.Delivery;
       OrderStatus orderStatus = OrderStatus.Confirmed;
@@ -75,7 +75,7 @@ public class TestReviewPersistence {
       order.setOrderStatus(orderStatus);
       order.setOrderType(orderType);
       order.setId(orderId);
-      orderRepository.save(order);
+
       
       
       Long reviewId = (long) 21;
@@ -89,8 +89,8 @@ public class TestReviewPersistence {
       review.setCustomer(customer);
       review.setId(reviewId);
       
-      
-      
+      customerRepository.save(customer);
+      orderRepository.save(order);
       reviewRepository.save(review);
 
       review = null;
