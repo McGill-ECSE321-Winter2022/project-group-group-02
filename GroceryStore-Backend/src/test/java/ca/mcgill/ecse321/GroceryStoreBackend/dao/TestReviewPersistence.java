@@ -38,12 +38,20 @@ public class TestReviewPersistence {
   @Autowired
   private CustomerRepository customerRepository;
   
+  @Autowired
+  private ShoppableItemRepository shoppableItemRepository;
+  
+  @Autowired
+  private OrderItemRepository orderItemRepository;
+  
   @AfterEach
   public void clearDatabase() {
     
       reviewRepository.deleteAll();
       orderRepository.deleteAll();
+      orderItemRepository.deleteAll();
       customerRepository.deleteAll();
+      shoppableItemRepository.deleteAll();
   }
   
   @Test
@@ -63,6 +71,26 @@ public class TestReviewPersistence {
       customerRepository.save(customer);
 
       
+      String itemName = "Milk";
+      double price = 4.65;
+      int quantityAvailable = 10;
+      ShoppableItem shoppableItem = new ShoppableItem ();
+      shoppableItem.setName(itemName);
+      shoppableItem.setPrice(price);
+      shoppableItem.setQuantityAvailable(quantityAvailable);
+      shoppableItemRepository.save(shoppableItem);
+      
+      
+      Long orderItemId = (long) 1234;
+      int quantityWanted = 2;
+      OrderItem orderItem = new OrderItem();
+      
+      orderItem.setQuantity(quantityWanted);
+      orderItem.setItem(shoppableItem);
+      orderItem.setId(orderItemId);
+      orderItemRepository.save(orderItem);
+      
+      
       OrderType orderType = OrderType.Delivery;
       OrderStatus orderStatus = OrderStatus.Confirmed;
       Date date = new Date(0);
@@ -76,7 +104,8 @@ public class TestReviewPersistence {
       order.setOrderStatus(orderStatus);
       order.setOrderType(orderType);
       order.setId(orderId);
-
+      order.addOrderItem(orderItem);
+      
       orderRepository.save(order);
 
       

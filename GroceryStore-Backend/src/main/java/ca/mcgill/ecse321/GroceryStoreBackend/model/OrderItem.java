@@ -10,7 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 // line 52 "model.ump"
 // line 131 "model.ump"
 @Entity
-@Table(name="OrderItems")
+@Table(name="OrderedItems")
 public class OrderItem
 {
 
@@ -25,7 +25,7 @@ public class OrderItem
   //OrderItem Associations
   private ShoppableItem item;
   //private Order order;
-
+  
   //------------------------
   // CONSTRUCTOR
   //------------------------

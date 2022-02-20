@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -28,14 +30,23 @@ public class TestOrderItemPersistence {
   @Autowired
   private OrderItemRepository orderItemRepository;
   
-  
   @Autowired
   private ShoppableItemRepository shoppableItemRepository;
   
+  @Autowired
+  private CustomerRepository customerRepository;
+  
+  @Autowired
+  private OrderRepository orderRepository;
+  
   @AfterEach
   public void clearDatabase() {
+    
+    orderRepository.deleteAll();
     orderItemRepository.deleteAll();
     shoppableItemRepository.deleteAll();
+    customerRepository.deleteAll();
+
     
   }
   
@@ -47,21 +58,22 @@ public class TestOrderItemPersistence {
     String itemName = "Milk";
     double price = 4.65;
     int quantityAvailable = 10;
-    ShoppableItem shoppableItem = new ShoppableItem (itemName, price, quantityAvailable);
-    
+    ShoppableItem shoppableItem = new ShoppableItem ();
+    shoppableItem.setName(itemName);
+    shoppableItem.setPrice(price);
+    shoppableItem.setQuantityAvailable(quantityAvailable);
     shoppableItemRepository.save(shoppableItem);
+    
     
     
     Long orderItemId = (long) 1234;
     int quantityWanted = 2;
     OrderItem orderItem = new OrderItem();
-    
     orderItem.setQuantity(quantityWanted);
     orderItem.setItem(shoppableItem);
     orderItem.setId(orderItemId);
     
- 
-   
+    
     orderItemRepository.save(orderItem);
 
     orderItem = null;

@@ -31,14 +31,25 @@ public class TestOrderPersistence {
   @Autowired
   private CustomerRepository customerRepository;
   
+  @Autowired
+  private ShoppableItemRepository shoppableItemRepository;
+  
+  @Autowired
+  private OrderItemRepository orderItemRepository;
+  
   @AfterEach
   public void clearDatabase() {
+      
       orderRepository.deleteAll();
+      orderItemRepository.deleteAll();
+      shoppableItemRepository.deleteAll();
       customerRepository.deleteAll();
+      
   }
   
   @Test
   public void testPersistAndLoadOrder() {
+    
     String name = "testCustomer";
     String email = "testCustomer@mail.com";
     String password = "testPassword";
@@ -52,6 +63,27 @@ public class TestOrderPersistence {
     customer = customerRepository.save(customer);
 
     
+    String itemName = "Milk";
+    double price = 4.65;
+    int quantityAvailable = 10;
+    ShoppableItem shoppableItem = new ShoppableItem ();
+    shoppableItem.setName(itemName);
+    shoppableItem.setPrice(price);
+    shoppableItem.setQuantityAvailable(quantityAvailable);
+    shoppableItemRepository.save(shoppableItem);
+    
+    
+    
+    Long orderItemId = (long) 1234;
+    int quantityWanted = 2;
+    OrderItem orderItem = new OrderItem();
+    
+    orderItem.setQuantity(quantityWanted);
+    orderItem.setItem(shoppableItem);
+    orderItem.setId(orderItemId);
+    orderItemRepository.save(orderItem);
+    
+    
     Long orderId = (long) 1234;
     OrderType orderType = OrderType.Delivery;
     OrderStatus orderStatus = OrderStatus.Confirmed;
@@ -64,8 +96,10 @@ public class TestOrderPersistence {
     order.setTime(time);
     order.setCustomer(customer);
     order.setId(orderId);
+    order.addOrderItem(orderItem);
    
 
+    
     orderRepository.save(order);
 
 

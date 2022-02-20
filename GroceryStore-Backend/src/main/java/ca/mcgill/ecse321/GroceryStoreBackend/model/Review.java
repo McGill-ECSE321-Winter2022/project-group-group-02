@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 // line 79 "model.ump"
 // line 137 "model.ump"
 @Entity
+@Table(name="Reviews")
 public class Review
 {
 
@@ -105,7 +106,7 @@ public class Review
   }
   
   /* Code from template association_GetOne */
-  @ManyToOne(optional=false)
+  @OneToOne(optional=false)
   public Order getOrder()
   {
     return order;
