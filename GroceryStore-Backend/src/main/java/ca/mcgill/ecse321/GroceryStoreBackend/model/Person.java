@@ -13,7 +13,7 @@ import javax.persistence.*;
 // line 161 "model.ump"
 
 @Entity
-@DiscriminatorColumn(name = "TYPE")
+@Table(name="Accounts")
 public abstract class Person
 {
 
@@ -21,16 +21,16 @@ public abstract class Person
   // STATIC VARIABLES
   //------------------------
 
-//  private static Map<String, Person> personsByEmail = new HashMap<String, Person>();
+  private static Map<String, Person> personsByEmail = new HashMap<String, Person>();
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //Person Attributes
-  protected String email;
-  protected String password;
-  protected String name;
+  private String email;
+  private String password;
+  private String name;
 
   //------------------------
   // CONSTRUCTOR
@@ -78,17 +78,17 @@ public abstract class Person
     return email;
   }
   
-//  /* Code from template attribute_GetUnique */
-//  public static Person getWithEmail(String aEmail)
-//  {
-//    return personsByEmail.get(aEmail);
-//  }
-//  
-//  /* Code from template attribute_HasUnique */
-//  public static boolean hasWithEmail(String aEmail)
-//  {
-//    return getWithEmail(aEmail) != null;
-//  }
+  /* Code from template attribute_GetUnique */
+  public static Person getWithEmail(String aEmail)
+  {
+    return personsByEmail.get(aEmail);
+  }
+  
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithEmail(String aEmail)
+  {
+    return getWithEmail(aEmail) != null;
+  }
 
   public String getPassword()
   {
@@ -102,8 +102,8 @@ public abstract class Person
 
   public void delete()
   {
-    //personsByEmail.remove(getEmail());
-    this.delete();
+    personsByEmail.remove(getEmail());
+
   }
 
 

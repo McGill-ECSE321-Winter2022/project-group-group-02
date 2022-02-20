@@ -18,6 +18,8 @@ public class Owner extends Person
   //------------------------
 
   //Owner Attributes
+  private String email;
+  private String password;
 
   //------------------------
   // CONSTRUCTOR
@@ -41,6 +43,18 @@ public class Owner extends Person
   public void delete()
   {
     super.delete();
+  }
+  
+  public String getPassword()
+  {
+    
+    return super.getPassword();
+  }
+  
+  public boolean setPassword(String aPassword)
+  {
+    
+    return super.setPassword(aPassword);
   }
 
 

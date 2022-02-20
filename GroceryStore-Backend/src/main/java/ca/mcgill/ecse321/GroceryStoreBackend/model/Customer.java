@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 // line 24 "model.ump"
 // line 96 "model.ump"
+
 @Entity
 public class Customer extends Person
 {

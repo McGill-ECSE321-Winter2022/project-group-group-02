@@ -95,8 +95,7 @@ public class Store
     return aDailySchedule;
   }
 
-  //@OneToMany(cascade={CascadeType.ALL})
-  @ManyToMany(fetch = FetchType.EAGER)
+  @OneToMany(cascade={CascadeType.ALL})
   public List<DailySchedule> getDailySchedules()
   {    
     return this.dailySchedules;

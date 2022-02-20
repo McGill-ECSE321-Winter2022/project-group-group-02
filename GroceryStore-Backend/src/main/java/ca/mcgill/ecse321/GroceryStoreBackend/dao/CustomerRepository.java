@@ -6,7 +6,7 @@ import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 
 public interface CustomerRepository extends CrudRepository<Customer, String>{
 
-	Customer findCustomerByEmail(String email);
-	boolean existsCustomerByEmail(String email);
+	Customer findByEmail(String email);
+	boolean existsByEmail(String email);
 
 }

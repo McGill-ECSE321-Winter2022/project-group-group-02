@@ -27,6 +27,7 @@ public class TestCustomerPersistence {
   @Autowired
   private CustomerRepository customerRepository;
   
+  
   @AfterEach
   public void clearDatabase() {
       customerRepository.deleteAll();
@@ -49,7 +50,7 @@ public class TestCustomerPersistence {
 
       customer = null;
 
-      customer = customerRepository.findCustomerByEmail(email);
+      customer = customerRepository.findByEmail(email);
       assertNotNull(customer);
       assertEquals(name, customer.getName());
       assertEquals(password, customer.getPassword());

@@ -18,6 +18,7 @@ public class Employee extends Person
 
   //Employee Attributes
   private double salary;
+  private String password;
 
   //Employee Associations
   private List<DailySchedule> dailySchedules;
@@ -30,7 +31,7 @@ public class Employee extends Person
   {
     super(aEmail, aPassword, aName);
     salary = aSalary;
-    super.password = "1234";
+    password = "1234";
     dailySchedules = new ArrayList<DailySchedule>();
   }
 
@@ -54,6 +55,8 @@ public class Employee extends Person
   {
     return salary;
   }
+  
+  
   
 
 
