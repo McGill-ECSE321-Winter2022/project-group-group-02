@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,6 +51,9 @@ public class TestCustomerPersistence {
 
       customer = customerRepository.findCustomerByEmail(email);
       assertNotNull(customer);
+      assertEquals(name, customer.getName());
+      assertEquals(password, customer.getPassword());
+      assertEquals(address, customer.getAddress());
       assertEquals(email, customer.getEmail());
   }
   

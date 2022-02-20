@@ -7,9 +7,6 @@ import ca.mcgill.ecse321.GroceryStoreBackend.model.Order;
 
 public interface OrderRepository extends CrudRepository<Order, Long> {
     
-  List<Order> findOrderByCustomer(Customer customerEmail);
-  
-  boolean existsByCustomer(Customer customerEmail);
   
   Order findOrderById(Long orderId);
   

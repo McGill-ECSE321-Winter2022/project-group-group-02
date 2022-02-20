@@ -40,6 +40,7 @@ public class TestReviewPersistence {
   
   @AfterEach
   public void clearDatabase() {
+    
       reviewRepository.deleteAll();
       orderRepository.deleteAll();
       customerRepository.deleteAll();
@@ -59,7 +60,7 @@ public class TestReviewPersistence {
       customer.setPassword(password);
       customer.setName(name);
       
-      
+      customerRepository.save(customer);
 
       
       OrderType orderType = OrderType.Delivery;
@@ -76,7 +77,8 @@ public class TestReviewPersistence {
       order.setOrderType(orderType);
       order.setId(orderId);
 
-      
+      orderRepository.save(order);
+
       
       Long reviewId = (long) 21;
       String description = "The order was processed quickly";
@@ -85,12 +87,11 @@ public class TestReviewPersistence {
       
       review.setRating(rating);
       review.setDescription(description);
+      review.setId(reviewId);
       review.setOrder(order);
       review.setCustomer(customer);
-      review.setId(reviewId);
       
-      customerRepository.save(customer);
-      orderRepository.save(order);
+      
       reviewRepository.save(review);
 
       review = null;

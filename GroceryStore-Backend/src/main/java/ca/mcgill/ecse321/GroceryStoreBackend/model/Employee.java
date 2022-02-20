@@ -18,7 +18,6 @@ public class Employee extends Person
 
   //Employee Attributes
   private double salary;
-  private String password;
 
   //Employee Associations
   private List<DailySchedule> dailySchedules;
@@ -31,7 +30,7 @@ public class Employee extends Person
   {
     super(aEmail, aPassword, aName);
     salary = aSalary;
-    password = "1234";
+    super.password = "1234";
     dailySchedules = new ArrayList<DailySchedule>();
   }
 
@@ -50,13 +49,6 @@ public class Employee extends Person
     return wasSet;
   }
 
-  public boolean setPassword(String aPassword)
-  {
-    boolean wasSet = false;
-    password = aPassword;
-    wasSet = true;
-    return wasSet;
-  }
 
   public double getSalary()
   {
@@ -64,10 +56,7 @@ public class Employee extends Person
   }
   
 
-  public String getPassword()
-  {
-    return password;
-  }
+
   /* Code from template association_GetMany */
   public DailySchedule getDailySchedule(int index)
   {

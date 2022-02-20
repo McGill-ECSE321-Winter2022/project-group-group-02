@@ -49,7 +49,8 @@ public class TestOrderPersistence {
     customer.setPassword(password);
     customer.setAddress(address);
     
-    
+    customer = customerRepository.save(customer);
+
     
     Long orderId = (long) 1234;
     OrderType orderType = OrderType.Delivery;
@@ -64,8 +65,9 @@ public class TestOrderPersistence {
     order.setCustomer(customer);
     order.setId(orderId);
    
-    customerRepository.save(customer);
+
     orderRepository.save(order);
+
 
     order = null;
 

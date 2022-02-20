@@ -15,7 +15,7 @@ import java.util.*;
 // line 67 "model.ump"
 // line 124 "model.ump"
 @Entity
-@Table(name = "Orders")
+@Table(name = "orders")
 public class Order
 {
 
@@ -52,10 +52,7 @@ public class Order
     orderStatus = aOrderStatus;
     date = aDate;
     time = aTime;
-    if (!setCustomer(aCustomer))
-    {
-      throw new RuntimeException("Unable to create Order due to aCustomer. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
+    setCustomer(aCustomer);
     orderItems = new ArrayList<OrderItem>();
   }
   
@@ -131,18 +128,18 @@ public class Order
     return time;
   }
   /* Code from template association_GetOne */
-  @ManyToOne(optional=false)
+  @ManyToOne
   public Customer getCustomer()
   {
     return customer;
   }
-//  /* Code from template association_GetMany */
-//
-//  public OrderItem getOrderItem(int index)
-//  {
-//    OrderItem aOrderItem = orderItems.get(index);
-//    return aOrderItem;
-//  }
+  /* Code from template association_GetMany */
+
+  public OrderItem getOrderItem(int index)
+  {
+    OrderItem aOrderItem = orderItems.get(index);
+    return aOrderItem;
+  }
   
   public boolean setOrderItems(List<OrderItem> orderItems) {
 	  this.orderItems = orderItems;
@@ -173,15 +170,9 @@ public class Order
 //    return index;
 //  }
   /* Code from template association_SetUnidirectionalOne */
-  public boolean setCustomer(Customer aNewCustomer)
+  public void setCustomer(Customer aNewCustomer)
   {
-    boolean wasSet = false;
-    if (aNewCustomer != null)
-    {
-      customer = aNewCustomer;
-      wasSet = true;
-    }
-    return wasSet;
+    customer = aNewCustomer;
   }
 //  /* Code from template association_MinimumNumberOfMethod */
 //  public static int minimumNumberOfOrderItems()

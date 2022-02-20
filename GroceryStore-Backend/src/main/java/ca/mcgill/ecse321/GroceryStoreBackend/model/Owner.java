@@ -18,8 +18,6 @@ public class Owner extends Person
   //------------------------
 
   //Owner Attributes
-  private String email;
-  private String password;
 
   //------------------------
   // CONSTRUCTOR
@@ -39,21 +37,6 @@ public class Owner extends Person
   // INTERFACE
   //------------------------
 
-
-
-  public boolean setPassword(String aPassword)
-  {
-    boolean wasSet = false;
-    password = aPassword;
-    wasSet = true;
-    return wasSet;
-  }
-
-
-  public String getPassword()
-  {
-    return password;
-  }
 
   public void delete()
   {

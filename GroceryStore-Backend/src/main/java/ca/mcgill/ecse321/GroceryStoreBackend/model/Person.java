@@ -13,7 +13,7 @@ import javax.persistence.*;
 // line 161 "model.ump"
 
 @Entity
-@Table(name = "person")
+@Table(name = "Accounts")
 public abstract class Person
 {
 
@@ -21,16 +21,16 @@ public abstract class Person
   // STATIC VARIABLES
   //------------------------
 
-  private static Map<String, Person> personsByEmail = new HashMap<String, Person>();
+//  private static Map<String, Person> personsByEmail = new HashMap<String, Person>();
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //Person Attributes
-  private String email;
-  private String password;
-  private String name;
+  protected String email;
+  protected String password;
+  protected String name;
 
   //------------------------
   // CONSTRUCTOR
@@ -40,25 +40,20 @@ public abstract class Person
   {
     password = aPassword;
     name = aName;
-    if (!setEmail(aEmail))
-    {
-      throw new RuntimeException("Cannot create due to duplicate email. See http://manual.umple.org?RE003ViolationofUniqueness.html");
-    }
+    email = aEmail;
   }
   
   public Person() {
-    super();
+      
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setEmail(String aEmail)
+  public void setEmail(String aEmail)
   {
-      
       this.email = aEmail;
-      return true;
   }
 
   public boolean setPassword(String aPassword)
@@ -83,17 +78,17 @@ public abstract class Person
     return email;
   }
   
-  /* Code from template attribute_GetUnique */
-  public static Person getWithEmail(String aEmail)
-  {
-    return personsByEmail.get(aEmail);
-  }
-  
-  /* Code from template attribute_HasUnique */
-  public static boolean hasWithEmail(String aEmail)
-  {
-    return getWithEmail(aEmail) != null;
-  }
+//  /* Code from template attribute_GetUnique */
+//  public static Person getWithEmail(String aEmail)
+//  {
+//    return personsByEmail.get(aEmail);
+//  }
+//  
+//  /* Code from template attribute_HasUnique */
+//  public static boolean hasWithEmail(String aEmail)
+//  {
+//    return getWithEmail(aEmail) != null;
+//  }
 
   public String getPassword()
   {
@@ -107,7 +102,8 @@ public abstract class Person
 
   public void delete()
   {
-    personsByEmail.remove(getEmail());
+    //personsByEmail.remove(getEmail());
+    this.delete();
   }
 
 
