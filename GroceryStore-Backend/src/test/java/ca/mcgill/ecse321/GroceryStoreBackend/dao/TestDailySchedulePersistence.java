@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.dao;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -21,47 +20,42 @@ import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule.DayOfWeek;
 @SpringBootTest
 public class TestDailySchedulePersistence {
 
-  
-  @Autowired
-  EntityManager entityManager;
-  
-  @Autowired
-  private DailyScheduleRepository DailyScheduleRepository;
-  
-  @AfterEach
-  public void clearDatabase() {
-    DailyScheduleRepository.deleteAll();
-  }
-  
-  @Test
-  public void testPersistAndLoadDailySchedule() {
-      
-    
-     
-      DayOfWeek dayofweek = DayOfWeek.Monday;
-      Time startTime = Time.valueOf("08:00:00");
-      Time endTime = Time.valueOf("20:00:00");
-      Long id = (long) 321;
-      
-      DailySchedule dailyschedule = new DailySchedule();
-      dailyschedule.setDayOfWeek(dayofweek);
-      dailyschedule.setStartTime(startTime);
-      dailyschedule.setEndTime(endTime);
-      dailyschedule.setId(id);
-      
-      DailyScheduleRepository.save(dailyschedule);
-      //The id is being changed after save, we have no idea how to get it
-      //Except that it is increasing starting from 1
-      
+	@Autowired
+	EntityManager entityManager;
 
-      dailyschedule = null;
+	@Autowired
+	private DailyScheduleRepository DailyScheduleRepository;
 
-      
-      
-      dailyschedule = DailyScheduleRepository.findDailyScheduleById(id);
-      
-      assertNotNull(dailyschedule);
-      assertEquals(dayofweek, dailyschedule.getDayOfWeek());
-  }
-  
+	@AfterEach
+	public void clearDatabase() {
+		DailyScheduleRepository.deleteAll();
+	}
+
+	@Test
+	public void testPersistAndLoadDailySchedule() {
+
+		
+		// Creation of an UnavailableItem instance, and set its attributes to test attributes
+		DayOfWeek dayOfWeek = DayOfWeek.Monday;
+		Time startTime = Time.valueOf("08:00:00");
+		Time endTime = Time.valueOf("20:00:00");
+		Long id = (long) 321;
+		DailySchedule dailySchedule = new DailySchedule();
+		dailySchedule.setDayOfWeek(dayOfWeek);
+		dailySchedule.setStartTime(startTime);
+		dailySchedule.setEndTime(endTime);
+		dailySchedule.setId(id);
+
+		// Save the created instance
+		DailyScheduleRepository.save(dailySchedule);
+
+		// Set the variable to null, and then try retrieving the saved instance using its id
+		dailySchedule = null;
+		dailySchedule = DailyScheduleRepository.findDailyScheduleById(id);
+
+		// Determine whether the instance is null and if the attribute dayOfWeek matches.
+		assertNotNull(dailySchedule);
+		assertEquals(dayOfWeek, dailySchedule.getDayOfWeek());
+	}
+
 }

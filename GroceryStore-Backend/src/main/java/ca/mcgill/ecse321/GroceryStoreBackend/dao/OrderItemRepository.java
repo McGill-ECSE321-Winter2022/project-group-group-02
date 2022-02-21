@@ -6,7 +6,6 @@ import ca.mcgill.ecse321.GroceryStoreBackend.model.OrderItem;
 
 
 public interface OrderItemRepository extends CrudRepository<OrderItem, Long>  {
-
     
   OrderItem findOrderItemById(Long orderItemId);
     

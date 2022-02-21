@@ -1,123 +1,97 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
-
-
 import java.util.*;
-
-
 import javax.persistence.*;
 
-// line 11 "model.ump"
-// line 161 "model.ump"
-
 @Entity
-@Table(name="Persons")
-public abstract class Person
-{
+@Table(name = "Persons")
+public abstract class Person {
 
-  //------------------------
-  // STATIC VARIABLES
-  //------------------------
+	// ------------------------
+	// STATIC VARIABLES
+	// ------------------------
 
-  private static Map<String, Person> personsByEmail = new HashMap<String, Person>();
+	private static Map<String, Person> personsByEmail = new HashMap<String, Person>();
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+	// ------------------------
+	// MEMBER VARIABLES
+	// ------------------------
 
-  //Person Attributes
-  private String email;
-  private String password;
-  private String name;
+	// Person Attributes
+	private String email;
+	private String password;
+	private String name;
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
+	// ------------------------
+	// CONSTRUCTOR
+	// ------------------------
 
-  public Person(String aEmail, String aPassword, String aName)
-  {
-    password = aPassword;
-    name = aName;
-    if (!setEmail(aEmail))
-    {
-      throw new RuntimeException("Cannot create due to duplicate email. See http://manual.umple.org?RE003ViolationofUniqueness.html");
-    }
-  }
-  
-  public Person() {
-      
-  }
+	public Person(String aEmail, String aPassword, String aName) {
+		password = aPassword;
+		name = aName;
+		if (!setEmail(aEmail)) {
+			throw new RuntimeException(
+					"Cannot create due to duplicate email. See http://manual.umple.org?RE003ViolationofUniqueness.html");
+		}
+	}
 
-  //------------------------
-  // INTERFACE
-  //------------------------
+	public Person() {
+	}
 
-  public boolean setEmail(String aEmail)
-  {
-    this.email = aEmail;
-    
-    return true;
-  }
-  
+	// ------------------------
+	// INTERFACE
+	// ------------------------
 
-  public boolean setPassword(String aPassword)
-  {
-    boolean wasSet = false;
-    password = aPassword;
-    wasSet = true;
-    return wasSet;
-  }
+	public boolean setEmail(String aEmail) {
+		this.email = aEmail;
 
-  public boolean setName(String aName)
-  {
-    boolean wasSet = false;
-    name = aName;
-    wasSet = true;
-    return wasSet;
-  }
+		return true;
+	}
 
-  @Id
-  public String getEmail()
-  {
-    return email;
-  }
-  
-  /* Code from template attribute_GetUnique */
-  public static Person getWithEmail(String aEmail)
-  {
-    return personsByEmail.get(aEmail);
-  }
-  
-  /* Code from template attribute_HasUnique */
-  public static boolean hasWithEmail(String aEmail)
-  {
-    return getWithEmail(aEmail) != null;
-  }
+	public boolean setPassword(String aPassword) {
+		boolean wasSet = false;
+		password = aPassword;
+		wasSet = true;
+		return wasSet;
+	}
 
-  public String getPassword()
-  {
-    return password;
-  }
+	public boolean setName(String aName) {
+		boolean wasSet = false;
+		name = aName;
+		wasSet = true;
+		return wasSet;
+	}
 
-  public String getName()
-  {
-    return name;
-  }
+	@Id
+	public String getEmail() {
+		return email;
+	}
 
-  public void delete()
-  {
-    personsByEmail.remove(getEmail());
+	/* Code from template attribute_GetUnique */
+	public static Person getWithEmail(String aEmail) {
+		return personsByEmail.get(aEmail);
+	}
 
-  }
+	/* Code from template attribute_HasUnique */
+	public static boolean hasWithEmail(String aEmail) {
+		return getWithEmail(aEmail) != null;
+	}
 
+	public String getPassword() {
+		return password;
+	}
 
-  public String toString()
-  {
-    return super.toString() + "["+
-            "email" + ":" + getEmail()+ "," +
-            "password" + ":" + getPassword()+ "," +
-            "name" + ":" + getName()+ "]";
-  }
+	public String getName() {
+		return name;
+	}
+
+	public void delete() {
+		personsByEmail.remove(getEmail());
+
+	}
+
+	public String toString() {
+		return super.toString() + "[" + "email" + ":" + getEmail() + "," + "password" + ":" + getPassword() + ","
+				+ "name" + ":" + getName() + "]";
+	}
 }

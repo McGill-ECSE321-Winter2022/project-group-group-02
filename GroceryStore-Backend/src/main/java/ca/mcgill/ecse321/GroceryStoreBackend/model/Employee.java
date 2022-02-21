@@ -1,13 +1,8 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
-
-
 import java.util.*;
 import javax.persistence.*;
-// line 38 "model.ump"
-// line 101 "model.ump"
+
 @Entity
 public class Employee extends Person
 {
@@ -30,8 +25,8 @@ public class Employee extends Person
   public Employee(String aEmail, String aPassword, String aName, double aSalary)
   {
     super(aEmail, aPassword, aName);
-    salary = aSalary;
     password = "1234";
+    salary = aSalary;
     dailySchedules = new ArrayList<DailySchedule>();
   }
 
