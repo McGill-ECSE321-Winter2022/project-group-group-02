@@ -33,11 +33,8 @@ public class TestEmployeePersistence {
   
   @Test
   public void testPersistAndLoadCustomer() {
-      
-    
-    
-    
-    
+		
+	  // Creation of an Employee instance with test attributes
       String name = "test employee";
       String email = "testEmployee@mail.com";
       String password = "testPassword";
@@ -48,14 +45,16 @@ public class TestEmployeePersistence {
       employee.setPassword(password);
       employee.setSalary(salary);
       
+      // Save the created Employee instance
       employeeRepository.save(employee);
 
-
+	  // Set the variable to null, and then try retrieving the saved instance using its email
       employee = null;
-
       employee = employeeRepository.findByEmail(email);
+      
+      // Determine whether the instance is null and if the name matches.
       assertNotNull(employee);
-      assertEquals(email, employee.getEmail());
+      assertEquals(name, employee.getName());
   }
   
 }

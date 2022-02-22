@@ -41,8 +41,8 @@ public class TestUnavailableItemPersistence {
 		unavailableItem = null; 
 		unavailableItem = unavailableItemRepository.findByName(name);
 		
-		// Determine whether the instance is null and if the attribute name match.
+		// Determine whether the instance is null and if the attribute price matches
 		assertNotNull(unavailableItem);
-		assertEquals(name, unavailableItem.getName());
+		assertEquals(price, unavailableItem.getPrice());
 	}
 }

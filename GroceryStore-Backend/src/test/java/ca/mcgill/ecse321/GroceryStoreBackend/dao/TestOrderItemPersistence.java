@@ -46,7 +46,7 @@ public class TestOrderItemPersistence {
 		
 		// Creation of a ShoppableItem instance with test attributes
 		String itemName = "Milk";
-		double price = 4.65;
+		double price = 4.6;
 		int quantityAvailable = 10;
 		ShoppableItem shoppableItem = new ShoppableItem();
 		shoppableItem.setName(itemName);
@@ -73,9 +73,11 @@ public class TestOrderItemPersistence {
 		orderItem = null;
 		orderItem = orderItemRepository.findOrderItemById(orderItemId);
 		
-		// Determine whether the instance is null and if the attribute deliveryFee matches.
+		// Determine whether the instance is null, if the attribute quantity matches, and if the reference to ShoppableItem matches
 		assertNotNull(orderItem);
-		assertEquals(orderItemId, orderItem.getId());
+		assertEquals(quantityWanted, orderItem.getQuantity());
+		assertEquals(shoppableItem.getName(), orderItem.getItem().getName()); // Checking by name because it's the ShoppableItem's id
+
 	}
 
 }

@@ -44,8 +44,8 @@ public class TestShoppableItemPersistence {
 		shoppableItem = null;
 		shoppableItem = shoppableItemRepository.findByName(name);
 		
-		// Determine whether the instance is null and if the attribute deliveryFee matches.
+		// Determine whether the instance is null and if the attribute quantityAvailable matches.
 		assertNotNull(shoppableItem);
-		assertEquals(name, shoppableItem.getName());
+		assertEquals(quantityAvailable, shoppableItem.getQuantityAvailable());
 	}
 }

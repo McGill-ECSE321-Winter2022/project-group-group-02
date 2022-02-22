@@ -110,9 +110,10 @@ public class TestOrderPersistence {
 		order = null;
 		order = orderRepository.findOrderById(orderId);
 		
-		// Determine whether the instance is null and if the attribute deliveryFee matches.
+		// Determine whether the instance is null, if the attribute orderType matches and if the reference to customer matches.
 		assertNotNull(order);
-		assertEquals(orderId, order.getId());
+		assertEquals(orderType, order.getOrderType());
+		assertEquals(customer.getEmail(), order.getCustomer().getEmail()); // Checking by email because it's the customer's id
 	}
 
 }

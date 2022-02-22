@@ -47,9 +47,9 @@ public class TestOwnerPersistence {
 		owner = null;
 		owner = ownerRepository.findByEmail(email);
 		
-		// Determine whether the instance is null and if the attribute email matches.
+		// Determine whether the instance is null and if the attribute password matches.
 		assertNotNull(owner);
-		assertEquals(email, owner.getEmail());
+		assertEquals(password, owner.getPassword());
 	}
 
 }

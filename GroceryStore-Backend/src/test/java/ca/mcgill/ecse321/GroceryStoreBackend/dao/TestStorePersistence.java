@@ -57,9 +57,7 @@ public class TestStorePersistence {
 		dailyScheduleRepository.save(dailySchedule);
 
 		// Set the dailySchedules attribute of store, because of the one-to-many association
-		ArrayList<DailySchedule> dailySchedules = new ArrayList<DailySchedule>();
-		dailySchedules.add(dailySchedule);
-		store.setDailySchedules(dailySchedules);
+		store.addDailySchedule(dailySchedule);
 
 		// Save the created Store instance
 		storeRepository.save(store);
@@ -68,9 +66,10 @@ public class TestStorePersistence {
 		store = null;
 		store = storeRepository.findStoreById(id);
 		
-		// Determine whether the instance is null and if the attribute deliveryFee matches.
+		// Determine whether the instance is null, if the attribute deliveryFee matches and if the reference to dailySchedules matches
 		assertNotNull(store);
 		assertEquals(deliveryFee, store.getDeliveryFee());
+		assertEquals(dailySchedule.getId(), store.getDailySchedule(0).getId()); // Checking the ids of all the dailySchedules
 	}
 
 }

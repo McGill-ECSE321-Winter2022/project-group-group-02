@@ -127,9 +127,10 @@ public class TestReviewPersistence {
 		review = null;
 		review = reviewRepository.findReviewById(reviewId);
 		
-		// Determine whether the instance is null and if the attribute description matches.
+		// Determine whether the instance is null, if the attribute description matches and if the reference to order matches.
 		assertNotNull(review);
 		assertEquals(description, review.getDescription());
+		assertEquals(order.getId(), review.getOrder().getId()); // Checking by id because it's the order's id
 
 	}
 
