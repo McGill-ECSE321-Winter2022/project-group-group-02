@@ -27,9 +27,9 @@
 | Ralph Nassar | Requirements, Domain Model, Use-Case Diagrams, Persistence Layer Implementation, Testing of Persistence Layer | 30 |
 | Anaëlle Drai Laguéns | Requirements, Domain Model, Use-Case Diagrams, Persistence Layer Implementation, Testing of Persistence Layer | 30 |
 
-Click for [Project report 1]
+Click for [Project Report Deliverable 1]
 
-[Project report 1]:https://github.com/McGill-ECSE321-Winter2022/project-group-group-02/wiki/Project-Report-Deliverable-1
+[Project Report Deliverable 1]:https://github.com/McGill-ECSE321-Winter2022/project-group-group-02/wiki/Project-Report-Deliverable-1
 
 
 
