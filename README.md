@@ -29,7 +29,7 @@
 
 Click for [Project report 1]
 
-[ project report!]:https://github.com/McGill-ECSE321-Winter2022/project-group-group-02/wiki/Project-Report-Deliverable-1
+[Project report 1]:https://github.com/McGill-ECSE321-Winter2022/project-group-group-02/wiki/Project-Report-Deliverable-1
 
 
 
