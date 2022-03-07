@@ -13,7 +13,7 @@ public class OwnerDto {
 			this.email = email;
 			this.password = password;
 			this.name = name;
-		}
+	}
 
 	public String getEmail() {
 		return email;
