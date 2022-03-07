@@ -1,20 +1,27 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.dto;
 
+import java.util.List;
+
+import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule;
+
 public class EmployeeDto {
 
 	private double salary;
 	private String email;
 	private String password;
 	private String name;
+	private List<DailySchedule> dailySchedules;
+
 
 	public EmployeeDto() {
 		}
 
-	public EmployeeDto(String email, String password, String name, double salary) {
+	public EmployeeDto(String email, String password, String name, double salary, List<DailySchedule> dailySchedules) {
 			this.email = email;
 			this.password = password;
 			this.name = name;
 			this.salary = salary;
+			this.dailySchedules = dailySchedules;
 		}
 
 	public String getEmail() {
@@ -31,6 +38,14 @@ public class EmployeeDto {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public List<DailySchedule> getDailySchedules() {
+		return dailySchedules;
+	}
+
+	public void setDailySchedules(List<DailySchedule> dailySchedules) {
+		this.dailySchedules = dailySchedules;
 	}
 
 }
