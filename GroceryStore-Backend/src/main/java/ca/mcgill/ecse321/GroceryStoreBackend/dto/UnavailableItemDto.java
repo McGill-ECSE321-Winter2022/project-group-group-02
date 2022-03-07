@@ -1,5 +1,5 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.dto;
 
-public class UnavailableItemDto {
+public class UnavailableItemDto extends ItemDto {
 
 }
