@@ -54,7 +54,7 @@ public class GroceryStoreBackendService {
 		employee.setName(name);
 		employee.setSalary(salary);
 		employee.setDailySchedules(dailySchedules);
-		customerRepository.save(employee);
+		employeeRepository.save(employee);
 		return employee;
 	}
 
