@@ -7,5 +7,6 @@ public interface EmployeeRepository extends CrudRepository<Employee, String>{
 
   Employee findByEmail(String email);
   boolean existsByEmail(String email);
+void deleteByEmail(String email);
 
 }

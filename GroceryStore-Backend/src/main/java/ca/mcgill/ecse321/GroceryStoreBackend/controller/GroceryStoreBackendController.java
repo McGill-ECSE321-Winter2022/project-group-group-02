@@ -37,6 +37,21 @@ public class GroceryStoreBackendController {
 		return convertToDto(customer);
 	}
 	
+	@PostMapping(value = { "/customers/{email}", "/customers/{email}/" })
+	public CustomerDto updateCustomer(@PathVariable("email") String email, @RequestParam String password, @RequestParam String name, @RequestParam String address) throws IllegalArgumentException {
+		Customer customer = service.updateCustomer(email, password, name, address);
+		return convertToDto(customer);
+	}
+	
+	@PostMapping(value = { "/customers/{email}", "/customers/{email}/" })
+	public void deleteCustomer(@PathVariable("email") String email) throws Exception {
+		try {
+			service.deleteCustomer(email);
+		} catch (Exception e) {
+			String error = e.getMessage();
+		}
+	}
+	
 	private CustomerDto convertToDto(Customer c) {
 		if (c == null) {
 			throw new IllegalArgumentException("There is no such Customer!");
@@ -54,6 +69,21 @@ public class GroceryStoreBackendController {
 	public EmployeeDto createEmployee(@PathVariable("email") String email, @RequestParam String password, @RequestParam String name, @RequestParam Double salary, @RequestParam List<DailySchedule> dailySchedules) throws IllegalArgumentException {
 		Employee employee = service.createEmployee(email, password, name, salary, dailySchedules);
 		return convertToDto(employee);
+	}
+	
+	@PostMapping(value = { "/employees/{email}", "/employees/{email}/" })
+	public EmployeeDto updateEmployee(@PathVariable("email") String email, @RequestParam String password, @RequestParam String name, @RequestParam Double salary, @RequestParam List<DailySchedule> dailySchedules) throws IllegalArgumentException {
+		Employee employee = service.updateEmployee(email, password, name, salary, dailySchedules);
+		return convertToDto(employee);
+	}
+	
+	@PostMapping(value = { "/employees/{email}", "/employees/{email}/" })
+	public void deleteEmployee(@PathVariable("email") String email) throws Exception {
+		try {
+			service.deleteEmployee(email);
+		} catch (Exception e) {
+			String error = e.getMessage();
+		}
 	}
 	
 	private EmployeeDto convertToDto(Employee e) {
