@@ -16,9 +16,7 @@ public class UnavailableItemService {
 	
 	@Transactional
 	public UnavailableItem createItem(String name, double price) {
-		
-		UnavailableItemRepository unavailableItemRepository;
-		
+				
 		if(name==null || name.equals("")) throw new IllegalArgumentException("Item name cannot be blank");
 		
 		if(price<0) throw new IllegalArgumentException("Item price cannot be negative");
