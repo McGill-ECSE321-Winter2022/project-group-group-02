@@ -4,8 +4,6 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
-import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
-import ca.mcgill.ecse321.GroceryStoreBackend.model.OrderItem;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order.OrderStatus;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order.OrderType;
 
