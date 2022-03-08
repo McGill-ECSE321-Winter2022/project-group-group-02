@@ -79,7 +79,7 @@ public class ReviewService {
   
   
   @Transactional
-  public Review editReview(Long orderId, String newDescription, Rating newRating) {
+  public Review updateReview(Long orderId, String newDescription, Rating newRating) {
 
       Order order = orderRepository.findOrderById(orderId);
       if (order == null) {
