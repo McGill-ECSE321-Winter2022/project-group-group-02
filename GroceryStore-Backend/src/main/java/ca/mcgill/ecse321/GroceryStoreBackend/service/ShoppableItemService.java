@@ -1,16 +1,23 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.*;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.*;
 
+@Service
 public class ShoppableItemService {
 	
 	public ShoppableItemService() {
 		
 	}
 	
+	@Autowired
 	ShoppableItemRepository shoppableItemRepository;
 	
+	@Transactional
 	public ShoppableItem createShoppableItem(String name, double price, int quantityAvailable) {
 		
 		if(name==null || name.equals("")) throw new IllegalArgumentException("Item name cannot be blank");
@@ -32,6 +39,7 @@ public class ShoppableItemService {
 		
 	}
 	
+	@Transactional
 	public ShoppableItem updateShoppableItem(String name, double newPrice, int newQuantityAvailable) {
 		
 		if(newPrice<0) throw new IllegalArgumentException("Item price cannot be negative");
@@ -47,6 +55,7 @@ public class ShoppableItemService {
 		return item;
 	}
 	
+	@Transactional
 	public boolean deleteShoppableItem(String name) {
 		ShoppableItem item = shoppableItemRepository.findByName(name);
 		
@@ -57,6 +66,7 @@ public class ShoppableItemService {
 		return true;
 	}
 	
+	@Transactional
 	public ShoppableItem getShoppableItem(String name) {
 		return shoppableItemRepository.findByName(name);
 	}

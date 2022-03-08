@@ -1,13 +1,20 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.UnavailableItemRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Item;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.UnavailableItem;
 
+@Service
 public class UnavailableItemService {
 	
+	@Autowired
 	UnavailableItemRepository unavailableItemRepository;
 	
+	@Transactional
 	public UnavailableItem createItem(String name, double price) {
 		
 		UnavailableItemRepository unavailableItemRepository;
@@ -28,6 +35,7 @@ public class UnavailableItemService {
 		
 	}
 	
+	@Transactional
 	public UnavailableItem updateUnavailableItem(String name, double newPrice) {
 		
 		if(newPrice<0) throw new IllegalArgumentException("Item price cannot be negative");
@@ -42,6 +50,7 @@ public class UnavailableItemService {
 		
 	}
 	
+	@Transactional
 	public boolean deleteUnavailableItem(String name) {
 		UnavailableItem item = unavailableItemRepository.findByName(name);
 		
@@ -52,6 +61,7 @@ public class UnavailableItemService {
 		return true;
 	}
 	
+	@Transactional
 	public UnavailableItem getUnavailableItem(String name) {
 		return unavailableItemRepository.findByName(name);
 	}
