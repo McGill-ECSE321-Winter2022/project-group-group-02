@@ -27,6 +27,8 @@ public class Owner extends Person
 
   public Owner() {
     super();
+    email = "admin@grocerystore.com";
+    password = "1234";
   }
   //------------------------
   // INTERFACE
