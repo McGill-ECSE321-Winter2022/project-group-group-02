@@ -44,6 +44,7 @@ public class ShoppableItemService {
 		
 		item.setPrice(newPrice);
 		item.setQuantityAvailable(newQuantityAvailable);
+		return item;
 	}
 	
 	public boolean deleteShoppableItem(String name) {

@@ -38,6 +38,7 @@ public class UnavailableItemService {
 		
 		item.setPrice(newPrice);
 		
+		return item;
 		
 	}
 	
