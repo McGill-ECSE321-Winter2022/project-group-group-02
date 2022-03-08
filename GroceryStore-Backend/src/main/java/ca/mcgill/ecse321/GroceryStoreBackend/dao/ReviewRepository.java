@@ -13,5 +13,7 @@ public interface ReviewRepository extends CrudRepository<Review, Long> {
 	Review findByCustomerAndOrder(Customer customerEmail, Order orderId);
 
 	Review findReviewById(Long reviewId);
+	
+	Review findReviewByOrder(Order orderId);
 
 }
