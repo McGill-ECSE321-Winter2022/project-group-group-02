@@ -6,7 +6,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.OrderItemRepository;
-import ca.mcgill.ecse321.GroceryStoreBackend.model.Order;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.OrderItem;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.ShoppableItem;
 
@@ -70,21 +69,7 @@ public class OrderItemService {
       return toList(orderItemRepo.findAll());
   }
   
-  
-  @Transactional
-  public List<OrderItem> getAllOrdersByOrder(Order order) throws IllegalArgumentException {
-    
-    if(order.equals(null)) throw new IllegalArgumentException ("Please enter a valid order. ");
 
-    
-    List<OrderItem> allOrderItemsByOrder = new ArrayList<>();
-   
-    
-    for (OrderItem orderItem : orderItemRepo.findOrderItemByOrder(order)) {
-      allOrderItemsByOrder.add(orderItem);
-    }
-    return allOrderItemsByOrder;
-}
   
   
   

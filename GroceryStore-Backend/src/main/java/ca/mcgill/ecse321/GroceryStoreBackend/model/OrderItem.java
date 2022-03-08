@@ -2,7 +2,6 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "OrderedItems")
