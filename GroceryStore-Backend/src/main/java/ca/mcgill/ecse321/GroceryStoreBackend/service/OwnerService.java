@@ -60,6 +60,11 @@ public class OwnerService {
     Owner owner = ownerRepository.findByEmail(email);
     return owner;
   }
+  
+  @Transactional
+  public List<Owner> getAllOwners(){             
+      return toList(ownerRepository.findAll());
+  }
 
 
   private boolean passwordIsValid(String password) {
