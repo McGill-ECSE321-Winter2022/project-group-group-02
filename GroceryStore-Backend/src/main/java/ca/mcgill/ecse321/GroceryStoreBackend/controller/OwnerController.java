@@ -25,48 +25,50 @@ public class OwnerController {
   @Autowired
   private OwnerService ownerService;
 
-  
-  
-  @GetMapping(value = { "/view_owner" })
+
+
+  @GetMapping(value = {"/view_owner"})
   public List<OwnerDto> getAllOwners() {
-      return ownerService.getAllOwners().stream().map(owner -> convertToDTO(owner)).collect(Collectors.toList());
+    return ownerService.getAllOwners().stream().map(owner -> convertToDTO(owner))
+        .collect(Collectors.toList());
   }
 
-  
-  
+
+
   @GetMapping(value = {"/view_owner/{email}"})
   public OwnerDto viewOwner(@PathVariable("email") String email) {
-      return convertToDTO(ownerService.getOwner(email));
+    return convertToDTO(ownerService.getOwner(email));
   }
-  
-  
+
+
   @PostMapping(value = {"/create_owner"})
-  public ResponseEntity<?> createOwner(@RequestParam("name") String name,@RequestParam("password") String password
-          ,@RequestParam("email") String email) {
+  public ResponseEntity<?> createOwner(@RequestParam("name") String name,
+      @RequestParam("password") String password, @RequestParam("email") String email) {
 
-      Owner owner =null;
+    Owner owner = null;
 
-      try {
-          owner = ownerService.createOwner(email,password,name);
-      }catch(IllegalArgumentException exception) {
-          return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-      }
-      return new ResponseEntity<>(convertToDTO(owner), HttpStatus.CREATED);
+    try {
+      owner = ownerService.createOwner(email, password, name);
+    } catch (IllegalArgumentException exception) {
+      return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    return new ResponseEntity<>(convertToDTO(owner), HttpStatus.CREATED);
   }
-  
-  @PostMapping(value = { "/update_owner/{oldUsername}"})
+
+  @PostMapping(value = {"/update_owner/{oldUsername}"})
   public OwnerDto updateOwner(@PathVariable("email") String email,
-          @RequestParam("newPassword") String newPassword) {
-      Owner owner = ownerService.updateOwner(email, newPassword);
-      return convertToDTO(owner);
+      @RequestParam("newPassword") String newPassword) {
+    Owner owner = ownerService.updateOwner(email, newPassword);
+    return convertToDTO(owner);
   }
-  
-  
+
+
   public static OwnerDto convertToDTO(Owner owner) {
-    if(owner == null) throw new IllegalArgumentException("Owner not found.");
+    if (owner == null)
+      throw new IllegalArgumentException("Owner not found.");
     return new OwnerDto(owner.getEmail(), owner.getPassword(), owner.getName());
   }
-  
-  
-  
+
+
+
 }

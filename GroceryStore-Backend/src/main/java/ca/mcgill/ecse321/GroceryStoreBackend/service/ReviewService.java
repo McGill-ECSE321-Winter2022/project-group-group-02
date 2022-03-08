@@ -122,7 +122,7 @@ public class ReviewService {
   }
 
   @Transactional
-  public Review getReview(Long orderId) {
+  public Review getReviewForOrder(Long orderId) {
 
     Order order = orderRepository.findOrderById(orderId);
     if (order == null) {
@@ -133,7 +133,7 @@ public class ReviewService {
   }
 
   @Transactional
-  public List<Review> viewReviewsForCustomer(String customerEmail) {
+  public List<Review> getReviewsForCustomer(String customerEmail) {
 
     Customer customer = customerRepository.findByEmail(customerEmail);
     if (customer == null) {
