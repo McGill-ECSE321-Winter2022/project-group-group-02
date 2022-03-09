@@ -65,7 +65,7 @@ public class ShoppableItemController {
   @PostMapping(value = {"/update_quantity_available/{Name}"})
   public ShoppableItemDto updateQuantityAvailable(@PathVariable("name") String name,
       @RequestParam("newPrice") int newQuantityAvailable) {
-    ShoppableItem ShoppableItem = shoppableItemService.updateQuantityAvailable(name, newQuantityAvailable);
+    ShoppableItem ShoppableItem = shoppableItemService.replenishInventory(name, newQuantityAvailable);
     return convertToDTO(ShoppableItem);
   }
   

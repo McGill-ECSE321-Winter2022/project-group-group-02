@@ -21,7 +21,7 @@ public class UnavailableItemService {
 	UnavailableItemRepository unavailableItemRepository;
 	
 	@Transactional
-	public UnavailableItem createItem(String name, double price) {
+	public UnavailableItem createUnavailableItem(String name, double price) {
 				
 		if(name==null || name.equals("")) throw new IllegalArgumentException("Item name cannot be blank");
 		

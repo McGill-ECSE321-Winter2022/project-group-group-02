@@ -57,7 +57,7 @@ public class ShoppableItemService {
 	}
 	
 	@Transactional
-	public ShoppableItem updateQuantityAvailable(String name, int newQuantityAvailable) {
+	public ShoppableItem replenishInventory(String name, int newQuantityAvailable) {
 		
 		if(newQuantityAvailable<0) throw new IllegalArgumentException("The quantity cannot be negative");
 				

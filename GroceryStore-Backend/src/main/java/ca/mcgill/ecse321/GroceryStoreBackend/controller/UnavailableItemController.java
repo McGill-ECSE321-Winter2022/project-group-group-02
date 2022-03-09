@@ -48,7 +48,7 @@ public class UnavailableItemController {
     UnavailableItem UnavailableItem = null;
 
     try {
-      UnavailableItem = unavailableItemService.createItem(name, price);
+      UnavailableItem = unavailableItemService.createUnavailableItem(name, price);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
