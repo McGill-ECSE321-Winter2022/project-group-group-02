@@ -29,8 +29,6 @@ import org.mockito.stubbing.Answer;
 
 
 @ExtendWith(MockitoExtension.class)
-public class TestGroceryStoreBackendService {
+public class TestDailyScheduleService {
 
-  
- 
 }
