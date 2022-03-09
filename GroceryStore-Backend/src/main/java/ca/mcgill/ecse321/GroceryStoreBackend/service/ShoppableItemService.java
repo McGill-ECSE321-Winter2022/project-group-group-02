@@ -1,5 +1,8 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,18 +43,30 @@ public class ShoppableItemService {
 	}
 	
 	@Transactional
-	public ShoppableItem updateShoppableItem(String name, double newPrice, int newQuantityAvailable) {
+	public ShoppableItem updatePrice(String name, double newPrice) {
 		
 		if(newPrice<0) throw new IllegalArgumentException("Item price cannot be negative");
 				
-		if(newQuantityAvailable<0) throw new IllegalArgumentException("Item quantity cannot be negative");
-		
 		ShoppableItem item = shoppableItemRepository.findByName(name);
 		
 		if(item==null)  throw new IllegalArgumentException("This item does not exist in the system");
 		
 		item.setPrice(newPrice);
+		
+		return item;
+	}
+	
+	@Transactional
+	public ShoppableItem updateQuantityAvailable(String name, int newQuantityAvailable) {
+		
+		if(newQuantityAvailable<0) throw new IllegalArgumentException("The quantity cannot be negative");
+				
+		ShoppableItem item = shoppableItemRepository.findByName(name);
+		
+		if(item==null)  throw new IllegalArgumentException("This item does not exist in the system");
+		
 		item.setQuantityAvailable(newQuantityAvailable);
+		
 		return item;
 	}
 	
@@ -71,10 +86,24 @@ public class ShoppableItemService {
 		return shoppableItemRepository.findByName(name);
 	}
 	
+	@Transactional
+	  public List<ShoppableItem> getAllShoppableItems(){             
+	      return toList(shoppableItemRepository.findAll());
+	  }
+	
 	private void nameIsValid(String name) {
 		if(shoppableItemRepository.findByName(name)!=null) {
 			throw new IllegalArgumentException("Item name already exist");
 		}
+	}
+	
+	private <T> List<T> toList(Iterable<T> iterable){
+		List<T> resultList = new ArrayList<T>();
+		for (T t : iterable) {
+			resultList.add(t);
+		}
+		return resultList;
+
 	}
 }
 

@@ -1,11 +1,17 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.UnavailableItemRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.dto.UnavailableItemDto;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Item;
+import ca.mcgill.ecse321.GroceryStoreBackend.model.ShoppableItem;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.UnavailableItem;
 
 @Service
@@ -34,7 +40,7 @@ public class UnavailableItemService {
 	}
 	
 	@Transactional
-	public UnavailableItem updateUnavailableItem(String name, double newPrice) {
+	public UnavailableItem updatePrice(String name, double newPrice) {
 		
 		if(newPrice<0) throw new IllegalArgumentException("Item price cannot be negative");
 						
@@ -69,5 +75,19 @@ public class UnavailableItemService {
 		if(unavailableItemRepository.findByName(name)!=null) {
 			throw new IllegalArgumentException("Item name already exist");
 		}
+	}
+
+	@Transactional
+	  public List<UnavailableItem> getAllUnavailableItems(){             
+	      return toList(unavailableItemRepository.findAll());
+	  }
+	
+	private <T> List<T> toList(Iterable<T> iterable){
+		List<T> resultList = new ArrayList<T>();
+		for (T t : iterable) {
+			resultList.add(t);
+		}
+		return resultList;
+
 	}
 }
