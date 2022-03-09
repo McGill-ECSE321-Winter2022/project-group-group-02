@@ -114,7 +114,7 @@ public class OrderController {
     if (order == null)
       throw new IllegalArgumentException("Order not found.");
     
-    CustomerDto customerDTO = GroceryStoreBackendController.convertToDto(order.getCustomer());
+    CustomerDto customerDTO = CustomerController.convertToDto(order.getCustomer());
     List<OrderItemDto> orderItemDto = new ArrayList<OrderItemDto>();
     
     for(OrderItem item : order.getOrderItems()) {

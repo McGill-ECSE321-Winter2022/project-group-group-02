@@ -27,19 +27,6 @@ public class ReviewController {
   @Autowired
   private ReviewService reviewService;
 
-  @Autowired
-  private OrderController orderController;
-
-  @Autowired
-  private CustomerController customerController;
-
-  @Autowired
-  private CustomerRepository customerRepository;
-
-  @Autowired
-  private OrderRepository orderRepository;
-
-
 
   @PostMapping(value = {"/create_review/"})
   public ResponseEntity<?> createReview(@RequestParam("rating") Rating rating,
@@ -112,12 +99,11 @@ public class ReviewController {
 
       //This will be fixed when we implement convertToDto for customer and order
     
-//    return new ReviewDto(review.getRating(), review.getDescription(),
-//        customerController.convertToDto(review.getCustomer()),
-//        orderController.convertToDto(review.getOrder()));
+    return new ReviewDto(review.getRating(), review.getDescription(),
+        CustomerController.convertToDto(review.getCustomer()),
+        OrderController.convertToDTO(review.getOrder()));
 
 
-     return null;
   }
 
 }
