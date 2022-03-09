@@ -52,7 +52,7 @@ public class GroceryStoreBackendController {
 		}
 	}
 	
-	private CustomerDto convertToDto(Customer c) {
+	public static CustomerDto convertToDto(Customer c) {
 		if (c == null) {
 			throw new IllegalArgumentException("There is no such Customer!");
 		}

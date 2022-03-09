@@ -53,23 +53,29 @@ public class OrderItemService {
   }
   
   @Transactional
-  public void deleteOrderItem(OrderItem orderItem) throws IllegalArgumentException {
+  public boolean deleteOrderItem(OrderItem orderItem) throws IllegalArgumentException {
 
     if(orderItemRepo.equals(null)) throw new IllegalArgumentException ("Please enter a valid order Item. ");
     
     orderItemRepo.delete(orderItem);
     orderItem.delete();
+    return true;
     
   }
   
-  
+
   
   @Transactional
   public List<OrderItem> getAllOrderItem() {
       return toList(orderItemRepo.findAll());
   }
   
-
+  
+  @Transactional
+  public OrderItem getOrderItemById(Long id) {
+      return orderItemRepo.findOrderItemById(id);
+  }
+  
   
   
   

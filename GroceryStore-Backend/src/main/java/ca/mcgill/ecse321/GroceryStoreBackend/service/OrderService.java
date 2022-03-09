@@ -68,12 +68,16 @@ public class OrderService {
   }
   
   @Transactional
-  public void cancelOrder(Order order) throws IllegalArgumentException {
+  public boolean cancelOrder(Order order) throws IllegalArgumentException {
 
-    if(order.equals(null)) throw new IllegalArgumentException ("Please enter a valid order. ");
+    if(order.equals(null)) {
+      throw new IllegalArgumentException ("Please enter a valid order. ");
+      
+    }
     
     orderRepo.delete(order);
     order.delete();
+    return true;
     
   }
   
@@ -99,6 +103,20 @@ public class OrderService {
     }
     return allOrdersByCustomer;
 }
+  
+  @Transactional
+  public Order getOrderByCustomerAndId(String email, Long orderId)throws IllegalArgumentException {
+    
+    Customer aCustomer = (Customer) Customer.getWithEmail(email);
+    if(aCustomer.equals(null)) throw new IllegalArgumentException ("Please enter a valid customer. ");
+
+    if(orderId.equals(null)) throw new IllegalArgumentException ("Please enter a valid orderId. ");
+    
+    
+    return orderRepo.findOrderByCustomerAndId(aCustomer, orderId);
+    
+    
+  }
   
   
   @Transactional

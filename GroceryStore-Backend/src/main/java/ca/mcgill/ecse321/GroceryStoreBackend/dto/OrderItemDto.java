@@ -1,18 +1,17 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.dto;
 
-import ca.mcgill.ecse321.GroceryStoreBackend.model.ShoppableItem;
 
 public class OrderItemDto {
 
   private int quantity;
-  private ShoppableItem item;
+  private ShoppableItemDto item;
   
   
   public OrderItemDto() {
     
   }
   
-  public OrderItemDto(int quantity, ShoppableItem item) {
+  public OrderItemDto(int quantity, ShoppableItemDto item) {
     
     this.quantity = quantity;
     this.item = item;
@@ -24,7 +23,7 @@ public class OrderItemDto {
     return this.quantity;
   }
   
-  public ShoppableItem getShoppableItem() {
+  public ShoppableItemDto getShoppableItem() {
     
     return this.item;
   }
