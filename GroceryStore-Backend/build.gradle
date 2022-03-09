@@ -22,7 +22,11 @@ dependencies {
 	testImplementation 'org.mockito:mockito-core:2.+'
 	testImplementation 'org.mockito:mockito-junit-jupiter:2.18.3'
 
-	testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+	// Use JUnit Jupiter API for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+
+    // Use JUnit Jupiter Engine for testing.
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
 	testImplementation 'org.junit.platform:junit-platform-launcher:1.4.1'
 }
 
