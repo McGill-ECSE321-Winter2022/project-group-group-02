@@ -24,24 +24,24 @@ public class EmployeeController {
   @Autowired
   private EmployeeService service;
   
-  @GetMapping(value = { "/employees", "/employees/" })
+  @GetMapping(value = { "/view_employees", "/view_employees/" })
   public List<EmployeeDto> getAllEmployees() {
       return service.getAllEmployees().stream().map(e -> convertToDto(e)).collect(Collectors.toList());
   }
   
-  @PostMapping(value = { "/employees/{email}", "/employees/{email}/" })
+  @PostMapping(value = { "/create_employee/", "/create_employee/" })
   public EmployeeDto createEmployee(@PathVariable("email") String email, @RequestParam String password, @RequestParam String name, @RequestParam Double salary, @RequestParam List<DailySchedule> dailySchedules) throws IllegalArgumentException {
       Employee employee = service.createEmployee(email, password, name, salary, dailySchedules);
       return convertToDto(employee);
   }
   
-  @PostMapping(value = { "/employees/{email}", "/employees/{email}/" })
+  @PostMapping(value = { "/update_employee/{email}", "/update_employees/{email}/" })
   public EmployeeDto updateEmployee(@PathVariable("email") String email, @RequestParam String password, @RequestParam String name, @RequestParam Double salary, @RequestParam List<DailySchedule> dailySchedules) throws IllegalArgumentException {
       Employee employee = service.updateEmployee(email, password, name, salary, dailySchedules);
       return convertToDto(employee);
   }
   
-  @PostMapping(value = { "/employees/{email}", "/employees/{email}/" })
+  @PostMapping(value = { "/delete_employees/{email}", "/delete_employees/{email}/" })
   public void deleteEmployee(@PathVariable("email") String email) throws Exception {
       try {
           service.deleteEmployee(email);

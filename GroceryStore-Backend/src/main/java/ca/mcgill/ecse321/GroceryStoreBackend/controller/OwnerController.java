@@ -55,7 +55,7 @@ public class OwnerController {
     return new ResponseEntity<>(convertToDTO(owner), HttpStatus.CREATED);
   }
 
-  @PostMapping(value = {"/update_owner/{oldUsername}"})
+  @PostMapping(value = {"/update_owner/{oldEmail}"})
   public OwnerDto updateOwner(@PathVariable("email") String email,
       @RequestParam("newPassword") String newPassword) {
     Owner owner = ownerService.updateOwner(email, newPassword);

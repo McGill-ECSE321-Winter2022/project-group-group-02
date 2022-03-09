@@ -41,7 +41,7 @@ public class ShoppableItemController {
   }
 
 
-  @PostMapping(value = {"/create_ShoppableItem"})
+  @PostMapping(value = {"/create_shoppableItem"})
   public ResponseEntity<?> createShoppableItem(@RequestParam("name") String name,
       @RequestParam("price") double price, @RequestParam("quantity available") int quantityAvailable) {
 
@@ -55,14 +55,14 @@ public class ShoppableItemController {
     return new ResponseEntity<>(convertToDTO(shoppableItem), HttpStatus.CREATED);
   }
 
-  @PostMapping(value = {"/update_price/{Name}"})
+  @PostMapping(value = {"/update_shoppableItem_price/{name}"})
   public ShoppableItemDto updatePrice(@PathVariable("name") String name,
       @RequestParam("newPrice") double newPrice) {
     ShoppableItem shoppableItem = shoppableItemService.updatePrice(name, newPrice);
     return convertToDTO(shoppableItem);
   }
 
-  @PostMapping(value = {"/update_quantity_available/{Name}"})
+  @PostMapping(value = {"/update_quantity_available/{name}"})
   public ShoppableItemDto updateQuantityAvailable(@PathVariable("name") String name,
       @RequestParam("newPrice") int newQuantityAvailable) {
     ShoppableItem ShoppableItem = shoppableItemService.updateInventory(name, newQuantityAvailable);

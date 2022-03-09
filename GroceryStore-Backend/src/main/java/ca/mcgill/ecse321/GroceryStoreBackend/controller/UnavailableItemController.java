@@ -55,7 +55,7 @@ public class UnavailableItemController {
     return new ResponseEntity<>(convertToDTO(UnavailableItem), HttpStatus.CREATED);
   }
 
-  @PostMapping(value = {"/update_price/{Name}"})
+  @PostMapping(value = {"/update_unavailableItem_price/{name}"})
   public UnavailableItemDto updatePrice(@PathVariable("name") String name,
       @RequestParam("newPrice") double newPrice) {
     UnavailableItem UnavailableItem = unavailableItemService.updatePrice(name, newPrice);

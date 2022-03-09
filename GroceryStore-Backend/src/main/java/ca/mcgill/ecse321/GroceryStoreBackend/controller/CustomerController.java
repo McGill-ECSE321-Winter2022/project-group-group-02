@@ -24,24 +24,24 @@ public class CustomerController {
   private CustomerService service;
   
   
-  @GetMapping(value = { "/customers", "/customers/" })
+  @GetMapping(value = { "/view_customers", "/view_customers/" })
   public List<CustomerDto> getAllCustomers() {
       return service.getAllCustomers().stream().map(c -> convertToDto(c)).collect(Collectors.toList());
   }
   
-  @PostMapping(value = { "/customers/{email}", "/customers/{email}/" })
+  @PostMapping(value = { "/create_customer/", "/create_customer/" })
   public CustomerDto createCustomer(@PathVariable("email") String email, @RequestParam String password, @RequestParam String name, @RequestParam String address) throws IllegalArgumentException {
       Customer customer = service.createCustomer(email, password, name, address);
       return convertToDto(customer);
   }
   
-  @PostMapping(value = { "/customers/{email}", "/customers/{email}/" })
+  @PostMapping(value = { "/update_customer/{email}", "/update_customer/{email}/" })
   public CustomerDto updateCustomer(@PathVariable("email") String email, @RequestParam String password, @RequestParam String name, @RequestParam String address) throws IllegalArgumentException {
       Customer customer = service.updateCustomer(email, password, name, address);
       return convertToDto(customer);
   }
   
-  @PostMapping(value = { "/customers/{email}", "/customers/{email}/" })
+  @PostMapping(value = { "/delete_customer/{email}", "/delete_customer/{email}/" })
   public void deleteCustomer(@PathVariable("email") String email) throws Exception {
       try {
           service.deleteCustomer(email);
