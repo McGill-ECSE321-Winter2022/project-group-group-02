@@ -69,12 +69,13 @@ public class StoreService {
 	}
 
     @Transactional
-    public void deleteStore(Long id) {
+    public boolean deleteStore(Long id) {
       Store store = storeRepository.findStoreById(id);
       if(store.equals(null)) throw new IllegalArgumentException ("Please enter a valid id");
       
       storeRepository.delete(store);
       store.delete();
+      return true;
       
     }
 

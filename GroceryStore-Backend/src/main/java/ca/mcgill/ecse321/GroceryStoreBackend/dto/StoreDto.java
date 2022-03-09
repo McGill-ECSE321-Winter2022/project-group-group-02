@@ -36,7 +36,7 @@ public class StoreDto {
 	}
 	
 	
-	public List<DailySchedule> getDailySchedule() {
+	public List<DailySchedule> getDailySchedules() {
 		return dailySchedules;
 	}
 

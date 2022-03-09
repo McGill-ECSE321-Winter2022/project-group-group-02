@@ -76,13 +76,13 @@ public class DailyScheduleService {
 	}
 
     @Transactional
-    public void deleteDailySchedule(Long id) {
+    public boolean deleteDailySchedule(Long id) {
     DailySchedule dailySchedule = dailyScheduleRepository.findDailyScheduleById(id);
       if(dailySchedule.equals(null)) throw new IllegalArgumentException ("Please enter a valid id");
       
       dailyScheduleRepository.delete(dailySchedule);
       dailySchedule.delete();
-      
+      return true;
     }
 
     @Transactional
