@@ -26,7 +26,7 @@ public class UnavailableItemService {
 		if(name==null || name.equals("")) throw new IllegalArgumentException("Item name cannot be blank");
 		
 		if(price<0) throw new IllegalArgumentException("Item price cannot be negative");
-		
+				
 		nameIsValid(name);
 				
 		UnavailableItem item = new UnavailableItem();
@@ -73,7 +73,7 @@ public class UnavailableItemService {
 	
 	private void nameIsValid(String name) {
 		if(unavailableItemRepository.findByName(name)!=null) {
-			throw new IllegalArgumentException("Item name already exist");
+			throw new IllegalArgumentException("Item already in the system");
 		}
 	}
 

@@ -3,8 +3,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -49,7 +51,7 @@ public class TestShoppableItemService {
 	  
 	  @BeforeEach
 	  public void setMockOutput() {
-
+		  
 	    lenient().when(shoppableItemRepository.findByName(anyString())).thenAnswer((InvocationOnMock invocation) -> {
 	      if (invocation.getArgument(0).equals(SHOPPABLE_ITEM_NAME)) {
 	        ShoppableItem shoppableItem = new ShoppableItem();
@@ -72,6 +74,7 @@ public class TestShoppableItemService {
 	  
 	  @Test
 	  public void testCreateShoppableItem() {
+		assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
 	    String name = "Battikha";
 	    double price = 1000;
 	    int quantityAvailable = 251;
@@ -89,12 +92,24 @@ public class TestShoppableItemService {
 	  
 	  @Test
 	  public void testFindShoppableItem() {
-	    
-
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size());
+		  ShoppableItem s = null;
+		  try {
+			  s=shoppableItemService.getShoppableItem(SHOPPABLE_ITEM_NAME);
+		  } catch(IllegalArgumentException e) {
+			  fail();
+		  }
+		  assertNotNull(s);
+		  assertEquals(s.getName(),SHOPPABLE_ITEM_NAME);
+		  assertEquals(s.getPrice(), SHOPPABLE_ITEM_PRICE);
+		  assertEquals(s.getQuantityAvailable(),SHOPPABLE_ITEM_QUANTITY_AVAILABLE);
 	  }
+	  
+	  
 	  
 	  @Test
 	  public void testCreateShoppableItemErrorNegativePrice() {
+			assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
 	    String name = "lollar";
 	    double price = -1;
 	    int quantity = 3900;
@@ -112,6 +127,7 @@ public class TestShoppableItemService {
 	  
 	  @Test
 	  public void testCreateShoppableItemErrorNegativeQuantityAvailable() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
 	    String name = "lollar";
 	    double price = 3900;
 	    int quantity = -1;
@@ -129,6 +145,7 @@ public class TestShoppableItemService {
 	  
 	  @Test
 	  public void testCreateShoppableItemErrorItemAlreadyInTheSystem() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
 	    String name = "dollar";
 	    double price = 23550;
 	    int quantity = 0;
@@ -147,7 +164,7 @@ public class TestShoppableItemService {
 	  
 	  @Test
 	  public void testCreateShoppableItemNameBlank() {
-	    
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
 	    String name = "";
 	    double price = 12;
 	    int quantity = 3;
@@ -165,6 +182,7 @@ public class TestShoppableItemService {
 	  
 	  @Test
 	  public void testUpdatePrice() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
 		  double newPrice = 12;
 		  ShoppableItem shoppableItem = null;
 		  try {
@@ -178,6 +196,201 @@ public class TestShoppableItemService {
 		  
 		  
 	  }
+	  
+	  @Test
+	  public void testUpdatePriceBlankName() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
+		  double newPrice = 12;
+		  String name="";
+		  String error="";
+		  ShoppableItem shoppableItem = null;
+		  try {
+			  shoppableItem = shoppableItemService.updatePrice(name, newPrice);
+		  } catch(IllegalArgumentException e) {
+			  error=e.getMessage();
+		  }
+		  assertNull(shoppableItem);
+		  assertEquals("Item name cannot be blank", error);
+	  }
+	  
+	  @Test
+	  public void testUpdatePriceNegativePrice() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
+		  double newPrice = -1;
+		  String error="";
+		  ShoppableItem shoppableItem = null;
+		  try {
+			  shoppableItem = shoppableItemService.updatePrice(SHOPPABLE_ITEM_NAME, newPrice);
+		  } catch(IllegalArgumentException e) {
+			  error=e.getMessage();
+		  }
+		  assertNull(shoppableItem);
+		  assertEquals("Item price cannot be negative", error);
+	  }
+	  
+	  @Test
+	  public void testUpdatePriceItemNotFound() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
+		  double newPrice = 14;
+		  String name="coca-cola";
+		  String error="";
+		  ShoppableItem shoppableItem = null;
+		  try {
+			  shoppableItem = shoppableItemService.updatePrice(name, newPrice);
+		  } catch(IllegalArgumentException e) {
+			  error=e.getMessage();
+		  }
+		  assertNull(shoppableItem);
+		  assertEquals("This item does not exist in the system", error);
+	  }
+	  
+	  @Test
+	  public void testUpdatePriceSamePrice() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
+		  String error="";
+		  ShoppableItem shoppableItem = null;
+		  try {
+			  shoppableItem = shoppableItemService.updatePrice(SHOPPABLE_ITEM_NAME, SHOPPABLE_ITEM_PRICE);
+		  } catch(IllegalArgumentException e) {
+			  error=e.getMessage();
+		  }
+		  assertNull(shoppableItem);
+		  assertEquals("The price is the same", error);
+	  }
+	  
+	  //UpdateInventory
+	  
+	  @Test
+	  public void testUpdateInventory() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
+		  int newQuantity = 12;
+		  ShoppableItem shoppableItem = null;
+		  try {
+			  shoppableItem = shoppableItemService.updateInventory(SHOPPABLE_ITEM_NAME, newQuantity);
+		  } catch(IllegalArgumentException e) {
+		      fail();
+		  }
+		  assertNotNull(shoppableItem);
+		  assertEquals(SHOPPABLE_ITEM_NAME,shoppableItem.getName());
+		  assertEquals(newQuantity,shoppableItem.getQuantityAvailable());
+		  
+		  
+	  }
+	  
+	  @Test
+	  public void testUpdateInventoryBlankName() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
+		  int newQuantity = 12;
+		  String name="";
+		  String error="";
+		  ShoppableItem shoppableItem = null;
+		  try {
+			  shoppableItem = shoppableItemService.updateInventory(name, newQuantity);
+		  } catch(IllegalArgumentException e) {
+			  error=e.getMessage();
+		  }
+		  assertNull(shoppableItem);
+		  assertEquals("Item name cannot be blank", error);
+	  }
+	  
+	  @Test
+	  public void testUpdateInventoryNegativeQuantity() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
+		  String error="";
+		  ShoppableItem shoppableItem = null;
+		  try {
+			  shoppableItem = shoppableItemService.updatePrice(SHOPPABLE_ITEM_NAME, -1);
+		  } catch(IllegalArgumentException e) {
+			  error=e.getMessage();
+		  }
+		  assertNull(shoppableItem);
+		  assertEquals("The quantity cannot be negative", error);
+	  }
+	  
+	  @Test
+	  public void testUpdateInventoryItemNotFound() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
+		  int newQuantity = 14;
+		  String name="coca-cola";
+		  String error="";
+		  ShoppableItem shoppableItem = null;
+		  try {
+			  shoppableItem = shoppableItemService.updatePrice(name, newQuantity);
+		  } catch(IllegalArgumentException e) {
+			  error=e.getMessage();
+		  }
+		  assertNull(shoppableItem);
+		  assertEquals("This item does not exist in the system", error);
+	  }
+	  
+	  @Test
+	  public void testUpdateInventorySameQuantity() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
+		  String error="";
+		  ShoppableItem shoppableItem = null;
+		  try {
+			  shoppableItem = shoppableItemService.updateInventory(SHOPPABLE_ITEM_NAME, SHOPPABLE_ITEM_QUANTITY_AVAILABLE);
+		  } catch(IllegalArgumentException e) {
+			  error=e.getMessage();
+		  }
+		  assertNull(shoppableItem);
+		  assertEquals("The quantity is the same", error);
+	  }
+	  
+	  //delete shoppable item
+	  
+	  @Test
+	  public void testDeleteShoppableItem() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
+		  ShoppableItem shoppableItem=null;
+		  boolean deleted=false;
+		  try {
+			  deleted = shoppableItemService.deleteShoppableItem(SHOPPABLE_ITEM_NAME);
+		  } catch(IllegalArgumentException e) {
+			  fail();
+		  }
+		  shoppableItem = shoppableItemRepository.findByName(SHOPPABLE_ITEM_NAME);
+		  assertNull(shoppableItem);
+		  assertTrue(deleted);
+	  }
+	  
+	  @Test
+	  public void testDeleteShoppableItemBlankName() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
+		  ShoppableItem shoppableItem=null;
+		  String error="";
+		  boolean deleted=false;
+		  try {
+			  deleted = shoppableItemService.deleteShoppableItem("");
+		  } catch(IllegalArgumentException e) {
+			  error=e.getMessage();
+		  }
+		  shoppableItem = shoppableItemRepository.findByName(SHOPPABLE_ITEM_NAME);
+		  assertNotNull(shoppableItem);
+		  assertFalse(deleted);
+		  assertEquals("Item name cannot be blank", error);
+	  }
+	  
+	  @Test
+	  public void testDeleteShoppableItemItemNotFound() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
+		  ShoppableItem shoppableItem=null;
+		  String error="";
+		  boolean deleted=false;
+		  try {
+			  deleted = shoppableItemService.deleteShoppableItem("Famous Chicken");
+		  } catch(IllegalArgumentException e) {
+			  error=e.getMessage();
+		  }
+		  shoppableItem = shoppableItemRepository.findByName(SHOPPABLE_ITEM_NAME);
+		  assertNotNull(shoppableItem);
+		  assertFalse(deleted);
+		  assertEquals("This item does not exist in the system", error);
+	  }
+	  
+	  
+	  
+	  
 	  
 	  
 	  
