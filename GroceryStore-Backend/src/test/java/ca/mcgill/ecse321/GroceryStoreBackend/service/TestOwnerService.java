@@ -90,7 +90,7 @@ public class TestOwnerService {
 
     Owner owner = null;
     try {
-      owner = ownerService.getOwner(OWNER_EMAIL);
+      owner = ownerService.getOwner();
     } catch (IllegalArgumentException e) {
       fail();
     }
@@ -165,14 +165,5 @@ public class TestOwnerService {
   assertEquals(OWNER_EMAIL,owner.getEmail());
   }
   
-  
-  @Test
-  public void testGetExistingOwner() {
-      assertEquals(OWNER_USERNAME, ownerService.getOwner(OWNER_EMAIL).getName());
-  }
 
-  @Test
-  public void testGetNonExistingOwner() {
-      assertNull(ownerService.getOwner("nonExistingOwner@shop.com"));
-  }
 }

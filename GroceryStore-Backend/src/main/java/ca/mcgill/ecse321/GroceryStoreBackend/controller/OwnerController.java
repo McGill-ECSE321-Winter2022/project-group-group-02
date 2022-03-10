@@ -26,18 +26,9 @@ public class OwnerController {
   private OwnerService ownerService;
 
 
-
-  @GetMapping(value = {"/view_owner"})
-  public List<OwnerDto> getAllOwners() {
-    return ownerService.getAllOwners().stream().map(owner -> convertToDTO(owner))
-        .collect(Collectors.toList());
-  }
-
-
-
-  @GetMapping(value = {"/view_owner/{email}"})
-  public OwnerDto viewOwner(@PathVariable("email") String email) {
-    return convertToDTO(ownerService.getOwner(email));
+  @GetMapping(value = {"/view_owner/"})
+  public OwnerDto viewOwner() {
+    return convertToDTO(ownerService.getOwner());
   }
 
 

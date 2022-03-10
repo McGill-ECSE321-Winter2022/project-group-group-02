@@ -29,7 +29,6 @@ public class OwnerService {
       throw new IllegalArgumentException("Invalid email,please try again.");
 
 
-
     Owner owner = new Owner();
     owner.setName(name);
 
@@ -58,14 +57,9 @@ public class OwnerService {
   }
 
   @Transactional
-  public Owner getOwner(String email) {
-    Owner owner = ownerRepository.findByEmail(email);
+  public Owner getOwner() {
+    Owner owner = ownerRepository.findByEmail("admin@grocerystore.com");
     return owner;
-  }
-
-  @Transactional
-  public List<Owner> getAllOwners() {
-    return toList(ownerRepository.findAll());
   }
 
 
@@ -78,13 +72,5 @@ public class OwnerService {
   }
 
 
-
-  private <T> List<T> toList(Iterable<T> iterable) {
-    List<T> resultList = new ArrayList<T>();
-    for (T t : iterable) {
-      resultList.add(t);
-    }
-    return resultList;
-  }
 
 }
