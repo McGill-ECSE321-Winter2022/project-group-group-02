@@ -36,6 +36,7 @@ public class OwnerService {
     if (passwordIsValid(password)) {
       owner.setPassword(password);
     }
+    owner.setEmail(email);
     ownerRepository.save(owner);
     return owner;
   }
@@ -45,13 +46,14 @@ public class OwnerService {
   @Transactional
   public Owner updateOwner(String email, String newPassword) {
     Owner oldOwner = ownerRepository.findByEmail(email);
-    if (!oldOwner.getPassword().equals(newPassword) && !newPassword.equals(newPassword)) {
-      if (passwordIsValid(newPassword)) {
-        oldOwner.setPassword(newPassword);
-      }
-      ownerRepository.save(oldOwner);
 
+    if (passwordIsValid(newPassword)) {
+      oldOwner.setPassword(newPassword);
     }
+    
+    oldOwner = ownerRepository.save(oldOwner);
+
+
     return oldOwner;
   }
 
@@ -60,38 +62,17 @@ public class OwnerService {
     Owner owner = ownerRepository.findByEmail(email);
     return owner;
   }
-  
+
   @Transactional
-  public List<Owner> getAllOwners(){             
-      return toList(ownerRepository.findAll());
+  public List<Owner> getAllOwners() {
+    return toList(ownerRepository.findAll());
   }
 
 
   private boolean passwordIsValid(String password) {
-    if (password.length() < 4)
-      throw new IllegalArgumentException("Password must have at least 4 characters");
-    if (password.length() > 20)
-      throw new IllegalArgumentException("Password must not have more than 20 characters");
 
-    boolean upperCaseFlag = false;
-    boolean lowerCaseFlag = false;
-    boolean numberFlag = false;
-
-    for (int i = 0; i < password.length(); i++) {
-      if (Character.isUpperCase(password.charAt(i)))
-        upperCaseFlag = true;
-      else if (Character.isLowerCase(password.charAt(i)))
-        lowerCaseFlag = true;
-      else if (Character.isDigit(password.charAt(i)))
-        numberFlag = true;
-    }
-
-    if (upperCaseFlag == false)
-      throw new IllegalArgumentException("Password must contain at least one uppercase character");
-    if (lowerCaseFlag == false)
-      throw new IllegalArgumentException("Password must contain at least one lowercase character");
-    if (numberFlag == false)
-      throw new IllegalArgumentException("Password must contain at least one numeric character");
+    if (password.isBlank())
+      throw new IllegalArgumentException("Password cannot be blank");
 
     return true;
   }
