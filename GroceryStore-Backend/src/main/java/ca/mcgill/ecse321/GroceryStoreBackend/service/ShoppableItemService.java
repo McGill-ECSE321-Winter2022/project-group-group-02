@@ -24,9 +24,7 @@ public class ShoppableItemService {
 	public ShoppableItem createShoppableItem(String name, double price, int quantityAvailable) {
 		
 		if(name==null || name.equals("")) throw new IllegalArgumentException("Item name cannot be blank");
-		
-		if(shoppableItemRepository.findByName(name)!=null) throw new IllegalArgumentException("Item already in the system");
-		
+				
 		if(price<0) throw new IllegalArgumentException("Item price cannot be negative");
 		
 		nameIsValid(name);
@@ -73,6 +71,8 @@ public class ShoppableItemService {
 		
 		if(item==null)  throw new IllegalArgumentException("This item does not exist in the system");
 		
+		if(newQuantityAvailable==item.getQuantityAvailable()) throw new IllegalArgumentException("The quantity is the same");
+		
 		item.setQuantityAvailable(newQuantityAvailable);
 		
 		return item;
@@ -104,7 +104,7 @@ public class ShoppableItemService {
 	
 	private void nameIsValid(String name) {
 		if(shoppableItemRepository.findByName(name)!=null) {
-			throw new IllegalArgumentException("Item name already exist");
+			throw new IllegalArgumentException("Item already in the system");
 		}
 	}
 	
