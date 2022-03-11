@@ -146,14 +146,12 @@ public class TestShoppableItemService {
 	  @Test
 	  public void testCreateShoppableItemErrorItemAlreadyInTheSystem() {
 		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
-	    String name = "dollar";
 	    double price = 23550;
 	    int quantity = 0;
-	    shoppableItemService.createShoppableItem(name, price, quantity);
 	    ShoppableItem shoppableItem = null;
 	    String error = "";
 	    try {
-	    	shoppableItem = shoppableItemService.createShoppableItem(name, price, quantity);
+	    	shoppableItem = shoppableItemService.createShoppableItem(SHOPPABLE_ITEM_NAME, price, quantity);
 	    } catch (IllegalArgumentException e) {
 	      error = e.getMessage();
 	    }
@@ -299,7 +297,7 @@ public class TestShoppableItemService {
 		  String error="";
 		  ShoppableItem shoppableItem = null;
 		  try {
-			  shoppableItem = shoppableItemService.updatePrice(SHOPPABLE_ITEM_NAME, -1);
+			  shoppableItem = shoppableItemService.updateInventory(SHOPPABLE_ITEM_NAME, -1);
 		  } catch(IllegalArgumentException e) {
 			  error=e.getMessage();
 		  }
@@ -342,17 +340,18 @@ public class TestShoppableItemService {
 	  @Test
 	  public void testDeleteShoppableItem() {
 		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
-		  ShoppableItem shoppableItem=null;
 		  boolean deleted=false;
+		  
 		  try {
 			  deleted = shoppableItemService.deleteShoppableItem(SHOPPABLE_ITEM_NAME);
 		  } catch(IllegalArgumentException e) {
 			  fail();
 		  }
-		  shoppableItem = shoppableItemRepository.findByName(SHOPPABLE_ITEM_NAME);
-		  assertNull(shoppableItem);
+		  
 		  assertTrue(deleted);
 	  }
+	  
+
 	  
 	  @Test
 	  public void testDeleteShoppableItemBlankName() {

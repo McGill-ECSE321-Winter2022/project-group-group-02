@@ -30,6 +30,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.UnavailableItemRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.model.ShoppableItem;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.UnavailableItem;
 
 import org.mockito.stubbing.OngoingStubbing;
@@ -123,18 +124,16 @@ public class TestUnavailableItemService {
 	  @Test
 	  public void testCreateUnavailableItemErrorItemAlreadyInTheSystem() {
 		  assertEquals(0, unavailableItemService.getAllUnavailableItems().size()); 
-	    String name = "dollar";
 	    double price = 23550;
-	    unavailableItemService.createUnavailableItem(name, price);
 	    UnavailableItem unavailableItem = null;
 	    String error = "";
 	    try {
-	    	unavailableItem = unavailableItemService.createUnavailableItem(name, price);
+	    	unavailableItem = unavailableItemService.createUnavailableItem(UNAVAILABLE_ITEM_NAME, price);
 	    } catch (IllegalArgumentException e) {
 	      error = e.getMessage();
 	    }
-	    assertNull(unavailableItem);
 	    assertEquals("Item already in the system", error);
+	    assertNull(unavailableItem);
 	    
 	  }
 	  
@@ -206,7 +205,7 @@ public class TestUnavailableItemService {
 	  @Test
 	  public void testUpdatePriceItemNotFound() {
 		  assertEquals(0, unavailableItemService.getAllUnavailableItems().size()); 
-		  double newPrice = 14;
+		  double newPrice = 16;
 		  String name="coca-cola";
 		  String error="";
 		  UnavailableItem unavailableItem = null;
@@ -219,6 +218,8 @@ public class TestUnavailableItemService {
 		  assertEquals("This item does not exist in the system", error);
 	  }
 	  
+
+	  
 	  @Test
 	  public void testUpdatePriceSamePrice() {
 		  assertEquals(0, unavailableItemService.getAllUnavailableItems().size()); 
@@ -229,10 +230,9 @@ public class TestUnavailableItemService {
 		  } catch(IllegalArgumentException e) {
 			  error=e.getMessage();
 		  }
-		  assertNull(unavailableItem);
 		  assertEquals("The price is the same", error);
+		  assertNull(unavailableItem);
 	  }
-	  
 	  
 	  
 	  //delete Unavailable item
@@ -240,15 +240,13 @@ public class TestUnavailableItemService {
 	  @Test
 	  public void testDeleteUnavailableItem() {
 		  assertEquals(0, unavailableItemService.getAllUnavailableItems().size()); 
-		  UnavailableItem unavailableItem=null;
 		  boolean deleted=false;
 		  try {
 			  deleted = unavailableItemService.deleteUnavailableItem(UNAVAILABLE_ITEM_NAME);
 		  } catch(IllegalArgumentException e) {
 			  fail();
 		  }
-		  unavailableItem = unavailableItemRepository.findByName(UNAVAILABLE_ITEM_NAME);
-		  assertNull(unavailableItem);
+		  
 		  assertTrue(deleted);
 	  }
 	  
@@ -268,6 +266,23 @@ public class TestUnavailableItemService {
 		  assertFalse(deleted);
 		  assertEquals("Item name cannot be blank", error);
 	  }
+	  
+//	  @Test
+//	  public void testDeleteShoppableItemBlankName() {
+//		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
+//		  ShoppableItem shoppableItem=null;
+//		  String error="";
+//		  boolean deleted=false;
+//		  try {
+//			  deleted = shoppableItemService.deleteShoppableItem("");
+//		  } catch(IllegalArgumentException e) {
+//			  error=e.getMessage();
+//		  }
+//		  shoppableItem = shoppableItemRepository.findByName(SHOPPABLE_ITEM_NAME);
+//		  assertNotNull(shoppableItem);
+//		  assertFalse(deleted);
+//		  assertEquals("Item name cannot be blank", error);
+//	  }
 	  
 	  @Test
 	  public void testDeleteUnavailableItemItemNotFound() {

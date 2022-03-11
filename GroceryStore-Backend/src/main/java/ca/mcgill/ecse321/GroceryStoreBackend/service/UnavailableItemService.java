@@ -42,11 +42,17 @@ public class UnavailableItemService {
 	@Transactional
 	public UnavailableItem updatePrice(String name, double newPrice) {
 		
+		if(name==null || name.equals("")) throw new IllegalArgumentException("Item name cannot be blank");
+		
 		if(newPrice<0) throw new IllegalArgumentException("Item price cannot be negative");
 						
 		UnavailableItem item = unavailableItemRepository.findByName(name);
 		
 		if(item==null)  throw new IllegalArgumentException("This item does not exist in the system");
+		
+		if(newPrice==unavailableItemRepository.findByName(name).getPrice()) throw new IllegalArgumentException("The price is the same");
+		
+		
 		
 		item.setPrice(newPrice);
 		
@@ -56,6 +62,8 @@ public class UnavailableItemService {
 	
 	@Transactional
 	public boolean deleteUnavailableItem(String name) {
+		if(name==null || name.equals("")) throw new IllegalArgumentException("Item name cannot be blank");
+		
 		UnavailableItem item = unavailableItemRepository.findByName(name);
 		
 		if(item==null) throw new IllegalArgumentException("This item does not exist in the system");
