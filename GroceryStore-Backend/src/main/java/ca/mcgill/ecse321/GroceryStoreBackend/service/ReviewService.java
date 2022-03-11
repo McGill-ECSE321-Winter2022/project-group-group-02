@@ -38,7 +38,7 @@ public class ReviewService {
   public Review createReview(Rating aRating, String aDescription, String customerEmail,
       Long orderId, Long reviewId) {
 
-    
+
 
     if (aDescription == null) {
       throw new IllegalArgumentException("Description cannot be null");
@@ -57,7 +57,7 @@ public class ReviewService {
     if (order == null) {
       throw new IllegalArgumentException("No order found");
     }
-    
+
     if (!order.getCustomer().getEmail().equals(customerEmail)) {
       throw new IllegalArgumentException("Order not found for customer");
     }
@@ -66,7 +66,7 @@ public class ReviewService {
     if (review != null) {
       throw new IllegalArgumentException("Review already exists for this order");
     }
-    
+
     review = reviewRepository.findReviewById(reviewId);
     if (review != null) {
       throw new IllegalArgumentException("Review with this id already exists");
@@ -81,34 +81,34 @@ public class ReviewService {
     reviewRepository.save(review);
     return review;
   }
-  
-  
+
+
   @Transactional
   public Review updateReview(Long orderId, String newDescription, Rating newRating) {
 
-      Order order = orderRepository.findOrderById(orderId);
-      if (order == null) {
-        throw new IllegalArgumentException("No order found");
-      }
+    Order order = orderRepository.findOrderById(orderId);
+    if (order == null) {
+      throw new IllegalArgumentException("No order found");
+    }
 
-      Review review = reviewRepository.findReviewByOrder(order);
-      if (review == null) {
-        throw new IllegalArgumentException("Cannot update non existing review");
-      }
+    Review review = reviewRepository.findReviewByOrder(order);
+    if (review == null) {
+      throw new IllegalArgumentException("Cannot update non existing review");
+    }
 
-      if(newDescription == null) {
-        throw new IllegalArgumentException("Description cannot be null");
-      }
-      
-      if(newDescription.isBlank()) {
-          throw new IllegalArgumentException("Description cannot be empty");
-      }
+    if (newDescription == null) {
+      throw new IllegalArgumentException("Description cannot be null");
+    }
 
-      
-      review.setDescription(newDescription);
-      review.setRating(newRating);
-      reviewRepository.save(review);
-      return review;
+    if (newDescription.isBlank()) {
+      throw new IllegalArgumentException("Description cannot be empty");
+    }
+
+
+    review.setDescription(newDescription);
+    review.setRating(newRating);
+    reviewRepository.save(review);
+    return review;
   }
 
 

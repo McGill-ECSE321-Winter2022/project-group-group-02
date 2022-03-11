@@ -23,10 +23,17 @@ public class OwnerService {
   @Transactional
   public Owner createOwner(String email, String password, String name) {
 
-    if (name == "")
+    if (ownerRepository.findByEmail("admin@grocerystore.com") != null) {
+      throw new IllegalArgumentException("Owner already exists");
+    }
+
+    if (name == null)
+      throw new IllegalArgumentException("Name cannot be null");
+    if (name.isBlank())
       throw new IllegalArgumentException("Name cannot be blank");
     if (!email.equals("admin@grocerystore.com"))
-      throw new IllegalArgumentException("Invalid email,please try again.");
+      throw new IllegalArgumentException(
+          "Invalid email, use system email \"admin@grocerystore.com\"");
 
 
     Owner owner = new Owner();
@@ -43,13 +50,30 @@ public class OwnerService {
 
 
   @Transactional
-  public Owner updateOwner(String email, String newPassword) {
-    Owner oldOwner = ownerRepository.findByEmail(email);
+  public Owner updateOwnerPassword(String newPassword) {
+    Owner oldOwner = ownerRepository.findByEmail("admin@grocerystore.com");
 
     if (passwordIsValid(newPassword)) {
       oldOwner.setPassword(newPassword);
     }
-    
+
+    oldOwner = ownerRepository.save(oldOwner);
+
+
+    return oldOwner;
+  }
+
+  @Transactional
+  public Owner updateOwnerName(String newName) {
+    Owner oldOwner = ownerRepository.findByEmail("admin@grocerystore.com");
+
+    if (newName == null)
+      throw new IllegalArgumentException("Name cannot be null");
+    if (newName.isBlank())
+      throw new IllegalArgumentException("Name cannot be blank");
+
+    oldOwner.setName(newName);
+
     oldOwner = ownerRepository.save(oldOwner);
 
 
@@ -65,6 +89,8 @@ public class OwnerService {
 
   private boolean passwordIsValid(String password) {
 
+    if (password == null)
+      throw new IllegalArgumentException("Password cannot be null");
     if (password.isBlank())
       throw new IllegalArgumentException("Password cannot be blank");
 

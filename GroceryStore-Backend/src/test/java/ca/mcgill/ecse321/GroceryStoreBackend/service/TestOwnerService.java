@@ -69,9 +69,14 @@ public class TestOwnerService {
 
   @Test
   public void testCreateOwner() {
+
     String username = "nameTest";
     String password = "passwordTest1";
     String email = "admin@grocerystore.com";
+
+    // To remove existing owner
+    lenient().when(ownerRepo.findByEmail(anyString())).thenReturn(null);
+
     Owner owner = null;
     try {
       owner = ownerService.createOwner(email, password, username);
@@ -86,26 +91,14 @@ public class TestOwnerService {
 
 
   @Test
-  public void testFindOwner() {
-
-    Owner owner = null;
-    try {
-      owner = ownerService.getOwner();
-    } catch (IllegalArgumentException e) {
-      fail();
-    }
-    assertNotNull(owner);
-    assertEquals(owner.getName(), OWNER_USERNAME);
-    assertEquals(owner.getPassword(), OWNER_PASSWORD);
-    assertEquals(owner.getEmail(),OWNER_EMAIL);
-
-  }
-
-  @Test
-  public void testCreateOwnerErrorBlankUsername() {
-    String username = "";
-    String password = "Password123";
+  public void testCreateOwnerErrorBlankName() {
+    String username = " ";
+    String password = "passwordTest1";
     String email = "admin@grocerystore.com";
+
+    // To remove existing owner
+    lenient().when(ownerRepo.findByEmail(anyString())).thenReturn(null);
+
     Owner owner = null;
     String error = "";
     try {
@@ -118,10 +111,54 @@ public class TestOwnerService {
   }
 
   @Test
-  public void testCreateOwnerErrorBlankPassword() {
-    String username = "newUsername1";
-    String password = "";
+  public void testCreateOwnerErrorNullName() {
+    String username = null;
+    String password = "passwordTest1";
     String email = "admin@grocerystore.com";
+
+    // To remove existing owner
+    lenient().when(ownerRepo.findByEmail(anyString())).thenReturn(null);
+
+    Owner owner = null;
+    String error = "";
+    try {
+      owner = ownerService.createOwner(email, password, username);
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+    assertNull(owner);
+    assertEquals("Name cannot be null", error);
+  }
+
+  @Test
+  public void testCreateOwnerErrorNullPassword() {
+    String username = "nameTest";
+    String password = null;
+    String email = "admin@grocerystore.com";
+
+    // To remove existing owner
+    lenient().when(ownerRepo.findByEmail(anyString())).thenReturn(null);
+
+    Owner owner = null;
+    String error = "";
+    try {
+      owner = ownerService.createOwner(email, password, username);
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+    assertNull(owner);
+    assertEquals("Password cannot be null", error);
+  }
+
+  @Test
+  public void testCreateOwnerErrorBlankPassword() {
+    String username = "nameTest";
+    String password = "  ";
+    String email = "admin@grocerystore.com";
+
+    // To remove existing owner
+    lenient().when(ownerRepo.findByEmail(anyString())).thenReturn(null);
+
     Owner owner = null;
     String error = "";
     try {
@@ -133,37 +170,126 @@ public class TestOwnerService {
     assertEquals("Password cannot be blank", error);
   }
 
-  
-  
+  @Test
+  public void testCreateOwnerWrongEmail() {
+    String username = "nameTest";
+    String password = "passwordTest1";
+    String email = "fraud@grocerystore.com";
+
+    // To remove existing owner
+    lenient().when(ownerRepo.findByEmail(anyString())).thenReturn(null);
+
+    Owner owner = null;
+    String error = "";
+    try {
+      owner = ownerService.createOwner(email, password, username);
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+    assertNull(owner);
+    assertEquals("Invalid email, use system email \"admin@grocerystore.com\"", error);
+  }
+
+  @Test
+  public void testCreateOwnerAlreadyExisting() {
+
+
+    Owner owner = null;
+    String error = "";
+    try {
+      owner = ownerService.createOwner(OWNER_EMAIL, OWNER_PASSWORD, OWNER_USERNAME);
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+    assertNull(owner);
+    assertEquals("Owner already exists", error);
+  }
+
+
+
   @Test
   public void testUpdateOwnerPassword() {
-  Owner owner = null;
+    Owner owner = null;
 
-  try {
-      owner = ownerService.updateOwner(OWNER_EMAIL,"newPassword123");
-  }catch(IllegalArgumentException e) {
+    try {
+      owner = ownerService.updateOwnerPassword("newPassword123");
+    } catch (IllegalArgumentException e) {
       fail();
+    }
+    assertNotNull(owner);
+    assertEquals(OWNER_USERNAME, owner.getName());
+    assertEquals("newPassword123", owner.getPassword());
+    assertEquals(OWNER_EMAIL, owner.getEmail());
   }
-  assertNotNull(owner);
-  assertEquals(OWNER_USERNAME,owner.getName());
-  assertEquals("newPassword123",owner.getPassword());
-  assertEquals(OWNER_EMAIL,owner.getEmail());
-}
-  
+
   @Test
-  public void testUpdateSamePassword() {
-  Owner owner = null;
+  public void testUpdateOwnerPasswordBlank() {
 
-  try {
-      owner = ownerService.updateOwner(OWNER_EMAIL,OWNER_PASSWORD);
-  }catch(IllegalArgumentException e) {
+    String error = null;
+    try {
+      ownerService.updateOwnerPassword(" ");
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+
+    assertEquals("Password cannot be blank", error);
+  }
+
+  @Test
+  public void testUpdateOwnerPasswordNull() {
+
+    String error = null;
+    try {
+      ownerService.updateOwnerPassword(null);
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+
+    assertEquals("Password cannot be null", error);
+  }
+
+  @Test
+  public void testUpdateOwnerNameNull() {
+
+    String error = null;
+    try {
+      ownerService.updateOwnerName(null);
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+
+    assertEquals("Name cannot be null", error);
+  }
+
+  @Test
+  public void testUpdateOwnerNameBlank() {
+
+    String error = null;
+    try {
+      ownerService.updateOwnerName("  ");
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+
+    assertEquals("Name cannot be blank", error);
+  }
+
+
+
+  @Test
+  public void testGetOwner() {
+
+    Owner owner = null;
+    try {
+      owner = ownerService.getOwner();
+    } catch (IllegalArgumentException e) {
       fail();
+    }
+    assertNotNull(owner);
+    assertEquals(owner.getName(), OWNER_USERNAME);
+    assertEquals(owner.getPassword(), OWNER_PASSWORD);
+    assertEquals(owner.getEmail(), OWNER_EMAIL);
+
   }
-  assertNotNull(owner);
-  assertEquals(OWNER_USERNAME,owner.getName());
-  assertEquals(OWNER_PASSWORD,owner.getPassword());
-  assertEquals(OWNER_EMAIL,owner.getEmail());
-  }
-  
 
 }

@@ -46,10 +46,15 @@ public class OwnerController {
     return new ResponseEntity<>(convertToDTO(owner), HttpStatus.CREATED);
   }
 
-  @PostMapping(value = {"/update_owner/{oldEmail}"})
-  public OwnerDto updateOwner(@PathVariable("email") String email,
-      @RequestParam("newPassword") String newPassword) {
-    Owner owner = ownerService.updateOwner(email, newPassword);
+  @PostMapping(value = {"/update_owner_password"})
+  public OwnerDto updateOwnerPassword(@RequestParam("newPassword") String newPassword) {
+    Owner owner = ownerService.updateOwnerPassword(newPassword);
+    return convertToDTO(owner);
+  }
+
+  @PostMapping(value = {"/update_owner_name"})
+  public OwnerDto updateOwnerName(@RequestParam("newName") String newName) {
+    Owner owner = ownerService.updateOwnerName(newName);
     return convertToDTO(owner);
   }
 

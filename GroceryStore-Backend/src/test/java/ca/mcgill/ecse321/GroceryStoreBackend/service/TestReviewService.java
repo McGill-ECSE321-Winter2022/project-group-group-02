@@ -191,41 +191,41 @@ public class TestReviewService {
         });
 
     lenient().when(reviewRepo.findByCustomerAndOrder(any(Customer.class), any(Order.class)))
-    .thenAnswer((InvocationOnMock invocation) -> {
-      if (((Order) invocation.getArgument(1)).getId().equals(ORDER_ID) 
-          && ((Customer) invocation.getArgument(0)).getEmail().equals(CUSTOMER_EMAIL)) {
+        .thenAnswer((InvocationOnMock invocation) -> {
+          if (((Order) invocation.getArgument(1)).getId().equals(ORDER_ID)
+              && ((Customer) invocation.getArgument(0)).getEmail().equals(CUSTOMER_EMAIL)) {
 
-        Customer customer = new Customer();
-        customer.setEmail(CUSTOMER_EMAIL);
-        customer.setName(CUSTOMER_NAME);
-        customer.setAddress(CUSTOMER_ADDRESS);
-        customer.setPassword(CUSTOMER_PASSWORD);
+            Customer customer = new Customer();
+            customer.setEmail(CUSTOMER_EMAIL);
+            customer.setName(CUSTOMER_NAME);
+            customer.setAddress(CUSTOMER_ADDRESS);
+            customer.setPassword(CUSTOMER_PASSWORD);
 
-        Order order = new Order();
-        order.setId(ORDER_ID);
-        order.setOrderStatus(ORDER_STATUS);
-        order.setOrderType(ORDER_TYPE);
-        order.setDate(ORDER_DATE);
-        order.setTime(ORDER_TIME);
-        order.setCustomer(customer);
+            Order order = new Order();
+            order.setId(ORDER_ID);
+            order.setOrderStatus(ORDER_STATUS);
+            order.setOrderType(ORDER_TYPE);
+            order.setDate(ORDER_DATE);
+            order.setTime(ORDER_TIME);
+            order.setCustomer(customer);
 
-        Review review = new Review();
-
-
-        review.setDescription(REVIEW_DESCRIPTION);
-        review.setRating(REVIEW_RATING);
-        review.setId(REVIEW_ID);
-        review.setOrder(order);
-        review.setCustomer(customer);
+            Review review = new Review();
 
 
-        return review;
-      } else {
+            review.setDescription(REVIEW_DESCRIPTION);
+            review.setRating(REVIEW_RATING);
+            review.setId(REVIEW_ID);
+            review.setOrder(order);
+            review.setCustomer(customer);
 
-        return null;
-      }
 
-    });
+            return review;
+          } else {
+
+            return null;
+          }
+
+        });
 
     Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
       return invocation.getArgument(0);
@@ -241,28 +241,28 @@ public class TestReviewService {
     assertEquals(0, reviewService.getAllReviews().size());
 
 
-     String email = "Customer@mail.com";
-     String name = "customerName";
-     String address = "Durocher";
-     String password = "222";
-     Customer customer = customerService.createCustomer(email, password, name, address);
-     lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
-    
-    
-    
-     OrderStatus orderStatus = OrderStatus.Preparing;
-     OrderType orderType = OrderType.Delivery;
-     Date orderDate = Date.valueOf("2022-02-02");
-     Time orderTime = Time.valueOf("11:10:09");
-     Long orderId = 21L;
-     Order order = new Order();
-     order.setOrderStatus(orderStatus);
-     order.setOrderType(orderType);
-     order.setDate(orderDate);
-     order.setTime(orderTime);
-     order.setId(orderId);
-     order.setCustomer(customer);
-     lenient().when(orderRepo.findOrderById(orderId)).thenReturn(order);
+    String email = "Customer@mail.com";
+    String name = "customerName";
+    String address = "Durocher";
+    String password = "222";
+    Customer customer = customerService.createCustomer(email, password, name, address);
+    lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
+
+
+
+    OrderStatus orderStatus = OrderStatus.Preparing;
+    OrderType orderType = OrderType.Delivery;
+    Date orderDate = Date.valueOf("2022-02-02");
+    Time orderTime = Time.valueOf("11:10:09");
+    Long orderId = 21L;
+    Order order = new Order();
+    order.setOrderStatus(orderStatus);
+    order.setOrderType(orderType);
+    order.setDate(orderDate);
+    order.setTime(orderTime);
+    order.setId(orderId);
+    order.setCustomer(customer);
+    lenient().when(orderRepo.findOrderById(orderId)).thenReturn(order);
 
 
 
@@ -383,12 +383,12 @@ public class TestReviewService {
     assertEquals(0, reviewService.getAllReviews().size());
 
 
-     String email = "Customer@mail.com";
-     String name = "customerName";
-     String address = "Durocher";
-     String password = "222";
-     Customer customer = customerService.createCustomer(email, password, name, address);
-     lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
+    String email = "Customer@mail.com";
+    String name = "customerName";
+    String address = "Durocher";
+    String password = "222";
+    Customer customer = customerService.createCustomer(email, password, name, address);
+    lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
     Review review = null;
     String description = "Really Cool";
@@ -426,9 +426,9 @@ public class TestReviewService {
     assertNull(review);
     assertEquals("Review already exists for this order", error);
   }
-  
-  
-  
+
+
+
   @Test
   public void testCreateReviewWithDuplicateId() {
     assertEquals(0, reviewService.getAllReviews().size());
@@ -439,9 +439,9 @@ public class TestReviewService {
     String password = "222";
     Customer customer = customerService.createCustomer(email, password, name, address);
     lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
-   
-   
-   
+
+
+
     OrderStatus orderStatus = OrderStatus.Preparing;
     OrderType orderType = OrderType.Delivery;
     Date orderDate = Date.valueOf("2022-02-02");
@@ -458,11 +458,11 @@ public class TestReviewService {
 
 
 
-   Review review = null;
-   String description = "Really Cool";
-   Rating rating = Rating.VeryGood;
-   Long reviewId = REVIEW_ID;
-   String error = null;
+    Review review = null;
+    String description = "Really Cool";
+    Rating rating = Rating.VeryGood;
+    Long reviewId = REVIEW_ID;
+    String error = null;
 
     try {
       review = reviewService.createReview(rating, description, email, orderId, reviewId);
@@ -473,16 +473,16 @@ public class TestReviewService {
     assertNull(review);
     assertEquals("Review with this id already exists", error);
   }
-  
-  
+
+
   @Test
   public void testUpdateReview() {
     assertEquals(0, reviewService.getAllReviews().size());
-    
+
     Review review = null;
     String description = "Very Cool";
     Rating rating = Rating.VeryGood;
-    
+
 
     try {
       review = reviewService.updateReview(ORDER_ID, description, rating);
@@ -496,7 +496,7 @@ public class TestReviewService {
     assertEquals(CUSTOMER_EMAIL, review.getCustomer().getEmail());
     assertEquals(rating, review.getRating());
   }
-  
+
   @Test
   public void testUpdateReviewNonExistingOrder() {
     assertEquals(0, reviewService.getAllReviews().size());
@@ -517,7 +517,7 @@ public class TestReviewService {
     assertNull(review);
     assertEquals("No order found", error);
   }
-  
+
   @Test
   public void testUpdateReviewNonExisting() {
     assertEquals(0, reviewService.getAllReviews().size());
@@ -529,9 +529,9 @@ public class TestReviewService {
     String password = "222";
     Customer customer = customerService.createCustomer(email, password, name, address);
     lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
-   
-   
-   
+
+
+
     OrderStatus orderStatus = OrderStatus.Preparing;
     OrderType orderType = OrderType.Delivery;
     Date orderDate = Date.valueOf("2022-02-02");
@@ -545,7 +545,7 @@ public class TestReviewService {
     order.setId(orderIdNoReview);
     order.setCustomer(customer);
     lenient().when(orderRepo.findOrderById(orderIdNoReview)).thenReturn(order);
-    
+
     Review review = null;
     String description = "Very Cool";
     Rating rating = Rating.VeryGood;
@@ -560,8 +560,8 @@ public class TestReviewService {
     assertNull(review);
     assertEquals("Cannot update non existing review", error);
   }
-  
-  
+
+
   @Test
   public void testUpdateReviewNullDescription() {
     assertEquals(0, reviewService.getAllReviews().size());
@@ -581,7 +581,7 @@ public class TestReviewService {
     assertNull(review);
     assertEquals("Description cannot be null", error);
   }
-  
+
   @Test
   public void testUpdateReviewEmptyDescription() {
     assertEquals(0, reviewService.getAllReviews().size());
@@ -601,8 +601,8 @@ public class TestReviewService {
     assertNull(review);
     assertEquals("Description cannot be empty", error);
   }
-  
-  
+
+
   @Test
   public void testDeleteReview() {
     assertEquals(0, reviewService.getAllReviews().size());
@@ -612,12 +612,12 @@ public class TestReviewService {
     try {
       didDelete = reviewService.deleteReview(ORDER_ID);
     } catch (IllegalArgumentException e) {
-        fail();
+      fail();
     }
 
     assertTrue(didDelete);
   }
-  
+
   @Test
   public void testDeleteReviewNullOrder() {
     assertEquals(0, reviewService.getAllReviews().size());
@@ -628,22 +628,22 @@ public class TestReviewService {
     try {
       reviewService.deleteReview(fakeOrderId);
     } catch (IllegalArgumentException e) {
-        error = e.getMessage();
+      error = e.getMessage();
     }
 
     assertEquals("No order found", error);
   }
-  
+
   @Test
   public void testGetReviewForOrder() {
     assertEquals(0, reviewService.getAllReviews().size());
 
     Review review = null;
-    
+
     try {
       review = reviewService.getReviewForOrder(ORDER_ID);
     } catch (IllegalArgumentException e) {
-        fail();
+      fail();
     }
 
     assertNotNull(review);
@@ -652,18 +652,18 @@ public class TestReviewService {
     assertEquals(CUSTOMER_EMAIL, review.getCustomer().getEmail());
     assertEquals(REVIEW_RATING, review.getRating());
   }
-  
+
   @Test
   public void testGetReviewForNonExistingOrder() {
     assertEquals(0, reviewService.getAllReviews().size());
 
     Long fakeOrderId = 213243L;
     String error = null;
-    
+
     try {
       reviewService.getReviewForOrder(fakeOrderId);
     } catch (IllegalArgumentException e) {
-        error = e.getMessage();
+      error = e.getMessage();
     }
 
     assertEquals(error, "No order found");
