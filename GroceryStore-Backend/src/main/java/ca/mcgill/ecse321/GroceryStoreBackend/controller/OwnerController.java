@@ -68,8 +68,7 @@ public class OwnerController {
   }
 
   public static OwnerDto convertToDTO(Owner owner) {
-    if (owner == null)
-      throw new IllegalArgumentException("Owner not found.");
+    if (owner == null) return null;
     return new OwnerDto(owner.getEmail(), owner.getPassword(), owner.getName());
   }
 
