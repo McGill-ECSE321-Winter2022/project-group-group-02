@@ -64,11 +64,10 @@ public class ReviewController {
 
 
   @PostMapping(value = {"/delete_review/"})
-  public boolean deleteReview(@RequestParam("orderId") Long orderId,
-      @RequestParam("customerEmail") String customerEmail) {
+  public boolean deleteReview(@RequestParam("orderId") Long orderId) {
 
 
-    return reviewService.deleteReview(orderId, customerEmail);
+    return reviewService.deleteReview(orderId);
   }
 
   @GetMapping(value = {"/view_all_reviews"})

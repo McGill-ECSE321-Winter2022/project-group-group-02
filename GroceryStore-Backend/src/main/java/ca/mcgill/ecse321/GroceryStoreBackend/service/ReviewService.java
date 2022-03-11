@@ -39,16 +39,13 @@ public class ReviewService {
       Long orderId, Long reviewId) {
 
     
-    if (orderId == null) {
-      throw new IllegalArgumentException("Order not found");
-    }
 
     if (aDescription == null) {
-      throw new IllegalArgumentException("No description");
+      throw new IllegalArgumentException("Description cannot be null");
     }
 
-    if (aDescription == "") {
-      throw new IllegalArgumentException("Description must contain at least 1 character");
+    if (aDescription.isBlank()) {
+      throw new IllegalArgumentException("Description cannot be empty");
     }
 
     Customer customer = customerRepository.findByEmail(customerEmail);
@@ -60,6 +57,7 @@ public class ReviewService {
     if (order == null) {
       throw new IllegalArgumentException("No order found");
     }
+    
     if (!order.getCustomer().getEmail().equals(customerEmail)) {
       throw new IllegalArgumentException("Order not found for customer");
     }
@@ -94,14 +92,16 @@ public class ReviewService {
       }
 
       Review review = reviewRepository.findReviewByOrder(order);
-
+      if (review == null) {
+        throw new IllegalArgumentException("Cannot update non existing review");
+      }
 
       if(newDescription == null) {
-        throw new IllegalArgumentException("No new description");
+        throw new IllegalArgumentException("Description cannot be null");
       }
       
-      if(newDescription == "") {
-          throw new IllegalArgumentException("New description must contain at least 1 character");
+      if(newDescription.isBlank()) {
+          throw new IllegalArgumentException("Description cannot be empty");
       }
 
       
@@ -113,16 +113,13 @@ public class ReviewService {
 
 
   @Transactional
-  public boolean deleteReview(Long orderId, String customerEmail) {
+  public boolean deleteReview(Long orderId) {
     Order order = orderRepository.findOrderById(orderId);
     if (order == null) {
       throw new IllegalArgumentException("No order found");
     }
-    Customer customer = customerRepository.findByEmail(customerEmail);
-    if (customer == null) {
-      throw new IllegalArgumentException("No customer found");
-    }
-    Review review = reviewRepository.findByCustomerAndOrder(customer, order);
+
+    Review review = reviewRepository.findReviewByOrder(order);
     reviewRepository.delete(review);
 
     return true;
