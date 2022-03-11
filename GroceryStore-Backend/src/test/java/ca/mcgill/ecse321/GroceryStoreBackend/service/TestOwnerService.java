@@ -5,6 +5,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
@@ -290,6 +291,35 @@ public class TestOwnerService {
     assertEquals(owner.getPassword(), OWNER_PASSWORD);
     assertEquals(owner.getEmail(), OWNER_EMAIL);
 
+  }
+  
+  
+  @Test
+  public void testDeleteOwner() {
+
+      boolean success = false;
+      try {
+          success = ownerService.deleteOwner();
+      } catch (IllegalArgumentException e) {
+          fail();
+      }
+
+      assertTrue(success);
+  }
+
+  @Test
+  public void testDeleteOwnerNotFound() {
+      
+    String error = null;
+    lenient().when(ownerRepo.findByEmail(anyString())).thenReturn(null);
+    
+      try {
+          ownerService.deleteOwner();
+      } catch (IllegalArgumentException e) {
+          error = e.getMessage();
+      }
+
+      assertEquals("Owner not found.", error);
   }
 
 }

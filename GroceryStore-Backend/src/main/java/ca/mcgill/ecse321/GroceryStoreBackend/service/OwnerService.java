@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.OwnerRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Owner;
 
 @Service
@@ -84,6 +85,20 @@ public class OwnerService {
   public Owner getOwner() {
     Owner owner = ownerRepository.findByEmail("admin@grocerystore.com");
     return owner;
+  }
+  
+  @Transactional
+  public boolean deleteOwner() throws IllegalArgumentException {
+
+    Owner owner = ownerRepository.findByEmail("admin@grocerystore.com");
+    
+
+      if (owner == null) {
+          throw new IllegalArgumentException("Owner not found.");
+      }
+
+      ownerRepository.delete(owner);
+      return true;
   }
 
 

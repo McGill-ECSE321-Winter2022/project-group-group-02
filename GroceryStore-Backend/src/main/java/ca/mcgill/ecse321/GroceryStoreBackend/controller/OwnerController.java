@@ -58,6 +58,14 @@ public class OwnerController {
     return convertToDTO(owner);
   }
 
+  @PostMapping(value = { "/delete_owner", "/delete_owner/" })
+  public void deleteCustomer() throws Exception {
+      try {
+          ownerService.deleteOwner();
+      } catch (Exception e) {
+          String error = e.getMessage();
+      }
+  }
 
   public static OwnerDto convertToDTO(Owner owner) {
     if (owner == null)
