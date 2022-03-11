@@ -52,7 +52,7 @@ public class OrderController {
     
     
     
-    return orderService.cancelOrder(orderService.getOrderById(Long.parseLong(orderId)));
+    return orderService.cancelOrder(Long.parseLong(orderId));
   }
   
   //OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, String email
@@ -60,14 +60,15 @@ public class OrderController {
   
   @PostMapping(value = {"/create_order"})
   public ResponseEntity<?> createOrder(@RequestParam("orderType") String orderType,
-      @RequestParam("email") String email) {
+      @RequestParam("email") String email,  @RequestParam("id") String id) {
 
     OrderType actualType = orderService.convertOrderType(orderType);
+    Long orderId = Long.parseLong(id);
 
     Order order = null;
 
     try {
-      order = orderService.createOrder(actualType, OrderStatus.Confirmed, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), email);
+      order = orderService.createOrder(actualType, OrderStatus.Confirmed, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), email, orderId);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -83,11 +84,10 @@ public class OrderController {
     OrderType actualType = orderService.convertOrderType(orderType);
 
     
-    Order oldOrder = orderService.getOrderById(orderId);
     Order order = null;
 
     try {
-      order = orderService.updateOrder(oldOrder, actualType, OrderStatus.Confirmed, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), email);
+      order = orderService.updateOrder( actualType, OrderStatus.Confirmed, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), orderId);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -102,11 +102,10 @@ public class OrderController {
     Long orderId = Long.parseLong(id);
     OrderStatus actualStatus = orderService.convertOrderStatus(orderStatus);
     
-    Order oldOrder = orderService.getOrderById(orderId);
     Order order = null;
 
     try {
-      order = orderService.setOrderStatus(oldOrder, actualStatus);
+      order = orderService.setOrderStatus(orderId, actualStatus);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }

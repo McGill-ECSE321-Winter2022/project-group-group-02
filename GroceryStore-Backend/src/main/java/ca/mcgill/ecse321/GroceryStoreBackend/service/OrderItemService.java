@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.OrderItemRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.ShoppableItemRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.model.Order;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.OrderItem;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.ShoppableItem;
 
@@ -38,7 +39,7 @@ public class OrderItemService {
   }
   
   @Transactional
-  public OrderItem updateOrderItem(OrderItem orderItem, int quantity, String itemName) throws IllegalArgumentException {
+  public OrderItem updateOrderItem(Long orderItemId, int quantity, String itemName) throws IllegalArgumentException {
     
     if(quantity < 0) throw new IllegalArgumentException ("Please enter a valid quantity. ");
     
@@ -46,6 +47,9 @@ public class OrderItemService {
     
     if(item== null) throw new IllegalArgumentException ("Please enter a valid item. ");
    
+   OrderItem orderItem = orderItemRepo.findOrderItemById(orderItemId); 
+   if(orderItem== null) throw new IllegalArgumentException ("Please enter a valid order item. ");
+
     
       orderItem.setQuantity(quantity);
       orderItem.setItem(item); 
@@ -55,9 +59,11 @@ public class OrderItemService {
   }
   
   @Transactional
-  public boolean deleteOrderItem(OrderItem orderItem) throws IllegalArgumentException {
+  public boolean deleteOrderItem(Long orderItemId) throws IllegalArgumentException {
 
-    if(orderItem== null) throw new IllegalArgumentException ("Please enter a valid order Item. ");
+    
+    OrderItem orderItem = orderItemRepo.findOrderItemById(orderItemId); 
+    if(orderItem== null) throw new IllegalArgumentException ("Please enter a valid order item. ");
     
     orderItemRepo.delete(orderItem);
     orderItem.delete();
@@ -69,14 +75,26 @@ public class OrderItemService {
   
   @Transactional
   public List<OrderItem> getAllOrderItem() {
-      return toList(orderItemRepo.findAll());
+      
+   List<OrderItem> allOrderItems = toList(orderItemRepo.findAll());
+    
+    if(allOrderItems.size() == 0) throw new IllegalArgumentException ("There's no order items in the system. ");
+    
+    return allOrderItems;
+    
   }
   
   
   @Transactional
   public OrderItem getOrderItemById(Long id) {
-      return orderItemRepo.findOrderItemById(id);
-  }
+    
+    if(id== null) throw new IllegalArgumentException ("Please enter a valid order ID. ");
+    OrderItem orderItem = orderItemRepo.findOrderItemById(id);
+    
+    if(orderItem== null) throw new IllegalArgumentException ("Please enter a valid order item by providing a valid order item ID. ");
+
+    
+    return orderItem;  }
   
   
   

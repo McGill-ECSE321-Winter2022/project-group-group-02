@@ -66,7 +66,7 @@ public class OrderItemController {
     OrderItem orderItem = null;
 
     try {
-      orderItem = orderItemService.updateOrderItem(orderItemService.getOrderItemById(Long.parseLong(id)),Integer.parseInt(quantity), itemName);
+      orderItem = orderItemService.updateOrderItem(Long.parseLong(id),Integer.parseInt(quantity), itemName);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -78,7 +78,7 @@ public class OrderItemController {
   public boolean deleteOrderItem( @RequestParam("orderItemId") String id) {
 
     
-      return orderItemService.deleteOrderItem(orderItemService.getOrderItemById(Long.parseLong(id)));
+      return orderItemService.deleteOrderItem(Long.parseLong(id));
   
   }
   

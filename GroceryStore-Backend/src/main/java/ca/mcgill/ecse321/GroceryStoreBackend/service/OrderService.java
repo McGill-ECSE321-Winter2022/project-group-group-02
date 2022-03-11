@@ -27,7 +27,7 @@ public class OrderService {
   
   
   @Transactional
-  public Order createOrder(OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, String email) throws IllegalArgumentException {
+  public Order createOrder(OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, String email, Long orderId) throws IllegalArgumentException {
       
     if(aOrderType== null) throw new IllegalArgumentException ("Please enter a valid order type. ");
     if(aOrderStatus== null) throw new IllegalArgumentException ("Please enter a valid order status. ");
@@ -38,46 +38,68 @@ public class OrderService {
     Customer aCustomer = customerRepo.findByEmail(email);
     if(aCustomer==null) throw new IllegalArgumentException ("Please enter a valid customer. ");
 
+    Order order = orderRepo.findOrderById(orderId);
+    if(order != null) throw new IllegalArgumentException ("Order with ID already exists.");
     
-      Order order = new Order(aOrderType, aOrderStatus, aDate, aTime, aCustomer);
+      order = new Order(aOrderType, aOrderStatus, aDate, aTime, aCustomer);
+     order.setId(orderId);
       orderRepo.save(order);
       return order;
   
   }
   
   @Transactional
-  public Order updateOrder(Order order, OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, String email) throws IllegalArgumentException {
+  public Order updateOrder(OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, Long orderId) throws IllegalArgumentException {
     
+    Order order = orderRepo.findOrderById(orderId);
     if(order== null) throw new IllegalArgumentException ("Please enter a valid order. ");
+
     if(aOrderType== null) throw new IllegalArgumentException ("Please enter a valid order type. ");
     if(aOrderStatus== null) throw new IllegalArgumentException ("Please enter a valid order status. ");
     if(aDate== null) throw new IllegalArgumentException ("Please enter a valid date. ");
     if(aTime== null) throw new IllegalArgumentException ("Please enter a valid time. ");
     
-    Customer aCustomer = customerRepo.findByEmail(email);
-
+    
+    Customer aCustomer = customerRepo.findByEmail(order.getCustomer().getEmail());
     if(aCustomer== null) throw new IllegalArgumentException ("Please enter a valid customer. ");
+    
+    System.out.println(aCustomer.getEmail());
+    
+    List<Order> allOrdersByCustomer = orderRepo.findOrderByCustomer(aCustomer);
+    if(allOrdersByCustomer.size() == 0) throw new IllegalArgumentException ("This customer does not have any order. ");
+    
+    boolean found = false;
+    for(Order mock : allOrdersByCustomer) {
+      
+      if(order.getId()==mock.getId()) {
+        found = true;
+        break;
+      }
+      
+    }
 
-    if(orderRepo.findOrderById(order.getId())== null) throw new IllegalArgumentException ("Please enter a valid order. ");
+    if(found == false) throw new IllegalArgumentException ("This order is not associated with this customer. ");
 
     order.setOrderType(aOrderType);
     order.setOrderStatus(aOrderStatus);
     order.setDate(aDate);
     order.setTime(aTime);
-    order.setCustomer(aCustomer);
-    
+    order.setId(orderId);
     orderRepo.save(order);
     
     return order;
   }
   
   @Transactional
-  public boolean cancelOrder(Order order) throws IllegalArgumentException {
+  public boolean cancelOrder(Long orderId) throws IllegalArgumentException {
 
+    Order order = orderRepo.findOrderById(orderId);
     if(order== null) {
-      throw new IllegalArgumentException ("Please enter a valid order. ");
+      throw new IllegalArgumentException ("Please enter a valid order. ") ;
       
     }
+      
+    
     
     orderRepo.delete(order);
     order.delete();
@@ -88,7 +110,12 @@ public class OrderService {
 
   @Transactional
   public List<Order> getAllOrder() {
-      return toList(orderRepo.findAll());
+      
+    List<Order> allOrders = toList(orderRepo.findAll());
+    
+    if(allOrders.size() == 0) throw new IllegalArgumentException ("There's no orders in the system. ");
+    
+    return allOrders;
   }
   
   
@@ -113,18 +140,22 @@ public class OrderService {
     
  
 
-    if(orderId== null) throw new IllegalArgumentException ("Please enter a valid orderId. ");
+    if(orderId== null) throw new IllegalArgumentException ("Please enter a valid order ID. ");
+    Order order = orderRepo.findOrderById(orderId);
     
+    if(order== null) throw new IllegalArgumentException ("Please enter a valid order by providing a valid order ID. ");
+
     
-    return orderRepo.findOrderById(orderId);
+    return order;
     
     
   }
   
   
   @Transactional
-  public Order setOrderStatus(Order order, OrderStatus aOrderStatus) throws IllegalArgumentException {
+  public Order setOrderStatus(Long orderId, OrderStatus aOrderStatus) throws IllegalArgumentException {
 
+    Order order = orderRepo.findOrderById(orderId);
     if(order== null) throw new IllegalArgumentException ("Please enter a valid order. ");
     if(aOrderStatus== null) throw new IllegalArgumentException ("Please enter a valid order status. ");
     
