@@ -26,13 +26,13 @@ public class OwnerController {
   private OwnerService ownerService;
 
 
-  @GetMapping(value = {"/view_owner/"})
+  @GetMapping(value = {"/view_owner/", "/view_owner"})
   public OwnerDto viewOwner() {
     return convertToDTO(ownerService.getOwner());
   }
 
 
-  @PostMapping(value = {"/create_owner"})
+  @PostMapping(value = {"/create_owner/", "/create_owner"})
   public ResponseEntity<?> createOwner(@RequestParam("name") String name,
       @RequestParam("password") String password, @RequestParam("email") String email) {
 
@@ -46,13 +46,13 @@ public class OwnerController {
     return new ResponseEntity<>(convertToDTO(owner), HttpStatus.CREATED);
   }
 
-  @PostMapping(value = {"/update_owner_password"})
+  @PostMapping(value = {"/update_owner_password/", "/update_owner_password"})
   public OwnerDto updateOwnerPassword(@RequestParam("newPassword") String newPassword) {
     Owner owner = ownerService.updateOwnerPassword(newPassword);
     return convertToDTO(owner);
   }
 
-  @PostMapping(value = {"/update_owner_name"})
+  @PostMapping(value = {"/update_owner_name/", "/update_owner_name"})
   public OwnerDto updateOwnerName(@RequestParam("newName") String newName) {
     Owner owner = ownerService.updateOwnerName(newName);
     return convertToDTO(owner);

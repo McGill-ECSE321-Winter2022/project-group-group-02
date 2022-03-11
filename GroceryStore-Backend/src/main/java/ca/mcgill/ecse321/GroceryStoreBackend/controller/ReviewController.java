@@ -28,7 +28,7 @@ public class ReviewController {
   private ReviewService reviewService;
 
 
-  @PostMapping(value = {"/create_review/"})
+  @PostMapping(value = {"/create_review/", "/create_review"})
   public ResponseEntity<?> createReview(@RequestParam("rating") Rating rating,
       @RequestParam("description") String description,
       @RequestParam("customerEmail") String customerEmail, @RequestParam("orderId") Long orderId,
@@ -46,7 +46,7 @@ public class ReviewController {
   }
 
 
-  @PostMapping(value = {"/update_review/"})
+  @PostMapping(value = {"/update_review/", "/update_review"})
   public ResponseEntity<?> updateReview(@RequestParam("orderId") Long orderId,
       @RequestParam("newDescription") String newDescription,
       @RequestParam("rating") Rating newRating) {
@@ -63,21 +63,21 @@ public class ReviewController {
   }
 
 
-  @PostMapping(value = {"/delete_review/"})
+  @PostMapping(value = {"/delete_review/", "/delete_review"})
   public boolean deleteReview(@RequestParam("orderId") Long orderId) {
 
 
     return reviewService.deleteReview(orderId);
   }
 
-  @GetMapping(value = {"/view_all_reviews"})
+  @GetMapping(value = {"/view_all_reviews/", "/view_all_reviews"})
   public List<ReviewDto> getAllReviews() {
     return reviewService.getAllReviews().stream().map(review -> convertToDto(review))
         .collect(Collectors.toList());
   }
 
 
-  @GetMapping(value = {"/view_reviews_for_customer"})
+  @GetMapping(value = {"/view_reviews_for_customer/", "/view_reviews_for_customer"})
   public List<ReviewDto> getReviewsForCustomer(
       @RequestParam("customerEmail") String customerEmail) {
 
@@ -85,7 +85,7 @@ public class ReviewController {
         .map(review -> convertToDto(review)).collect(Collectors.toList());
   }
 
-  @GetMapping(value = {"/view_review_for_order"})
+  @GetMapping(value = {"/view_review_for_order/", "/view_review_for_order"})
   public ReviewDto getReviewForOrder(@RequestParam("orderId") Long orderId) {
 
     return convertToDto(reviewService.getReviewForOrder(orderId));
