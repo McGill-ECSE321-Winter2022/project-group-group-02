@@ -29,8 +29,8 @@ public class CustomerController {
       return service.getAllCustomers().stream().map(c -> convertToDto(c)).collect(Collectors.toList());
   }
   
-  @PostMapping(value = { "/create_customer/", "/create_customer/" })
-  public CustomerDto createCustomer(@PathVariable("email") String email, @RequestParam String password, @RequestParam String name, @RequestParam String address) throws IllegalArgumentException {
+  @PostMapping(value = { "/create_customer", "/create_customer/" })
+  public CustomerDto createCustomer(@RequestParam("email") String email, @RequestParam String password, @RequestParam String name, @RequestParam String address) throws IllegalArgumentException {
       Customer customer = service.createCustomer(email, password, name, address);
       return convertToDto(customer);
   }
