@@ -21,14 +21,18 @@ public class StoreService {
   @Transactional
 	public  Store createStore(String town, Double deliveryFee, List<DailySchedule> dailySchedules) {
 
-          if (town == null) {
+          if (town == null || town.isEmpty()) {
             throw new IllegalArgumentException("Please enter a town");
           }
       
           if (deliveryFee == null) {
             throw new IllegalArgumentException("Please enter a delivery fee");
           }
-      
+
+          if(deliveryFee<0){
+          throw new IllegalArgumentException("The delivery fee cannot be negative");
+          }
+
           Store store = new Store();
           store.setTown(town);
           store.setDeliveryFee(deliveryFee);
@@ -46,13 +50,18 @@ public class StoreService {
           throw new IllegalArgumentException("No store found");
         }
 
-        if (town == null) {
+        if (town == null || town.isEmpty()) {
             throw new IllegalArgumentException("Please enter a town");
           }
       
           if (deliveryFee == null) {
             throw new IllegalArgumentException("Please enter a delivery fee");
           }
+
+          if(deliveryFee<0){
+            throw new IllegalArgumentException("The delivery fee cannot be negative");
+          }
+  
   
           store.setTown(town);
           store.setDeliveryFee(deliveryFee);
@@ -70,8 +79,11 @@ public class StoreService {
 
     @Transactional
     public boolean deleteStore(Long id) {
+      if (id == null) {
+        throw new IllegalArgumentException("Id cannot be empty");
+      }
       Store store = storeRepository.findStoreById(id);
-      if(store.equals(null)) throw new IllegalArgumentException ("Please enter a valid id");
+      if(store.equals(null)) throw new IllegalArgumentException ("Store not found");
       
       storeRepository.delete(store);
       store.delete();

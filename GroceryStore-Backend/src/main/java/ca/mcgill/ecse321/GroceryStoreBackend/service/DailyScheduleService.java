@@ -44,6 +44,8 @@ public class DailyScheduleService {
 
     @Transactional
     public DailySchedule updateDailySchedule(Long id, DayOfWeek dayOfWeek, Time startTime, Time endTime) {
+
+
   
         DailySchedule dailySchedule =  dailyScheduleRepository.findDailyScheduleById(id);
         if (dailySchedule == null) {
@@ -51,7 +53,7 @@ public class DailyScheduleService {
         }
 
         if (dayOfWeek == null) {
-            throw new IllegalArgumentException("Please enter a valid day of weekk");
+            throw new IllegalArgumentException("Please enter a valid day of week");
           }
       
           if (startTime == null) {
@@ -77,8 +79,14 @@ public class DailyScheduleService {
 
     @Transactional
     public boolean deleteDailySchedule(Long id) {
+
+      if (id == null) {
+        throw new IllegalArgumentException("Id cannot be empty");
+      }
     DailySchedule dailySchedule = dailyScheduleRepository.findDailyScheduleById(id);
-      if(dailySchedule.equals(null)) throw new IllegalArgumentException ("Please enter a valid id");
+      if(dailySchedule.equals(null)) throw new IllegalArgumentException ("Daily schedule not found");
+
+      
       
       dailyScheduleRepository.delete(dailySchedule);
       dailySchedule.delete();
