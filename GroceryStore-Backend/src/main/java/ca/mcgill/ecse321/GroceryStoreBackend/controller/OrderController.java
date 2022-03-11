@@ -48,24 +48,26 @@ public class OrderController {
   
   
   @PostMapping(value = {"/cancel_order/"})
-  public boolean cancelOrder(@RequestParam("orderId") Long orderId,
-      @RequestParam("customerEmail") String customerEmail) {
+  public boolean cancelOrder(@RequestParam("orderId") String orderId) {
     
-    return orderService.cancelOrder(orderService.getOrderByCustomerAndId(customerEmail, orderId));
+    
+    
+    return orderService.cancelOrder(orderService.getOrderById(Long.parseLong(orderId)));
   }
   
   //OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, String email
   
   
   @PostMapping(value = {"/create_order"})
-  public ResponseEntity<?> createOrder(@RequestParam("orderType") OrderType orderType,
+  public ResponseEntity<?> createOrder(@RequestParam("orderType") String orderType,
       @RequestParam("email") String email) {
 
-    
+    OrderType actualType = orderService.convertOrderType(orderType);
+
     Order order = null;
 
     try {
-      order = orderService.createOrder(orderType, OrderStatus.Confirmed, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), email);
+      order = orderService.createOrder(actualType, OrderStatus.Confirmed, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), email);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -74,16 +76,18 @@ public class OrderController {
   
   
   @PostMapping(value = {"/update_order"})
-  public ResponseEntity<?> updateOrder(@RequestParam("orderType") OrderType orderType, 
+  public ResponseEntity<?> updateOrder(@RequestParam("orderType") String orderType, 
       @RequestParam("email") String email,  @RequestParam("id") String id) {
 
     Long orderId = Long.parseLong(id);
+    OrderType actualType = orderService.convertOrderType(orderType);
+
     
-    Order oldOrder = orderService.getOrderByCustomerAndId(email, orderId);
+    Order oldOrder = orderService.getOrderById(orderId);
     Order order = null;
 
     try {
-      order = orderService.updateOrder(oldOrder, orderType, OrderStatus.Confirmed, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), email);
+      order = orderService.updateOrder(oldOrder, actualType, OrderStatus.Confirmed, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), email);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -92,16 +96,17 @@ public class OrderController {
   
   
   @PostMapping(value = {"/update_order_status"})
-  public ResponseEntity<?> updateOrderStatus(@RequestParam("orderStatus") OrderStatus orderStatus, 
-      @RequestParam("email") String email,  @RequestParam("id") String id) {
+  public ResponseEntity<?> updateOrderStatus(@RequestParam("orderStatus") String orderStatus, 
+        @RequestParam("id") String id) {
 
     Long orderId = Long.parseLong(id);
+    OrderStatus actualStatus = orderService.convertOrderStatus(orderStatus);
     
-    Order oldOrder = orderService.getOrderByCustomerAndId(email, orderId);
+    Order oldOrder = orderService.getOrderById(orderId);
     Order order = null;
 
     try {
-      order = orderService.setOrderStatus(oldOrder, orderStatus);
+      order = orderService.setOrderStatus(oldOrder, actualStatus);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -126,5 +131,14 @@ public class OrderController {
     
         return new OrderDto(order.getOrderType(), order.getOrderStatus(), order.getDate(), order.getTime(), customerDTO, orderItemDto);
   }
+  
+  
+  
+
+  
+  
+  
+  
+  
 
 }

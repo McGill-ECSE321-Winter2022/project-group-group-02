@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.OrderItemRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.ShoppableItemRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.OrderItem;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.ShoppableItem;
 
@@ -14,16 +15,17 @@ public class OrderItemService {
 
   @Autowired
   OrderItemRepository orderItemRepo;
-  
+  @Autowired
+  ShoppableItemRepository itemRepo;
   
   @Transactional
   public OrderItem createOrderItem(int quantity, String itemName) throws IllegalArgumentException {
       
     if(quantity < 0) throw new IllegalArgumentException ("Please enter a valid quantity. ");
     
-    ShoppableItem item = (ShoppableItem) ShoppableItem.getWithName(itemName);
+    ShoppableItem item = itemRepo.findByName(itemName);
     
-    if(item.equals(null)) throw new IllegalArgumentException ("Please enter a valid item. ");
+    if(item== null) throw new IllegalArgumentException ("Please enter a valid item. ");
    
     
       OrderItem orderItem = new OrderItem();
@@ -40,9 +42,9 @@ public class OrderItemService {
     
     if(quantity < 0) throw new IllegalArgumentException ("Please enter a valid quantity. ");
     
-    ShoppableItem item = (ShoppableItem) ShoppableItem.getWithName(itemName);
+    ShoppableItem item = itemRepo.findByName(itemName);
     
-    if(item.equals(null)) throw new IllegalArgumentException ("Please enter a valid item. ");
+    if(item== null) throw new IllegalArgumentException ("Please enter a valid item. ");
    
     
       orderItem.setQuantity(quantity);
@@ -55,7 +57,7 @@ public class OrderItemService {
   @Transactional
   public boolean deleteOrderItem(OrderItem orderItem) throws IllegalArgumentException {
 
-    if(orderItemRepo.equals(null)) throw new IllegalArgumentException ("Please enter a valid order Item. ");
+    if(orderItem== null) throw new IllegalArgumentException ("Please enter a valid order Item. ");
     
     orderItemRepo.delete(orderItem);
     orderItem.delete();

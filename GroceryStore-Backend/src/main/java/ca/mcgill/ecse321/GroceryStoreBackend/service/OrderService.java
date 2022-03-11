@@ -7,6 +7,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.CustomerRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.OrderRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order;
@@ -20,19 +21,22 @@ public class OrderService {
   @Autowired
   OrderRepository orderRepo;
   
+  @Autowired
+  CustomerRepository customerRepo;
+  
   
   
   @Transactional
   public Order createOrder(OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, String email) throws IllegalArgumentException {
       
-    if(aOrderType.equals(null)) throw new IllegalArgumentException ("Please enter a valid order type. ");
-    if(aOrderStatus.equals(null)) throw new IllegalArgumentException ("Please enter a valid order status. ");
-    if(aDate.equals(null)) throw new IllegalArgumentException ("Please enter a valid date. ");
-    if(aTime.equals(null)) throw new IllegalArgumentException ("Please enter a valid time. ");
+    if(aOrderType== null) throw new IllegalArgumentException ("Please enter a valid order type. ");
+    if(aOrderStatus== null) throw new IllegalArgumentException ("Please enter a valid order status. ");
+    if(aDate== null) throw new IllegalArgumentException ("Please enter a valid date. ");
+    if(aTime== null) throw new IllegalArgumentException ("Please enter a valid time. ");
     
     
-    Customer aCustomer = (Customer) Customer.getWithEmail(email);
-    if(aCustomer.equals(null)) throw new IllegalArgumentException ("Please enter a valid customer. ");
+    Customer aCustomer = customerRepo.findByEmail(email);
+    if(aCustomer==null) throw new IllegalArgumentException ("Please enter a valid customer. ");
 
     
       Order order = new Order(aOrderType, aOrderStatus, aDate, aTime, aCustomer);
@@ -44,17 +48,17 @@ public class OrderService {
   @Transactional
   public Order updateOrder(Order order, OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, String email) throws IllegalArgumentException {
     
-    if(order.equals(null)) throw new IllegalArgumentException ("Please enter a valid order. ");
-    if(aOrderType.equals(null)) throw new IllegalArgumentException ("Please enter a valid order type. ");
-    if(aOrderStatus.equals(null)) throw new IllegalArgumentException ("Please enter a valid order status. ");
-    if(aDate.equals(null)) throw new IllegalArgumentException ("Please enter a valid date. ");
-    if(aTime.equals(null)) throw new IllegalArgumentException ("Please enter a valid time. ");
+    if(order== null) throw new IllegalArgumentException ("Please enter a valid order. ");
+    if(aOrderType== null) throw new IllegalArgumentException ("Please enter a valid order type. ");
+    if(aOrderStatus== null) throw new IllegalArgumentException ("Please enter a valid order status. ");
+    if(aDate== null) throw new IllegalArgumentException ("Please enter a valid date. ");
+    if(aTime== null) throw new IllegalArgumentException ("Please enter a valid time. ");
     
-    Customer aCustomer = (Customer) Customer.getWithEmail(email);
+    Customer aCustomer = customerRepo.findByEmail(email);
 
-    if(aCustomer.equals(null)) throw new IllegalArgumentException ("Please enter a valid customer. ");
+    if(aCustomer== null) throw new IllegalArgumentException ("Please enter a valid customer. ");
 
-    if(orderRepo.findOrderById(order.getId()).equals(null)) throw new IllegalArgumentException ("Please enter a valid order. ");
+    if(orderRepo.findOrderById(order.getId())== null) throw new IllegalArgumentException ("Please enter a valid order. ");
 
     order.setOrderType(aOrderType);
     order.setOrderStatus(aOrderStatus);
@@ -70,7 +74,7 @@ public class OrderService {
   @Transactional
   public boolean cancelOrder(Order order) throws IllegalArgumentException {
 
-    if(order.equals(null)) {
+    if(order== null) {
       throw new IllegalArgumentException ("Please enter a valid order. ");
       
     }
@@ -91,8 +95,8 @@ public class OrderService {
   @Transactional
   public List<Order> getAllOrdersByCustomer(String email) throws IllegalArgumentException {
     
-    Customer aCustomer = (Customer) Customer.getWithEmail(email);
-    if(aCustomer.equals(null)) throw new IllegalArgumentException ("Please enter a valid customer. ");
+    Customer aCustomer = customerRepo.findByEmail(email);
+    if(aCustomer== null) throw new IllegalArgumentException ("Please enter a valid customer. ");
 
     
     List<Order> allOrdersByCustomer = new ArrayList<>();
@@ -105,15 +109,14 @@ public class OrderService {
 }
   
   @Transactional
-  public Order getOrderByCustomerAndId(String email, Long orderId)throws IllegalArgumentException {
+  public Order getOrderById(Long orderId)throws IllegalArgumentException {
     
-    Customer aCustomer = (Customer) Customer.getWithEmail(email);
-    if(aCustomer.equals(null)) throw new IllegalArgumentException ("Please enter a valid customer. ");
+ 
 
-    if(orderId.equals(null)) throw new IllegalArgumentException ("Please enter a valid orderId. ");
+    if(orderId== null) throw new IllegalArgumentException ("Please enter a valid orderId. ");
     
     
-    return orderRepo.findOrderByCustomerAndId(aCustomer, orderId);
+    return orderRepo.findOrderById(orderId);
     
     
   }
@@ -122,8 +125,8 @@ public class OrderService {
   @Transactional
   public Order setOrderStatus(Order order, OrderStatus aOrderStatus) throws IllegalArgumentException {
 
-    if(order.equals(null)) throw new IllegalArgumentException ("Please enter a valid order. ");
-    if(aOrderStatus.equals(null)) throw new IllegalArgumentException ("Please enter a valid order status. ");
+    if(order== null) throw new IllegalArgumentException ("Please enter a valid order. ");
+    if(aOrderStatus== null) throw new IllegalArgumentException ("Please enter a valid order status. ");
     
     
     order.setOrderStatus(aOrderStatus);
@@ -132,7 +135,33 @@ public class OrderService {
     
   }
   
+  @Transactional
+  public OrderType convertOrderType (String type) {
+    
+    
+    if(type.equals("Delivery")) return OrderType.Delivery;
+    if(type.equals("PickUp") || type.equals("Pick Up")|| type.equals("Pick up")) return OrderType.PickUp;
+    
+    return null;
+
+    
+  }
   
+  @Transactional
+  public OrderStatus convertOrderStatus (String status) {
+    
+    
+    if(status.equals("Confirmed")) return OrderStatus.Confirmed;
+    if(status.equals("Preparing")) return OrderStatus.Preparing;
+    if(status.equals("Cancelled")) return OrderStatus.Cancelled;
+    if(status.equals("Delivering")) return OrderStatus.Delivering;
+    if(status.equals("Ready")) return OrderStatus.Ready;
+    if(status.equals("Fulfilled")) return OrderStatus.Fulfilled;
+    
+    return null;
+
+    
+  }
   
   
   
