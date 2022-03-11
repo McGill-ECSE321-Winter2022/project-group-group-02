@@ -31,12 +31,13 @@ public class ReviewController {
   @PostMapping(value = {"/create_review/"})
   public ResponseEntity<?> createReview(@RequestParam("rating") Rating rating,
       @RequestParam("description") String description,
-      @RequestParam("customerEmail") String customerEmail, @RequestParam("orderId") Long orderId) {
+      @RequestParam("customerEmail") String customerEmail, @RequestParam("orderId") Long orderId,
+      @RequestParam("reviewId") Long reviewId) {
 
 
     Review review = null;
     try {
-      review = reviewService.createReview(rating, description, customerEmail, orderId);
+      review = reviewService.createReview(rating, description, customerEmail, orderId, reviewId);
     } catch (IllegalArgumentException e) {
       return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }

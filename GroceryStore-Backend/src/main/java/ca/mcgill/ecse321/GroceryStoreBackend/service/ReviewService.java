@@ -36,8 +36,9 @@ public class ReviewService {
 
   @Transactional
   public Review createReview(Rating aRating, String aDescription, String customerEmail,
-      Long orderId) {
+      Long orderId, Long reviewId) {
 
+    
     if (orderId == null) {
       throw new IllegalArgumentException("Order not found");
     }
@@ -59,13 +60,18 @@ public class ReviewService {
     if (order == null) {
       throw new IllegalArgumentException("No order found");
     }
-    if (order.getCustomer().getEmail().equals(customerEmail)) {
+    if (!order.getCustomer().getEmail().equals(customerEmail)) {
       throw new IllegalArgumentException("Order not found for customer");
     }
 
     Review review = reviewRepository.findByCustomerAndOrder(customer, order);
     if (review != null) {
-      throw new IllegalArgumentException("Review already exists");
+      throw new IllegalArgumentException("Review already exists for this order");
+    }
+    
+    review = reviewRepository.findReviewById(reviewId);
+    if (review != null) {
+      throw new IllegalArgumentException("Review with this id already exists");
     }
 
     review = new Review();
@@ -73,6 +79,7 @@ public class ReviewService {
     review.setCustomer(customer);
     review.setDescription(aDescription);
     review.setRating(aRating);
+    review.setId(reviewId);
     reviewRepository.save(review);
     return review;
   }
