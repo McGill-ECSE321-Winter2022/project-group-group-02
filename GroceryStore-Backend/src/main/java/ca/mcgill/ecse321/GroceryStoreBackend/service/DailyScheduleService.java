@@ -86,7 +86,7 @@ public class DailyScheduleService {
         
      DailySchedule dailySchedule = dailyScheduleRepository.findDailyScheduleById(id);
 
-      if(dailySchedule.equals(null)) throw new IllegalArgumentException ("Daily schedule not found");
+      if(dailySchedule == null) throw new IllegalArgumentException ("Daily schedule not found");
 
       
       

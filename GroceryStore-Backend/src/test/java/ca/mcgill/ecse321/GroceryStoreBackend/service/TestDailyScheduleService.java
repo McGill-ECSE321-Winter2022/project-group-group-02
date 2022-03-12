@@ -304,6 +304,7 @@ public class TestDailyScheduleService {
 	public void testDeleteDailyScheduleNotFound() {
 		String error = null;
         Long Id = (long) 9;
+        
 
 		try {
             dailyScheduleService.deleteDailySchedule(Id);
