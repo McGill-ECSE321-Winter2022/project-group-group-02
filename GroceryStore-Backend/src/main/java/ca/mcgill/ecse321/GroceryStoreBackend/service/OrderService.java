@@ -50,11 +50,10 @@ public class OrderService {
     
      order = new Order(aOrderType, aOrderStatus, aDate, aTime, aCustomer);
      order.setId(orderId);
-      orderRepo.save(order);
-      return order;
+     orderRepo.save(order);
+     return order;
   
   }
-  
   @Transactional
   public Order updateOrder(OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, Long orderId) throws IllegalArgumentException {
     
@@ -65,11 +64,7 @@ public class OrderService {
     if(aOrderStatus== null) throw new IllegalArgumentException ("Please enter a valid order status. ");
     if(aDate== null) throw new IllegalArgumentException ("Please enter a valid date. ");
     if(aTime== null) throw new IllegalArgumentException ("Please enter a valid time. ");
-    
-    
-    Customer aCustomer = customerRepo.findByEmail(order.getCustomer().getEmail());
-    if(aCustomer== null) throw new IllegalArgumentException ("Please enter a valid customer. ");
-    
+
     
    
     order.setOrderType(aOrderType);
@@ -81,19 +76,17 @@ public class OrderService {
     
     return order;
   }
-  
-  
   @Transactional
   public boolean addItemsToOrder(Long orderId, Long orderItemId) throws IllegalArgumentException{
     
-    
+    boolean added = false;
     OrderItem item = orderItemRepo.findOrderItemById(orderItemId);
     if (item == null) throw new IllegalArgumentException ("Please enter a valid item to add to the order. ");
     
     Order order = orderRepo.findOrderById(orderId);
     if(order== null) throw new IllegalArgumentException ("Please enter a valid order. ");
 
-   boolean added = order.addOrderItem(item);
+    added = order.addOrderItem(item);
     
    return added;
     
@@ -102,20 +95,20 @@ public class OrderService {
   @Transactional
   public boolean deleteItemsToOrder(Long orderId, Long orderItemId) throws IllegalArgumentException{
     
-    
+    boolean removed = false;
+
     OrderItem item = orderItemRepo.findOrderItemById(orderItemId);
-    if (item == null) throw new IllegalArgumentException ("Please enter a valid item to add to the order. ");
+    if (item == null) throw new IllegalArgumentException ("Please enter a valid item to remove from the order. ");
     
     Order order = orderRepo.findOrderById(orderId);
     if(order== null) throw new IllegalArgumentException ("Please enter a valid order. ");
 
-   boolean added = order.removeOrderItem(item);
+    removed = order.removeOrderItem(item);
     
-   return added;
+   return removed;
     
     
   }
-  
   @Transactional
   public boolean cancelOrder(Long orderId) throws IllegalArgumentException {
 
@@ -124,14 +117,12 @@ public class OrderService {
       throw new IllegalArgumentException ("Please enter a valid order. ") ;
       
     }
-      
-    
+
     orderRepo.delete(order);
+    order.delete();
     return true;
     
   }
-  
-
   @Transactional
   public List<Order> getAllOrder() {
       
@@ -141,8 +132,6 @@ public class OrderService {
     
     return allOrders;
   }
-  
-  
   @Transactional
   public List<Order> getAllOrdersByCustomer(String email) throws IllegalArgumentException {
     
@@ -150,15 +139,12 @@ public class OrderService {
     if(aCustomer== null) throw new IllegalArgumentException ("Please enter a valid customer. ");
 
     
-    List<Order> allOrdersByCustomer = new ArrayList<>();
-   
-    
-    for (Order order : orderRepo.findOrderByCustomer(aCustomer)) {
-      allOrdersByCustomer.add(order);
-    }
+    List<Order> allOrdersByCustomer ;
+
+    allOrdersByCustomer = orderRepo.findOrderByCustomer(aCustomer);
+
     return allOrdersByCustomer;
 }
-  
   @Transactional
   public Order getOrderById(Long orderId)throws IllegalArgumentException {
     
@@ -174,22 +160,18 @@ public class OrderService {
     
     
   }
-  
-  
   @Transactional
   public Order setOrderStatus(Long orderId, OrderStatus aOrderStatus) throws IllegalArgumentException {
 
     Order order = orderRepo.findOrderById(orderId);
     if(order== null) throw new IllegalArgumentException ("Please enter a valid order. ");
     if(aOrderStatus== null) throw new IllegalArgumentException ("Please enter a valid order status. ");
-    
-    
+
     order.setOrderStatus(aOrderStatus);
     orderRepo.save(order);
     return order;
     
   }
-  
   @Transactional
   public OrderType convertOrderType (String type) {
     
@@ -201,7 +183,6 @@ public class OrderService {
 
     
   }
-  
   @Transactional
   public OrderStatus convertOrderStatus (String status) {
     
@@ -217,9 +198,7 @@ public class OrderService {
 
     
   }
-  
-  
-  
+
   private <T> List<T> toList(Iterable<T> iterable){
     List<T> resultList = new ArrayList<T>();
     for (T t : iterable) {

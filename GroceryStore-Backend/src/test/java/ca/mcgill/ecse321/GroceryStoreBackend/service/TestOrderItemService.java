@@ -19,6 +19,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -59,7 +62,7 @@ public class TestOrderItemService {
     
     private static final String CUSTOMER_EMAIL = "theBestValuableCustomer@lollar.com";
     private static final String CUSTOMER_NAME = "Bank";
-    private static final String CUSTOMER_ADDRESS = "Beirut, the land of opportinities";
+    private static final String CUSTOMER_ADDRESS = "Beirut, the land of opportunities";
     private static final String CUSTOMER_PASSWORD = "Audi2019";
 
     
@@ -73,9 +76,7 @@ public class TestOrderItemService {
 
     @BeforeEach
     public void setMockOutput() {
-      
-      
-      
+
       lenient().when(orderRepo.findOrderById(any(Long.class)))
       .thenAnswer((InvocationOnMock invocation) -> {
         if (invocation.getArgument(0).equals(ORDER_ID)) {
@@ -93,7 +94,6 @@ public class TestOrderItemService {
           order.setOrderType(ORDER_TYPE);
           order.setDate(ORDER_DATE);
           order.setTime(ORDER_TIME);
-
 
           return order;
         } else {
@@ -140,6 +140,27 @@ public class TestOrderItemService {
                     }
 
                 });
+        lenient().when(orderItemRepo.findAll())
+                .thenAnswer((InvocationOnMock invocation) -> {
+
+                    List<OrderItem> list = new ArrayList<>();
+
+                    ShoppableItem item = new ShoppableItem();
+                    item.setName(SHOPPABLE_ITEM_NAME);
+                    item.setQuantityAvailable(SHOPPABLE_ITEM_QUANTITY);
+                    item.setPrice(SHOPPABLE_ITEM_PRICE);
+
+
+                    OrderItem orderItem = new OrderItem();
+
+                    orderItem.setItem(item);
+                    orderItem.setId(ORDER_ITEM_ID);
+                    orderItem.setQuantity(ORDER_ITEM_QUANTITY);
+
+                    list.add(orderItem);
+                    return list;
+
+                });
 
 
 
@@ -154,6 +175,9 @@ public class TestOrderItemService {
 
     }
 
+    /**
+     * Test for create order item
+     */
     @Test
     public void testCreateOrderItem(){
 
@@ -183,7 +207,6 @@ public class TestOrderItemService {
         assertEquals(name, orderItem.getItem().getName());
 
     }
-
     @Test
     public void testCreateOrderItemInvalidQuantity(){
 
@@ -212,7 +235,6 @@ public class TestOrderItemService {
 
 
     }
-
     @Test
     public void testCreateOrderItemInvalidItem(){
 
@@ -233,9 +255,36 @@ public class TestOrderItemService {
         assertEquals(error, "Please enter a valid item. ");
 
     }
+    @Test
+    public void testCreateOrderItemInvalidOrder(){
+        String name = "mafi fresh";
+        double price = 34;
+        int quantity = 4;
+
+        ShoppableItem item = shoppableItemService.createShoppableItem(name, price, quantity);
+        lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
+
+        int quantityOrder = 1;
+        long itemId = 234L;
+        OrderItem orderItem = null;
+        Long fakeOrderId = 1L;
+        String error = null;
+        try{
+            orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, fakeOrderId);
+
+        }catch (IllegalArgumentException e){
+            error = e.getMessage();
+        }
+
+        assertNull(orderItem);
+        assertEquals(error, "Order Item cannot exist without an order. ");
+
+    }
 
 
-
+    /**
+     * test for update order item
+     */
 
     @Test
     public void testUpdateOrderItem(){
@@ -257,9 +306,6 @@ public class TestOrderItemService {
         assertEquals(SHOPPABLE_ITEM_NAME, item.getItem().getName());
 
     }
-
-
-
     @Test
     public void testUpdateOrderItemInvalidQuantity(){
 
@@ -277,7 +323,6 @@ public class TestOrderItemService {
         assertEquals(error, "Please enter a valid quantity. ");
 
     }
-
     @Test
     public void testUpdateOrderItemInvalidItem(){
 
@@ -296,7 +341,6 @@ public class TestOrderItemService {
         assertEquals(error, "Please enter a valid item. ");
 
     }
-
     @Test
     public void testUpdateOrderItemInvalidOrderItemId(){
 
@@ -317,10 +361,35 @@ public class TestOrderItemService {
         assertEquals(error, "Please enter a valid order item. ");
 
     }
+    @Test
+    public void testUpdateOrderItemInvalidOrder(){
+        String name = "mafi fresh";
+        double price = 34;
+        int quantity = 4;
 
+        ShoppableItem item = shoppableItemService.createShoppableItem(name, price, quantity);
+        lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
 
+        int quantityOrder = 1;
+        long itemId = 234L;
+        OrderItem orderItem = null;
+        Long fakeOrderId = 1L;
+        String error = null;
+        try{
+            orderItem = orderItemService.updateOrderItem(itemId, quantityOrder, name, fakeOrderId);
 
+        }catch (IllegalArgumentException e){
+            error = e.getMessage();
+        }
 
+        assertNull(orderItem);
+        assertEquals(error, "Order Item cannot exist without an order. ");
+
+    }
+
+    /**
+     * test for delete order item
+     */
 
     @Test
     public void testDeleteOrderItem(){
@@ -348,7 +417,6 @@ public class TestOrderItemService {
         assertTrue(deleted);
 
     }
-
     @Test
     public void testDeleteOrderItemThatDoesNotExist(){
 
@@ -366,15 +434,16 @@ public class TestOrderItemService {
 
     }
 
-
-
+    /**
+     * test for get order item by id
+     */
     @Test
     public void testGetOrderItemById() {
 
         OrderItem orderItem = null;
 
         try {
-            orderItem = orderItemService.getOrderItemById(ORDER_ITEM_ID, ORDER_ID);
+            orderItem = orderItemService.getOrderItemById(ORDER_ITEM_ID);
 
         } catch (IllegalArgumentException e) {
 
@@ -392,7 +461,7 @@ public class TestOrderItemService {
         Long fakeId = 98L;
         String error = null;
         try {
-            orderItem = orderItemService.getOrderItemById(fakeId, ORDER_ID);
+            orderItem = orderItemService.getOrderItemById(fakeId);
 
         } catch (IllegalArgumentException e) {
 
@@ -403,4 +472,25 @@ public class TestOrderItemService {
         assertNull(orderItem);
 
     }
+
+
+    /**
+     * test for get all order item
+     */
+    @Test
+    public void testGetAllOrderItems(){
+
+        List<OrderItem> allOrderItems = null;
+
+        try {
+            allOrderItems = orderItemService.getAllOrderItem();
+
+        }catch (IllegalArgumentException e){
+            fail();
+        }
+        assertNotNull(allOrderItems);
+        assertEquals(1, allOrderItems.size());
+
+    }
+
 }
