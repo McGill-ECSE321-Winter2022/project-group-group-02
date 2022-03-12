@@ -97,7 +97,6 @@ public class ReviewController {
     if (review == null)
       throw new IllegalArgumentException("Review not found.");
 
-    // This will be fixed when we implement convertToDto for customer and order
 
     return new ReviewDto(review.getRating(), review.getDescription(),
         CustomerController.convertToDto(review.getCustomer()),
