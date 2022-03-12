@@ -30,19 +30,19 @@ public class CustomerController {
   }
   
   @PostMapping(value = { "/create_customer", "/create_customer/" })
-  public CustomerDto createCustomer(@RequestParam("email") String email, @RequestParam String password, @RequestParam String name, @RequestParam String address) throws IllegalArgumentException {
+  public CustomerDto createCustomer(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("name") String name, @RequestParam("address") String address) throws IllegalArgumentException {
       Customer customer = service.createCustomer(email, password, name, address);
       return convertToDto(customer);
   }
   
-  @PostMapping(value = { "/update_customer/{email}", "/update_customer/{email}/" })
-  public CustomerDto updateCustomer(@PathVariable("email") String email, @RequestParam String password, @RequestParam String name, @RequestParam String address) throws IllegalArgumentException {
+  @PostMapping(value = { "/update_customer/", "/update_customer/" })
+  public CustomerDto updateCustomer(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("name") String name, @RequestParam("address") String address) throws IllegalArgumentException {
       Customer customer = service.updateCustomer(email, password, name, address);
       return convertToDto(customer);
   }
   
-  @PostMapping(value = { "/delete_customer/{email}", "/delete_customer/{email}/" })
-  public void deleteCustomer(@PathVariable("email") String email) throws Exception {
+  @PostMapping(value = { "/delete_customer/", "/delete_customer/" })
+  public void deleteCustomer(@RequestParam("email") String email) throws Exception {
       try {
           service.deleteCustomer(email);
       } catch (Exception e) {

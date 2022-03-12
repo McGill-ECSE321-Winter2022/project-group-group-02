@@ -53,7 +53,7 @@ public class TestEmployeeService {
 	@InjectMocks
 	private DailyScheduleService dailyScheduleService;
 
-	static final String EMPLOYEE_KEY = "TestCustomer";
+	static final String EMPLOYEE_KEY = "test@mail.ca";
 	private static final String EMPLOYEE_NAME = "Test";
 	private static final Double EMPLOYEE_SALARY = 1500.0;
 	private static final String EMPLOYEE_PASSWORD = "2222";
@@ -208,7 +208,35 @@ public class TestEmployeeService {
 		// check error
 		assertEquals("Employee email cannot be empty!", error);
 	}
+	
+	@Test
+	public void testCreateEmployeeEmailAlreadyInUse() {
+		String error = null;
+		String password = "1234";
+		String name = "Test Employee";
+		Double salary = 1400.0;
+		Employee employee = null;
 
+		DayOfWeek dayOfWeek = DayOfWeek.Monday;
+		Time startTime = Time.valueOf("08:00:00");
+		Time endTime = Time.valueOf("20:00:00");
+		Long id = (long) 321;
+		DailySchedule dailySchedule = null;
+		
+		try {
+			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
+			List<DailySchedule> dailySchedules = new ArrayList<DailySchedule>();
+			dailySchedules.add(dailySchedule);
+			employee = service.createEmployee(EMPLOYEE_KEY, password, name, salary, dailySchedules);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		assertNull(employee);
+		// check error
+		assertEquals("An employee with this email already exists.", error);
+	}
+	
 	@Test
 	public void testCreateEmployeeEmailInvalid() {
 		String error = null;

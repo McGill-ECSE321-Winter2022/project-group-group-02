@@ -39,7 +39,7 @@ public class TestCustomerService {
 	@InjectMocks
 	private CustomerService service;
 
-	private static final String CUSTOMER_KEY = "TestCustomer";
+	private static final String CUSTOMER_KEY = "test@mail.ca";
 	private static final String CUSTOMER_NAME = "Test";
 	private static final String CUSTOMER_ADDRESS = "35 St Catherine O, Montreal";
 	private static final String CUSTOMER_PASSWORD = "2222";
@@ -127,6 +127,24 @@ public class TestCustomerService {
 		assertEquals("Customer email cannot be empty!", error);
 	}
 
+	@Test
+	public void testCreateCustomerEmailAlreadyInUse() {
+		String error = null;
+		String password = "1234";
+		String name = "Test Customer";
+		String address = "3712 McGill Street, Montréal";
+		Customer customer = null;
+		try {
+			customer = service.createCustomer(CUSTOMER_KEY, password, name, address);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		assertNull(customer);
+		// check error
+		assertEquals("This email is already in use for a customer.", error);
+	}
+	
 	@Test
 	public void testCreateCustomerEmailInvalid() {
 		String error = null;

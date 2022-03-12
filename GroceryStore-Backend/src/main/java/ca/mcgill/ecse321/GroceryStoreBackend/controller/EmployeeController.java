@@ -30,19 +30,19 @@ public class EmployeeController {
   }
   
   @PostMapping(value = { "/create_employee/", "/create_employee/" })
-  public EmployeeDto createEmployee(@PathVariable("email") String email, @RequestParam String password, @RequestParam String name, @RequestParam Double salary, @RequestParam List<DailySchedule> dailySchedules) throws IllegalArgumentException {
+  public EmployeeDto createEmployee(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam ("name") String name, @RequestParam("salary") Double salary, @RequestParam("dailySchedules") List<DailySchedule> dailySchedules) throws IllegalArgumentException {
       Employee employee = service.createEmployee(email, password, name, salary, dailySchedules);
       return convertToDto(employee);
   }
   
   @PostMapping(value = { "/update_employee/{email}", "/update_employees/{email}/" })
-  public EmployeeDto updateEmployee(@PathVariable("email") String email, @RequestParam String password, @RequestParam String name, @RequestParam Double salary, @RequestParam List<DailySchedule> dailySchedules) throws IllegalArgumentException {
+  public EmployeeDto updateEmployee(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("name") String name, @RequestParam("salary") Double salary, @RequestParam("dailySchedules") List<DailySchedule> dailySchedules) throws IllegalArgumentException {
       Employee employee = service.updateEmployee(email, password, name, salary, dailySchedules);
       return convertToDto(employee);
   }
   
-  @PostMapping(value = { "/delete_employees/{email}", "/delete_employees/{email}/" })
-  public void deleteEmployee(@PathVariable("email") String email) throws Exception {
+  @PostMapping(value = { "/delete_employees/", "/delete_employees/" })
+  public void deleteEmployee(@RequestParam("email") String email) throws Exception {
       try {
           service.deleteEmployee(email);
       } catch (Exception e) {

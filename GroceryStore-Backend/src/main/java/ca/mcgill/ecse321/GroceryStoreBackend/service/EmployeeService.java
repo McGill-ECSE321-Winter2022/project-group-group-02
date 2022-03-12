@@ -35,8 +35,14 @@ public class EmployeeService {
 		} else if (salary < 0) {
 			throw new IllegalArgumentException("Employee salary must be positive!");
 		}
+		
+		Employee employee = employeeRepository.findByEmail(email);
 
-		Employee employee = new Employee();
+		if (employee != null) {
+			throw new IllegalArgumentException("An employee with this email already exists.");	
+		}
+		
+		employee = new Employee();
 		employee.setEmail(email);
 		employee.setPassword(password);
 		employee.setName(name);

@@ -35,7 +35,13 @@ public class CustomerService {
 			throw new IllegalArgumentException("Customer address must not be empty!");
 		}
 
-		Customer customer = new Customer();
+		Customer customer = customerRepository.findByEmail(email);
+
+		if (customer != null) {
+			throw new IllegalArgumentException("This email is already in use for a customer.");	
+		}
+		
+		customer = new Customer();
 		customer.setEmail(email);
 		customer.setPassword(password);
 		customer.setName(name);
