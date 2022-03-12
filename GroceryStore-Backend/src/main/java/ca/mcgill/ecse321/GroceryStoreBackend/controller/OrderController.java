@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,7 @@ public class OrderController {
 
   
   @GetMapping(value = {"/view_order/{email}"})
-  public List<OrderDto> viewOrderForCustomer(@RequestParam("email") String email) {
+  public List<OrderDto> viewOrderForCustomer(@PathVariable("email") String email) {
       
     
     return orderService.getAllOrdersByCustomer(email).stream().map(order -> convertToDTO(order)).collect(Collectors.toList());
@@ -48,22 +49,31 @@ public class OrderController {
   
   
   @PostMapping(value = {"/cancel_order/"})
-  public boolean cancelOrder(@RequestParam("orderId") String orderId) {
+  public boolean cancelOrder(@RequestParam("orderId") Long orderId) {
     
-    
-    
-    return orderService.cancelOrder(Long.parseLong(orderId));
+    return orderService.cancelOrder(orderId);
   }
   
-  //OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, String email
+  @PostMapping(value = {"/add_item_to_order"})
+  public boolean addItem(@RequestParam("orderId") Long orderId, @RequestParam("orderItemId") Long orderItemId) {
+    
+    
+    return orderService.addItemsToOrder(orderId, orderItemId);
+  }
   
+  @PostMapping(value = {"/remove_item_from_order"})
+  public boolean removeItem(@RequestParam("orderId") Long orderId, @RequestParam("orderItemId") Long orderItemId) {
+    
+    
+    return orderService.deleteItemsToOrder(orderId, orderItemId);
+  }
   
-  @PostMapping(value = {"/create_order"})
+  @PostMapping(value = {"/create_order/{email}"})
   public ResponseEntity<?> createOrder(@RequestParam("orderType") String orderType,
-      @RequestParam("email") String email,  @RequestParam("id") String id) {
+      @PathVariable("email") String email,  @RequestParam("orderId") Long orderId) {
 
     OrderType actualType = orderService.convertOrderType(orderType);
-    Long orderId = Long.parseLong(id);
+   
 
     Order order = null;
 
@@ -77,17 +87,18 @@ public class OrderController {
   
   
   @PostMapping(value = {"/update_order"})
-  public ResponseEntity<?> updateOrder(@RequestParam("orderType") String orderType, 
-      @RequestParam("email") String email,  @RequestParam("id") String id) {
+  public ResponseEntity<?> updateOrder(@RequestParam("orderStatus") String orderStatus, 
+      @RequestParam("email") String email,  @RequestParam("orderId") Long orderId) {
 
-    Long orderId = Long.parseLong(id);
-    OrderType actualType = orderService.convertOrderType(orderType);
+    OrderStatus newStatus = orderService.convertOrderStatus(orderStatus);
 
+    
     
     Order order = null;
 
     try {
-      order = orderService.updateOrder( actualType, OrderStatus.Confirmed, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), orderId);
+      
+      order = orderService.updateOrder(orderService.getOrderById(orderId).getOrderType(), newStatus, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), orderId);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -97,9 +108,8 @@ public class OrderController {
   
   @PostMapping(value = {"/update_order_status"})
   public ResponseEntity<?> updateOrderStatus(@RequestParam("orderStatus") String orderStatus, 
-        @RequestParam("id") String id) {
+        @RequestParam("orderId") Long orderId) {
 
-    Long orderId = Long.parseLong(id);
     OrderStatus actualStatus = orderService.convertOrderStatus(orderStatus);
     
     Order order = null;
@@ -130,11 +140,6 @@ public class OrderController {
     
         return new OrderDto(order.getOrderType(), order.getOrderStatus(), order.getDate(), order.getTime(), customerDTO, orderItemDto);
   }
-  
-  
-  
-
-  
   
   
   

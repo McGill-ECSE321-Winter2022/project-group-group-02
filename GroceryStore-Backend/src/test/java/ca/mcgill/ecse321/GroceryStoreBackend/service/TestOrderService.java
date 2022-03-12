@@ -4,27 +4,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
-
+import static org.mockito.Mockito.*;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.CustomerRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.OrderRepository;
@@ -32,10 +20,6 @@ import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order.OrderStatus;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order.OrderType;
-
-
-
-
 
 
 
@@ -69,6 +53,7 @@ public class TestOrderService {
   
   @BeforeEach
   public void setMockOutput() {
+
 
     
     
@@ -114,6 +99,8 @@ public class TestOrderService {
           }
 
         });
+
+   
    
     Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
       return invocation.getArgument(0);
@@ -121,6 +108,7 @@ public class TestOrderService {
 
     lenient().when(customerRepo.save(any(Customer.class))).thenAnswer(returnParameterAsAnswer);
     lenient().when(orderRepo.save(any(Order.class))).thenAnswer(returnParameterAsAnswer);
+
 
   
   }
@@ -372,37 +360,133 @@ public class TestOrderService {
    * tests for update order
    */
   
-//  @Test
-//  public void testUpdateOrder() {
-//  
-//
-//    //Long orderId = 4487L;
-//    OrderType aOrderType = OrderType.Delivery;
-//    OrderStatus aOrderStatus = OrderStatus.Confirmed;
-//    Date date = Date.valueOf("2022-02-10");
-//    Time time = Time.valueOf("07:58:15");
-//    
-//    Order order = null;
-//    
-//    try {
-//       order = orderService.updateOrder(aOrderType, aOrderStatus, date, time, ORDER_ID);
-//      
-//    } catch (IllegalArgumentException e) {
-//      fail();
-//    }
-//    assertNotNull(order);
-////    assertEquals(aOrderType, order.getOrderType());
-////    assertEquals(aOrderStatus, order.getOrderStatus());
-////    assertEquals(time, order.getTime());
-////    assertEquals(date, order.getDate());
-////    assertEquals(CUSTOMER_EMAIL, order.getCustomer().getEmail());
-////    assertEquals(ORDER_ID, order.getId());
-//
-//    
-//  }
+  @Test
+  public void testUpdateOrder() {
   
+    OrderType aOrderType = OrderType.Delivery;
+    OrderStatus aOrderStatus = OrderStatus.Confirmed;
+    Date date = Date.valueOf("2022-02-10");
+    Time time = Time.valueOf("07:58:15");
+    
+    Order order = null;
+    
+    try {
+       order = orderService.updateOrder(aOrderType, aOrderStatus, date, time, ORDER_ID);
+      
+    } catch (IllegalArgumentException e) {
+      fail();
+    }
+    assertNotNull(order);
   
+    assertEquals(aOrderType, order.getOrderType());
+    assertEquals(aOrderStatus, order.getOrderStatus());
+    assertEquals(time, order.getTime());
+    assertEquals(date, order.getDate());
+    assertEquals(CUSTOMER_EMAIL, order.getCustomer().getEmail());
+    assertEquals(ORDER_ID, order.getId());
+    
+  }
   
+  @Test
+  public void testUpdateOrderNullType() {
+  
+    OrderType aOrderType = null;
+    OrderStatus aOrderStatus = OrderStatus.Confirmed;
+    Date date = Date.valueOf("2022-02-10");
+    Time time = Time.valueOf("07:58:15");
+    
+    Order order = null;
+    String error = null;
+    
+    try {
+       order = orderService.updateOrder(aOrderType, aOrderStatus, date, time, ORDER_ID);
+      
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+    assertNull(order);
+  
+    assertEquals(error, "Please enter a valid order type. ");
+  
+    
+  }
+  
+  @Test
+  public void testUpdateOrderNullStatus() {
+  
+    OrderType aOrderType = OrderType.Delivery;
+    OrderStatus aOrderStatus = null;
+    Date date = Date.valueOf("2022-02-10");
+    Time time = Time.valueOf("07:58:15");
+    
+    Order order = null;
+    String error = null;
+    try {
+       order = orderService.updateOrder(aOrderType, aOrderStatus, date, time, ORDER_ID);
+      
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+    assertNull(order);
+  
+    assertEquals(error, "Please enter a valid order status. ");
+    
+  }
+  
+  @Test
+  public void testUpdateOrderNullDate() {
+  
+    OrderType aOrderType = OrderType.Delivery;
+    OrderStatus aOrderStatus = OrderStatus.Confirmed;
+    Date date = null;
+    Time time = Time.valueOf("07:58:15");
+    
+    Order order = null;
+    String error = null;
+    
+    try {
+       order = orderService.updateOrder(aOrderType, aOrderStatus, date, time, ORDER_ID);
+      
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+    assertNull(order);
+  
+    assertEquals(error, "Please enter a valid date. ");
+  
+    
+  }
+  @Test
+  public void testUpdateOrderNullTime() {
+  
+    OrderType aOrderType = OrderType.Delivery;
+    OrderStatus aOrderStatus = OrderStatus.Confirmed;
+    Date date = Date.valueOf("2022-02-10");
+    Time time = null;
+    
+    Order order = null;
+    String error = null;
+
+    try {
+      order = orderService.updateOrder(aOrderType, aOrderStatus, date, time, ORDER_ID);
+     
+   } catch (IllegalArgumentException e) {
+     error = e.getMessage();
+   }
+   assertNull(order);
+ 
+   assertEquals(error, "Please enter a valid time. ");
+  }
+  
+
+//-----------------------------------------------------------------------------------------------------------------------------------//
+
+  /**
+   * 
+   * 
+   * 
+   * 
+   */
   @Test
   public void testCancelOrder() {
     
@@ -447,9 +531,10 @@ public class TestOrderService {
 
 
     String error=null;
+    
    
     try {
-      boolean deleted = orderService.cancelOrder(orderId);
+      orderService.cancelOrder(orderId);
       
     } catch (IllegalArgumentException e) {
       error = e.getMessage();
@@ -461,30 +546,166 @@ public class TestOrderService {
     
     
   }
+  //-----------------------------------------------------------------------------------------------------------------------------------//
+
   
+
   
   @Test
-  public void testGetAllOrder() {
-    String error = null;
-    List<Order> orders = null;
+  public void testGetOrderById() {
+    
+    Order order = null;
+    
     try {
-      orders = orderService.getAllOrder();
+      order = orderService.getOrderById(ORDER_ID);
+      
+    } catch (IllegalArgumentException e) {
+
+      fail();
+    }
+    
+    assertEquals(order.getId(), ORDER_ID);
+    assertNotNull(order);
+    
+  }
+  @Test
+  public void testGetOrderByIdButInvalid() {
+    
+    Order order = null;
+    Long fakeId = 98L;
+    String error = null;
+    try {
+      order = orderService.getOrderById(fakeId);
       
     } catch (IllegalArgumentException e) {
 
       error = e.getMessage();
     }
     
-    assertEquals("There's no orders in the system. ", error);
+    assertEquals(error, "Please enter a valid order by providing a valid order ID. ");
+    assertNull(order);
+    
+  }
+  
+  
+  @Test
+  public void testSetOrderStatus() {
+    
+    String name = "nameTest";
+    String password = "passwordTest1";
+    String email = "customer@localTown.com";
+    String address = "1325 Depaneur Kiwi";
+    
+    Customer customer = customerService.createCustomer(email, password, name, address);
+    lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
-   
+    Long orderId = 558L;
+    OrderType aOrderType = OrderType.PickUp;
+    OrderStatus aOrderStatus = OrderStatus.Confirmed;
+    Date date = Date.valueOf("2022-03-10");
+    Time time = Time.valueOf("08:00:00");
+    
+    Order order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email, orderId);
+    lenient().when(orderRepo.findOrderById(orderId)).thenReturn(order);
+ 
+    
+    try {
+      
+      orderService.setOrderStatus(orderId, OrderStatus.Fulfilled);
+      
+    }catch(IllegalArgumentException e) {
+      
+      fail();
+    }
+   order = orderService.getOrderById(orderId);
+    
+    
+    assertEquals(OrderStatus.Fulfilled, order.getOrderStatus());
+    
     
     
   }
   
   
+  //-----------------------------------------------------------------------------------------------------------------------------------//
+
   
+  @Test
+  public void testConverToOrderStatus() {
+
+    String confirmed, preparing, cancelled, delivering, ready, fulfilled;
+    String wontWork = "Not valid";
+    confirmed = "Confirmed";
+    preparing = "Preparing";
+    cancelled = "Cancelled";
+    delivering = "Delivering";
+    ready = "Ready";
+    fulfilled = "Fulfilled";
+    
+    OrderStatus a = null;
+    OrderStatus b = null;
+    OrderStatus c = null;
+    OrderStatus d = null;
+    OrderStatus e = null;
+    OrderStatus f = null;
+    OrderStatus g = null;
+   
+    try {
+       a = orderService.convertOrderStatus(confirmed);
+       b = orderService.convertOrderStatus(preparing);
+       c =  orderService.convertOrderStatus(cancelled);
+       d = orderService.convertOrderStatus(delivering);
+       e = orderService.convertOrderStatus(ready);
+       f = orderService.convertOrderStatus(fulfilled);
+       g = orderService.convertOrderStatus(wontWork);
+
+      
+    } catch (IllegalArgumentException z) {
+    
+        fail();
+    }
+    
+    assertEquals(OrderStatus.Confirmed,a );
+    assertEquals(OrderStatus.Preparing,b );
+    assertEquals(OrderStatus.Cancelled,c);
+    assertEquals(OrderStatus.Delivering,d );
+    assertEquals(OrderStatus.Ready,e );
+    assertEquals(OrderStatus.Fulfilled,f );
+    assertNull(g);
+
+    
+  }
   
-  
+  //-----------------------------------------------------------------------------------------------------------------------------------//
+
+  @Test
+  public void testConvertToOrderType() {
+    
+    String delivery = "Delivery";
+    String pickUp = "PickUp";
+    String failed = "unknown";
+    OrderType a = null;
+    OrderType b = null;
+    OrderType c = null;
+
+    try {
+      
+      a = orderService.convertOrderType(delivery);
+      b = orderService.convertOrderType(pickUp);
+      c = orderService.convertOrderType(failed);
+      
+    } catch (IllegalArgumentException e) {
+      
+      fail();
+  }
+     
+    assertEquals(OrderType.Delivery,a );
+    assertEquals(OrderType.PickUp,b );
+    assertNull(c);
+    
+  }
+  //-----------------------------------------------------------------------------------------------------------------------------------//
+
+ 
 
 }

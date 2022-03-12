@@ -8,11 +8,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.CustomerRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.OrderItemRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.OrderRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order.OrderStatus;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order.OrderType;
+import ca.mcgill.ecse321.GroceryStoreBackend.model.OrderItem;
 
 @Service
 public class OrderService {
@@ -24,11 +26,15 @@ public class OrderService {
   @Autowired
   CustomerRepository customerRepo;
   
+  @Autowired
+  OrderItemRepository orderItemRepo;
+  
   
   
   @Transactional
   public Order createOrder(OrderType aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, String email, Long orderId) throws IllegalArgumentException {
       
+    
     if(aOrderType== null) throw new IllegalArgumentException ("Please enter a valid order type. ");
     if(aOrderStatus== null) throw new IllegalArgumentException ("Please enter a valid order status. ");
     if(aDate== null) throw new IllegalArgumentException ("Please enter a valid date. ");
@@ -41,7 +47,8 @@ public class OrderService {
     Order order = orderRepo.findOrderById(orderId);
     if(order != null) throw new IllegalArgumentException ("Order with ID already exists.");
     
-      order = new Order(aOrderType, aOrderStatus, aDate, aTime, aCustomer);
+    
+     order = new Order(aOrderType, aOrderStatus, aDate, aTime, aCustomer);
      order.setId(orderId);
       orderRepo.save(order);
       return order;
@@ -63,23 +70,8 @@ public class OrderService {
     Customer aCustomer = customerRepo.findByEmail(order.getCustomer().getEmail());
     if(aCustomer== null) throw new IllegalArgumentException ("Please enter a valid customer. ");
     
-    System.out.println(aCustomer.getEmail());
     
-    List<Order> allOrdersByCustomer = orderRepo.findOrderByCustomer(aCustomer);
-    if(allOrdersByCustomer.size() == 0) throw new IllegalArgumentException ("This customer does not have any order. ");
-    
-    boolean found = false;
-    for(Order mock : allOrdersByCustomer) {
-      
-      if(order.getId()==mock.getId()) {
-        found = true;
-        break;
-      }
-      
-    }
-
-    if(found == false) throw new IllegalArgumentException ("This order is not associated with this customer. ");
-
+   
     order.setOrderType(aOrderType);
     order.setOrderStatus(aOrderStatus);
     order.setDate(aDate);
@@ -88,6 +80,40 @@ public class OrderService {
     orderRepo.save(order);
     
     return order;
+  }
+  
+  
+  @Transactional
+  public boolean addItemsToOrder(Long orderId, Long orderItemId) throws IllegalArgumentException{
+    
+    
+    OrderItem item = orderItemRepo.findOrderItemById(orderItemId);
+    if (item == null) throw new IllegalArgumentException ("Please enter a valid item to add to the order. ");
+    
+    Order order = orderRepo.findOrderById(orderId);
+    if(order== null) throw new IllegalArgumentException ("Please enter a valid order. ");
+
+   boolean added = order.addOrderItem(item);
+    
+   return added;
+    
+    
+  }
+  @Transactional
+  public boolean deleteItemsToOrder(Long orderId, Long orderItemId) throws IllegalArgumentException{
+    
+    
+    OrderItem item = orderItemRepo.findOrderItemById(orderItemId);
+    if (item == null) throw new IllegalArgumentException ("Please enter a valid item to add to the order. ");
+    
+    Order order = orderRepo.findOrderById(orderId);
+    if(order== null) throw new IllegalArgumentException ("Please enter a valid order. ");
+
+   boolean added = order.removeOrderItem(item);
+    
+   return added;
+    
+    
   }
   
   @Transactional
@@ -100,9 +126,7 @@ public class OrderService {
     }
       
     
-    
     orderRepo.delete(order);
-    order.delete();
     return true;
     
   }
@@ -113,7 +137,7 @@ public class OrderService {
       
     List<Order> allOrders = toList(orderRepo.findAll());
     
-    if(allOrders.size() == 0) throw new IllegalArgumentException ("There's no orders in the system. ");
+    if(allOrders.size() == 0)  throw new IllegalArgumentException ("There's no orders in the system. ");
     
     return allOrders;
   }

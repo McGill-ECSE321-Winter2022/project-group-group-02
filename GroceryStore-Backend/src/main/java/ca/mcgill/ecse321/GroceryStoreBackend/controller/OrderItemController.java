@@ -26,31 +26,32 @@ public class OrderItemController {
 
   
   
-  
   @GetMapping(value = { "/view_order_items" })
   public List<OrderItemDto> getAllOrders() {
       return orderItemService.getAllOrderItem().stream().map(orderItem -> convertToDTO(orderItem)).collect(Collectors.toList());
   }
 
   
-  @GetMapping(value = {"/view_order_item/{id}"})
-  public OrderItemDto viewOrderForCustomer(@RequestParam("id") String id) {
+  @GetMapping(value = {"/view_order_item/{orderItemId}"})
+  public OrderItemDto viewOrderForCustomer(@RequestParam("orderItemId") Long orderItemId
+      , @RequestParam("orderId") Long orderId) {
       
     
-    return convertToDTO(orderItemService.getOrderItemById(Long.parseLong(id)));
+    return convertToDTO(orderItemService.getOrderItemById(orderItemId, orderId));
   }
   
 
   
   @PostMapping(value = {"/create_order_item"})
-  public ResponseEntity<?> createOrderItem(@RequestParam("quantity") String quantity,
-      @RequestParam("itemName") String itemName) {
+  public ResponseEntity<?> createOrderItem(@RequestParam("quantity") int quantity,
+      @RequestParam("itemName") String itemName, @RequestParam("orderItemId") Long orderItemId
+      ,@RequestParam("orderId") Long orderId) {
 
     
     OrderItem orderItem = null;
 
     try {
-      orderItem = orderItemService.createOrderItem(Integer.parseInt(quantity), itemName);
+      orderItem = orderItemService.createOrderItem(orderItemId, quantity, itemName,orderId);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -59,14 +60,15 @@ public class OrderItemController {
   
   
   @PostMapping(value = {"/update_order_item"})
-  public ResponseEntity<?> updateOrderItem(@RequestParam("quantity") String quantity,
-      @RequestParam("itemName") String itemName, @RequestParam("orderItemId") String id) {
+  public ResponseEntity<?> updateOrderItem(@RequestParam("quantity") int quantity,
+      @RequestParam("itemName") String itemName, @RequestParam("orderItemId") Long orderItemId
+      ,@RequestParam("orderId") Long orderId) {
 
     
     OrderItem orderItem = null;
 
     try {
-      orderItem = orderItemService.updateOrderItem(Long.parseLong(id),Integer.parseInt(quantity), itemName);
+      orderItem = orderItemService.updateOrderItem(orderItemId,quantity, itemName, orderId);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -75,16 +77,11 @@ public class OrderItemController {
   
   
   @PostMapping(value = {"/delete_order_item"})
-  public boolean deleteOrderItem( @RequestParam("orderItemId") String id) {
+  public boolean deleteOrderItem( @RequestParam("orderItemId") Long orderItemId) {
 
-    
-      return orderItemService.deleteOrderItem(Long.parseLong(id));
+      return orderItemService.deleteOrderItem(orderItemId);
   
   }
-  
-  
-  
-  
   
   
   
