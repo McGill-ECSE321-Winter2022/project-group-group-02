@@ -75,6 +75,10 @@ public class UnavailableItemService {
 	
 	@Transactional
 	public UnavailableItem getUnavailableItem(String name) {
+		
+		if (unavailableItemRepository.findByName(name) == null)
+			throw new IllegalArgumentException("This item does not exist in the system");
+		
 		return unavailableItemRepository.findByName(name);
 	}
 	

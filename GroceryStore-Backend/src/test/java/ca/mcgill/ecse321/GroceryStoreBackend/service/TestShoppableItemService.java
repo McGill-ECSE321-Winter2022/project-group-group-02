@@ -38,7 +38,7 @@ import org.mockito.stubbing.OngoingStubbing;
 @ExtendWith(MockitoExtension.class)
 public class TestShoppableItemService {
 	
-	 @Mock
+	  @Mock
 	  private ShoppableItemRepository shoppableItemRepository;
 	  @InjectMocks
 	  private ShoppableItemService shoppableItemService;
@@ -46,7 +46,6 @@ public class TestShoppableItemService {
 	  private static final String SHOPPABLE_ITEM_NAME = "TestShoppableItem";
 	  private static final double SHOPPABLE_ITEM_PRICE = 321.2;
 	  private static final int SHOPPABLE_ITEM_QUANTITY_AVAILABLE = 100;
-	  
 	  
 	  
 	  @BeforeEach
@@ -90,6 +89,8 @@ public class TestShoppableItemService {
 	    assertEquals(quantityAvailable, shoppableItem.getQuantityAvailable());
 	  }
 	  
+	  
+	  
 	  @Test
 	  public void testFindShoppableItem() {
 		  assertEquals(0, shoppableItemService.getAllShoppableItems().size());
@@ -103,6 +104,21 @@ public class TestShoppableItemService {
 		  assertEquals(s.getName(),SHOPPABLE_ITEM_NAME);
 		  assertEquals(s.getPrice(), SHOPPABLE_ITEM_PRICE);
 		  assertEquals(s.getQuantityAvailable(),SHOPPABLE_ITEM_QUANTITY_AVAILABLE);
+	  }
+	  
+	  @Test
+	  public void testFindShoppableItemErrorItemNotFound() {
+		  assertEquals(0, shoppableItemService.getAllShoppableItems().size());
+		  String name = "zaatar";
+		  String error = "";
+		  ShoppableItem s = null;
+		  try {
+			  s = shoppableItemService.getShoppableItem(name);
+		  } catch(IllegalArgumentException e) {
+			  error=e.getMessage();
+		  }
+		  assertNull(s);
+		  assertEquals("This item does not exist in the system",error);
 	  }
 	  
 	  

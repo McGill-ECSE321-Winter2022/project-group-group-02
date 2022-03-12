@@ -98,13 +98,29 @@ public class TestUnavailableItemService {
 		  }
 		  assertNotNull(u);
 		  assertEquals(u.getName(),UNAVAILABLE_ITEM_NAME);
-		  assertEquals(u.getPrice(), UNAVAILABLE_ITEM_PRICE);	  }
+		  assertEquals(u.getPrice(), UNAVAILABLE_ITEM_PRICE);	  
+		 }
+	  
+	  @Test
+	  public void testFindShoppableItemErrorItemNotFound() {
+		  assertEquals(0, unavailableItemService.getAllUnavailableItems().size());
+		  String name = "zaatar";
+		  String error = "";
+		  UnavailableItem s = null;
+		  try {
+			  s = unavailableItemService.getUnavailableItem(name);
+		  } catch(IllegalArgumentException e) {
+			  error=e.getMessage();
+		  }
+		  assertNull(s);
+		  assertEquals("This item does not exist in the system",error);
+	  }
 	  
 	  
 	  
 	  @Test
 	  public void testCreateUnavailableItemErrorNegativePrice() {
-			assertEquals(0, unavailableItemService.getAllUnavailableItems().size()); 
+		assertEquals(0, unavailableItemService.getAllUnavailableItems().size()); 
 	    String name = "lollar";
 	    double price = -1;
 	    UnavailableItem unavailableItem = null;
@@ -267,22 +283,6 @@ public class TestUnavailableItemService {
 		  assertEquals("Item name cannot be blank", error);
 	  }
 	  
-//	  @Test
-//	  public void testDeleteShoppableItemBlankName() {
-//		  assertEquals(0, shoppableItemService.getAllShoppableItems().size()); 
-//		  ShoppableItem shoppableItem=null;
-//		  String error="";
-//		  boolean deleted=false;
-//		  try {
-//			  deleted = shoppableItemService.deleteShoppableItem("");
-//		  } catch(IllegalArgumentException e) {
-//			  error=e.getMessage();
-//		  }
-//		  shoppableItem = shoppableItemRepository.findByName(SHOPPABLE_ITEM_NAME);
-//		  assertNotNull(shoppableItem);
-//		  assertFalse(deleted);
-//		  assertEquals("Item name cannot be blank", error);
-//	  }
 	  
 	  @Test
 	  public void testDeleteUnavailableItemItemNotFound() {
