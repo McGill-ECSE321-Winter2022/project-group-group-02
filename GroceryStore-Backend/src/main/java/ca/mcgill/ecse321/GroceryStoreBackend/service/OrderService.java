@@ -118,6 +118,18 @@ public class OrderService {
       
     }
 
+    List<OrderItem> listOfItems = order.getOrderItems();
+    if(listOfItems != null) {
+      
+      for(OrderItem item : listOfItems) {
+        
+        orderItemRepo.delete(item);
+      }
+      
+      order.getOrderItems().clear();
+    }
+    
+    
     orderRepo.delete(order);
     order.delete();
     return true;

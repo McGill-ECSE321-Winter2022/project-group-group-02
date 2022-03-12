@@ -34,43 +34,30 @@ public class OrderController {
   private OrderService orderService;
 
   
-  @GetMapping(value = { "/view_orders" })
+  @GetMapping(value = { "/view_all_orders", "/view_all_orders/" })
   public List<OrderDto> getAllOrders() {
       return orderService.getAllOrder().stream().map(order -> convertToDTO(order)).collect(Collectors.toList());
   }
 
   
-  @GetMapping(value = {"/view_order/{email}"})
-  public List<OrderDto> viewOrderForCustomer(@PathVariable("email") String email) {
+  @GetMapping(value = {"/view_all_orders_for_customer", "/view_all_orders_for_customer/"})
+  public List<OrderDto> viewOrderForCustomer(@RequestParam("email") String email) {
       
     
     return orderService.getAllOrdersByCustomer(email).stream().map(order -> convertToDTO(order)).collect(Collectors.toList());
   }
   
   
-  @PostMapping(value = {"/cancel_order/"})
+  @PostMapping(value = {"/cancel_order","/cancel_order/"})
   public boolean cancelOrder(@RequestParam("orderId") Long orderId) {
     
     return orderService.cancelOrder(orderId);
   }
   
-  @PostMapping(value = {"/add_item_to_order"})
-  public boolean addItem(@RequestParam("orderId") Long orderId, @RequestParam("orderItemId") Long orderItemId) {
-    
-    
-    return orderService.addItemsToOrder(orderId, orderItemId);
-  }
-  
-  @PostMapping(value = {"/remove_item_from_order"})
-  public boolean removeItem(@RequestParam("orderId") Long orderId, @RequestParam("orderItemId") Long orderItemId) {
-    
-    
-    return orderService.deleteItemsToOrder(orderId, orderItemId);
-  }
-  
-  @PostMapping(value = {"/create_order/{email}"})
+ 
+  @PostMapping(value = {"/create_order", "/create_order/"})
   public ResponseEntity<?> createOrder(@RequestParam("orderType") String orderType,
-      @PathVariable("email") String email,  @RequestParam("orderId") Long orderId) {
+      @RequestParam("email") String email,  @RequestParam("orderId") Long orderId) {
 
     OrderType actualType = orderService.convertOrderType(orderType);
    
@@ -86,7 +73,7 @@ public class OrderController {
   }
   
   
-  @PostMapping(value = {"/update_order"})
+  @PostMapping(value = {"/update_order", "/update_order/"})
   public ResponseEntity<?> updateOrder(@RequestParam("orderStatus") String orderStatus, 
       @RequestParam("email") String email,  @RequestParam("orderId") Long orderId) {
 
@@ -99,23 +86,6 @@ public class OrderController {
     try {
       
       order = orderService.updateOrder(orderService.getOrderById(orderId).getOrderType(), newStatus, Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), orderId);
-    } catch (IllegalArgumentException exception) {
-      return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-    return new ResponseEntity<>(convertToDTO(order), HttpStatus.CREATED);
-  }
-  
-  
-  @PostMapping(value = {"/update_order_status"})
-  public ResponseEntity<?> updateOrderStatus(@RequestParam("orderStatus") String orderStatus, 
-        @RequestParam("orderId") Long orderId) {
-
-    OrderStatus actualStatus = orderService.convertOrderStatus(orderStatus);
-    
-    Order order = null;
-
-    try {
-      order = orderService.setOrderStatus(orderId, actualStatus);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -14,6 +14,7 @@ import ca.mcgill.ecse321.GroceryStoreBackend.dto.OrderItemDto;
 import ca.mcgill.ecse321.GroceryStoreBackend.dto.ShoppableItemDto;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.OrderItem;
 import ca.mcgill.ecse321.GroceryStoreBackend.service.OrderItemService;
+import ca.mcgill.ecse321.GroceryStoreBackend.service.OrderService;
 
 
 @CrossOrigin(origins = "*")
@@ -23,16 +24,17 @@ public class OrderItemController {
   
   @Autowired
   private OrderItemService orderItemService;
-
+  @Autowired
+  private OrderService orderService;
   
   
-  @GetMapping(value = { "/view_order_items" })
+  @GetMapping(value = { "/view_all_order_items","/view_all_order_items/" })
   public List<OrderItemDto> getAllOrders() {
       return orderItemService.getAllOrderItem().stream().map(orderItem -> convertToDTO(orderItem)).collect(Collectors.toList());
   }
 
   
-  @GetMapping(value = {"/view_order_item/{orderItemId}"})
+  @GetMapping(value = {"/view_order_item","/view_order_item/"})
   public OrderItemDto viewOrderForCustomer(@RequestParam("orderItemId") Long orderItemId
       ) {
       
@@ -42,7 +44,7 @@ public class OrderItemController {
   
 
   
-  @PostMapping(value = {"/create_order_item"})
+  @PostMapping(value = {"/create_order_item", "/create_order_item/"})
   public ResponseEntity<?> createOrderItem(@RequestParam("quantity") int quantity,
       @RequestParam("itemName") String itemName, @RequestParam("orderItemId") Long orderItemId
       ,@RequestParam("orderId") Long orderId) {
@@ -52,6 +54,7 @@ public class OrderItemController {
 
     try {
       orderItem = orderItemService.createOrderItem(orderItemId, quantity, itemName,orderId);
+      orderService.addItemsToOrder(orderId, orderItemId);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -59,7 +62,7 @@ public class OrderItemController {
   }
   
   
-  @PostMapping(value = {"/update_order_item"})
+  @PostMapping(value = {"/update_order_item", "/update_order_item/"})
   public ResponseEntity<?> updateOrderItem(@RequestParam("quantity") int quantity,
       @RequestParam("itemName") String itemName, @RequestParam("orderItemId") Long orderItemId
       ,@RequestParam("orderId") Long orderId) {
@@ -76,10 +79,11 @@ public class OrderItemController {
   }
   
   
-  @PostMapping(value = {"/delete_order_item"})
-  public boolean deleteOrderItem( @RequestParam("orderItemId") Long orderItemId) {
+  @PostMapping(value = {"/delete_order_item", "/delete_order_item/"})
+  public boolean deleteOrderItem( @RequestParam("orderItemId") Long orderItemId, @RequestParam("orderId") Long orderId) {
 
-      return orderItemService.deleteOrderItem(orderItemId);
+    orderService.deleteItemsToOrder(orderId, orderItemId);  
+    return orderItemService.deleteOrderItem(orderItemId);
   
   }
   
