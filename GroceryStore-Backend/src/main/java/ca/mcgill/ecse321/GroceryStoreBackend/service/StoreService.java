@@ -46,7 +46,7 @@ public class StoreService {
     public Store updateStore(Long id, String town, Double deliveryFee, List<DailySchedule> dailySchedules) {
   
         Store store =  storeRepository.findStoreById(id);
-        
+
         if (store == null) {
           throw new IllegalArgumentException("No store found");
         }
@@ -84,8 +84,9 @@ public class StoreService {
       if (id == null) {
         throw new IllegalArgumentException("Id cannot be empty");
       }
+
       Store store = storeRepository.findStoreById(id);
-      if(store.equals(null)) throw new IllegalArgumentException ("Store not found");
+      if(store == null) throw new IllegalArgumentException ("Store not found");
       
       storeRepository.delete(store);
       store.delete();

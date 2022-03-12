@@ -34,10 +34,10 @@ public class OrderItemController {
   
   @GetMapping(value = {"/view_order_item/{orderItemId}"})
   public OrderItemDto viewOrderForCustomer(@RequestParam("orderItemId") Long orderItemId
-      , @RequestParam("orderId") Long orderId) {
+      ) {
       
     
-    return convertToDTO(orderItemService.getOrderItemById(orderItemId, orderId));
+    return convertToDTO(orderItemService.getOrderItemById(orderItemId));
   }
   
 

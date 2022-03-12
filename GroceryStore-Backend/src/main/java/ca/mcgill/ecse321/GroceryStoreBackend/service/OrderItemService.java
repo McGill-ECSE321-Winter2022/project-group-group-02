@@ -46,7 +46,6 @@ public class OrderItemService {
       return orderItem;
   
   }
-  
   @Transactional
   public OrderItem updateOrderItem(Long orderItemId, int quantity, String itemName, Long orderId) throws IllegalArgumentException {
     
@@ -69,7 +68,6 @@ public class OrderItemService {
       orderItemRepo.save(orderItem);
       return orderItem;
   }
-  
   @Transactional
   public boolean deleteOrderItem(Long orderItemId) throws IllegalArgumentException {
 
@@ -82,9 +80,7 @@ public class OrderItemService {
     return true;
     
   }
-  
 
-  
   @Transactional
   public List<OrderItem> getAllOrderItem() {
       
@@ -95,29 +91,18 @@ public class OrderItemService {
     return allOrderItems;
     
   }
-  
-  
+
   @Transactional
-  public OrderItem getOrderItemById(Long orderItemId, Long orderId) {
+  public OrderItem getOrderItemById(Long orderItemId) {
     
-    Order order = orderRepo.findOrderById(orderId);
-    if(order == null) throw new IllegalArgumentException ("Order Item does not exist without an order. ");
 
     if(orderItemId == null) throw new IllegalArgumentException ("Please enter a valid order ID. ");
     OrderItem orderItem = orderItemRepo.findOrderItemById(orderItemId);
-    
     if(orderItem== null) throw new IllegalArgumentException ("Please enter a valid order item by providing a valid order item ID. ");
-
     
     return orderItem;
 
   }
-  
-  
-  
-  
-  
-  
   
   private <T> List<T> toList(Iterable<T> iterable){
     List<T> resultList = new ArrayList<T>();
