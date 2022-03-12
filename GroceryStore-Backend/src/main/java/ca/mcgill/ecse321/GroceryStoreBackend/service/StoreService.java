@@ -46,6 +46,7 @@ public class StoreService {
     public Store updateStore(Long id, String town, Double deliveryFee, List<DailySchedule> dailySchedules) {
   
         Store store =  storeRepository.findStoreById(id);
+        
         if (store == null) {
           throw new IllegalArgumentException("No store found");
         }
@@ -67,6 +68,7 @@ public class StoreService {
           store.setDeliveryFee(deliveryFee);
           store.setDailySchedules(dailySchedules);
           storeRepository.save(store);
+
 		return store;
        
     }

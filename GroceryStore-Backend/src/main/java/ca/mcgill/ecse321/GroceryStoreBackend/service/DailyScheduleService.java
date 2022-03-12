@@ -83,7 +83,9 @@ public class DailyScheduleService {
       if (id == null) {
         throw new IllegalArgumentException("Id cannot be empty");
       }
-    DailySchedule dailySchedule = dailyScheduleRepository.findDailyScheduleById(id);
+        
+     DailySchedule dailySchedule = dailyScheduleRepository.findDailyScheduleById(id);
+
       if(dailySchedule.equals(null)) throw new IllegalArgumentException ("Daily schedule not found");
 
       

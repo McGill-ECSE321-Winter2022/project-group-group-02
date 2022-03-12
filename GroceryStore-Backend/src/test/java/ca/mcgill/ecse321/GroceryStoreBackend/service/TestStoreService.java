@@ -246,6 +246,7 @@ public class TestStoreService {
 		String error = null;
 		String town = "FakeTown";
 	    Double delifee = 45d;
+		Long id = 000L;
         Store store = null;
 
         DayOfWeek dayOfWeek = DayOfWeek.Tuesday;
@@ -258,13 +259,14 @@ public class TestStoreService {
             dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
 			List<DailySchedule> newDailySchedules = new ArrayList<DailySchedule>();
 			newDailySchedules.add(dailySchedule);
-			store = storeService.updateStore(000L, town, delifee, newDailySchedules);
+			store = storeService.updateStore(id, town, delifee, newDailySchedules);
+
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
         
         assertNull(store);
-		assertEquals("Store not found", error);
+		assertEquals("No store found", error);
 	}
 
     @Test
@@ -365,9 +367,10 @@ public class TestStoreService {
 	@Test
 	public void testDeleteStoreNotFound() {
 		String error = null;
-		Long id=9L;
+		Long Id = (long) 9;
+
 		try {
-			storeService.deleteStore(id);
+			storeService.deleteStore(Id);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
