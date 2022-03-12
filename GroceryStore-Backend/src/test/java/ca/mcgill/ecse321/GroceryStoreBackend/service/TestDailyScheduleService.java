@@ -303,8 +303,9 @@ public class TestDailyScheduleService {
 	@Test
 	public void testDeleteDailyScheduleNotFound() {
 		String error = null;
+        Long id=9L;
 		try {
-			dailyScheduleService.deleteDailySchedule(9L);
+			dailyScheduleService.deleteDailySchedule(id);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}

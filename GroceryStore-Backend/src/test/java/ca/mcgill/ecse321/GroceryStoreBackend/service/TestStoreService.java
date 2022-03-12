@@ -51,7 +51,7 @@ public class TestStoreService {
 	private DailyScheduleService dailyScheduleService;
     
     private static final String STORE_TOWN = "TestTown";
-    private static final Long STORE_KEY=12l;
+    static final Long STORE_KEY=12l;
     private static final Double STORE_DELIVERY_FEE=20d;
 
     static final Long DAILYSCHEDULE_KEY = 321l;
@@ -67,6 +67,7 @@ public class TestStoreService {
           Store store = new Store();
           store.setTown(STORE_TOWN);
           store.setDeliveryFee(STORE_DELIVERY_FEE);
+		  store.setId(STORE_KEY);
 
           DailySchedule dailySchedule = new DailySchedule();
           dailySchedule.setDayOfWeek(DAILYSCHEDULE_DAYOFWEEK);
@@ -263,7 +264,7 @@ public class TestStoreService {
 		}
         
         assertNull(store);
-		assertEquals("Store not found.", error);
+		assertEquals("Store not found", error);
 	}
 
     @Test
@@ -364,8 +365,9 @@ public class TestStoreService {
 	@Test
 	public void testDeleteStoreNotFound() {
 		String error = null;
+		Long id=9L;
 		try {
-			storeService.deleteStore(9L);
+			storeService.deleteStore(id);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
