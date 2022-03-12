@@ -27,7 +27,7 @@ public class UnavailableItemController {
 
 
 
-  @GetMapping(value = {"/view_unavailable_item"})
+  @GetMapping(value = {"/view_all_unavailable_item"})
   public List<UnavailableItemDto> getAllUnavailableItems() {
     return unavailableItemService.getAllUnavailableItems().stream().map(UnavailableItem -> convertToDTO(UnavailableItem))
         .collect(Collectors.toList());
@@ -55,11 +55,20 @@ public class UnavailableItemController {
     return new ResponseEntity<>(convertToDTO(UnavailableItem), HttpStatus.CREATED);
   }
 
-  @PostMapping(value = {"/update_unavailableItem_price/{name}"})
+  @PostMapping(value = {"/update_unavailable_item_price/{name}"})
   public UnavailableItemDto updatePrice(@PathVariable("name") String name,
       @RequestParam("newPrice") double newPrice) {
     UnavailableItem UnavailableItem = unavailableItemService.updatePrice(name, newPrice);
     return convertToDTO(UnavailableItem);
+  }
+  
+  @PostMapping(value = {"/delete_unavailable_item/{name}"})
+  public void deleteunavailableItem (@PathVariable("name") String name) {
+	  try {
+          unavailableItemService.deleteUnavailableItem(name);
+      } catch (Exception e) {
+          String error = e.getMessage();
+      }
   }
   
   

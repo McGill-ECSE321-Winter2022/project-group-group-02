@@ -27,7 +27,7 @@ public class ShoppableItemController {
 
 
 
-  @GetMapping(value = {"/view_shoppable_item"})
+  @GetMapping(value = {"/view_all_shoppable_item"})
   public List<ShoppableItemDto> getAllShoppableItems() {
     return shoppableItemService.getAllShoppableItems().stream().map(ShoppableItem -> convertToDTO(ShoppableItem))
         .collect(Collectors.toList());
@@ -41,7 +41,7 @@ public class ShoppableItemController {
   }
 
 
-  @PostMapping(value = {"/create_shoppableItem"})
+  @PostMapping(value = {"/create_shoppable_item"})
   public ResponseEntity<?> createShoppableItem(@RequestParam("name") String name,
       @RequestParam("price") double price, @RequestParam("quantity available") int quantityAvailable) {
 
@@ -55,18 +55,27 @@ public class ShoppableItemController {
     return new ResponseEntity<>(convertToDTO(shoppableItem), HttpStatus.CREATED);
   }
 
-  @PostMapping(value = {"/update_shoppableItem_price/{name}"})
+  @PostMapping(value = {"/update_shoppable_item_price/{name}"})
   public ShoppableItemDto updatePrice(@PathVariable("name") String name,
       @RequestParam("newPrice") double newPrice) {
     ShoppableItem shoppableItem = shoppableItemService.updatePrice(name, newPrice);
     return convertToDTO(shoppableItem);
   }
 
-  @PostMapping(value = {"/update_quantity_available/{name}"})
+  @PostMapping(value = {"/update_shoppable_item_quantity_available/{name}"})
   public ShoppableItemDto updateQuantityAvailable(@PathVariable("name") String name,
-      @RequestParam("newPrice") int newQuantityAvailable) {
+      @RequestParam("newQuantityAvailable") int newQuantityAvailable) {
     ShoppableItem ShoppableItem = shoppableItemService.updateInventory(name, newQuantityAvailable);
     return convertToDTO(ShoppableItem);
+  }
+  
+  @PostMapping(value = {"/delete_shoppable_item/{name}"})
+  public void deleteShoppableItem (@PathVariable("name") String name) {
+	  try {
+          shoppableItemService.deleteShoppableItem(name);
+      } catch (Exception e) {
+          String error = e.getMessage();
+      }
   }
   
   

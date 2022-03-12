@@ -48,7 +48,6 @@ public class TestUnavailableItemService {
 	  private static final double UNAVAILABLE_ITEM_PRICE = 321.2;
 	  
 	  
-	  
 	  @BeforeEach
 	  public void setMockOutput() {
 		  

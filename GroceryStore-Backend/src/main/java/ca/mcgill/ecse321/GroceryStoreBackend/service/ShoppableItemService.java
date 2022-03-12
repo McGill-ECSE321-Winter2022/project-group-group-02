@@ -100,6 +100,7 @@ public class ShoppableItemService {
 		if (item == null)
 			throw new IllegalArgumentException("This item does not exist in the system");
 
+		shoppableItemRepository.delete(item);
 		item.delete();
 
 		return true;

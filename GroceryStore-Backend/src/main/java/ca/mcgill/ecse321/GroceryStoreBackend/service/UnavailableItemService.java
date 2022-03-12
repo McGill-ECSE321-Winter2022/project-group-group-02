@@ -68,7 +68,7 @@ public class UnavailableItemService {
 		
 		if(item==null) throw new IllegalArgumentException("This item does not exist in the system");
 		
-		item.delete();
+		unavailableItemRepository.delete(item);
 		
 		return true;
 	}
