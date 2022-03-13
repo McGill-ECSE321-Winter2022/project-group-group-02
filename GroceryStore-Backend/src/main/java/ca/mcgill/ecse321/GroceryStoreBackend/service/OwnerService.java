@@ -1,117 +1,99 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.service;
 
-import java.util.ArrayList;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.OwnerRepository;
-import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Owner;
 
 @Service
 public class OwnerService {
 
+	@Autowired
+	OwnerRepository ownerRepository;
 
-  @Autowired
-  OwnerRepository ownerRepository;
+	@Transactional
+	public Owner createOwner(String email, String password, String name) {
 
+		if (ownerRepository.findByEmail("admin@grocerystore.com") != null) {
+			throw new IllegalArgumentException("Owner already exists");
+		}
 
+		if (name == null)
+			throw new IllegalArgumentException("Name cannot be null");
+		if (name.isBlank())
+			throw new IllegalArgumentException("Name cannot be blank");
+		if (!email.equals("admin@grocerystore.com"))
+			throw new IllegalArgumentException("Invalid email, use system email \"admin@grocerystore.com\"");
 
-  @Transactional
-  public Owner createOwner(String email, String password, String name) {
+		Owner owner = new Owner();
+		owner.setName(name);
 
-    if (ownerRepository.findByEmail("admin@grocerystore.com") != null) {
-      throw new IllegalArgumentException("Owner already exists");
-    }
+		if (passwordIsValid(password)) {
+			owner.setPassword(password);
+		}
+		owner.setEmail(email);
+		ownerRepository.save(owner);
+		return owner;
+	}
 
-    if (name == null)
-      throw new IllegalArgumentException("Name cannot be null");
-    if (name.isBlank())
-      throw new IllegalArgumentException("Name cannot be blank");
-    if (!email.equals("admin@grocerystore.com"))
-      throw new IllegalArgumentException(
-          "Invalid email, use system email \"admin@grocerystore.com\"");
+	@Transactional
+	public Owner updateOwnerPassword(String newPassword) {
+		Owner oldOwner = ownerRepository.findByEmail("admin@grocerystore.com");
 
+		if (passwordIsValid(newPassword)) {
+			oldOwner.setPassword(newPassword);
+		}
 
-    Owner owner = new Owner();
-    owner.setName(name);
+		oldOwner = ownerRepository.save(oldOwner);
 
-    if (passwordIsValid(password)) {
-      owner.setPassword(password);
-    }
-    owner.setEmail(email);
-    ownerRepository.save(owner);
-    return owner;
-  }
+		return oldOwner;
+	}
 
+	@Transactional
+	public Owner updateOwnerName(String newName) {
+		Owner oldOwner = ownerRepository.findByEmail("admin@grocerystore.com");
 
+		if (newName == null)
+			throw new IllegalArgumentException("Name cannot be null");
+		if (newName.isBlank())
+			throw new IllegalArgumentException("Name cannot be blank");
 
-  @Transactional
-  public Owner updateOwnerPassword(String newPassword) {
-    Owner oldOwner = ownerRepository.findByEmail("admin@grocerystore.com");
+		oldOwner.setName(newName);
 
-    if (passwordIsValid(newPassword)) {
-      oldOwner.setPassword(newPassword);
-    }
+		oldOwner = ownerRepository.save(oldOwner);
 
-    oldOwner = ownerRepository.save(oldOwner);
+		return oldOwner;
+	}
 
+	@Transactional
+	public Owner getOwner() {
+		Owner owner = ownerRepository.findByEmail("admin@grocerystore.com");
+		return owner;
+	}
 
-    return oldOwner;
-  }
+	@Transactional
+	public boolean deleteOwner() throws IllegalArgumentException {
 
-  @Transactional
-  public Owner updateOwnerName(String newName) {
-    Owner oldOwner = ownerRepository.findByEmail("admin@grocerystore.com");
+		Owner owner = ownerRepository.findByEmail("admin@grocerystore.com");
 
-    if (newName == null)
-      throw new IllegalArgumentException("Name cannot be null");
-    if (newName.isBlank())
-      throw new IllegalArgumentException("Name cannot be blank");
+		if (owner == null) {
+			throw new IllegalArgumentException("Owner not found.");
+		}
 
-    oldOwner.setName(newName);
+		ownerRepository.delete(owner);
+		return true;
+	}
 
-    oldOwner = ownerRepository.save(oldOwner);
+	private boolean passwordIsValid(String password) {
 
+		if (password == null)
+			throw new IllegalArgumentException("Password cannot be null");
+		if (password.isBlank())
+			throw new IllegalArgumentException("Password cannot be blank");
 
-    return oldOwner;
-  }
-
-  @Transactional
-  public Owner getOwner() {
-    Owner owner = ownerRepository.findByEmail("admin@grocerystore.com");
-    return owner;
-  }
-  
-  @Transactional
-  public boolean deleteOwner() throws IllegalArgumentException {
-
-    Owner owner = ownerRepository.findByEmail("admin@grocerystore.com");
-    
-
-      if (owner == null) {
-          throw new IllegalArgumentException("Owner not found.");
-      }
-
-      ownerRepository.delete(owner);
-      return true;
-  }
-
-
-  private boolean passwordIsValid(String password) {
-
-    if (password == null)
-      throw new IllegalArgumentException("Password cannot be null");
-    if (password.isBlank())
-      throw new IllegalArgumentException("Password cannot be blank");
-
-    return true;
-  }
-
-
+		return true;
+	}
 
 }

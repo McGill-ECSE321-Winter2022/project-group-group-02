@@ -12,29 +12,20 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
 
-import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
-import ca.mcgill.ecse321.GroceryStoreBackend.dao.CustomerRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.DailyScheduleRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.EmployeeRepository;
-import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Employee;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule.DayOfWeek;
@@ -46,10 +37,10 @@ public class TestEmployeeService {
 
 	@Mock
 	private DailyScheduleRepository dailyScheduleDao;
-	
+
 	@InjectMocks
 	private EmployeeService service;
-	
+
 	@InjectMocks
 	private DailyScheduleService dailyScheduleService;
 
@@ -57,27 +48,25 @@ public class TestEmployeeService {
 	private static final String EMPLOYEE_NAME = "Test";
 	private static final Double EMPLOYEE_SALARY = 1500.0;
 	private static final String EMPLOYEE_PASSWORD = "2222";
-	
 
 	static final long DAILYSCHEDULE_KEY = (long) 321;
 	private static final Time DAILYSCHEDULE_STARTTIME = Time.valueOf("08:00:00");
 	private static final Time DAILYSCHEDULE_ENDTIME = Time.valueOf("20:00:00");
 	private static final DayOfWeek DAILYSCHEDULE_DAYOFWEEK = DayOfWeek.Monday;
-	
+
 	static final long DAILYSCHEDULE_KEY2 = (long) 123;
 	private static final Time DAILYSCHEDULE_STARTTIME2 = Time.valueOf("07:00:00");
 	private static final Time DAILYSCHEDULE_ENDTIME2 = Time.valueOf("21:00:00");
 	private static final DayOfWeek DAILYSCHEDULE_DAYOFWEEK2 = DayOfWeek.Tuesday;
 
-
 	@BeforeEach
 	public void setMockOutput() {
 		lenient().when(employeeDao.findByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(EMPLOYEE_KEY)) {
-				
+
 				DailySchedule dailySchedule = dailyScheduleDao.findDailyScheduleById(DAILYSCHEDULE_KEY);
 				List<DailySchedule> dailySchedules = new ArrayList<DailySchedule>();
-				
+
 				dailySchedules.add(dailySchedule);
 				Employee employee = new Employee();
 				employee.setEmail(EMPLOYEE_KEY);
@@ -85,37 +74,37 @@ public class TestEmployeeService {
 				employee.setSalary(EMPLOYEE_SALARY);
 				employee.setPassword(EMPLOYEE_PASSWORD);
 				employee.setDailySchedules(dailySchedules);
-				
+
 				return employee;
 			} else {
 				return null;
 			}
 
 		});
-		
+
 		lenient().when(dailyScheduleDao.findDailyScheduleById(anyLong())).thenAnswer((InvocationOnMock invocation) -> {
-			if(invocation.getArgument(0).equals(DAILYSCHEDULE_KEY)) {
-				
+			if (invocation.getArgument(0).equals(DAILYSCHEDULE_KEY)) {
+
 				DailySchedule dailySchedule = new DailySchedule();
 				dailySchedule.setDayOfWeek(DAILYSCHEDULE_DAYOFWEEK);
 				dailySchedule.setStartTime(DAILYSCHEDULE_STARTTIME);
 				dailySchedule.setEndTime(DAILYSCHEDULE_ENDTIME);
 				dailySchedule.setId(DAILYSCHEDULE_KEY);
-				
+
 				return dailySchedule;
-			} else if (invocation.getArgument(0).equals(DAILYSCHEDULE_KEY2)){
+			} else if (invocation.getArgument(0).equals(DAILYSCHEDULE_KEY2)) {
 				DailySchedule dailySchedule = new DailySchedule();
 				dailySchedule.setDayOfWeek(DAILYSCHEDULE_DAYOFWEEK2);
 				dailySchedule.setStartTime(DAILYSCHEDULE_STARTTIME2);
 				dailySchedule.setEndTime(DAILYSCHEDULE_ENDTIME2);
 				dailySchedule.setId(DAILYSCHEDULE_KEY2);
-				
+
 				return dailySchedule;
 			} else {
 				return null;
 			}
 		});
-		
+
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		};
@@ -134,7 +123,7 @@ public class TestEmployeeService {
 		String name = "Test Employee";
 		Double salary = 1400.0;
 		Employee employee = null;
-		
+
 		try {
 			employee = service.createEmployee(email, password, name, salary);
 		} catch (IllegalArgumentException e) {
@@ -156,7 +145,7 @@ public class TestEmployeeService {
 		String name = "Test Employee";
 		Double salary = 1400.0;
 		Employee employee = null;
-		
+
 		try {
 			employee = service.createEmployee(email, password, name, salary);
 		} catch (IllegalArgumentException e) {
@@ -176,7 +165,7 @@ public class TestEmployeeService {
 		String name = "Test Employee";
 		Double salary = 1400.0;
 		Employee employee = null;
-		
+
 		try {
 			employee = service.createEmployee(email, password, name, salary);
 		} catch (IllegalArgumentException e) {
@@ -187,7 +176,7 @@ public class TestEmployeeService {
 		// check error
 		assertEquals("Employee email cannot be empty!", error);
 	}
-	
+
 	@Test
 	public void testCreateEmployeeEmailAlreadyInUse() {
 		String error = null;
@@ -195,7 +184,7 @@ public class TestEmployeeService {
 		String name = "Test Employee";
 		Double salary = 1400.0;
 		Employee employee = null;
-		
+
 		try {
 			employee = service.createEmployee(EMPLOYEE_KEY, password, name, salary);
 		} catch (IllegalArgumentException e) {
@@ -206,7 +195,7 @@ public class TestEmployeeService {
 		// check error
 		assertEquals("An employee with this email already exists.", error);
 	}
-	
+
 	@Test
 	public void testCreateEmployeeEmailInvalid() {
 		String error = null;
@@ -255,7 +244,7 @@ public class TestEmployeeService {
 		String name = "Test Employee";
 		Double salary = 1400.0;
 		Employee employee = null;
-		
+
 		try {
 			employee = service.createEmployee(email, password, name, salary);
 		} catch (IllegalArgumentException e) {
@@ -315,7 +304,7 @@ public class TestEmployeeService {
 		String name = "Test Employee";
 		Double salary = -1400.0;
 		Employee employee = null;
-		
+
 		try {
 			employee = service.createEmployee(email, password, name, salary);
 		} catch (IllegalArgumentException e) {
@@ -327,7 +316,6 @@ public class TestEmployeeService {
 		assertEquals("Employee salary must be positive!", error);
 	}
 
-
 	@Test
 	public void testUpdateEmployee() {
 		String error = null;
@@ -335,7 +323,7 @@ public class TestEmployeeService {
 		String newPassword = "5678";
 		String newName = "Test Employee2";
 		Double newSalary = 2000.0;
-		
+
 		try {
 			employee = service.updateEmployee(EMPLOYEE_KEY, newPassword, newName, newSalary);
 		} catch (IllegalArgumentException e) {
@@ -347,7 +335,7 @@ public class TestEmployeeService {
 		assertEquals(newSalary, employee.getSalary());
 		assertEquals(newName, employee.getName());
 		assertEquals(newPassword, employee.getPassword());
-	
+
 	}
 
 	@Test
@@ -395,7 +383,7 @@ public class TestEmployeeService {
 		String newPassword = "5678";
 		String newName = "";
 		Double newSalary = 2000.0;
-		
+
 		try {
 			employee = service.updateEmployee(EMPLOYEE_KEY, newPassword, newName, newSalary);
 		} catch (IllegalArgumentException e) {
@@ -414,7 +402,7 @@ public class TestEmployeeService {
 		String newPassword = "5678";
 		String newName = null;
 		Double newSalary = 2000.0;
-		
+
 		try {
 			employee = service.updateEmployee(EMPLOYEE_KEY, newPassword, newName, newSalary);
 		} catch (IllegalArgumentException e) {
@@ -433,7 +421,7 @@ public class TestEmployeeService {
 		String newPassword = "5678";
 		String newName = "Test Emplpoyee2";
 		Double newSalary = -2000.0;
-		
+
 		try {
 			employee = service.updateEmployee(EMPLOYEE_KEY, newPassword, newName, newSalary);
 		} catch (IllegalArgumentException e) {
@@ -451,7 +439,7 @@ public class TestEmployeeService {
 		String newPassword = "5678";
 		String newName = "Test Emplpoyee2";
 		Double newSalary = 2000.0;
-		
+
 		try {
 			service.updateEmployee("doesntexist@mail.ca", newPassword, newName, newSalary);
 		} catch (IllegalArgumentException e) {
@@ -474,11 +462,11 @@ public class TestEmployeeService {
 
 		assertTrue(success);
 	}
-	
+
 	@Test
 	public void addDailySchedule() {
 		String error = null;
-	
+
 		boolean success = false;
 		try {
 			success = service.addDailySchedule(EMPLOYEE_KEY, 123);
@@ -487,11 +475,11 @@ public class TestEmployeeService {
 		}
 		assertTrue(success);
 	}
-	
+
 	@Test
 	public void addDailyScheduleEmployeeNotFound() {
 		String error = null;
-		
+
 		boolean success = false;
 		try {
 			success = service.addDailySchedule("email", DAILYSCHEDULE_KEY2);
@@ -500,11 +488,11 @@ public class TestEmployeeService {
 		}
 		assertEquals("Employee not found.", error);
 	}
-	
+
 	@Test
 	public void addDailyScheduleDailyScheduleNotFound() {
 		String error = null;
-		
+
 		boolean success = false;
 		try {
 			success = service.addDailySchedule(EMPLOYEE_KEY, 456);
@@ -513,11 +501,11 @@ public class TestEmployeeService {
 		}
 		assertEquals("Daily Schedule not found.", error);
 	}
-	
+
 	@Test
 	public void addDailyScheduleAlreadyAdded() {
 		String error = null;
-		
+
 		boolean success = false;
 		try {
 			success = service.addDailySchedule(EMPLOYEE_KEY, DAILYSCHEDULE_KEY);
@@ -526,8 +514,7 @@ public class TestEmployeeService {
 		}
 		assertEquals("Daily Schedule is already assigned to the employee.", error);
 	}
-	
-	
+
 	@Test
 	public void removeDailySchedule() {
 
@@ -541,7 +528,6 @@ public class TestEmployeeService {
 		assertTrue(success);
 	}
 
-	
 	@Test
 	public void removeDailyScheduleEmployeeNotFound() {
 
@@ -552,10 +538,10 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		assertEquals("Employee not found.", error);
 	}
-	
+
 	@Test
 	public void removeDailyScheduleDailyScheduleNotFound() {
 
@@ -566,13 +552,13 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		assertEquals("Daily Schedule not found.", error);
 	}
-	
+
 	@Test
 	public void removeDailyScheduleDailyNotInDailySchedules() {
-		
+
 		DailySchedule dailySchedule = new DailySchedule();
 		dailySchedule.setDayOfWeek(DayOfWeek.Friday);
 		dailySchedule.setStartTime(Time.valueOf("05:00:00"));
@@ -586,10 +572,10 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		assertEquals("Daily Schedule is not assigned to the employee.", error);
 	}
-	
+
 	@Test
 	public void testDeleteEmployeeEmpty() {
 		String error = null;

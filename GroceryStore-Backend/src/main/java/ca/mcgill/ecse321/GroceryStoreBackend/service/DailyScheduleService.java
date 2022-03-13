@@ -3,7 +3,6 @@ package ca.mcgill.ecse321.GroceryStoreBackend.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Time;
-import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,106 +15,102 @@ import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule.DayOfWeek;
 @Service
 public class DailyScheduleService {
 
-  @Autowired
-  DailyScheduleRepository dailyScheduleRepository;
-  
-  @Transactional
-	public  DailySchedule createDailySchedule(Long id, DayOfWeek dayOfWeek,Time startTime, Time endTime) {
+	@Autowired
+	DailyScheduleRepository dailyScheduleRepository;
 
-       DailySchedule dailyschedulee = dailyScheduleRepository.findDailyScheduleById(id);
+	@Transactional
+	public DailySchedule createDailySchedule(Long id, DayOfWeek dayOfWeek, Time startTime, Time endTime) {
 
+		DailySchedule dailyschedulee = dailyScheduleRepository.findDailyScheduleById(id);
 
-    if(dailyschedulee != null) throw new IllegalArgumentException ("Daily Schedule with the same id already exists.");
+		if (dailyschedulee != null)
+			throw new IllegalArgumentException("Daily Schedule with the same id already exists.");
 
-    if(dayOfWeek == null) throw new IllegalArgumentException ("Please enter a valid day of week");
-      
-          if (startTime == null) {
-          throw new IllegalArgumentException("Please enter a valid start time");
-         }
-      
-         if (endTime == null) {
-            throw new IllegalArgumentException("Please enter a valid end time");
-         }
+		if (dayOfWeek == null)
+			throw new IllegalArgumentException("Please enter a valid day of week");
 
-      // Time startTime = Time.valueOf("08:00:00");
-     // Time endTime = Time.valueOf("08:00:00");
+		if (startTime == null) {
+			throw new IllegalArgumentException("Please enter a valid start time");
+		}
 
-          DailySchedule dailySchedule = new DailySchedule();
-          dailySchedule.setDayOfWeek(dayOfWeek);
-          dailySchedule.setId(id);
-          dailySchedule.setStartTime(startTime);
-          dailySchedule.setEndTime(endTime);
-          dailyScheduleRepository.save(dailySchedule);
+		if (endTime == null) {
+			throw new IllegalArgumentException("Please enter a valid end time");
+		}
+
+		// Time startTime = Time.valueOf("08:00:00");
+		// Time endTime = Time.valueOf("08:00:00");
+
+		DailySchedule dailySchedule = new DailySchedule();
+		dailySchedule.setDayOfWeek(dayOfWeek);
+		dailySchedule.setId(id);
+		dailySchedule.setStartTime(startTime);
+		dailySchedule.setEndTime(endTime);
+		dailyScheduleRepository.save(dailySchedule);
 		return dailySchedule;
-       
-    }
 
-    @Transactional
-    public DailySchedule updateDailySchedule(Long id, DayOfWeek dayOfWeek, Time startTime, Time endTime) {
+	}
 
+	@Transactional
+	public DailySchedule updateDailySchedule(Long id, DayOfWeek dayOfWeek, Time startTime, Time endTime) {
 
-  
-        DailySchedule dailySchedule =  dailyScheduleRepository.findDailyScheduleById(id);
-        if (dailySchedule == null) {
-          throw new IllegalArgumentException("No daily schedule found");
-        }
+		DailySchedule dailySchedule = dailyScheduleRepository.findDailyScheduleById(id);
+		if (dailySchedule == null) {
+			throw new IllegalArgumentException("No daily schedule found");
+		}
 
-        if (dayOfWeek == null) {
-            throw new IllegalArgumentException("Please enter a valid day of week");
-          }
-      
-          if (startTime == null) {
-            throw new IllegalArgumentException("Please enter a valid start time");
-          }
-      
-          if (endTime == null) {
-            throw new IllegalArgumentException("Please enter a valid end time");
-          }
-  
-          dailySchedule.setDayOfWeek(dayOfWeek);
-          dailySchedule.setStartTime(startTime);
-          dailySchedule.setEndTime(endTime);
-          dailyScheduleRepository.save(dailySchedule);
+		if (dayOfWeek == null) {
+			throw new IllegalArgumentException("Please enter a valid day of week");
+		}
+
+		if (startTime == null) {
+			throw new IllegalArgumentException("Please enter a valid start time");
+		}
+
+		if (endTime == null) {
+			throw new IllegalArgumentException("Please enter a valid end time");
+		}
+
+		dailySchedule.setDayOfWeek(dayOfWeek);
+		dailySchedule.setStartTime(startTime);
+		dailySchedule.setEndTime(endTime);
+		dailyScheduleRepository.save(dailySchedule);
 		return dailySchedule;
-    }
-    
-    @Transactional
+	}
+
+	@Transactional
 	public DailySchedule getDailySchedule(Long id) {
 		DailySchedule dailySchedule = dailyScheduleRepository.findDailyScheduleById(id);
 		return dailySchedule;
 	}
 
-    @Transactional
-    public boolean deleteDailySchedule(Long id) {
+	@Transactional
+	public boolean deleteDailySchedule(Long id) {
 
-      if (id == null) {
-        throw new IllegalArgumentException("Id cannot be empty");
-      }
-        
-     DailySchedule dailySchedule = dailyScheduleRepository.findDailyScheduleById(id);
+		if (id == null) {
+			throw new IllegalArgumentException("Id cannot be empty");
+		}
 
-      if(dailySchedule == null) throw new IllegalArgumentException ("Daily schedule not found");
+		DailySchedule dailySchedule = dailyScheduleRepository.findDailyScheduleById(id);
 
-      
-      
-      dailyScheduleRepository.delete(dailySchedule);
-      dailySchedule.delete();
-      return true;
-    }
+		if (dailySchedule == null)
+			throw new IllegalArgumentException("Daily schedule not found");
 
-    @Transactional
-    public List<DailySchedule> getAllDailySchedules() {
-        return toList(dailyScheduleRepository.findAll());
-    }
-    
-  
-    private <T> List<T> toList(Iterable<T> iterable){
-      List<T> resultList = new ArrayList<T>();
-      for (T t : iterable) {
-          resultList.add(t);
-      }
-      return resultList;
+		dailyScheduleRepository.delete(dailySchedule);
+		dailySchedule.delete();
+		return true;
+	}
 
+	@Transactional
+	public List<DailySchedule> getAllDailySchedules() {
+		return toList(dailyScheduleRepository.findAll());
+	}
+
+	private <T> List<T> toList(Iterable<T> iterable) {
+		List<T> resultList = new ArrayList<T>();
+		for (T t : iterable) {
+			resultList.add(t);
+		}
+		return resultList;
+
+	}
 }
-}
-  

@@ -21,92 +21,85 @@ import ca.mcgill.ecse321.GroceryStoreBackend.service.*;
 @RestController
 public class StoreController {
 
-    @Autowired
-    private StoreService storeService;
+	@Autowired
+	private StoreService storeService;
 
-    @Autowired
-    StoreRepository storeRepository;
-    
-    @GetMapping(value = { "/view_stores" })
-    public List<StoreDto> getAllStores() {
-        return storeService.getAllStores().stream().map(store -> convertToDTO(store)).collect(Collectors.toList());
-    }
-    
-    @GetMapping(value = {"/view_store/{id}"})
-    public StoreDto viewStore(@RequestParam("id") String id) {
-        
-      
-      return convertToDTO(storeService.getStore(Long.parseLong(id)));
-    }
+	@Autowired
+	StoreRepository storeRepository;
 
-    
-   
-  @PostMapping(value = {"/create_store"})
-  public ResponseEntity<?> createStore(@RequestParam("StoreId") Long StoreId,@RequestParam("town") String town,
-      @RequestParam("delivery_fee") Double deliveryFee) {
+	@GetMapping(value = { "/view_stores" })
+	public List<StoreDto> getAllStores() {
+		return storeService.getAllStores().stream().map(store -> convertToDTO(store)).collect(Collectors.toList());
+	}
 
-   Store store = null;
+	@GetMapping(value = { "/view_store/{id}" })
+	public StoreDto viewStore(@RequestParam("id") String id) {
 
-    try {
-      store = storeService.createStore(StoreId,town, deliveryFee);
-    } catch (IllegalArgumentException exception) {
-      return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-    return new ResponseEntity<>(convertToDTO(store), HttpStatus.CREATED);
-  }
-    
-    
-    @PostMapping(value = {"/update_store"})
-    public ResponseEntity<?> updateStore(@RequestParam("town") String town,
-    @RequestParam("delivery_fee") Double deliveryFee, @RequestParam("StoreId") String StoreId) {
-  
-      
-        Store store = null;
-  
-      try {
-        store = storeService.updateStore(Long.parseLong(StoreId), town, deliveryFee);
-      } catch (IllegalArgumentException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-      }
-      return new ResponseEntity<>(convertToDTO(store), HttpStatus.CREATED);
-    }
-    
+		return convertToDTO(storeService.getStore(Long.parseLong(id)));
+	}
 
-    @PostMapping(value = {"/delete_store"})
-    public boolean deleteStore( @RequestParam("StoreId") String StoreId) {
-  
-      
-        return storeService.deleteStore(Long.parseLong(StoreId));
-    
-    }
+	@PostMapping(value = { "/create_store" })
+	public ResponseEntity<?> createStore(@RequestParam("StoreId") Long StoreId, @RequestParam("town") String town,
+			@RequestParam("delivery_fee") Double deliveryFee) {
 
-    @PostMapping(value = {"/add_dailyschedule_for_store"})
-    public ResponseEntity<?> createStore(@RequestParam("StoreId") Long StoreId,@RequestParam("DailyScheduleId")  Long DailyScheduleId
-                                         ) {
-        Store store =  storeRepository.findStoreById(StoreId);
-        try {
-            storeService.addDailyScheduleToOrder(StoreId,DailyScheduleId);
-        } catch (IllegalArgumentException exception) {
-            return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(convertToDTO(store), HttpStatus.CREATED);
-    }
+		Store store = null;
 
+		try {
+			store = storeService.createStore(StoreId, town, deliveryFee);
+		} catch (IllegalArgumentException exception) {
+			return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(convertToDTO(store), HttpStatus.CREATED);
+	}
 
-    @PostMapping(value = {"/delete_dailyschedule_for_store"})
-    public boolean updateStore(@RequestParam("StoreId") Long StoreId,@RequestParam("DailyScheduleId")  Long DailyScheduleId) {
+	@PostMapping(value = { "/update_store" })
+	public ResponseEntity<?> updateStore(@RequestParam("town") String town,
+			@RequestParam("delivery_fee") Double deliveryFee, @RequestParam("StoreId") String StoreId) {
 
-         return storeService.deleteDailySchedulesToOrder(StoreId,DailyScheduleId);
-    }
+		Store store = null;
 
-    public static StoreDto convertToDTO(Store store) {
-      if (store == null)
-        throw new IllegalArgumentException("Store not found.");
-      
-        StoreDto storeDto = new StoreDto(store.getDeliveryFee(),store.getTown(),store.getId(),store.getDailySchedules());
-        return storeDto;
-      
-     
-    }
+		try {
+			store = storeService.updateStore(Long.parseLong(StoreId), town, deliveryFee);
+		} catch (IllegalArgumentException exception) {
+			return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(convertToDTO(store), HttpStatus.CREATED);
+	}
+
+	@PostMapping(value = { "/delete_store" })
+	public boolean deleteStore(@RequestParam("StoreId") String StoreId) {
+
+		return storeService.deleteStore(Long.parseLong(StoreId));
+
+	}
+
+	@PostMapping(value = { "/add_dailyschedule_for_store" })
+	public ResponseEntity<?> createStore(@RequestParam("StoreId") Long StoreId,
+			@RequestParam("DailyScheduleId") Long DailyScheduleId) {
+		Store store = storeRepository.findStoreById(StoreId);
+		try {
+			storeService.addDailyScheduleToOrder(StoreId, DailyScheduleId);
+		} catch (IllegalArgumentException exception) {
+			return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(convertToDTO(store), HttpStatus.CREATED);
+	}
+
+	@PostMapping(value = { "/delete_dailyschedule_for_store" })
+	public boolean updateStore(@RequestParam("StoreId") Long StoreId,
+			@RequestParam("DailyScheduleId") Long DailyScheduleId) {
+
+		return storeService.deleteDailySchedulesToOrder(StoreId, DailyScheduleId);
+	}
+
+	public static StoreDto convertToDTO(Store store) {
+		if (store == null)
+			throw new IllegalArgumentException("Store not found.");
+
+		StoreDto storeDto = new StoreDto(store.getDeliveryFee(), store.getTown(), store.getId(),
+				store.getDailySchedules());
+		return storeDto;
+
+	}
 
 }

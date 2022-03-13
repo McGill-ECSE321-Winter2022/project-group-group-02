@@ -9,11 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.CustomerRepository;
-import ca.mcgill.ecse321.GroceryStoreBackend.dao.EmployeeRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
-import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule;
-import ca.mcgill.ecse321.GroceryStoreBackend.model.Employee;
-import ca.mcgill.ecse321.GroceryStoreBackend.model.Person;
 
 @Service
 public class CustomerService {
@@ -38,9 +34,9 @@ public class CustomerService {
 		Customer customer = customerRepository.findByEmail(email);
 
 		if (customer != null) {
-			throw new IllegalArgumentException("This email is already in use for a customer.");	
+			throw new IllegalArgumentException("This email is already in use for a customer.");
 		}
-		
+
 		customer = new Customer();
 		customer.setEmail(email);
 		customer.setPassword(password);
@@ -70,11 +66,11 @@ public class CustomerService {
 		} else if (address == null || address.isEmpty()) {
 			throw new IllegalArgumentException("Customer address must not be empty!");
 		}
-		
+
 		Customer customer = customerRepository.findByEmail(email);
 
 		if (customer == null) {
-			throw new IllegalArgumentException("Customer not found.");	
+			throw new IllegalArgumentException("Customer not found.");
 		}
 		customer.setPassword(password);
 		customer.setName(name);

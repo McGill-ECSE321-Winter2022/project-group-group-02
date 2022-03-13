@@ -29,468 +29,448 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-
-
-
 @ExtendWith(MockitoExtension.class)
 public class TestOrderItemService {
 
+	@Mock
+	private OrderItemRepository orderItemRepo;
+	@Mock
+	private ShoppableItemRepository shoppableItemRepo;
+	@Mock
+	private OrderRepository orderRepo;
+	@Mock
+	private CustomerRepository customerRepo;
+
+	@InjectMocks
+	private OrderItemService orderItemService;
+	@InjectMocks
+	private ShoppableItemService shoppableItemService;
+
+	private static final String SHOPPABLE_ITEM_NAME = "FRESH LOLLAR";
+	private static final double SHOPPABLE_ITEM_PRICE = 22900;
+	private static final int SHOPPABLE_ITEM_QUANTITY = 20;
+
+	private static final int ORDER_ITEM_QUANTITY = 1;
+	private static final long ORDER_ITEM_ID = 123456L;
+
+	private static final String CUSTOMER_EMAIL = "theBestValuableCustomer@lollar.com";
+	private static final String CUSTOMER_NAME = "Bank";
+	private static final String CUSTOMER_ADDRESS = "Beirut, the land of opportunities";
+	private static final String CUSTOMER_PASSWORD = "Audi2019";
+
+	private static final Long ORDER_ID = 1234567L;
+	private static final OrderType ORDER_TYPE = OrderType.PickUp;
+	private static final OrderStatus ORDER_STATUS = OrderStatus.Confirmed;
+	private static final Date ORDER_DATE = Date.valueOf("2022-03-10");
+	private static final Time ORDER_TIME = Time.valueOf("10:09:00");;
+
+	@BeforeEach
+	public void setMockOutput() {
+
+		lenient().when(orderRepo.findOrderById(any(Long.class))).thenAnswer((InvocationOnMock invocation) -> {
+			if (invocation.getArgument(0).equals(ORDER_ID)) {
+
+				Customer customer = new Customer();
+				customer.setEmail(CUSTOMER_EMAIL);
+				customer.setName(CUSTOMER_NAME);
+				customer.setAddress(CUSTOMER_ADDRESS);
+				customer.setPassword(CUSTOMER_PASSWORD);
+
+				Order order = new Order();
+				order.setCustomer(customer);
+				order.setId(ORDER_ID);
+				order.setOrderStatus(ORDER_STATUS);
+				order.setOrderType(ORDER_TYPE);
+				order.setDate(ORDER_DATE);
+				order.setTime(ORDER_TIME);
+
+				return order;
+			} else {
+				return null;
+			}
+
+		});
+
+		lenient().when(shoppableItemRepo.findByName(anyString())).thenAnswer((InvocationOnMock invocation) -> {
+			if (invocation.getArgument(0).equals(SHOPPABLE_ITEM_NAME)) {
+				ShoppableItem shoppableItem = new ShoppableItem();
+				shoppableItem.setName(SHOPPABLE_ITEM_NAME);
+				shoppableItem.setPrice(SHOPPABLE_ITEM_PRICE);
+				shoppableItem.setQuantityAvailable(SHOPPABLE_ITEM_QUANTITY);
+
+				return shoppableItem;
+			} else {
+				return null;
+			}
+		});
+
+		lenient().when(orderItemRepo.findOrderItemById(any(Long.class))).thenAnswer((InvocationOnMock invocation) -> {
+			if (invocation.getArgument(0).equals(ORDER_ITEM_ID)) {
+
+				ShoppableItem item = new ShoppableItem();
+				item.setName(SHOPPABLE_ITEM_NAME);
+				item.setQuantityAvailable(SHOPPABLE_ITEM_QUANTITY);
+				item.setPrice(SHOPPABLE_ITEM_PRICE);
+
+				OrderItem orderItem = new OrderItem();
+
+				orderItem.setItem(item);
+				orderItem.setId(ORDER_ITEM_ID);
+				orderItem.setQuantity(ORDER_ITEM_QUANTITY);
+
+				return orderItem;
+			} else {
+				return null;
+			}
+
+		});
+		lenient().when(orderItemRepo.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+
+			List<OrderItem> list = new ArrayList<>();
+
+			ShoppableItem item = new ShoppableItem();
+			item.setName(SHOPPABLE_ITEM_NAME);
+			item.setQuantityAvailable(SHOPPABLE_ITEM_QUANTITY);
+			item.setPrice(SHOPPABLE_ITEM_PRICE);
+
+			OrderItem orderItem = new OrderItem();
 
-    @Mock
-    private OrderItemRepository orderItemRepo;
-    @Mock
-    private ShoppableItemRepository shoppableItemRepo;
-    @Mock
-    private OrderRepository orderRepo;
-    @Mock
-    private CustomerRepository customerRepo;
-    
-    @InjectMocks
-    private OrderItemService orderItemService;
-    @InjectMocks
-    private ShoppableItemService shoppableItemService;
-    
-    
-
-
-    private static final String SHOPPABLE_ITEM_NAME = "FRESH LOLLAR";
-    private static final double SHOPPABLE_ITEM_PRICE = 22900;
-    private static final int SHOPPABLE_ITEM_QUANTITY = 20;
-
-    private static final int ORDER_ITEM_QUANTITY = 1;
-    private static final long ORDER_ITEM_ID = 123456L;
-    
-    private static final String CUSTOMER_EMAIL = "theBestValuableCustomer@lollar.com";
-    private static final String CUSTOMER_NAME = "Bank";
-    private static final String CUSTOMER_ADDRESS = "Beirut, the land of opportunities";
-    private static final String CUSTOMER_PASSWORD = "Audi2019";
+			orderItem.setItem(item);
+			orderItem.setId(ORDER_ITEM_ID);
+			orderItem.setQuantity(ORDER_ITEM_QUANTITY);
 
-    
-    private static final Long ORDER_ID = 1234567L;
-    private static final OrderType ORDER_TYPE = OrderType.PickUp;
-    private static final OrderStatus ORDER_STATUS = OrderStatus.Confirmed;
-    private static final Date ORDER_DATE = Date.valueOf("2022-03-10");
-    private static final Time ORDER_TIME = Time.valueOf("10:09:00");;
+			list.add(orderItem);
+			return list;
 
+		});
 
+		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
+			return invocation.getArgument(0);
+		};
 
-    @BeforeEach
-    public void setMockOutput() {
+		lenient().when(orderItemRepo.save(any(OrderItem.class))).thenAnswer(returnParameterAsAnswer);
+		lenient().when(shoppableItemRepo.save(any(ShoppableItem.class))).thenAnswer(returnParameterAsAnswer);
+		lenient().when(customerRepo.save(any(Customer.class))).thenAnswer(returnParameterAsAnswer);
+		lenient().when(orderRepo.save(any(Order.class))).thenAnswer(returnParameterAsAnswer);
 
-      lenient().when(orderRepo.findOrderById(any(Long.class)))
-      .thenAnswer((InvocationOnMock invocation) -> {
-        if (invocation.getArgument(0).equals(ORDER_ID)) {
+	}
 
-          Customer customer = new Customer();
-          customer.setEmail(CUSTOMER_EMAIL);
-          customer.setName(CUSTOMER_NAME);
-          customer.setAddress(CUSTOMER_ADDRESS);
-          customer.setPassword(CUSTOMER_PASSWORD);
+	/**
+	 * Test for create order item
+	 */
+	@Test
+	public void testCreateOrderItem() {
 
-          Order order = new Order();
-          order.setCustomer(customer);
-          order.setId(ORDER_ID);
-          order.setOrderStatus(ORDER_STATUS);
-          order.setOrderType(ORDER_TYPE);
-          order.setDate(ORDER_DATE);
-          order.setTime(ORDER_TIME);
+		String name = "mafi fresh";
+		double price = 34;
+		int quantity = 4;
 
-          return order;
-        } else {
-          return null;
-        }
+		ShoppableItem item = shoppableItemService.createShoppableItem(name, price, quantity);
+		lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
 
-      });
-      
+		int quantityOrder = 1;
+		long itemId = 234L;
+		OrderItem orderItem = null;
+		try {
+			orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, ORDER_ID);
 
-        lenient().when(shoppableItemRepo.findByName(anyString())).thenAnswer((InvocationOnMock invocation) -> {
-            if (invocation.getArgument(0).equals(SHOPPABLE_ITEM_NAME)) {
-                ShoppableItem shoppableItem = new ShoppableItem();
-                shoppableItem.setName(SHOPPABLE_ITEM_NAME);
-                shoppableItem.setPrice(SHOPPABLE_ITEM_PRICE);
-                shoppableItem.setQuantityAvailable(SHOPPABLE_ITEM_QUANTITY);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
 
-                return shoppableItem;
-            } else {
-                return null;
-            }
-        });
+		assertNotNull(orderItem);
+		assertEquals(itemId, orderItem.getId());
+		assertEquals(quantityOrder, orderItem.getQuantity());
+		assertEquals(name, orderItem.getItem().getName());
 
+	}
 
+	@Test
+	public void testCreateOrderItemInvalidQuantity() {
 
-        lenient().when(orderItemRepo.findOrderItemById(any(Long.class)))
-                .thenAnswer((InvocationOnMock invocation) -> {
-                    if (invocation.getArgument(0).equals(ORDER_ITEM_ID)) {
+		String name = "mafi fresh";
+		double price = 34;
+		int quantity = 4;
 
-                        ShoppableItem item = new ShoppableItem();
-                        item.setName(SHOPPABLE_ITEM_NAME);
-                        item.setQuantityAvailable(SHOPPABLE_ITEM_QUANTITY);
-                        item.setPrice(SHOPPABLE_ITEM_PRICE);
+		ShoppableItem item = shoppableItemService.createShoppableItem(name, price, quantity);
+		lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
 
+		int quantityOrder = -1;
+		long itemId = 234L;
+		OrderItem orderItem = null;
+		String error = null;
+		try {
+			orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, ORDER_ID);
 
-                        OrderItem orderItem = new OrderItem();
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
 
-                        orderItem.setItem(item);
-                        orderItem.setId(ORDER_ITEM_ID);
-                        orderItem.setQuantity(ORDER_ITEM_QUANTITY);
+		assertNull(orderItem);
+		assertEquals(error, "Please enter a valid quantity. ");
 
-                        return orderItem;
-                    } else {
-                        return null;
-                    }
+	}
 
-                });
-        lenient().when(orderItemRepo.findAll())
-                .thenAnswer((InvocationOnMock invocation) -> {
+	@Test
+	public void testCreateOrderItemInvalidItem() {
 
-                    List<OrderItem> list = new ArrayList<>();
+		String name = "mafi item";
 
-                    ShoppableItem item = new ShoppableItem();
-                    item.setName(SHOPPABLE_ITEM_NAME);
-                    item.setQuantityAvailable(SHOPPABLE_ITEM_QUANTITY);
-                    item.setPrice(SHOPPABLE_ITEM_PRICE);
+		int quantityOrder = 1;
+		long itemId = 234L;
+		OrderItem orderItem = null;
+		String error = null;
+		try {
+			orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, ORDER_ID);
 
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
 
-                    OrderItem orderItem = new OrderItem();
+		assertNull(orderItem);
+		assertEquals(error, "Please enter a valid item. ");
 
-                    orderItem.setItem(item);
-                    orderItem.setId(ORDER_ITEM_ID);
-                    orderItem.setQuantity(ORDER_ITEM_QUANTITY);
+	}
 
-                    list.add(orderItem);
-                    return list;
+	@Test
+	public void testCreateOrderItemInvalidOrder() {
+		String name = "mafi fresh";
+		double price = 34;
+		int quantity = 4;
 
-                });
+		ShoppableItem item = shoppableItemService.createShoppableItem(name, price, quantity);
+		lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
 
+		int quantityOrder = 1;
+		long itemId = 234L;
+		OrderItem orderItem = null;
+		Long fakeOrderId = 1L;
+		String error = null;
+		try {
+			orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, fakeOrderId);
 
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
 
-        Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
-            return invocation.getArgument(0);
-        };
+		assertNull(orderItem);
+		assertEquals(error, "Order Item cannot exist without an order. ");
 
-        lenient().when(orderItemRepo.save(any(OrderItem.class))).thenAnswer(returnParameterAsAnswer);
-        lenient().when(shoppableItemRepo.save(any(ShoppableItem.class))).thenAnswer(returnParameterAsAnswer);
-        lenient().when(customerRepo.save(any(Customer.class))).thenAnswer(returnParameterAsAnswer);
-        lenient().when(orderRepo.save(any(Order.class))).thenAnswer(returnParameterAsAnswer);
+	}
 
-    }
+	/**
+	 * test for update order item
+	 */
 
-    /**
-     * Test for create order item
-     */
-    @Test
-    public void testCreateOrderItem(){
+	@Test
+	public void testUpdateOrderItem() {
 
-        String name = "mafi fresh";
-        double price = 34;
-        int quantity = 4;
+		int quantityOrdered = 12;
+		OrderItem item = null;
 
+		try {
+			item = orderItemService.updateOrderItem(ORDER_ITEM_ID, quantityOrdered, SHOPPABLE_ITEM_NAME, ORDER_ID);
 
+		} catch (IllegalArgumentException e) {
 
-        ShoppableItem item = shoppableItemService.createShoppableItem(name, price, quantity);
-        lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
+			fail();
+		}
 
-        int quantityOrder = 1;
-        long itemId = 234L;
-        OrderItem orderItem = null;
-         try{
-             orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, ORDER_ID);
+		assertNotNull(item);
+		assertEquals(ORDER_ITEM_ID, item.getId());
+		assertEquals(quantityOrdered, item.getQuantity());
+		assertEquals(SHOPPABLE_ITEM_NAME, item.getItem().getName());
 
+	}
 
-         }catch (IllegalArgumentException e){
-             fail();
-         }
+	@Test
+	public void testUpdateOrderItemInvalidQuantity() {
 
-         assertNotNull(orderItem);
-         assertEquals(itemId, orderItem.getId());
-        assertEquals(quantityOrder, orderItem.getQuantity());
-        assertEquals(name, orderItem.getItem().getName());
+		int quantityOrdered = -1;
+		OrderItem item = null;
+		String error = null;
+		try {
+			item = orderItemService.updateOrderItem(ORDER_ITEM_ID, quantityOrdered, SHOPPABLE_ITEM_NAME, ORDER_ID);
 
-    }
-    @Test
-    public void testCreateOrderItemInvalidQuantity(){
+		} catch (IllegalArgumentException e) {
 
-        String name = "mafi fresh";
-        double price = 34;
-        int quantity = 4;
+			error = e.getMessage();
+		}
 
+		assertEquals(error, "Please enter a valid quantity. ");
 
+	}
 
-        ShoppableItem item = shoppableItemService.createShoppableItem(name, price, quantity);
-        lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
+	@Test
+	public void testUpdateOrderItemInvalidItem() {
 
-        int quantityOrder = -1;
-        long itemId = 234L;
-        OrderItem orderItem = null;
-        String error = null;
-        try{
-            orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, ORDER_ID);
+		int quantityOrdered = 12;
+		OrderItem item = null;
+		String fakeName = "bank audi";
+		String error = null;
+		try {
+			item = orderItemService.updateOrderItem(ORDER_ITEM_ID, quantityOrdered, fakeName, ORDER_ID);
 
-        }catch (IllegalArgumentException e){
-            error = e.getMessage();
-        }
+		} catch (IllegalArgumentException e) {
 
-        assertNull(orderItem);
-        assertEquals(error, "Please enter a valid quantity. ");
+			error = e.getMessage();
+		}
 
+		assertEquals(error, "Please enter a valid item. ");
 
-    }
-    @Test
-    public void testCreateOrderItemInvalidItem(){
+	}
 
-        String name = "mafi item";
+	@Test
+	public void testUpdateOrderItemInvalidOrderItemId() {
 
-        int quantityOrder = 1;
-        long itemId = 234L;
-        OrderItem orderItem = null;
-        String error = null;
-        try{
-            orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, ORDER_ID);
+		Long fakeId = 87L;
+		int quantityOrdered = 12;
+		OrderItem item = null;
 
-        }catch (IllegalArgumentException e){
-            error = e.getMessage();
-        }
+		String error = null;
+		try {
+			item = orderItemService.updateOrderItem(fakeId, quantityOrdered, SHOPPABLE_ITEM_NAME, ORDER_ID);
 
-        assertNull(orderItem);
-        assertEquals(error, "Please enter a valid item. ");
+		} catch (IllegalArgumentException e) {
 
-    }
-    @Test
-    public void testCreateOrderItemInvalidOrder(){
-        String name = "mafi fresh";
-        double price = 34;
-        int quantity = 4;
+			error = e.getMessage();
+		}
 
-        ShoppableItem item = shoppableItemService.createShoppableItem(name, price, quantity);
-        lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
+		assertNull(item);
+		assertEquals(error, "Please enter a valid order item. ");
 
-        int quantityOrder = 1;
-        long itemId = 234L;
-        OrderItem orderItem = null;
-        Long fakeOrderId = 1L;
-        String error = null;
-        try{
-            orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, fakeOrderId);
+	}
 
-        }catch (IllegalArgumentException e){
-            error = e.getMessage();
-        }
+	@Test
+	public void testUpdateOrderItemInvalidOrder() {
+		String name = "mafi fresh";
+		double price = 34;
+		int quantity = 4;
 
-        assertNull(orderItem);
-        assertEquals(error, "Order Item cannot exist without an order. ");
+		ShoppableItem item = shoppableItemService.createShoppableItem(name, price, quantity);
+		lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
 
-    }
+		int quantityOrder = 1;
+		long itemId = 234L;
+		OrderItem orderItem = null;
+		Long fakeOrderId = 1L;
+		String error = null;
+		try {
+			orderItem = orderItemService.updateOrderItem(itemId, quantityOrder, name, fakeOrderId);
 
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
 
-    /**
-     * test for update order item
-     */
+		assertNull(orderItem);
+		assertEquals(error, "Order Item cannot exist without an order. ");
 
-    @Test
-    public void testUpdateOrderItem(){
+	}
 
-        int quantityOrdered = 12;
-        OrderItem item = null;
+	/**
+	 * test for delete order item
+	 */
 
-        try{
-            item = orderItemService.updateOrderItem(ORDER_ITEM_ID, quantityOrdered, SHOPPABLE_ITEM_NAME, ORDER_ID);
+	@Test
+	public void testDeleteOrderItem() {
 
-        }catch (IllegalArgumentException e){
+		String name = "mafi fresh";
+		double price = 34;
+		int quantity = 4;
 
-            fail();
-        }
+		ShoppableItem item = shoppableItemService.createShoppableItem(name, price, quantity);
+		lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
 
-        assertNotNull(item);
-        assertEquals(ORDER_ITEM_ID, item.getId());
-        assertEquals(quantityOrdered, item.getQuantity());
-        assertEquals(SHOPPABLE_ITEM_NAME, item.getItem().getName());
+		int quantityOrder = 1;
+		long itemId = 234L;
+		OrderItem orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, ORDER_ID);
+		lenient().when(orderItemRepo.findOrderItemById(itemId)).thenReturn(orderItem);
 
-    }
-    @Test
-    public void testUpdateOrderItemInvalidQuantity(){
+		boolean deleted = false;
+		try {
+			deleted = orderItemService.deleteOrderItem(itemId);
 
-        int quantityOrdered = -1;
-        OrderItem item = null;
-        String error = null;
-        try{
-            item = orderItemService.updateOrderItem(ORDER_ITEM_ID, quantityOrdered, SHOPPABLE_ITEM_NAME, ORDER_ID);
+		} catch (IllegalArgumentException e) {
+			fail();
 
-        }catch (IllegalArgumentException e){
+		}
+		assertTrue(deleted);
 
-            error = e.getMessage();
-        }
+	}
 
-        assertEquals(error, "Please enter a valid quantity. ");
+	@Test
+	public void testDeleteOrderItemThatDoesNotExist() {
 
-    }
-    @Test
-    public void testUpdateOrderItemInvalidItem(){
+		long itemId = 234L;
+		String error = null;
+		try {
+			orderItemService.deleteOrderItem(itemId);
 
-        int quantityOrdered = 12;
-        OrderItem item = null;
-        String fakeName = "bank audi";
-        String error = null;
-        try{
-            item = orderItemService.updateOrderItem(ORDER_ITEM_ID, quantityOrdered, fakeName, ORDER_ID);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
 
-        }catch (IllegalArgumentException e){
+		}
+		assertEquals(error, "Please enter a valid order item. ");
 
-            error = e.getMessage();
-        }
+	}
 
-        assertEquals(error, "Please enter a valid item. ");
+	/**
+	 * test for get order item by id
+	 */
+	@Test
+	public void testGetOrderItemById() {
 
-    }
-    @Test
-    public void testUpdateOrderItemInvalidOrderItemId(){
+		OrderItem orderItem = null;
 
-        Long fakeId = 87L;
-        int quantityOrdered = 12;
-        OrderItem item = null;
+		try {
+			orderItem = orderItemService.getOrderItemById(ORDER_ITEM_ID);
 
-        String error = null;
-        try{
-            item = orderItemService.updateOrderItem(fakeId, quantityOrdered, SHOPPABLE_ITEM_NAME, ORDER_ID);
+		} catch (IllegalArgumentException e) {
 
-        }catch (IllegalArgumentException e){
+			fail();
+		}
 
-            error = e.getMessage();
-        }
+		assertEquals(orderItem.getId(), ORDER_ITEM_ID);
+		assertNotNull(orderItem);
 
-        assertNull(item);
-        assertEquals(error, "Please enter a valid order item. ");
+	}
 
-    }
-    @Test
-    public void testUpdateOrderItemInvalidOrder(){
-        String name = "mafi fresh";
-        double price = 34;
-        int quantity = 4;
+	@Test
+	public void testGetOrderByIdButInvalid() {
 
-        ShoppableItem item = shoppableItemService.createShoppableItem(name, price, quantity);
-        lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
+		OrderItem orderItem = null;
+		Long fakeId = 98L;
+		String error = null;
+		try {
+			orderItem = orderItemService.getOrderItemById(fakeId);
 
-        int quantityOrder = 1;
-        long itemId = 234L;
-        OrderItem orderItem = null;
-        Long fakeOrderId = 1L;
-        String error = null;
-        try{
-            orderItem = orderItemService.updateOrderItem(itemId, quantityOrder, name, fakeOrderId);
+		} catch (IllegalArgumentException e) {
 
-        }catch (IllegalArgumentException e){
-            error = e.getMessage();
-        }
+			error = e.getMessage();
+		}
 
-        assertNull(orderItem);
-        assertEquals(error, "Order Item cannot exist without an order. ");
+		assertEquals(error, "Please enter a valid order item by providing a valid order item ID. ");
+		assertNull(orderItem);
 
-    }
+	}
 
-    /**
-     * test for delete order item
-     */
+	/**
+	 * test for get all order item
+	 */
+	@Test
+	public void testGetAllOrderItems() {
 
-    @Test
-    public void testDeleteOrderItem(){
+		List<OrderItem> allOrderItems = null;
 
-        String name = "mafi fresh";
-        double price = 34;
-        int quantity = 4;
+		try {
+			allOrderItems = orderItemService.getAllOrderItem();
 
-        ShoppableItem item = shoppableItemService.createShoppableItem(name, price, quantity);
-        lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertNotNull(allOrderItems);
+		assertEquals(1, allOrderItems.size());
 
-        int quantityOrder = 1;
-        long itemId = 234L;
-        OrderItem orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, ORDER_ID);
-        lenient().when(orderItemRepo.findOrderItemById(itemId)).thenReturn(orderItem);
-
-        boolean deleted = false;
-        try{
-            deleted = orderItemService.deleteOrderItem(itemId);
-
-        }catch (IllegalArgumentException e){
-            fail();
-
-        }
-        assertTrue(deleted);
-
-    }
-    @Test
-    public void testDeleteOrderItemThatDoesNotExist(){
-
-
-        long itemId = 234L;
-        String error = null;
-        try{
-            orderItemService.deleteOrderItem(itemId);
-
-        }catch (IllegalArgumentException e){
-            error = e.getMessage();
-
-        }
-        assertEquals(error, "Please enter a valid order item. ");
-
-    }
-
-    /**
-     * test for get order item by id
-     */
-    @Test
-    public void testGetOrderItemById() {
-
-        OrderItem orderItem = null;
-
-        try {
-            orderItem = orderItemService.getOrderItemById(ORDER_ITEM_ID);
-
-        } catch (IllegalArgumentException e) {
-
-            fail();
-        }
-
-        assertEquals(orderItem.getId(), ORDER_ITEM_ID);
-        assertNotNull(orderItem);
-
-    }
-    @Test
-    public void testGetOrderByIdButInvalid() {
-
-        OrderItem orderItem = null;
-        Long fakeId = 98L;
-        String error = null;
-        try {
-            orderItem = orderItemService.getOrderItemById(fakeId);
-
-        } catch (IllegalArgumentException e) {
-
-            error = e.getMessage();
-        }
-
-        assertEquals(error, "Please enter a valid order item by providing a valid order item ID. ");
-        assertNull(orderItem);
-
-    }
-
-
-    /**
-     * test for get all order item
-     */
-    @Test
-    public void testGetAllOrderItems(){
-
-        List<OrderItem> allOrderItems = null;
-
-        try {
-            allOrderItems = orderItemService.getAllOrderItem();
-
-        }catch (IllegalArgumentException e){
-            fail();
-        }
-        assertNotNull(allOrderItems);
-        assertEquals(1, allOrderItems.size());
-
-    }
+	}
 
 }

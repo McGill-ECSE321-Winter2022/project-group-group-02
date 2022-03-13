@@ -17,67 +17,58 @@ import ca.mcgill.ecse321.GroceryStoreBackend.dto.*;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.*;
 import ca.mcgill.ecse321.GroceryStoreBackend.service.*;
 
-
 @CrossOrigin(origins = "*")
 @RestController
 public class UnavailableItemController {
 
-  @Autowired
-  private UnavailableItemService unavailableItemService;
+	@Autowired
+	private UnavailableItemService unavailableItemService;
 
+	@GetMapping(value = { "/view_all_unavailable_item" })
+	public List<UnavailableItemDto> getAllUnavailableItems() {
+		return unavailableItemService.getAllUnavailableItems().stream()
+				.map(UnavailableItem -> convertToDTO(UnavailableItem)).collect(Collectors.toList());
+	}
 
+	@GetMapping(value = { "/view_unavailable_item/{name}" })
+	public UnavailableItemDto viewUnavailableItem(@PathVariable("name") String name) {
+		return convertToDTO(unavailableItemService.getUnavailableItem(name));
+	}
 
-  @GetMapping(value = {"/view_all_unavailable_item"})
-  public List<UnavailableItemDto> getAllUnavailableItems() {
-    return unavailableItemService.getAllUnavailableItems().stream().map(UnavailableItem -> convertToDTO(UnavailableItem))
-        .collect(Collectors.toList());
-  }
+	@PostMapping(value = { "/create_unavailable_item" })
+	public ResponseEntity<?> createUnavailableItem(@RequestParam("name") String name,
+			@RequestParam("price") double price) {
 
+		UnavailableItem UnavailableItem = null;
 
+		try {
+			UnavailableItem = unavailableItemService.createUnavailableItem(name, price);
+		} catch (IllegalArgumentException exception) {
+			return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(convertToDTO(UnavailableItem), HttpStatus.CREATED);
+	}
 
-  @GetMapping(value = {"/view_unavailable_item/{name}"})
-  public UnavailableItemDto viewUnavailableItem(@PathVariable("name") String name) {
-    return convertToDTO(unavailableItemService.getUnavailableItem(name));
-  }
+	@PostMapping(value = { "/update_unavailable_item_price/{name}" })
+	public UnavailableItemDto updatePrice(@PathVariable("name") String name,
+			@RequestParam("newPrice") double newPrice) {
+		UnavailableItem UnavailableItem = unavailableItemService.updatePrice(name, newPrice);
+		return convertToDTO(UnavailableItem);
+	}
 
+	@PostMapping(value = { "/delete_unavailable_item/{name}" })
+	public void deleteunavailableItem(@PathVariable("name") String name) {
+		try {
+			unavailableItemService.deleteUnavailableItem(name);
+		} catch (Exception e) {
+			String error = e.getMessage();
+		}
+	}
 
-  @PostMapping(value = {"/create_unavailable_item"})
-  public ResponseEntity<?> createUnavailableItem(@RequestParam("name") String name,
-      @RequestParam("price") double price) {
-
-    UnavailableItem UnavailableItem = null;
-
-    try {
-      UnavailableItem = unavailableItemService.createUnavailableItem(name, price);
-    } catch (IllegalArgumentException exception) {
-      return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-    return new ResponseEntity<>(convertToDTO(UnavailableItem), HttpStatus.CREATED);
-  }
-
-  @PostMapping(value = {"/update_unavailable_item_price/{name}"})
-  public UnavailableItemDto updatePrice(@PathVariable("name") String name,
-      @RequestParam("newPrice") double newPrice) {
-    UnavailableItem UnavailableItem = unavailableItemService.updatePrice(name, newPrice);
-    return convertToDTO(UnavailableItem);
-  }
-  
-  @PostMapping(value = {"/delete_unavailable_item/{name}"})
-  public void deleteunavailableItem (@PathVariable("name") String name) {
-	  try {
-          unavailableItemService.deleteUnavailableItem(name);
-      } catch (Exception e) {
-          String error = e.getMessage();
-      }
-  }
-  
-  
-  public static UnavailableItemDto convertToDTO(UnavailableItem unavailableItem) {
-    if (unavailableItem == null)
-      throw new IllegalArgumentException("UnavailableItem not found.");
-    return new UnavailableItemDto(unavailableItem.getName(), unavailableItem.getPrice());
-  }
-
-
+	public static UnavailableItemDto convertToDTO(UnavailableItem unavailableItem) {
+		if (unavailableItem == null)
+			throw new IllegalArgumentException("UnavailableItem not found.");
+		return new UnavailableItemDto(unavailableItem.getName(), unavailableItem.getPrice());
+	}
 
 }
