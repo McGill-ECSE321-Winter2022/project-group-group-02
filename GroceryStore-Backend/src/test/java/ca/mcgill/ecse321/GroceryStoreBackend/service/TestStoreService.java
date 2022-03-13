@@ -133,10 +133,6 @@ public class TestStoreService {
     assertEquals(town, store.getTown());
     assertEquals(delifee, store.getDeliveryFee());
     
-    assertNotNull(store.getDailySchedules().get(0));
-    assertEquals(dayOfWeek, store.getDailySchedules().get(0).getDayOfWeek());
-    assertEquals(startTime, store.getDailySchedules().get(0).getStartTime());
-    assertEquals(endTime, store.getDailySchedules().get(0).getEndTime());
 }
    
 @Test
@@ -242,10 +238,7 @@ public class TestStoreService {
 		assertEquals(town, store.getTown());
 		assertEquals(delifee, store.getDeliveryFee());
 
-        assertNotNull(store.getDailySchedules().get(0));
-		assertEquals(dayOfWeek, store.getDailySchedules().get(0).getDayOfWeek());
-		assertEquals(startTime, store.getDailySchedules().get(0).getStartTime());
-		assertEquals(endTime, store.getDailySchedules().get(0).getEndTime());
+        
 	}
 
     @Test
