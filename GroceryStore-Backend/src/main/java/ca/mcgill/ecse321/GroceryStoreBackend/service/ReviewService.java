@@ -28,6 +28,17 @@ public class ReviewService {
 	@Autowired
 	private OrderRepository orderRepository;
 
+	
+	/**
+     * @author Matthieu Hakim
+     * Creates a review
+     * @param aRating
+     * @param aDescription
+     * @param customerEmail
+     * @param orderId
+     * @param reviewId
+     * @return Review
+     */
 	@Transactional
 	public Review createReview(Rating aRating, String aDescription, String customerEmail, Long orderId, Long reviewId) {
 
@@ -73,6 +84,15 @@ public class ReviewService {
 		return review;
 	}
 
+	
+	/**
+     * @author Matthieu Hakim
+     * Updates a review
+     * @param orderId
+     * @param newDescription
+     * @param newRating
+     * @return Review
+     */
 	@Transactional
 	public Review updateReview(Long orderId, String newDescription, Rating newRating) {
 
@@ -100,6 +120,12 @@ public class ReviewService {
 		return review;
 	}
 
+	/**
+     * @author Matthieu Hakim
+     * Deletes the review of a specific order
+     * @param orderId
+     * @return true if review has been deleted
+     */
 	@Transactional
 	public boolean deleteReview(Long orderId) {
 		Order order = orderRepository.findOrderById(orderId);
@@ -113,6 +139,12 @@ public class ReviewService {
 		return true;
 	}
 
+	/**
+     * @author Matthieu Hakim
+     * Gets the review of a specific order
+     * @param orderId
+     * @return Review
+     */
 	@Transactional
 	public Review getReviewForOrder(Long orderId) {
 
@@ -124,6 +156,12 @@ public class ReviewService {
 		return reviewRepository.findReviewByOrder(order);
 	}
 
+	/**
+     * @author Matthieu Hakim
+     * Gets the all reviews of a specific customer
+     * @param customerEmail
+     * @return List<Review>
+     */
 	@Transactional
 	public List<Review> getReviewsForCustomer(String customerEmail) {
 
@@ -135,6 +173,12 @@ public class ReviewService {
 		return toList(reviewRepository.findByCustomer(customer));
 	}
 
+	
+	/**
+     * @author Matthieu Hakim
+     * Gets the all reviews in the system
+     * @return List<Review>
+     */
 	@Transactional
 	public List<Review> getAllReviews() {
 		return toList(reviewRepository.findAll());

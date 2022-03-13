@@ -13,6 +13,14 @@ public class OwnerService {
 	@Autowired
 	OwnerRepository ownerRepository;
 
+	/**
+     * @author Matthieu Hakim
+     * Creates the owner
+     * @param name
+     * @param password
+     * @param email
+     * @return Owner
+     */
 	@Transactional
 	public Owner createOwner(String email, String password, String name) {
 
@@ -38,6 +46,13 @@ public class OwnerService {
 		return owner;
 	}
 
+	
+	/**
+     * @author Matthieu Hakim
+     * Updates the password of the owner
+     * @param newPassword
+     * @return Owner
+     */
 	@Transactional
 	public Owner updateOwnerPassword(String newPassword) {
 		Owner oldOwner = ownerRepository.findByEmail("admin@grocerystore.com");
@@ -51,6 +66,13 @@ public class OwnerService {
 		return oldOwner;
 	}
 
+	
+	/**
+     * @author Matthieu Hakim
+     * Updates the name of the owner
+     * @param newName
+     * @return Owner
+     */
 	@Transactional
 	public Owner updateOwnerName(String newName) {
 		Owner oldOwner = ownerRepository.findByEmail("admin@grocerystore.com");
@@ -67,12 +89,23 @@ public class OwnerService {
 		return oldOwner;
 	}
 
+	/**
+     * @author Matthieu Hakim
+     * Gets the owner
+     * @return Owner
+     */
 	@Transactional
 	public Owner getOwner() {
 		Owner owner = ownerRepository.findByEmail("admin@grocerystore.com");
 		return owner;
 	}
 
+	
+	/**
+     * @author Matthieu Hakim
+     * Deletes the owner
+     * @return true if owner has been deleted
+     */
 	@Transactional
 	public boolean deleteOwner() throws IllegalArgumentException {
 

@@ -25,6 +25,17 @@ public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
 
+	
+	/**
+     * @author Matthieu Hakim
+     * Creates a review
+     * @param aRating
+     * @param aDescription
+     * @param customerEmail
+     * @param orderId
+     * @param reviewId
+     * @return ReviewDto
+     */
 	@PostMapping(value = { "/create_review/", "/create_review" })
 	public ResponseEntity<?> createReview(@RequestParam("rating") Rating rating,
 			@RequestParam("description") String description, @RequestParam("customerEmail") String customerEmail,
@@ -40,6 +51,14 @@ public class ReviewController {
 		return new ResponseEntity<>(convertToDto(review), HttpStatus.CREATED);
 	}
 
+	/**
+     * @author Matthieu Hakim
+     * Updates a review
+     * @param orderId
+     * @param newDescription
+     * @param newRating
+     * @return ReviewDto
+     */
 	@PutMapping(value = { "/update_review/", "/update_review" })
 	public ResponseEntity<?> updateReview(@RequestParam("orderId") Long orderId,
 			@RequestParam("newDescription") String newDescription, @RequestParam("rating") Rating newRating) {
@@ -54,17 +73,36 @@ public class ReviewController {
 		return new ResponseEntity<>(convertToDto(review), HttpStatus.OK);
 	}
 
+	/**
+     * @author Matthieu Hakim
+     * Deletes the review of a specific order
+     * @param orderId
+     * @return true if review has been deleted
+     */
 	@DeleteMapping(value = { "/delete_review/", "/delete_review" })
 	public boolean deleteReview(@RequestParam("orderId") Long orderId) {
 
 		return reviewService.deleteReview(orderId);
 	}
 
+	
+	/**
+     * @author Matthieu Hakim
+     * Gets the all reviews in the system
+     * @return List<Review>
+     */
 	@GetMapping(value = { "/view_all_reviews/", "/view_all_reviews" })
 	public List<ReviewDto> getAllReviews() {
 		return reviewService.getAllReviews().stream().map(review -> convertToDto(review)).collect(Collectors.toList());
 	}
 
+	
+	/**
+     * @author Matthieu Hakim
+     * Gets the all reviews of a specific customer
+     * @param customerEmail
+     * @return List<Review>
+     */
 	@GetMapping(value = { "/view_reviews_for_customer/", "/view_reviews_for_customer" })
 	public List<ReviewDto> getReviewsForCustomer(@RequestParam("customerEmail") String customerEmail) {
 
@@ -72,12 +110,25 @@ public class ReviewController {
 				.collect(Collectors.toList());
 	}
 
+	
+	/**
+     * @author Matthieu Hakim
+     * Gets the review of a specific order
+     * @param orderId
+     * @return ReviewDto
+     */
 	@GetMapping(value = { "/view_review_for_order/", "/view_review_for_order" })
 	public ReviewDto getReviewForOrder(@RequestParam("orderId") Long orderId) {
 
 		return convertToDto(reviewService.getReviewForOrder(orderId));
 	}
 
+	
+	/**
+     * @author Matthieu Hakim
+     * Converts Review object to ReviewDto
+     * @return ReviewDto
+     */
 	public static ReviewDto convertToDto(Review review) {
 		if (review == null)
 			throw new IllegalArgumentException("Review not found.");

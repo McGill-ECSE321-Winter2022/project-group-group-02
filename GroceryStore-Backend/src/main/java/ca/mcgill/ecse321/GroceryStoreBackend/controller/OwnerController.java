@@ -22,11 +22,25 @@ public class OwnerController {
 	@Autowired
 	private OwnerService ownerService;
 
+	
+	/**
+     * @author Matthieu Hakim
+     * Gets the owner
+     * @return OwnerDto
+     */
 	@GetMapping(value = { "/view_owner/", "/view_owner" })
 	public OwnerDto viewOwner() {
 		return convertToDTO(ownerService.getOwner());
 	}
 
+	/**
+     * @author Matthieu Hakim
+     * Creates the owner
+     * @param name
+     * @param password
+     * @param email
+     * @return OwnerDTO
+     */
 	@PostMapping(value = { "/create_owner/", "/create_owner" })
 	public ResponseEntity<?> createOwner(@RequestParam("name") String name, @RequestParam("password") String password,
 			@RequestParam("email") String email) {
@@ -41,27 +55,51 @@ public class OwnerController {
 		return new ResponseEntity<>(convertToDTO(owner), HttpStatus.CREATED);
 	}
 
+	/**
+     * @author Matthieu Hakim
+     * Updates the password of the owner
+     * @param newPassword
+     * @return OwnerDTO
+     */
 	@PutMapping(value = { "/update_owner_password/", "/update_owner_password" })
 	public OwnerDto updateOwnerPassword(@RequestParam("newPassword") String newPassword) {
 		Owner owner = ownerService.updateOwnerPassword(newPassword);
 		return convertToDTO(owner);
 	}
 
+	/**
+     * @author Matthieu Hakim
+     * Updates the name of the owner
+     * @param newName
+     * @return OwnerDTO
+     */
 	@PutMapping(value = { "/update_owner_name/", "/update_owner_name" })
 	public OwnerDto updateOwnerName(@RequestParam("newName") String newName) {
 		Owner owner = ownerService.updateOwnerName(newName);
 		return convertToDTO(owner);
 	}
 
+	
+	/**
+     * @author Matthieu Hakim
+     * Deletes the owner
+     * @return true if owner has been deleted
+     */
 	@DeleteMapping(value = { "/delete_owner", "/delete_owner/" })
-	public void deleteCustomer() throws Exception {
+	public boolean deleteCustomer() throws Exception {
 		try {
-			ownerService.deleteOwner();
+			return ownerService.deleteOwner();
 		} catch (Exception e) {
 			String error = e.getMessage();
+			return false;
 		}
 	}
 
+	/**
+     * @author Matthieu Hakim
+     * Converts Owner object to OwnerDto
+     * @return OwnerDto
+     */
 	public static OwnerDto convertToDTO(Owner owner) {
 		if (owner == null)
 			return null;
