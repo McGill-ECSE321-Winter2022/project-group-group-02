@@ -41,17 +41,17 @@ public class EmployeeController {
       return convertToDto(employee);
   }
   
-  @PostMapping(value = { "/delete_employees", "/delete_employees/" })
+  @PostMapping(value = { "/delete_employee", "/delete_employee/" })
   public void deleteEmployee(@RequestParam("email") String email) throws IllegalArgumentException {
 	  service.deleteEmployee(email);
   }
   
-  @PostMapping(value = { "/remove_dailySchedule", "/remove_dailySchedule/" })
+  @PostMapping(value = { "/add_dailySchedule", "/add_dailySchedule/" })
   public void addDailySchedule(@RequestParam("email") String email, @RequestParam("id") long id) throws IllegalArgumentException {
 	  service.addDailySchedule(email, id);
   }
   
-  @PostMapping(value = { "/add_dailySchedule", "/add_dailySchedule/" })
+  @PostMapping(value = { "/remove_dailySchedule", "/remove_dailySchedule/" })
   public void removeDailySchedule(@RequestParam("email") String email, @RequestParam("id") long id) throws IllegalArgumentException {
 	  service.removeDailySchedule(email, id);
   }

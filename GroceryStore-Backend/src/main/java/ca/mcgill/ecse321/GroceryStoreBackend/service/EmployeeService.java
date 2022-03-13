@@ -21,6 +21,8 @@ public class EmployeeService {
 
 	@Autowired
 	EmployeeRepository employeeRepository;
+	
+	@Autowired
 	DailyScheduleRepository dailyScheduleRepository;
 
 	@Transactional
