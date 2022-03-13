@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.GroceryStoreBackend.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.StoreRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class StoreController {
 
     @Autowired
     private StoreService storeService;
+
+    @Autowired
+    StoreRepository storeRepository;
     
     @GetMapping(value = { "/view_stores" })
     public List<StoreDto> getAllStores() {
@@ -38,13 +42,13 @@ public class StoreController {
     
    
   @PostMapping(value = {"/create_store"})
-  public ResponseEntity<?> createStore(@RequestParam("town") String town,
-      @RequestParam("delivery_fee") Double deliveryFee, @RequestParam("daily_schedule") List<DailySchedule> dailySchedules) {
+  public ResponseEntity<?> createStore(@RequestParam("StoreId") Long StoreId,@RequestParam("town") String town,
+      @RequestParam("delivery_fee") Double deliveryFee) {
 
-    Store store = null;
+   Store store = null;
 
     try {
-      store = storeService.createStore(town, deliveryFee, dailySchedules);
+      store = storeService.createStore(StoreId,town, deliveryFee);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -54,13 +58,13 @@ public class StoreController {
     
     @PostMapping(value = {"/update_store"})
     public ResponseEntity<?> updateStore(@RequestParam("town") String town,
-    @RequestParam("delivery_fee") Double deliveryFee, @RequestParam("daily_schedule") List<DailySchedule> dailySchedules, @RequestParam("id") String id) {
+    @RequestParam("delivery_fee") Double deliveryFee, @RequestParam("StoreId") String StoreId) {
   
       
         Store store = null;
   
       try {
-        store = storeService.updateStore(Long.parseLong(id), town, deliveryFee, dailySchedules);
+        store = storeService.updateStore(Long.parseLong(StoreId), town, deliveryFee);
       } catch (IllegalArgumentException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
       }
@@ -69,14 +73,32 @@ public class StoreController {
     
 
     @PostMapping(value = {"/delete_store"})
-    public boolean deleteStore( @RequestParam("id") String id) {
+    public boolean deleteStore( @RequestParam("StoreId") String StoreId) {
   
       
-        return storeService.deleteStore(Long.parseLong(id));
+        return storeService.deleteStore(Long.parseLong(StoreId));
     
     }
-    
-     
+
+    @PostMapping(value = {"/add_dailyschedule_for_store"})
+    public ResponseEntity<?> createStore(@RequestParam("StoreId") Long StoreId,@RequestParam("DailyScheduleId")  Long DailyScheduleId
+                                         ) {
+        Store store =  storeRepository.findStoreById(StoreId);
+        try {
+            storeService.addDailyScheduleToOrder(StoreId,DailyScheduleId);
+        } catch (IllegalArgumentException exception) {
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(convertToDTO(store), HttpStatus.CREATED);
+    }
+
+
+    @PostMapping(value = {"/delete_dailyschedule_for_store"})
+    public boolean updateStore(@RequestParam("StoreId") Long StoreId,@RequestParam("DailyScheduleId")  Long DailyScheduleId) {
+
+         return storeService.deleteDailySchedulesToOrder(StoreId,DailyScheduleId);
+    }
+
     public static StoreDto convertToDTO(Store store) {
       if (store == null)
         throw new IllegalArgumentException("Store not found.");

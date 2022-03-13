@@ -87,10 +87,11 @@ public class TestDailyScheduleService {
         DayOfWeek dayOfWeek = DayOfWeek.Monday;
 		Time startTime = Time.valueOf("08:00:00");
 		Time endTime = Time.valueOf("20:00:00");
+		Long did = 220L;
 		DailySchedule dailySchedule = null;
 
       try {
-        dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
+        dailySchedule = dailyScheduleService.createDailySchedule(did,dayOfWeek, startTime, endTime);
 
     } catch (IllegalArgumentException e) {
         // Check that no error occurred
@@ -112,9 +113,10 @@ public class TestDailyScheduleService {
 		Time startTime = Time.valueOf("08:00:00");
 		Time endTime = Time.valueOf("20:00:00");
 		DailySchedule dailySchedule = null;
+		Long did = 222L;
 
 		try {
-			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
+			dailySchedule = dailyScheduleService.createDailySchedule(did,dayOfWeek, startTime, endTime);
 
     } catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -132,9 +134,10 @@ public class TestDailyScheduleService {
 		Time startTime = null;
 		Time endTime = Time.valueOf("20:00:00");
 		DailySchedule dailySchedule = null;
+		Long did = 222L;
 
 		try {
-			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
+			dailySchedule = dailyScheduleService.createDailySchedule(did,dayOfWeek, startTime, endTime);
 
     } catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -152,9 +155,10 @@ public class TestDailyScheduleService {
 		Time startTime = Time.valueOf("08:00:00");
 		Time endTime = null;
 		DailySchedule dailySchedule = null;
+		Long did = 222L;
 
 		try {
-			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
+			dailySchedule = dailyScheduleService.createDailySchedule(did,dayOfWeek, startTime, endTime);
 
     } catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -179,9 +183,10 @@ public class TestDailyScheduleService {
 		Time startTime = Time.valueOf("09:00:00");
 		Time endTime = Time.valueOf("21:00:00");
 		DailySchedule dailySchedule = null;
+		Long did = 222L;
 
 		try {
-            dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
+            dailySchedule = dailyScheduleService.createDailySchedule(did,dayOfWeek, startTime, endTime);
 			
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();

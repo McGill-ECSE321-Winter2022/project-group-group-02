@@ -44,14 +44,18 @@ public class DailyScheduleController {
     
    
   @PostMapping(value = {"/create_dailyschedule"})
-  public ResponseEntity<?> createDailySchedule(@RequestParam("Dayofweek") DayOfWeek dayOfWeek,
-  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
-  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime) {
+  public ResponseEntity<?> createDailySchedule( @RequestParam("DailyScheduleId") Long DailyScheduleId, @RequestParam("Dayofweek") DayOfWeek dayOfWeek,
+                                                @RequestParam("startTime") String startTime,
+                                                @RequestParam("endTime") String endTime
+                                                ) {
+
 
         DailySchedule dailySchedule = null;
 
     try {
-        dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, Time.valueOf(startTime), Time.valueOf(endTime));
+        dailySchedule = dailyScheduleService.createDailySchedule(DailyScheduleId, dayOfWeek,
+               Time.valueOf(startTime), Time.valueOf(endTime)
+                 );
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -60,15 +64,16 @@ public class DailyScheduleController {
     
     
     @PostMapping(value = {"/update_dailyschedule"})
-    public ResponseEntity<?> updateDailySchedule (@RequestParam("id") String id, @RequestParam("Dayofweek") DayOfWeek dayOfWeek,
-    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
-    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime) {
+    public ResponseEntity<?> updateDailySchedule (@RequestParam("DailyScheduleId") String DailyScheduleId, @RequestParam("Dayofweek") DayOfWeek dayOfWeek,
+                                                  @RequestParam("startTime") String startTime,
+                                                  @RequestParam("endTime") String endTime
+    ) {
   
       
         DailySchedule dailySchedule = null;
   
       try {
-        dailySchedule = dailyScheduleService.updateDailySchedule(Long.parseLong(id), dayOfWeek, Time.valueOf(startTime), Time.valueOf(endTime));
+        dailySchedule = dailyScheduleService.updateDailySchedule(Long.parseLong(DailyScheduleId), dayOfWeek, Time.valueOf(startTime), Time.valueOf(endTime));
       } catch (IllegalArgumentException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
       }
@@ -77,9 +82,9 @@ public class DailyScheduleController {
     
 
     @PostMapping(value = {"/delete_dailyschedule"})
-    public boolean deleteStore( @RequestParam("id") String id) {
+    public boolean deleteStore( @RequestParam("DailyScheduleId") String DailyScheduleId) {
   
-        return dailyScheduleService.deleteDailySchedule(Long.parseLong(id));
+        return dailyScheduleService.deleteDailySchedule(Long.parseLong(DailyScheduleId));
     
     }
     

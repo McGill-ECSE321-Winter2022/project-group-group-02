@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.GroceryStoreBackend.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Time;
+import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,22 +20,25 @@ public class DailyScheduleService {
   DailyScheduleRepository dailyScheduleRepository;
   
   @Transactional
-	public  DailySchedule createDailySchedule(DayOfWeek dayOfWeek, Time startTime, Time endTime) {
+	public  DailySchedule createDailySchedule(Long id, DayOfWeek dayOfWeek,Time startTime, Time endTime) {
 
-          if (dayOfWeek == null) {
-            throw new IllegalArgumentException("Please enter a valid day of week");
-          }
+       DailySchedule dailyschedulee = dailyScheduleRepository.findDailyScheduleById(id);
+    if(dailyschedulee != null) throw new IllegalArgumentException ("Daily Schedule with the same id already exists.");
       
           if (startTime == null) {
-            throw new IllegalArgumentException("Please enter a valid start time");
-          }
+          throw new IllegalArgumentException("Please enter a valid start time");
+         }
       
-          if (endTime == null) {
+         if (endTime == null) {
             throw new IllegalArgumentException("Please enter a valid end time");
-          }
+         }
+
+      // Time startTime = Time.valueOf("08:00:00");
+     // Time endTime = Time.valueOf("08:00:00");
 
           DailySchedule dailySchedule = new DailySchedule();
           dailySchedule.setDayOfWeek(dayOfWeek);
+          dailySchedule.setId(id);
           dailySchedule.setStartTime(startTime);
           dailySchedule.setEndTime(endTime);
           dailyScheduleRepository.save(dailySchedule);
