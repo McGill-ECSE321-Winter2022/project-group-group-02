@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.GroceryStoreBackend.dto.*;
@@ -38,7 +40,7 @@ public class ReviewController {
 		return new ResponseEntity<>(convertToDto(review), HttpStatus.CREATED);
 	}
 
-	@PostMapping(value = { "/update_review/", "/update_review" })
+	@PutMapping(value = { "/update_review/", "/update_review" })
 	public ResponseEntity<?> updateReview(@RequestParam("orderId") Long orderId,
 			@RequestParam("newDescription") String newDescription, @RequestParam("rating") Rating newRating) {
 
@@ -52,7 +54,7 @@ public class ReviewController {
 		return new ResponseEntity<>(convertToDto(review), HttpStatus.OK);
 	}
 
-	@PostMapping(value = { "/delete_review/", "/delete_review" })
+	@DeleteMapping(value = { "/delete_review/", "/delete_review" })
 	public boolean deleteReview(@RequestParam("orderId") Long orderId) {
 
 		return reviewService.deleteReview(orderId);

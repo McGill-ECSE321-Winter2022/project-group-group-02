@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,19 +41,19 @@ public class OwnerController {
 		return new ResponseEntity<>(convertToDTO(owner), HttpStatus.CREATED);
 	}
 
-	@PostMapping(value = { "/update_owner_password/", "/update_owner_password" })
+	@PutMapping(value = { "/update_owner_password/", "/update_owner_password" })
 	public OwnerDto updateOwnerPassword(@RequestParam("newPassword") String newPassword) {
 		Owner owner = ownerService.updateOwnerPassword(newPassword);
 		return convertToDTO(owner);
 	}
 
-	@PostMapping(value = { "/update_owner_name/", "/update_owner_name" })
+	@PutMapping(value = { "/update_owner_name/", "/update_owner_name" })
 	public OwnerDto updateOwnerName(@RequestParam("newName") String newName) {
 		Owner owner = ownerService.updateOwnerName(newName);
 		return convertToDTO(owner);
 	}
 
-	@PostMapping(value = { "/delete_owner", "/delete_owner/" })
+	@DeleteMapping(value = { "/delete_owner", "/delete_owner/" })
 	public void deleteCustomer() throws Exception {
 		try {
 			ownerService.deleteOwner();
