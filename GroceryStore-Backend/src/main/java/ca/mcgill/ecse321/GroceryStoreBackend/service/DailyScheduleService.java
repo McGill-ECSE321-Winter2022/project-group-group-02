@@ -29,9 +29,12 @@ public class DailyScheduleService {
 		if (dayOfWeek == null)
 			throw new IllegalArgumentException("Please enter a valid day of week");
 
-		if (startTime == null) {
-			throw new IllegalArgumentException("Please enter a valid start time");
-		}
+         if (endTime != null && startTime != null && endTime.before(startTime)) {
+          throw new IllegalArgumentException("Event end time cannot be before event start time");
+      }
+
+      // Time startTime = Time.valueOf("08:00:00");
+     // Time endTime = Time.valueOf("08:00:00");
 
 		if (endTime == null) {
 			throw new IllegalArgumentException("Please enter a valid end time");
@@ -47,33 +50,39 @@ public class DailyScheduleService {
 		dailySchedule.setEndTime(endTime);
 		dailyScheduleRepository.save(dailySchedule);
 		return dailySchedule;
+       
+    }
 
-	}
+    @Transactional
+    public DailySchedule updateDailySchedule(Long id, DayOfWeek dayOfWeek, Time startTime, Time endTime) {
 
-	@Transactional
-	public DailySchedule updateDailySchedule(Long id, DayOfWeek dayOfWeek, Time startTime, Time endTime) {
 
-		DailySchedule dailySchedule = dailyScheduleRepository.findDailyScheduleById(id);
-		if (dailySchedule == null) {
-			throw new IllegalArgumentException("No daily schedule found");
-		}
+  
+        DailySchedule dailySchedule =  dailyScheduleRepository.findDailyScheduleById(id);
+        if (dailySchedule == null) {
+          throw new IllegalArgumentException("No daily schedule found");
+        }
 
-		if (dayOfWeek == null) {
-			throw new IllegalArgumentException("Please enter a valid day of week");
-		}
+        if (dayOfWeek == null) {
+            throw new IllegalArgumentException("Please enter a valid day of week");
+          }
+      
+          if (startTime == null) {
+            throw new IllegalArgumentException("Please enter a valid start time");
+          }
+      
+          if (endTime == null) {
+            throw new IllegalArgumentException("Please enter a valid end time");
+          }
 
-		if (startTime == null) {
-			throw new IllegalArgumentException("Please enter a valid start time");
-		}
-
-		if (endTime == null) {
-			throw new IllegalArgumentException("Please enter a valid end time");
-		}
-
-		dailySchedule.setDayOfWeek(dayOfWeek);
-		dailySchedule.setStartTime(startTime);
-		dailySchedule.setEndTime(endTime);
-		dailyScheduleRepository.save(dailySchedule);
+          if (endTime != null && startTime != null && endTime.before(startTime)) {
+            throw new IllegalArgumentException("Event end time cannot be before event start time");
+        }
+  
+          dailySchedule.setDayOfWeek(dayOfWeek);
+          dailySchedule.setStartTime(startTime);
+          dailySchedule.setEndTime(endTime);
+          dailyScheduleRepository.save(dailySchedule);
 		return dailySchedule;
 	}
 
