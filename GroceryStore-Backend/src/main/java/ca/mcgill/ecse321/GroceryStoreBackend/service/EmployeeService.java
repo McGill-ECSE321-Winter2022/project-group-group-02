@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.CustomerRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.DailyScheduleRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.EmployeeRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule;
@@ -20,10 +21,10 @@ public class EmployeeService {
 
 	@Autowired
 	EmployeeRepository employeeRepository;
+	DailyScheduleRepository dailyScheduleRepository;
 
 	@Transactional
-	public Employee createEmployee(String email, String password, String name, double salary,
-			List<DailySchedule> dailySchedules) {
+	public Employee createEmployee(String email, String password, String name, double salary) {
 		if (email == null || email.isEmpty()) {
 			throw new IllegalArgumentException("Employee email cannot be empty!");
 		} else if (!email.contains("@")) {
@@ -47,14 +48,12 @@ public class EmployeeService {
 		employee.setPassword(password);
 		employee.setName(name);
 		employee.setSalary(salary);
-		employee.setDailySchedules(dailySchedules);
 		employeeRepository.save(employee);
 		return employee;
 	}
 
 	@Transactional
-	public Employee updateEmployee(String email, String password, String name, double salary,
-			List<DailySchedule> dailySchedules) {
+	public Employee updateEmployee(String email, String password, String name, double salary) {
 		if (password == null || password.isEmpty()) {
 			throw new IllegalArgumentException("Employee password must not be empty!");
 		} else if (name == null || name.isEmpty()) {
@@ -72,11 +71,64 @@ public class EmployeeService {
 		employee.setPassword(password);
 		employee.setName(name);
 		employee.setSalary(salary);
-		employee.setDailySchedules(dailySchedules);
 		employeeRepository.save(employee);
 		return employee;
 	}
 
+	@Transactional
+	public boolean addDailySchedule(String email, long id) {
+		Employee employee;
+		DailySchedule dailySchedule;
+		
+		employee = employeeRepository.findByEmail(email);
+		dailySchedule = dailyScheduleRepository.findDailyScheduleById(id);
+
+		if (employee == null) {
+			throw new IllegalArgumentException("Employee not found.");	
+		} else if (dailySchedule == null) {
+			throw new IllegalArgumentException("Daily Schedule not found.");	
+		}
+		
+		List<DailySchedule> dailySchedules = employee.getDailySchedules();
+		
+		for (DailySchedule d: dailySchedules) {
+			if (d.getId() == id) {
+				throw new IllegalArgumentException("Daily Schedule is already assigned to the employee.");		
+			}
+		}
+		dailySchedules.add(dailySchedule);
+		employee.setDailySchedules(dailySchedules);
+		employeeRepository.save(employee);
+		return true;
+	}
+	
+	@Transactional
+	public boolean removeDailySchedule(String email, long id) {
+		Employee employee;
+		DailySchedule dailySchedule;
+		
+		employee = employeeRepository.findByEmail(email);
+		dailySchedule = dailyScheduleRepository.findDailyScheduleById(id);
+
+		if (employee == null) {
+			throw new IllegalArgumentException("Employee not found.");	
+		} else if (dailySchedule == null) {
+			throw new IllegalArgumentException("Daily Schedule not found.");	
+		}
+		
+		List<DailySchedule> dailySchedules = employee.getDailySchedules();
+		
+		for (DailySchedule d: dailySchedules) {
+			if (d.getId() == id) {
+				dailySchedules.remove(d);
+				employee.setDailySchedules(dailySchedules);
+				employeeRepository.save(employee);
+				return true;
+			}
+		}
+		throw new IllegalArgumentException("Daily Schedule is not assigned to the employee.");	
+	}
+	
 	@Transactional
 	public Employee getEmployee(String email) {
 		Employee employee = employeeRepository.findByEmail(email);
