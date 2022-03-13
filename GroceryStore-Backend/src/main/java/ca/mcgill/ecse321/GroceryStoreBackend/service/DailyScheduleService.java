@@ -23,7 +23,11 @@ public class DailyScheduleService {
 	public  DailySchedule createDailySchedule(Long id, DayOfWeek dayOfWeek,Time startTime, Time endTime) {
 
        DailySchedule dailyschedulee = dailyScheduleRepository.findDailyScheduleById(id);
+
+
     if(dailyschedulee != null) throw new IllegalArgumentException ("Daily Schedule with the same id already exists.");
+
+    if(dayOfWeek == null) throw new IllegalArgumentException ("Please enter a valid day of week");
       
           if (startTime == null) {
           throw new IllegalArgumentException("Please enter a valid start time");
