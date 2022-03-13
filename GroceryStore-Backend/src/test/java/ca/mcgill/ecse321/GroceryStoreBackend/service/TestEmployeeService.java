@@ -485,7 +485,6 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		System.out.println(error);
 		assertTrue(success);
 	}
 	
@@ -539,7 +538,6 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		System.out.println(error);
 		assertTrue(success);
 	}
 
