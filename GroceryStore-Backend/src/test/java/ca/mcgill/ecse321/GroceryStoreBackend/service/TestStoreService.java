@@ -123,7 +123,7 @@ public class TestStoreService {
         dailySchedule = dailyScheduleService.createDailySchedule(did,dayOfWeek, startTime, endTime);
         List<DailySchedule> dailySchedules = new ArrayList<DailySchedule>();
         dailySchedules.add(dailySchedule);
-        store = storeService.createStore(sid,town,delifee, dailySchedules);
+        store = storeService.createStore(sid, town,delifee);
     } catch (IllegalArgumentException e) {
         // Check that no error occurred
         fail();
@@ -148,7 +148,7 @@ public class TestStoreService {
 		Long sid = 222L;
 
 		try {
-			store = storeService.createStore(sid,town,delifee, null);
+			store = storeService.createStore(sid,town,delifee);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -167,7 +167,7 @@ public class TestStoreService {
 		Long sid = 222L;
 
 		try {
-			store = storeService.createStore(sid,town,delifee, null);
+			store = storeService.createStore(sid,town,delifee);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -186,7 +186,7 @@ public class TestStoreService {
 		Long sid = 222L;
 
 		try {
-			store = storeService.createStore(sid,town,delifee, null);
+			store = storeService.createStore(sid,town,delifee);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -205,7 +205,7 @@ public class TestStoreService {
 		Long sid = 222L;
 
 		try {
-			store = storeService.createStore(sid,town,delifee, null);
+			store = storeService.createStore(sid,town,delifee);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -232,7 +232,7 @@ public class TestStoreService {
             dailySchedule = dailyScheduleService.createDailySchedule(did, dayOfWeek, startTime, endTime);
 			List<DailySchedule> newDailySchedules = new ArrayList<DailySchedule>();
 			newDailySchedules.add(dailySchedule);
-			store = storeService.updateStore(STORE_KEY, town, delifee, newDailySchedules);
+			store = storeService.updateStore(STORE_KEY, town, delifee);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -267,7 +267,7 @@ public class TestStoreService {
             dailySchedule = dailyScheduleService.createDailySchedule(did, dayOfWeek, startTime, endTime);
 			List<DailySchedule> newDailySchedules = new ArrayList<DailySchedule>();
 			newDailySchedules.add(dailySchedule);
-			store = storeService.updateStore(sid, town, delifee, newDailySchedules);
+			store = storeService.updateStore(sid, town, delifee);
 
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -285,7 +285,7 @@ public class TestStoreService {
         Store store = null;
 		
 		try {
-			store = storeService.updateStore(STORE_KEY, town, delifee, null);
+			store = storeService.updateStore(STORE_KEY, town, delifee);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -302,7 +302,7 @@ public class TestStoreService {
         Store store = null;
 		
 		try {
-			store = storeService.updateStore(STORE_KEY, town, delifee, null);
+			store = storeService.updateStore(STORE_KEY, town, delifee);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -319,7 +319,7 @@ public class TestStoreService {
         Store store = null;
 		
 		try {
-			store = storeService.updateStore(STORE_KEY, town, delifee, null);
+			store = storeService.updateStore(STORE_KEY, town, delifee);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -336,7 +336,7 @@ public class TestStoreService {
         Store store = null;
 		
 		try {
-			store = storeService.updateStore(STORE_KEY, town, delifee, null);
+			store = storeService.updateStore(STORE_KEY, town, delifee);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
