@@ -130,12 +130,6 @@ public class EmployeeService {
 		}
 		throw new IllegalArgumentException("Daily Schedule is not assigned to the employee.");	
 	}
-	
-	@Transactional
-	public Employee getEmployee(String email) {
-		Employee employee = employeeRepository.findByEmail(email);
-		return employee;
-	}
 
 	@Transactional
 	public List<Employee> getAllEmployees() {
