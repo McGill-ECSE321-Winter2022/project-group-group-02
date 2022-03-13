@@ -9,27 +9,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
 
 
-import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.StoreRepository;
@@ -113,16 +105,8 @@ public class TestStoreService {
         Store store = null;
 		Long sid = 222L;
 
-        DayOfWeek dayOfWeek = DayOfWeek.Monday;
-		Time startTime = Time.valueOf("08:00:00");
-		Time endTime = Time.valueOf("20:00:00");
-		DailySchedule dailySchedule = null;
-		Long did = 202L;
-
       try {
-        dailySchedule = dailyScheduleService.createDailySchedule(did,dayOfWeek, startTime, endTime);
-        List<DailySchedule> dailySchedules = new ArrayList<DailySchedule>();
-        dailySchedules.add(dailySchedule);
+
         store = storeService.createStore(sid, town,delifee);
     } catch (IllegalArgumentException e) {
         // Check that no error occurred
@@ -136,7 +120,7 @@ public class TestStoreService {
 }
    
 @Test
-	public void testCreateStorerNullTown() {
+	public void testCreateStoreNullTown() {
         String error = null;
         String town = null;
 	    Double delifee = 45d;
@@ -155,7 +139,7 @@ public class TestStoreService {
 	}
 
     @Test
-	public void testCreateStorerEmptyTown() {
+	public void testCreateStoreEmptyTown() {
         String error = null;
         String town = "";
 	    Double delifee = 45d;
@@ -218,16 +202,10 @@ public class TestStoreService {
 	    Double delifee = 45d;
         Store store = null;
 
-        DayOfWeek dayOfWeek = DayOfWeek.Tuesday;
-		Time startTime = Time.valueOf("09:00:00");
-		Time endTime = Time.valueOf("21:00:00");
-		Long did = 000L;
-		DailySchedule dailySchedule = null;
+    
 
 		try {
-            dailySchedule = dailyScheduleService.createDailySchedule(did, dayOfWeek, startTime, endTime);
-			List<DailySchedule> newDailySchedules = new ArrayList<DailySchedule>();
-			newDailySchedules.add(dailySchedule);
+       
 			store = storeService.updateStore(STORE_KEY, town, delifee);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -249,17 +227,10 @@ public class TestStoreService {
 		Long sid = 000L;
         Store store = null;
 
-        DayOfWeek dayOfWeek = DayOfWeek.Tuesday;
-		Time startTime = Time.valueOf("09:00:00");
-		Time endTime = Time.valueOf("21:00:00");
-		Long did = 000L;
-		DailySchedule dailySchedule = null;
-		
+
 		
 		try {
-            dailySchedule = dailyScheduleService.createDailySchedule(did, dayOfWeek, startTime, endTime);
-			List<DailySchedule> newDailySchedules = new ArrayList<DailySchedule>();
-			newDailySchedules.add(dailySchedule);
+           
 			store = storeService.updateStore(sid, town, delifee);
 
 		} catch (IllegalArgumentException e) {

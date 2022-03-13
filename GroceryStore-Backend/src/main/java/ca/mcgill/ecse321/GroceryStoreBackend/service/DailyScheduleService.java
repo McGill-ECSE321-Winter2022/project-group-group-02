@@ -3,7 +3,6 @@ package ca.mcgill.ecse321.GroceryStoreBackend.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Time;
-import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +35,10 @@ public class DailyScheduleService {
          if (endTime == null) {
             throw new IllegalArgumentException("Please enter a valid end time");
          }
+
+         if (endTime != null && startTime != null && endTime.before(startTime)) {
+          throw new IllegalArgumentException("Event end time cannot be before event start time");
+      }
 
       // Time startTime = Time.valueOf("08:00:00");
      // Time endTime = Time.valueOf("08:00:00");
@@ -71,6 +74,10 @@ public class DailyScheduleService {
           if (endTime == null) {
             throw new IllegalArgumentException("Please enter a valid end time");
           }
+
+          if (endTime != null && startTime != null && endTime.before(startTime)) {
+            throw new IllegalArgumentException("Event end time cannot be before event start time");
+        }
   
           dailySchedule.setDayOfWeek(dayOfWeek);
           dailySchedule.setStartTime(startTime);

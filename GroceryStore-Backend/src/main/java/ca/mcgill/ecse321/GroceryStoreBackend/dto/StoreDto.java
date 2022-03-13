@@ -1,7 +1,5 @@
 package ca.mcgill.ecse321.GroceryStoreBackend.dto;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule;

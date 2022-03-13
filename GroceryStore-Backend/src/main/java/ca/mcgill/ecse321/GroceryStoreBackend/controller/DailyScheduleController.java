@@ -3,12 +3,10 @@ package ca.mcgill.ecse321.GroceryStoreBackend.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.sql.Time;
-import java.time.LocalTime;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 

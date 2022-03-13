@@ -2,7 +2,6 @@ package ca.mcgill.ecse321.GroceryStoreBackend.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Time;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.*;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.*;
-import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule.DayOfWeek;
 
 @Service
 public class StoreService {

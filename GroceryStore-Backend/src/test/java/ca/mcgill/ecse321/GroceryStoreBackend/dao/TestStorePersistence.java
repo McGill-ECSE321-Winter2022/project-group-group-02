@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.sql.Time;
-import java.util.ArrayList;
 
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.AfterEach;
