@@ -25,23 +25,21 @@ public class DailyScheduleService {
 
 		if (dailyschedulee != null)
 			throw new IllegalArgumentException("Daily Schedule with the same id already exists.");
-
+			
 		if (dayOfWeek == null)
 			throw new IllegalArgumentException("Please enter a valid day of week");
 
          if (endTime != null && startTime != null && endTime.before(startTime)) {
-          throw new IllegalArgumentException("Event end time cannot be before event start time");
+          throw new IllegalArgumentException("Daily Schedule end time cannot be before start time");
       }
-
-      // Time startTime = Time.valueOf("08:00:00");
-     // Time endTime = Time.valueOf("08:00:00");
 
 		if (endTime == null) {
 			throw new IllegalArgumentException("Please enter a valid end time");
 		}
 
-		// Time startTime = Time.valueOf("08:00:00");
-		// Time endTime = Time.valueOf("08:00:00");
+		if (startTime == null) {
+			throw new IllegalArgumentException("Please enter a valid start time");
+		}
 
 		DailySchedule dailySchedule = new DailySchedule();
 		dailySchedule.setDayOfWeek(dayOfWeek);
@@ -76,7 +74,7 @@ public class DailyScheduleService {
           }
 
           if (endTime != null && startTime != null && endTime.before(startTime)) {
-            throw new IllegalArgumentException("Event end time cannot be before event start time");
+            throw new IllegalArgumentException("Daily Schedule end time cannot be before start time");
         }
   
           dailySchedule.setDayOfWeek(dayOfWeek);

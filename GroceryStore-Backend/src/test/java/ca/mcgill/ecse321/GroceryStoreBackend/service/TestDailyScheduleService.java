@@ -35,6 +35,7 @@ public class TestDailyScheduleService {
 	private static final Time DAILYSCHEDULE_STARTTIME = Time.valueOf("08:00:00");
 	private static final Time DAILYSCHEDULE_ENDTIME = Time.valueOf("20:00:00");
 	private static final DayOfWeek DAILYSCHEDULE_DAYOFWEEK = DayOfWeek.Monday;
+	
 
 	@BeforeEach
 	public void setMockOutput() {
@@ -147,6 +148,32 @@ public class TestDailyScheduleService {
 		// check error
 		assertEquals("Please enter a valid end time", error);
 	}
+ 
+
+
+    @Test
+	public void testCreateDailyScheduleInvalidTimePeriod() {
+        String error = null;
+        DayOfWeek dayOfWeek = DayOfWeek.Monday;
+		Time startTime = Time.valueOf("20:00:00");
+		Time endTime = Time.valueOf("08:00:00");
+		DailySchedule dailySchedule = null;
+		Long did = 289L;
+
+		try {
+			dailySchedule = dailyScheduleService.createDailySchedule(did,dayOfWeek, startTime, endTime);
+
+    } catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		assertNull(dailySchedule);
+		// check error
+		assertEquals("Daily Schedule end time cannot be before start time", error);
+	}
+
+
+
 
 	@Test
 	public void testUpdateDailySchedule() {
@@ -247,6 +274,27 @@ public class TestDailyScheduleService {
 	}
 
 	@Test
+	public void testUpdateDailyScheduleInvalidTimePeriod() {
+        String error = null;
+        DayOfWeek dayOfWeek = DayOfWeek.Tuesday;
+		Time startTime = Time.valueOf("08:00:00");
+		Time endTime = Time.valueOf("20:00:00");
+		DailySchedule dailySchedule = null;
+
+		try {
+			dailySchedule = dailyScheduleService.createDailySchedule(DAILYSCHEDULE_KEY,dayOfWeek, startTime, endTime);
+
+    } catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		assertNull(dailySchedule);
+		// check error
+		assertEquals("Daily Schedule end time cannot be before start time", error);
+	}
+
+
+    @Test
 	public void testDeleteDailySchedule() {
 
 		String error = null;

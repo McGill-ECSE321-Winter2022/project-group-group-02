@@ -4,12 +4,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.lenient;
 
 import java.sql.Time;
@@ -50,6 +52,11 @@ public class TestStoreService {
 	private static final Time DAILYSCHEDULE_ENDTIME = Time.valueOf("20:00:00");
 	private static final DayOfWeek DAILYSCHEDULE_DAYOFWEEK = DayOfWeek.Monday;
 
+	static final long DAILYSCHEDULE_KEY2 = 123l;
+	private static final Time DAILYSCHEDULE_STARTTIME2 = Time.valueOf("07:00:00");
+	private static final Time DAILYSCHEDULE_ENDTIME2 = Time.valueOf("21:00:00");
+	private static final DayOfWeek DAILYSCHEDULE_DAYOFWEEK2 = DayOfWeek.Tuesday;
+
 	@BeforeEach
 	public void setMockOutput() {
 
@@ -74,7 +81,7 @@ public class TestStoreService {
 			}
 		});
 
-		lenient().when(dailyScheduleDao.findById((long) anyInt())).thenAnswer((InvocationOnMock invocation) -> {
+		lenient().when(dailyScheduleDao.findDailyScheduleById(anyLong())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(DAILYSCHEDULE_KEY)) {
 
 				DailySchedule dailySchedule = new DailySchedule();
@@ -82,6 +89,15 @@ public class TestStoreService {
 				dailySchedule.setStartTime(DAILYSCHEDULE_STARTTIME);
 				dailySchedule.setEndTime(DAILYSCHEDULE_ENDTIME);
 				dailySchedule.setId(DAILYSCHEDULE_KEY);
+	
+
+				return dailySchedule;
+			} else if (invocation.getArgument(0).equals(DAILYSCHEDULE_KEY2)) {
+				DailySchedule dailySchedule = new DailySchedule();
+				dailySchedule.setDayOfWeek(DAILYSCHEDULE_DAYOFWEEK2);
+				dailySchedule.setStartTime(DAILYSCHEDULE_STARTTIME2);
+				dailySchedule.setEndTime(DAILYSCHEDULE_ENDTIME2);
+				dailySchedule.setId(DAILYSCHEDULE_KEY2);
 
 				return dailySchedule;
 			} else {
@@ -201,7 +217,6 @@ public class TestStoreService {
 		Double delifee = 45d;
 		Store store = null;
 
-    
 
 		try {
        
@@ -347,4 +362,85 @@ public class TestStoreService {
 
 		assertEquals("Store not found", error);
 	}
+
+	@Test
+	public void testAddDailyScheduleForStore() {
+		String error = null;
+	
+		boolean success = false;
+		try {
+			success = storeService.addDailyScheduleToStore(STORE_KEY,DAILYSCHEDULE_KEY2);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		assertTrue(success);
+	}
+
+	@Test
+	public void testAddDailyScheduleForStoreStoreNotFound() {
+		String error = null;
+		boolean success = false;
+		try {
+			success = storeService.addDailyScheduleToStore(77L ,DAILYSCHEDULE_KEY2);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertFalse(success);
+		assertEquals("Store not found", error);
+	}
+
+	@Test
+	public void testAddDailyScheduleForStoreDailyScheduleNotFound() {
+		String error = null;
+	
+		boolean success = false;
+		try {
+			success = storeService.addDailyScheduleToStore(STORE_KEY ,77L);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertFalse(success);
+		assertEquals("Daily schedule not found", error);
+	}
+
+	@Test
+	public void testDeleteDailyScheduleForStore() {
+		String error = null;
+		boolean success = false;
+		try {
+			success = storeService.deleteDailyScheduleToStore(STORE_KEY ,DAILYSCHEDULE_KEY2);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertTrue(success);
+	}
+
+	@Test
+	public void testDeleteDailyScheduleForStoreStoreNotFound() {
+		String error = null;
+		boolean success = false;
+		try {
+			success = storeService.deleteDailyScheduleToStore(77L ,DAILYSCHEDULE_KEY2);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertFalse(success);
+		assertEquals("Store not found", error);
+	}
+
+	@Test
+	public void tesDeleteDailyScheduleForStoreDailyScheduleNotFound() {
+		String error = null;
+	
+		boolean success = false;
+		try {
+			success = storeService.deleteDailyScheduleToStore(STORE_KEY ,77L);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertFalse(success);
+		assertEquals("Daily schedule not found", error);
+	}
+  
 }

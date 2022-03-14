@@ -76,9 +76,9 @@ public class StoreService {
 		return store;
 
 	}
+    @javax.transaction.Transactional
+    public boolean addDailyScheduleToStore(Long sid, Long did) throws IllegalArgumentException{
 
-	@javax.transaction.Transactional
-	public boolean addDailyScheduleToOrder(Long sid, Long did) throws IllegalArgumentException {
 
 		boolean success = false;
 		DailySchedule dailySchedule = dailyScheduleRepository.findDailyScheduleById(did);
@@ -95,8 +95,9 @@ public class StoreService {
 
 	}
 
-	@javax.transaction.Transactional
-	public boolean deleteDailySchedulesToOrder(Long sid, Long did) throws IllegalArgumentException {
+
+    @javax.transaction.Transactional
+    public boolean deleteDailyScheduleToStore(Long sid, Long did) throws IllegalArgumentException{
 
 		DailySchedule dailySchedule = dailyScheduleRepository.findDailyScheduleById(did);
 		if (dailySchedule == null)
