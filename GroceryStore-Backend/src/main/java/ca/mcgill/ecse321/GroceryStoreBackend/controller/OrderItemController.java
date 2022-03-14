@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.GroceryStoreBackend.dto.OrderItemDto;
@@ -53,7 +55,7 @@ public class OrderItemController {
 		return new ResponseEntity<>(convertToDTO(orderItem), HttpStatus.CREATED);
 	}
 
-	@PostMapping(value = { "/update_order_item", "/update_order_item/" })
+	@PutMapping(value = { "/update_order_item", "/update_order_item/" })
 	public ResponseEntity<?> updateOrderItem(@RequestParam("quantity") int quantity,
 			@RequestParam("itemName") String itemName, @RequestParam("orderItemId") Long orderItemId,
 			@RequestParam("orderId") Long orderId) {
@@ -68,7 +70,7 @@ public class OrderItemController {
 		return new ResponseEntity<>(convertToDTO(orderItem), HttpStatus.CREATED);
 	}
 
-	@PostMapping(value = { "/delete_order_item", "/delete_order_item/" })
+	@DeleteMapping(value = { "/delete_order_item", "/delete_order_item/" })
 	public boolean deleteOrderItem(@RequestParam("orderItemId") Long orderItemId,
 			@RequestParam("orderId") Long orderId) {
 

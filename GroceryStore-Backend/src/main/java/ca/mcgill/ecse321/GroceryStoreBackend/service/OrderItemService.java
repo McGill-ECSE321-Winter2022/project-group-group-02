@@ -97,8 +97,6 @@ public class OrderItemService {
 
 		List<OrderItem> allOrderItems = toList(orderItemRepo.findAll());
 
-		if (allOrderItems.size() == 0)
-			throw new IllegalArgumentException("There's no order items in the system. ");
 
 		return allOrderItems;
 

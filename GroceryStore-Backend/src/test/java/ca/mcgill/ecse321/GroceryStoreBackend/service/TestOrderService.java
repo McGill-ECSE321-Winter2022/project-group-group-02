@@ -212,7 +212,7 @@ public class TestOrderService {
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
 		Long orderId = 558L;
-		OrderType aOrderType = OrderType.PickUp;
+		String aOrderType = "PickUp";
 		OrderStatus aOrderStatus = OrderStatus.Confirmed;
 		Date date = Date.valueOf("2022-03-10");
 		Time time = Time.valueOf("08:00:00");
@@ -241,7 +241,7 @@ public class TestOrderService {
 		String email = "noOneHas@thatEmail.com";
 
 		Long orderId = 557L;
-		OrderType aOrderType = OrderType.PickUp;
+		String aOrderType ="PickUp";
 		OrderStatus aOrderStatus = OrderStatus.Confirmed;
 		Date date = Date.valueOf("2022-01-10");
 		Time time = Time.valueOf("06:00:00");
@@ -273,7 +273,7 @@ public class TestOrderService {
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
 		Long orderId = 537L;
-		OrderType aOrderType = null;
+		String aOrderType = null;
 		OrderStatus aOrderStatus = OrderStatus.Confirmed;
 		Date date = Date.valueOf("2022-03-15");
 		Time time = Time.valueOf("08:45:38");
@@ -305,7 +305,7 @@ public class TestOrderService {
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
 		Long orderId = 5874L;
-		OrderType aOrderType = OrderType.PickUp;
+		String aOrderType = "PickUp";
 		OrderStatus aOrderStatus = null;
 		Date date = Date.valueOf("2022-04-10");
 		Time time = Time.valueOf("08:04:00");
@@ -337,7 +337,7 @@ public class TestOrderService {
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
 		Long orderId = 55894L;
-		OrderType aOrderType = OrderType.PickUp;
+		String aOrderType = "PickUp";
 		OrderStatus aOrderStatus = OrderStatus.Confirmed;
 		Date date = Date.valueOf("2022-03-10");
 		Time time = null;
@@ -369,7 +369,7 @@ public class TestOrderService {
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
 		Long orderId = 5536L;
-		OrderType aOrderType = OrderType.PickUp;
+		String aOrderType = "PickUp";
 		OrderStatus aOrderStatus = OrderStatus.Confirmed;
 		Date date = null;
 		Time time = Time.valueOf("14:45:00");
@@ -399,7 +399,7 @@ public class TestOrderService {
 		Customer customer = customerService.createCustomer(email, password, name, address);
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
-		OrderType aOrderType = OrderType.PickUp;
+		String aOrderType ="PickUp";
 		OrderStatus aOrderStatus = OrderStatus.Confirmed;
 		Date date = Date.valueOf("2022-05-10");
 		Time time = Time.valueOf("08:54:00");
@@ -427,65 +427,37 @@ public class TestOrderService {
 	@Test
 	public void testUpdateOrder() {
 
-		OrderType aOrderType = OrderType.Delivery;
-		OrderStatus aOrderStatus = OrderStatus.Confirmed;
-		Date date = Date.valueOf("2022-02-10");
-		Time time = Time.valueOf("07:58:15");
+		String aOrderStatus = "Confirmed";
+
 
 		Order order = null;
 
 		try {
-			order = orderService.updateOrder(aOrderType, aOrderStatus, date, time, ORDER_ID);
+			order = orderService.updateOrder( aOrderStatus, ORDER_ID);
 
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 		assertNotNull(order);
 
-		assertEquals(aOrderType, order.getOrderType());
 		assertEquals(aOrderStatus, order.getOrderStatus());
-		assertEquals(time, order.getTime());
-		assertEquals(date, order.getDate());
 		assertEquals(CUSTOMER_EMAIL, order.getCustomer().getEmail());
 		assertEquals(ORDER_ID, order.getId());
 
 	}
 
-	@Test
-	public void testUpdateOrderNullType() {
-
-		OrderType aOrderType = null;
-		OrderStatus aOrderStatus = OrderStatus.Confirmed;
-		Date date = Date.valueOf("2022-02-10");
-		Time time = Time.valueOf("07:58:15");
-
-		Order order = null;
-		String error = null;
-
-		try {
-			order = orderService.updateOrder(aOrderType, aOrderStatus, date, time, ORDER_ID);
-
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		assertNull(order);
-
-		assertEquals(error, "Please enter a valid order type. ");
-
-	}
+	
 
 	@Test
 	public void testUpdateOrderNullStatus() {
 
-		OrderType aOrderType = OrderType.Delivery;
-		OrderStatus aOrderStatus = null;
-		Date date = Date.valueOf("2022-02-10");
-		Time time = Time.valueOf("07:58:15");
+		String aOrderStatus = null;
+
 
 		Order order = null;
 		String error = null;
 		try {
-			order = orderService.updateOrder(aOrderType, aOrderStatus, date, time, ORDER_ID);
+			order = orderService.updateOrder(aOrderStatus,  ORDER_ID);
 
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -496,64 +468,18 @@ public class TestOrderService {
 
 	}
 
-	@Test
-	public void testUpdateOrderNullDate() {
-
-		OrderType aOrderType = OrderType.Delivery;
-		OrderStatus aOrderStatus = OrderStatus.Confirmed;
-		Date date = null;
-		Time time = Time.valueOf("07:58:15");
-
-		Order order = null;
-		String error = null;
-
-		try {
-			order = orderService.updateOrder(aOrderType, aOrderStatus, date, time, ORDER_ID);
-
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		assertNull(order);
-
-		assertEquals(error, "Please enter a valid date. ");
-
-	}
-
-	@Test
-	public void testUpdateOrderNullTime() {
-
-		OrderType aOrderType = OrderType.Delivery;
-		OrderStatus aOrderStatus = OrderStatus.Confirmed;
-		Date date = Date.valueOf("2022-02-10");
-		Time time = null;
-
-		Order order = null;
-		String error = null;
-
-		try {
-			order = orderService.updateOrder(aOrderType, aOrderStatus, date, time, ORDER_ID);
-
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		assertNull(order);
-
-		assertEquals(error, "Please enter a valid time. ");
-	}
-
+	
 	@Test
 	public void testUpdateOrderWithInvalidOrderId() {
 
-		OrderType aOrderType = OrderType.PickUp;
-		OrderStatus aOrderStatus = OrderStatus.Confirmed;
-		Date date = Date.valueOf("2022-05-10");
-		Time time = Time.valueOf("08:54:00");
+		String aOrderStatus = "Confirmed";
+
 
 		Long fakeId = 34L;
 		Order order = null;
 		String error = null;
 		try {
-			order = orderService.updateOrder(aOrderType, aOrderStatus, date, time, fakeId);
+			order = orderService.updateOrder( aOrderStatus,  fakeId);
 
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -723,7 +649,7 @@ public class TestOrderService {
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
 		Long orderId = 558L;
-		OrderType aOrderType = OrderType.PickUp;
+		String aOrderType ="PickUp";
 		OrderStatus aOrderStatus = OrderStatus.Confirmed;
 		Date date = Date.valueOf("2022-03-10");
 		Time time = Time.valueOf("08:00:00");
@@ -805,144 +731,8 @@ public class TestOrderService {
 		assertNull(order);
 
 	}
-	// -----------------------------------------------------------------------------------------------------------------------------------//
 
-	/**
-	 * Tests for set order status
-	 */
-	@Test
-	public void testSetOrderStatus() {
-
-		Order order = null;
-		try {
-
-			order = orderService.setOrderStatus(ORDER_ID, OrderStatus.Ready);
-			lenient().when(orderRepo.findOrderById(ORDER_ID)).thenReturn(order);
-		} catch (IllegalArgumentException e) {
-			fail();
-		}
-
-		assertNotNull(order);
-		assertEquals(OrderStatus.Ready, order.getOrderStatus());
-
-	}
-
-	@Test
-	public void testSetOrderStatusInvalidOrder() {
-
-		Order order = null;
-		String error = null;
-		Long fakeId = 98L;
-		try {
-
-			order = orderService.setOrderStatus(fakeId, OrderStatus.Ready);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-
-		assertNull(order);
-		assertEquals(error, "Please enter a valid order. ");
-
-	}
-
-	@Test
-	public void testSetOrderStatusInvalidStatus() {
-
-		Order order = null;
-		String error = null;
-		OrderStatus fakeStatus = null;
-		try {
-
-			order = orderService.setOrderStatus(ORDER_ID, fakeStatus);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-
-		assertNull(order);
-		assertEquals(error, "Please enter a valid order status. ");
-
-	}
-
-	// -----------------------------------------------------------------------------------------------------------------------------------//
-
-	/**
-	 * test for convertOrderStatus
-	 */
-	@Test
-	public void testConvertToOrderStatus() {
-
-		String confirmed, preparing, cancelled, delivering, ready, fulfilled;
-		String wontWork = "Not valid";
-		confirmed = "Confirmed";
-		preparing = "Preparing";
-		cancelled = "Cancelled";
-		delivering = "Delivering";
-		ready = "Ready";
-		fulfilled = "Fulfilled";
-
-		OrderStatus a = null;
-		OrderStatus b = null;
-		OrderStatus c = null;
-		OrderStatus d = null;
-		OrderStatus e = null;
-		OrderStatus f = null;
-		OrderStatus g = null;
-
-		try {
-			a = orderService.convertOrderStatus(confirmed);
-			b = orderService.convertOrderStatus(preparing);
-			c = orderService.convertOrderStatus(cancelled);
-			d = orderService.convertOrderStatus(delivering);
-			e = orderService.convertOrderStatus(ready);
-			f = orderService.convertOrderStatus(fulfilled);
-			g = orderService.convertOrderStatus(wontWork);
-
-		} catch (IllegalArgumentException z) {
-
-			fail();
-		}
-
-		assertEquals(OrderStatus.Confirmed, a);
-		assertEquals(OrderStatus.Preparing, b);
-		assertEquals(OrderStatus.Cancelled, c);
-		assertEquals(OrderStatus.Delivering, d);
-		assertEquals(OrderStatus.Ready, e);
-		assertEquals(OrderStatus.Fulfilled, f);
-		assertNull(g);
-
-	}
-
-	// -----------------------------------------------------------------------------------------------------------------------------------//
-
-	/**
-	 * test for convert order type
-	 */
-	@Test
-	public void testConvertToOrderType() {
-
-		String delivery = "Delivery";
-		String pickUp = "PickUp";
-		String failed = "unknown";
-		OrderType a = null;
-		OrderType b = null;
-		OrderType c = null;
-
-		try {
-
-			a = orderService.convertOrderType(delivery);
-			b = orderService.convertOrderType(pickUp);
-			c = orderService.convertOrderType(failed);
-
-		} catch (IllegalArgumentException e) {
-
-			fail();
-		}
-
-		assertEquals(OrderType.Delivery, a);
-		assertEquals(OrderType.PickUp, b);
-		assertNull(c);
-
-	}
+	
 	// -----------------------------------------------------------------------------------------------------------------------------------//
 
 	/**
