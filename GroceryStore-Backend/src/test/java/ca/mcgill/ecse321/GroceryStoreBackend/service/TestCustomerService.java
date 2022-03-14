@@ -473,4 +473,39 @@ public class TestCustomerService {
 		// Check the customer was not deleted and the correct error was thrown.
 		assertEquals("Customer not found.", error);
 	}
+	
+	@Test
+	public void testGetCustomer() {
+		String error = null;
+		Customer customer = null;
+		try {
+			customer = service.getCustomer(CUSTOMER_KEY);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		
+		// Check we got the customer & its attributes match
+		assertNotNull(customer);
+		assertEquals(CUSTOMER_KEY, customer.getEmail());
+		assertEquals(CUSTOMER_PASSWORD, customer.getPassword());
+		assertEquals(CUSTOMER_ADDRESS, customer.getAddress());
+		assertEquals(CUSTOMER_NAME, customer.getName());
+
+	}
+	
+	@Test
+	public void testGetCustomerNotFound() {
+		String error = null;
+		Customer customer = null;
+		try {
+			customer = service.getCustomer("doesntexist@mail.ca");
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+
+		// Check the customer was not returned and the correct error was thrown.
+		assertNull(customer);
+		assertEquals("Customer not found.", error);
+	}
+	
 }

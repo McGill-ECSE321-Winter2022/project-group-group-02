@@ -27,6 +27,11 @@ public class CustomerController {
 	public List<CustomerDto> getAllCustomers() {
 		return service.getAllCustomers().stream().map(c -> convertToDto(c)).collect(Collectors.toList());
 	}
+	
+	@GetMapping(value = { "/get_customer", "/get_customer/" })
+	public CustomerDto getCustomer(@RequestParam("email") String email) {
+		return convertToDto(service.getCustomer(email));
+	}
 
 	@PostMapping(value = { "/create_customer", "/create_customer/" })
 	public CustomerDto createCustomer(@RequestParam("email") String email, @RequestParam("password") String password,
