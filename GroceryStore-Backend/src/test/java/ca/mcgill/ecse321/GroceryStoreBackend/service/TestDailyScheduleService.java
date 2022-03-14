@@ -35,6 +35,7 @@ public class TestDailyScheduleService {
 	private static final Time DAILYSCHEDULE_STARTTIME = Time.valueOf("08:00:00");
 	private static final Time DAILYSCHEDULE_ENDTIME = Time.valueOf("20:00:00");
 	private static final DayOfWeek DAILYSCHEDULE_DAYOFWEEK = DayOfWeek.Monday;
+	
 
 	@BeforeEach
 	public void setMockOutput() {
@@ -277,7 +278,7 @@ public class TestDailyScheduleService {
         String error = null;
         DayOfWeek dayOfWeek = DayOfWeek.Tuesday;
 		Time startTime = Time.valueOf("20:00:00");
-		Time endTime = Time.valueOf("08:00:00");
+		Time endTime = Time.valueOf("08:0:00");
 		DailySchedule dailySchedule = null;
 
 		try {
@@ -289,7 +290,7 @@ public class TestDailyScheduleService {
 
 		assertNull(dailySchedule);
 		// check error
-		assertEquals("Daily Schedule end time cannot be before event start time", error);
+		assertEquals("Daily Schedule end time cannot be before start time", error);
 	}
 
 
