@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.GroceryStoreBackend.dto.*;
@@ -53,7 +55,7 @@ public class DailyScheduleController {
 		return new ResponseEntity<>(convertToDTO(dailySchedule), HttpStatus.CREATED);
 	}
 
-	@PostMapping(value = { "/update_dailyschedule" })
+	@PutMapping(value = { "/update_dailyschedule" })
 	public ResponseEntity<?> updateDailySchedule(@RequestParam("DailyScheduleId") String DailyScheduleId,
 			@RequestParam("Dayofweek") DayOfWeek dayOfWeek, @RequestParam("startTime") String startTime,
 			@RequestParam("endTime") String endTime) {
@@ -69,7 +71,7 @@ public class DailyScheduleController {
 		return new ResponseEntity<>(convertToDTO(dailySchedule), HttpStatus.CREATED);
 	}
 
-	@PostMapping(value = { "/delete_dailyschedule" })
+	@DeleteMapping(value = { "/delete_dailyschedule" })
 	public boolean deleteStore(@RequestParam("DailyScheduleId") String DailyScheduleId) {
 
 		return dailyScheduleService.deleteDailySchedule(Long.parseLong(DailyScheduleId));
