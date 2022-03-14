@@ -182,7 +182,7 @@ public class OrderService {
 
 		if (type.equals("Delivery"))
 			return OrderType.Delivery;
-		if (type.equals("PickUp") || type.equals("Pick Up") || type.equals("Pick up"))
+		if (type.equals("PickUp") || type.equals("Pick Up") || type.equals("Pick up") || type.equals("Pickup"))
 			return OrderType.PickUp;
 
         throw new IllegalArgumentException("Please enter a valid order type. ");

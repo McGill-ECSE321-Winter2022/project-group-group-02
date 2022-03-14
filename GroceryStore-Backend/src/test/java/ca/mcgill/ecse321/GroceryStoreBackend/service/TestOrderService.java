@@ -241,8 +241,8 @@ public class TestOrderService {
 		String email = "noOneHas@thatEmail.com";
 
 		Long orderId = 557L;
-		String aOrderType ="PickUp";
-		OrderStatus aOrderStatus = OrderStatus.Confirmed;
+		String aOrderType ="Delivery";
+		OrderStatus aOrderStatus = OrderStatus.Ready;
 		Date date = Date.valueOf("2022-01-10");
 		Time time = Time.valueOf("06:00:00");
 
@@ -274,7 +274,7 @@ public class TestOrderService {
 
 		Long orderId = 537L;
 		String aOrderType = null;
-		OrderStatus aOrderStatus = OrderStatus.Confirmed;
+		OrderStatus aOrderStatus = OrderStatus.Fulfilled;
 		Date date = Date.valueOf("2022-03-15");
 		Time time = Time.valueOf("08:45:38");
 
@@ -338,7 +338,7 @@ public class TestOrderService {
 
 		Long orderId = 55894L;
 		String aOrderType = "PickUp";
-		OrderStatus aOrderStatus = OrderStatus.Confirmed;
+		OrderStatus aOrderStatus = OrderStatus.Cancelled;
 		Date date = Date.valueOf("2022-03-10");
 		Time time = null;
 
@@ -370,7 +370,7 @@ public class TestOrderService {
 
 		Long orderId = 5536L;
 		String aOrderType = "PickUp";
-		OrderStatus aOrderStatus = OrderStatus.Confirmed;
+		OrderStatus aOrderStatus = OrderStatus.Delivering;
 		Date date = null;
 		Time time = Time.valueOf("14:45:00");
 
@@ -400,7 +400,7 @@ public class TestOrderService {
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
 		String aOrderType ="PickUp";
-		OrderStatus aOrderStatus = OrderStatus.Confirmed;
+		OrderStatus aOrderStatus = OrderStatus.Ready;
 		Date date = Date.valueOf("2022-05-10");
 		Time time = Time.valueOf("08:54:00");
 
@@ -472,7 +472,7 @@ public class TestOrderService {
 	@Test
 	public void testUpdateOrderWithInvalidOrderId() {
 
-		String aOrderStatus = "Confirmed";
+		String aOrderStatus = "Cancelled";
 
 
 		Long fakeId = 34L;
