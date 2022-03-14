@@ -5,8 +5,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,14 +35,14 @@ public class EmployeeController {
 		return convertToDto(employee);
 	}
 
-	@PostMapping(value = { "/update_employee", "/update_employees/" })
+	@PutMapping(value = { "/update_employee", "/update_employees/" })
 	public EmployeeDto updateEmployee(@RequestParam("email") String email, @RequestParam("password") String password,
 			@RequestParam("name") String name, @RequestParam("salary") Double salary) throws IllegalArgumentException {
 		Employee employee = service.updateEmployee(email, password, name, salary);
 		return convertToDto(employee);
 	}
 
-	@PostMapping(value = { "/delete_employee", "/delete_employee/" })
+	@DeleteMapping(value = { "/delete_employee", "/delete_employee/" })
 	public void deleteEmployee(@RequestParam("email") String email) throws IllegalArgumentException {
 		service.deleteEmployee(email);
 	}
@@ -51,7 +53,7 @@ public class EmployeeController {
 		service.addDailySchedule(email, id);
 	}
 
-	@PostMapping(value = { "/remove_dailySchedule", "/remove_dailySchedule/" })
+	@DeleteMapping(value = { "/remove_dailySchedule", "/remove_dailySchedule/" })
 	public void removeDailySchedule(@RequestParam("email") String email, @RequestParam("id") long id)
 			throws IllegalArgumentException {
 		service.removeDailySchedule(email, id);

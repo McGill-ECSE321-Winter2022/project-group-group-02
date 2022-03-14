@@ -5,8 +5,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,7 +36,7 @@ public class CustomerController {
 		return convertToDto(customer);
 	}
 
-	@PostMapping(value = { "/update_customer/", "/update_customer/" })
+	@PutMapping(value = { "/update_customer/", "/update_customer/" })
 	public CustomerDto updateCustomer(@RequestParam("email") String email, @RequestParam("password") String password,
 			@RequestParam("name") String name, @RequestParam("address") String address)
 			throws IllegalArgumentException {
@@ -42,7 +44,7 @@ public class CustomerController {
 		return convertToDto(customer);
 	}
 
-	@PostMapping(value = { "/delete_customer/", "/delete_customer/" })
+	@DeleteMapping(value = { "/delete_customer/", "/delete_customer/" })
 	public void deleteCustomer(@RequestParam("email") String email) throws IllegalArgumentException {
 		service.deleteCustomer(email);
 
