@@ -27,18 +27,38 @@ public class DailyScheduleController {
 	@Autowired
 	private DailyScheduleService dailyScheduleService;
 
+	/**
+     * @author Cora Cheung
+     * This method gets all daily schedules
+     * @return List<DailyScheduleDto>
+     */
 	@GetMapping(value = { "/view_dailyschedules" })
 	public List<DailyScheduleDto> getAllStores() {
 		return dailyScheduleService.getAllDailySchedules().stream().map(dailySchedule -> convertToDTO(dailySchedule))
 				.collect(Collectors.toList());
 	}
 
-	@GetMapping(value = { "/view_dailyschedules/{id}" })
+	/**
+     * @author Cora Cheung
+     * This method gets a specific daily schedule given the corresponding id
+	 * @param id
+     * @return DailyScheduleDto
+     */
+	@GetMapping(value = { "/view_dailyschedule/{id}" })
 	public DailyScheduleDto viewStore(@RequestParam("id") String id) {
 
 		return convertToDTO(dailyScheduleService.getDailySchedule(Long.parseLong(id)));
 	}
 
+	/**
+     * @author Cora Cheung
+     * This method creates a daily schedule 
+	 * @param DailyScheduleId
+	 * @param dayOfWeek
+	 * @param startTime
+	 * @param endTime
+     * @return DailyScheduleDto
+     */
 	@PostMapping(value = { "/create_dailyschedule" })
 	public ResponseEntity<?> createDailySchedule(@RequestParam("DailyScheduleId") Long DailyScheduleId,
 			@RequestParam("Dayofweek") DayOfWeek dayOfWeek, @RequestParam("startTime") String startTime,
@@ -55,6 +75,15 @@ public class DailyScheduleController {
 		return new ResponseEntity<>(convertToDTO(dailySchedule), HttpStatus.CREATED);
 	}
 
+    /**
+     * @author Cora Cheung
+     * This method updates a daily schedule 
+	 * @param DailyScheduleId
+	 * @param dayOfWeek
+	 * @param startTime
+	 * @param endTime
+     * @return DailyScheduleDto
+     */
 	@PutMapping(value = { "/update_dailyschedule" })
 	public ResponseEntity<?> updateDailySchedule(@RequestParam("DailyScheduleId") String DailyScheduleId,
 			@RequestParam("Dayofweek") DayOfWeek dayOfWeek, @RequestParam("startTime") String startTime,
@@ -70,7 +99,13 @@ public class DailyScheduleController {
 		}
 		return new ResponseEntity<>(convertToDTO(dailySchedule), HttpStatus.CREATED);
 	}
-
+   
+	/**
+     * @author Cora Cheung
+     * This method deletes a daily schedule 
+	 * @param DailyScheduleId
+     * @return true if daily schedule has been deleted
+     */
 	@DeleteMapping(value = { "/delete_dailyschedule" })
 	public boolean deleteStore(@RequestParam("DailyScheduleId") String DailyScheduleId) {
 
@@ -78,6 +113,11 @@ public class DailyScheduleController {
 
 	}
 
+	/**
+     * @author Cora Cheung
+     * Converts DailySchedule object to DailyScheduleDto
+     * @return DailyScheduleDto
+     */
 	public static DailyScheduleDto convertToDTO(DailySchedule dailySchedule) {
 		if (dailySchedule == null)
 			throw new IllegalArgumentException("Daily schedule not found.");
