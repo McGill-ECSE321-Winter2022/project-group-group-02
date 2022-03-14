@@ -51,6 +51,11 @@ public class TestStoreService {
 	private static final Time DAILYSCHEDULE_ENDTIME = Time.valueOf("20:00:00");
 	private static final DayOfWeek DAILYSCHEDULE_DAYOFWEEK = DayOfWeek.Monday;
 
+	static final long DAILYSCHEDULE_KEY2 = 123l;
+	private static final Time DAILYSCHEDULE_STARTTIME2 = Time.valueOf("07:00:00");
+	private static final Time DAILYSCHEDULE_ENDTIME2 = Time.valueOf("21:00:00");
+	private static final DayOfWeek DAILYSCHEDULE_DAYOFWEEK2 = DayOfWeek.Tuesday;
+
 	@BeforeEach
 	public void setMockOutput() {
 
@@ -84,6 +89,14 @@ public class TestStoreService {
 				dailySchedule.setEndTime(DAILYSCHEDULE_ENDTIME);
 				dailySchedule.setId(DAILYSCHEDULE_KEY);
 	
+
+				return dailySchedule;
+			} else if (invocation.getArgument(0).equals(DAILYSCHEDULE_KEY2)) {
+				DailySchedule dailySchedule = new DailySchedule();
+				dailySchedule.setDayOfWeek(DAILYSCHEDULE_DAYOFWEEK2);
+				dailySchedule.setStartTime(DAILYSCHEDULE_STARTTIME2);
+				dailySchedule.setEndTime(DAILYSCHEDULE_ENDTIME2);
+				dailySchedule.setId(DAILYSCHEDULE_KEY2);
 
 				return dailySchedule;
 			} else {
@@ -352,33 +365,23 @@ public class TestStoreService {
 	@Test
 	public void testAddDailyScheduleForStore() {
 		String error = null;
-		DayOfWeek dayOfWeek = DayOfWeek.Monday;
-		Time startTime = Time.valueOf("08:00:00");
-		Time endTime = Time.valueOf("20:00:00");
-		Long did = 220L;
-		dailyScheduleService.createDailySchedule(did, dayOfWeek, startTime, endTime);
 	
 		boolean success = false;
 		try {
-			success = storeService.addDailyScheduleToStore(STORE_KEY,did);
+			success = storeService.addDailyScheduleToStore(STORE_KEY,DAILYSCHEDULE_KEY2);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+
 		assertTrue(success);
 	}
 
 	@Test
 	public void testAddDailyScheduleForStoreStoreNotFound() {
 		String error = null;
-		DayOfWeek dayOfWeek = DayOfWeek.Monday;
-		Time startTime = Time.valueOf("08:00:00");
-		Time endTime = Time.valueOf("20:00:00");
-		Long did = 220L;
-		dailyScheduleService.createDailySchedule(did, dayOfWeek, startTime, endTime);
-	
 		boolean success = false;
 		try {
-			success = storeService.addDailyScheduleToStore(77L ,220L);
+			success = storeService.addDailyScheduleToStore(77L ,DAILYSCHEDULE_KEY2);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -403,16 +406,9 @@ public class TestStoreService {
 	@Test
 	public void testDeleteDailyScheduleForStore() {
 		String error = null;
-		DayOfWeek dayOfWeek = DayOfWeek.Monday;
-		Time startTime = Time.valueOf("08:00:00");
-		Time endTime = Time.valueOf("20:00:00");
-		Long did = 220L;
-		dailyScheduleService.createDailySchedule(did, dayOfWeek, startTime, endTime);
-	    storeService.addDailyScheduleToStore(STORE_KEY ,220L);
-
 		boolean success = false;
 		try {
-			success = storeService.deleteDailyScheduleToStore(STORE_KEY ,220L);
+			success = storeService.deleteDailyScheduleToStore(STORE_KEY ,DAILYSCHEDULE_KEY2);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -422,17 +418,9 @@ public class TestStoreService {
 	@Test
 	public void testDeleteDailyScheduleForStoreStoreNotFound() {
 		String error = null;
-		DayOfWeek dayOfWeek = DayOfWeek.Monday;
-		Time startTime = Time.valueOf("08:00:00");
-		Time endTime = Time.valueOf("20:00:00");
-		Long did = 220L;
-		dailyScheduleService.createDailySchedule(did, dayOfWeek, startTime, endTime);
-	    storeService.addDailyScheduleToStore(STORE_KEY ,220L);
-
-	
 		boolean success = false;
 		try {
-			success = storeService.deleteDailyScheduleToStore(77L ,220L);
+			success = storeService.deleteDailyScheduleToStore(77L ,DAILYSCHEDULE_KEY2);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
