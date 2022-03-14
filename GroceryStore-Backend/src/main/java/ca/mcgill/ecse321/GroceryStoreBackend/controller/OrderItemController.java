@@ -27,18 +27,38 @@ public class OrderItemController {
 	@Autowired
 	private OrderService orderService;
 
+	/**
+	 * View all order item in the system
+	 * @return listOfOrderItemDto
+	 * @author Karl Rouhana
+	 */
 	@GetMapping(value = { "/view_all_order_items", "/view_all_order_items/" })
 	public List<OrderItemDto> getAllOrders() {
 		return orderItemService.getAllOrderItem().stream().map(orderItem -> convertToDTO(orderItem))
 				.collect(Collectors.toList());
 	}
-
+	
+    /**
+     * View a specific order item in the system
+     * @param orderItemId
+     * @return OrderItemDto
+     * @author Karl Rouhana
+     */
 	@GetMapping(value = { "/view_order_item", "/view_order_item/" })
 	public OrderItemDto viewOrderForCustomer(@RequestParam("orderItemId") Long orderItemId) {
 
 		return convertToDTO(orderItemService.getOrderItemById(orderItemId));
 	}
 
+	/**
+	 * Creates an order item in the system
+	 * @param quantity
+	 * @param itemName
+	 * @param orderItemId
+	 * @param orderId
+	 * @return OrderItemDTO
+	 * @author Karl Rouhana
+	 */
 	@PostMapping(value = { "/create_order_item", "/create_order_item/" })
 	public ResponseEntity<?> createOrderItem(@RequestParam("quantity") int quantity,
 			@RequestParam("itemName") String itemName, @RequestParam("orderItemId") Long orderItemId,
@@ -54,7 +74,17 @@ public class OrderItemController {
 		}
 		return new ResponseEntity<>(convertToDTO(orderItem), HttpStatus.CREATED);
 	}
+	
 
+	/**
+	 * Updates an order item in the system
+	 * @param quantity
+	 * @param itemName
+	 * @param orderItemId
+	 * @param orderId
+	 * @return OrderItemDto
+	 * @author Karl Rouhana
+	 */
 	@PutMapping(value = { "/update_order_item", "/update_order_item/" })
 	public ResponseEntity<?> updateOrderItem(@RequestParam("quantity") int quantity,
 			@RequestParam("itemName") String itemName, @RequestParam("orderItemId") Long orderItemId,
@@ -69,7 +99,15 @@ public class OrderItemController {
 		}
 		return new ResponseEntity<>(convertToDTO(orderItem), HttpStatus.CREATED);
 	}
-
+	
+	
+    /**
+     * Deletes an order item in the system
+     * @param orderItemId
+     * @param orderId
+     * @return boolean
+     * @author Karl Rouhana
+     */
 	@DeleteMapping(value = { "/delete_order_item", "/delete_order_item/" })
 	public boolean deleteOrderItem(@RequestParam("orderItemId") Long orderItemId,
 			@RequestParam("orderId") Long orderId) {
@@ -79,6 +117,12 @@ public class OrderItemController {
 
 	}
 
+	/**
+	 * Convert an order Item to DTO
+	 * @param orderItem
+	 * @return OrderItemDto
+	 * @author Karl Rouhana
+	 */
 	public static OrderItemDto convertToDTO(OrderItem orderItem) {
 		if (orderItem == null)
 			throw new IllegalArgumentException("Item not found.");

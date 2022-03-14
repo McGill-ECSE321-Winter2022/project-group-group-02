@@ -32,11 +32,22 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 
+	/**
+	 * View all orders in the system
+	 * @return
+	 * @author Karl Rouhana
+	 */
 	@GetMapping(value = { "/view_all_orders", "/view_all_orders/" })
 	public List<OrderDto> getAllOrders() {
 		return orderService.getAllOrder().stream().map(order -> convertToDTO(order)).collect(Collectors.toList());
 	}
 
+	/**
+	 * View all orders for a specific customer
+	 * @param email
+	 * @return
+	 * @author Karl Rouhana
+	 */
 	@GetMapping(value = { "/view_all_orders_for_customer", "/view_all_orders_for_customer/" })
 	public List<OrderDto> viewOrderForCustomer(@RequestParam("email") String email) {
 
@@ -44,12 +55,26 @@ public class OrderController {
 				.collect(Collectors.toList());
 	}
 
+	/**
+	 * Delete an order from the system
+	 * @param orderId
+	 * @return
+	 * @author Karl Rouhana
+	 */
 	@DeleteMapping(value = { "/delete_order", "/delete_order/" })
 	public boolean cancelOrder(@RequestParam("orderId") Long orderId) {
 
 		return orderService.cancelOrder(orderId);
 	}
 
+	/**
+	 * Create an order in the system
+	 * @param orderType
+	 * @param email
+	 * @param orderId
+	 * @return
+	 * @author Karl Rouhana
+	 */
 	@PostMapping(value = { "/create_order", "/create_order/" })
 	public ResponseEntity<?> createOrder(@RequestParam("orderType") String orderType,
 			@RequestParam("email") String email, @RequestParam("orderId") Long orderId) {
@@ -66,6 +91,13 @@ public class OrderController {
 		return new ResponseEntity<>(convertToDTO(order), HttpStatus.CREATED);
 	}
 
+	/**
+	 * Update an existing order in the system
+	 * @param orderStatus
+	 * @param orderId
+	 * @return
+	 * @author Karl Rouhana
+	 */
 	@PutMapping(value = { "/update_order", "/update_order/" })
 	public ResponseEntity<?> updateOrder(@RequestParam("orderStatus") String orderStatus,
 			 @RequestParam("orderId") Long orderId) {
@@ -82,6 +114,12 @@ public class OrderController {
 		return new ResponseEntity<>(convertToDTO(order), HttpStatus.CREATED);
 	}
 
+	/**
+	 * Convert an order to DTO
+	 * @param order
+	 * @return
+	 * @author Karl Rouhana
+	 */
 	public static OrderDto convertToDTO(Order order) {
 		if (order == null)
 			throw new IllegalArgumentException("Order not found.");

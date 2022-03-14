@@ -28,6 +28,20 @@ public class OrderService {
 	@Autowired
 	OrderItemRepository orderItemRepo;
 
+	
+	/**
+	 * 
+	 * Creates an order in the system
+	 * @param aOrderType
+	 * @param aOrderStatus
+	 * @param aDate
+	 * @param aTime
+	 * @param email
+	 * @param orderId
+	 * @return order
+	 * @throws IllegalArgumentException
+	 * @author Karl Rouhana
+	 */
 	@Transactional
 	public Order createOrder(String aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, String email,
 			Long orderId) throws IllegalArgumentException {
@@ -56,6 +70,15 @@ public class OrderService {
 
 	}
 
+	
+	/**
+	 * Updates an order that is already in the system
+	 * @param aOrderStatus
+	 * @param orderId
+	 * @return order
+	 * @throws IllegalArgumentException
+	 * @author Karl Rouhana
+	 */
 	@Transactional
 	public Order updateOrder(String aOrderStatus, Long orderId)
 			throws IllegalArgumentException {
@@ -75,6 +98,15 @@ public class OrderService {
 
 		return order;
 	}
+	
+	/**
+	 * Adds an item to the existing order
+	 * @param orderId
+	 * @param orderItemId
+	 * @return boolean
+	 * @throws IllegalArgumentException
+	 * @author Karl Rouhana
+	 */
 
 	@Transactional
 	public boolean addItemsToOrder(Long orderId, Long orderItemId) throws IllegalArgumentException {
@@ -94,6 +126,14 @@ public class OrderService {
 
 	}
 
+	/**
+     * Removes an item from the existing order
+     * @param orderId
+     * @param orderItemId
+     * @return boolean
+     * @throws IllegalArgumentException
+     * @author Karl Rouhana
+     */
 	@Transactional
 	public boolean deleteItemsToOrder(Long orderId, Long orderItemId) throws IllegalArgumentException {
 
@@ -112,6 +152,13 @@ public class OrderService {
 		return removed;
 
 	}
+	 /**
+     * Delete an order from the system 
+     * @param orderId
+     * @return boolean
+     * @throws IllegalArgumentException
+     * @author Karl Rouhana
+     */
 
 	@Transactional
 	public boolean cancelOrder(Long orderId) throws IllegalArgumentException {
@@ -138,6 +185,11 @@ public class OrderService {
 		return true;
 
 	}
+	/**
+	 * Gets all the orders in the system
+	 * @return allOrders
+	 * @author Karl Rouhana
+	 */
 
 	@Transactional
 	public List<Order> getAllOrder() {
@@ -147,6 +199,13 @@ public class OrderService {
 	
 		return allOrders;
 	}
+	/**
+	 * Gets all order by a single customer in the system 
+	 * @param email
+	 * @return allOrdersByCustomer
+	 * @throws IllegalArgumentException
+	 * @author Karl Rouhana
+	 */
 
 	@Transactional
 	public List<Order> getAllOrdersByCustomer(String email) throws IllegalArgumentException {
@@ -162,6 +221,13 @@ public class OrderService {
 		return allOrdersByCustomer;
 	}
 
+	/**
+	 * Gets the specified order
+	 * @param orderId
+	 * @return order
+	 * @throws IllegalArgumentException
+	 * @author Karl Rouhana
+	 */
 	@Transactional
 	public Order getOrderById(Long orderId) throws IllegalArgumentException {
 
@@ -177,7 +243,12 @@ public class OrderService {
 	}
 
 
-	
+	/**
+	 * Converts from a string to an order type
+	 * @param type
+	 * @return OrderType
+	 * @author Karl Rouhana
+	 */
 	private OrderType convertOrderType(String type) {
 
 		if (type.equals("Delivery"))
@@ -189,7 +260,13 @@ public class OrderService {
 
 	}
 
-
+	
+    /**
+     * Converts from a string to an order status
+     * @param status
+     * @return OrderStatus
+     * @author Karl Rouhana
+     */
 	private OrderStatus convertOrderStatus(String status) {
 
 		if (status.equals("Confirmed"))
@@ -208,7 +285,13 @@ public class OrderService {
 		throw new IllegalArgumentException("Please enter a valid order status. ");
 
 	}
-
+	
+	/**
+	 * Helper method to return a list of iterable object
+	 * @param <T>
+	 * @param iterable
+	 * @return resultList
+	 */
 	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();
 		for (T t : iterable) {

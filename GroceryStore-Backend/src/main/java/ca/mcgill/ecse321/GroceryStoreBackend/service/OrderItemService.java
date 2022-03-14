@@ -21,7 +21,18 @@ public class OrderItemService {
 	ShoppableItemRepository itemRepo;
 	@Autowired
 	OrderRepository orderRepo;
-
+	
+	
+	/**
+	 * Creates an order item in the system
+	 * @param orderItemId
+	 * @param quantity
+	 * @param itemName
+	 * @param orderId
+	 * @return orderItem
+	 * @throws IllegalArgumentException
+	 * @author Karl Rouhana
+	 */
 	@Transactional
 	public OrderItem createOrderItem(Long orderItemId, int quantity, String itemName, Long orderId)
 			throws IllegalArgumentException {
@@ -52,6 +63,16 @@ public class OrderItemService {
 
 	}
 
+	/**
+	 * Updates an existing order item
+	 * @param orderItemId
+	 * @param quantity
+	 * @param itemName
+	 * @param orderId
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @author Karl Rouhana
+	 */
 	@Transactional
 	public OrderItem updateOrderItem(Long orderItemId, int quantity, String itemName, Long orderId)
 			throws IllegalArgumentException {
@@ -79,6 +100,13 @@ public class OrderItemService {
 		return orderItem;
 	}
 
+	/**
+	 * Deletes an order item from the system
+	 * @param orderItemId
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @author Karl Rouhana
+	 */
 	@Transactional
 	public boolean deleteOrderItem(Long orderItemId) throws IllegalArgumentException {
 
@@ -91,7 +119,13 @@ public class OrderItemService {
 		return true;
 
 	}
-
+	
+	
+  /**
+   * Returns all order items in the system
+   * @return
+   * @author Karl Rouhana
+   */
 	@Transactional
 	public List<OrderItem> getAllOrderItem() {
 
@@ -102,6 +136,12 @@ public class OrderItemService {
 
 	}
 
+	/**
+	 * Returns a specific order item in the system
+	 * @param orderItemId
+	 * @return
+	 * @author Karl Rouhana
+	 */
 	@Transactional
 	public OrderItem getOrderItemById(Long orderItemId) {
 
@@ -115,6 +155,12 @@ public class OrderItemService {
 
 	}
 
+	  /**
+     * Helper method to return a list of iterable object
+     * @param <T>
+     * @param iterable
+     * @return resultList
+     */
 	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();
 		for (T t : iterable) {
