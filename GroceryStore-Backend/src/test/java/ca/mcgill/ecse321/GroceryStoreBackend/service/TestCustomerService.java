@@ -35,7 +35,6 @@ public class TestCustomerService {
 	private static final String CUSTOMER_ADDRESS = "35 St Catherine O, Montreal";
 	private static final String CUSTOMER_PASSWORD = "2222";
 
-	
 	@BeforeEach
 	public void setMockOutput() {
 		lenient().when(customerDao.findByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
@@ -79,7 +78,7 @@ public class TestCustomerService {
 		assertEquals(name, customer.getName());
 		assertEquals(address, customer.getAddress());
 	}
-
+	
 	@Test
 	public void testCreateCustomerNull() {
 		String error = null;
