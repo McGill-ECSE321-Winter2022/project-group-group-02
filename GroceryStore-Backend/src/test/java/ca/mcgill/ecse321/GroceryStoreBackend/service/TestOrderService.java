@@ -226,7 +226,7 @@ public class TestOrderService {
 			fail();
 		}
 		assertNotNull(order);
-		assertEquals(aOrderType, order.getOrderType());
+		assertEquals(OrderType.PickUp, order.getOrderType());
 		assertEquals(aOrderStatus, order.getOrderStatus());
 		assertEquals(time, order.getTime());
 		assertEquals(date, order.getDate());
@@ -440,7 +440,7 @@ public class TestOrderService {
 		}
 		assertNotNull(order);
 
-		assertEquals(aOrderStatus, order.getOrderStatus());
+		assertEquals(OrderStatus.Confirmed, order.getOrderStatus());
 		assertEquals(CUSTOMER_EMAIL, order.getCustomer().getEmail());
 		assertEquals(ORDER_ID, order.getId());
 
