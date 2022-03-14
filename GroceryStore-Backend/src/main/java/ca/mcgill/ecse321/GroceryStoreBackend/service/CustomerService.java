@@ -68,6 +68,24 @@ public class CustomerService {
 		return toList(customerRepository.findAll());
 	}
 
+	/*** Return the customer associated with the email if it exists in the system.
+	 * 
+	 * @author anaelle.drai
+	 * @param email
+	 * @return customer
+	 */
+	@Transactional
+	public Customer getCustomer(String email) {
+		// Checking the customer exists in the system
+		Customer customer = customerRepository.findByEmail(email);
+		if (customer == null) {
+			throw new IllegalArgumentException("Customer not found.");
+		}
+		
+		return customer;
+	}
+
+	
 	/*** Updates the customer information, and returns the updated instance if there was no error.
 	 * 
 	 * @author anaelle.drai

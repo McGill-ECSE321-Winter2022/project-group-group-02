@@ -127,9 +127,10 @@ public class TestEmployeeService {
 		try {
 			employee = service.createEmployee(email, password, name, salary);
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
 			fail();
 		}
+		
+		// Check the arguments of the created employee match the ones we passed as argument.
 		assertNotNull(employee);
 		assertEquals(email, employee.getEmail());
 		assertEquals(password, employee.getPassword());
@@ -152,8 +153,8 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not created and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("Employee email cannot be empty!", error);
 	}
 
@@ -172,8 +173,8 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not created and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("Employee email cannot be empty!", error);
 	}
 
@@ -190,9 +191,9 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-
+		
+		// Check the employee was not created and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("An employee with this email already exists.", error);
 	}
 
@@ -211,8 +212,8 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not created and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("Employee email must contain an @!", error);
 	}
 
@@ -231,8 +232,8 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not created and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("Employee password must not be empty!", error);
 	}
 
@@ -250,9 +251,9 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-
+		
+		// Check the employee was not created and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("Employee password must not be empty!", error);
 	}
 
@@ -271,8 +272,8 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not created and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("Employee name must not be empty!", error);
 	}
 
@@ -291,8 +292,8 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not created and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("Employee name must not be empty!", error);
 	}
 
@@ -311,8 +312,8 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not created and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("Employee salary must be positive!", error);
 	}
 
@@ -330,6 +331,7 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee is not null & its arguments match the updated ones.
 		assertNotNull(employee);
 		assertEquals(EMPLOYEE_KEY, employee.getEmail());
 		assertEquals(newSalary, employee.getSalary());
@@ -352,8 +354,8 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not updated and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("Employee password must not be empty!", error);
 	}
 
@@ -371,8 +373,8 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not updated and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("Employee password must not be empty!", error);
 	}
 
@@ -390,8 +392,8 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not updated and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("Employee name must not be empty!", error);
 	}
 
@@ -409,8 +411,8 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not updated and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("Employee name must not be empty!", error);
 	}
 
@@ -428,8 +430,8 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not updated and the correct error was thrown.
 		assertNull(employee);
-		// check error
 		assertEquals("Employee salary must be positive!", error);
 	}
 
@@ -439,13 +441,15 @@ public class TestEmployeeService {
 		String newPassword = "5678";
 		String newName = "Test Emplpoyee2";
 		Double newSalary = 2000.0;
-
+		Employee employee = null;
 		try {
 			service.updateEmployee("doesntexist@mail.ca", newPassword, newName, newSalary);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-
+		
+		// Check the employee was not updated and the correct error was thrown.
+		assertNull(employee);
 		assertEquals("Employee not found.", error);
 	}
 
@@ -460,6 +464,7 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check that the employee was successfully deleted.
 		assertTrue(success);
 	}
 
@@ -473,6 +478,8 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		
+		// Check that the dailySchedule was successfully added to the employee
 		assertTrue(success);
 	}
 
@@ -486,6 +493,8 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		
+		// Check that the dailySchedule was not added and the correct error was thrown.
 		assertEquals("Employee not found.", error);
 	}
 
@@ -499,6 +508,8 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		
+		// Check that the dailySchedule was not added and the correct error was thrown.
 		assertEquals("Daily Schedule not found.", error);
 	}
 
@@ -512,6 +523,8 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		
+		// Check that the dailySchedule was not added and the correct error was thrown.
 		assertEquals("Daily Schedule is already assigned to the employee.", error);
 	}
 
@@ -525,6 +538,8 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		
+		// Check that the dailySchedule was successfully removed from the employee's dailySchedules
 		assertTrue(success);
 	}
 
@@ -539,6 +554,7 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check that the dailySchedule was not removed and the correct error was thrown.
 		assertEquals("Employee not found.", error);
 	}
 
@@ -553,17 +569,12 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check that the dailySchedule was not removed and the correct error was thrown.
 		assertEquals("Daily Schedule not found.", error);
 	}
 
 	@Test
 	public void removeDailyScheduleDailyNotInDailySchedules() {
-
-		DailySchedule dailySchedule = new DailySchedule();
-		dailySchedule.setDayOfWeek(DayOfWeek.Friday);
-		dailySchedule.setStartTime(Time.valueOf("05:00:00"));
-		dailySchedule.setEndTime(Time.valueOf("21:00:00"));
-		dailySchedule.setId((long) 456);
 
 		String error = null;
 		boolean success = false;
@@ -572,7 +583,8 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-
+		
+		// Check that the dailySchedule was not removed and the correct error was thrown.
 		assertEquals("Daily Schedule is not assigned to the employee.", error);
 	}
 
@@ -585,6 +597,7 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not deleted and the correct error was thrown.
 		assertEquals("Employee email cannot be empty!", error);
 	}
 
@@ -597,6 +610,7 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not deleted and the correct error was thrown.
 		assertEquals("Employee email cannot be empty!", error);
 	}
 
@@ -609,6 +623,7 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
+		// Check the employee was not deleted and the correct error was thrown.
 		assertEquals("Employee not found.", error);
 	}
 }
