@@ -89,7 +89,7 @@ public class ReviewController {
 	/**
      * @author Matthieu Hakim
      * Gets the all reviews in the system
-     * @return List<Review>
+     * @return List<ReviewDto>
      */
 	@GetMapping(value = { "/view_all_reviews/", "/view_all_reviews" })
 	public List<ReviewDto> getAllReviews() {
@@ -101,7 +101,7 @@ public class ReviewController {
      * @author Matthieu Hakim
      * Gets the all reviews of a specific customer
      * @param customerEmail
-     * @return List<Review>
+     * @return List<ReviewDto>
      */
 	@GetMapping(value = { "/view_reviews_for_customer/", "/view_reviews_for_customer" })
 	public List<ReviewDto> getReviewsForCustomer(@RequestParam("customerEmail") String customerEmail) {
