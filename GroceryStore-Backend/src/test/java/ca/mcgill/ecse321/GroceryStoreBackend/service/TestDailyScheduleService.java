@@ -277,8 +277,8 @@ public class TestDailyScheduleService {
 	public void testUpdateDailyScheduleInvalidTimePeriod() {
         String error = null;
         DayOfWeek dayOfWeek = DayOfWeek.Tuesday;
-		Time startTime = Time.valueOf("20:00:00");
-		Time endTime = Time.valueOf("08:00:00");
+		Time startTime = Time.valueOf("08:00:00");
+		Time endTime = Time.valueOf("20:00:00");
 		DailySchedule dailySchedule = null;
 
 		try {
