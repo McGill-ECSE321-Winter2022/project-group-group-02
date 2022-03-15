@@ -43,7 +43,7 @@ Click for [Project Report Deliverable 1] !
 
 Click for [Project Report Deliverable 2] !
 
-[Project Report Deliverable 2]:https://github.com/McGill-ECSE321-Winter2022/project-group-group-02/wiki/Project-Report-Deliverable-1
+[Project Report Deliverable 2]:https://github.com/McGill-ECSE321-Winter2022/project-group-group-02/wiki/Project-Report-Deliverable-2
 
 
 
