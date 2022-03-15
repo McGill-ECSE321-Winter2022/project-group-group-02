@@ -41,7 +41,7 @@ Click for [Project Report Deliverable 1] !
 | Ralph Nassar | Implementation of Shoppable Item, Unavailable Item services, controller & unit tests, software quality assurance plan, project report | 35 |
 | Anaëlle Drai Laguéns | Implementation of Customer, Employee services, controller & unit tests, software quality assurance plan, project report| 35 |
 
-Click for [Project Report Deliverable 2]
+Click for [Project Report Deliverable 2] !
 
 [Project Report Deliverable 2]:https://github.com/McGill-ECSE321-Winter2022/project-group-group-02/wiki/Project-Report-Deliverable-1
 
