@@ -19,7 +19,19 @@ public class ShoppableItemService {
 
 	@Autowired
 	ShoppableItemRepository shoppableItemRepository;
-
+	
+	/**
+	 * Creates a shoppable item in the system
+	 * 
+	 * @param name
+	 * @param price
+	 * @param quantityAvailable
+	 * @return the created shoppable item
+	 * @throws IllegalArgumentException if parameters are invalid, or if the item already exists in the system
+	 * 
+	 * @author Ralph Nassar
+	 */
+	
 	@Transactional
 	public ShoppableItem createShoppableItem(String name, double price, int quantityAvailable) {
 
@@ -44,6 +56,17 @@ public class ShoppableItemService {
 		return item;
 
 	}
+	
+	/**
+	 * Updates the price of a shoppable item
+	 * 
+	 * @param name
+	 * @param newPrice
+	 * @return the updated shoppable item
+	 * @throws IllegalArgumentException if parameters are invalid, or if the item does not exist in the system
+	 * 
+	 * @author Ralph Nassar
+	 */
 
 	@Transactional
 	public ShoppableItem updatePrice(String name, double newPrice) {
@@ -66,7 +89,18 @@ public class ShoppableItemService {
 
 		return item;
 	}
-
+	
+	/**
+	 * Updates the inventory of a shoppable item
+	 * 
+	 * @param name
+	 * @param newQuantityAvailable
+	 * @return the updated shoppable item
+	 * @throws IllegalArgumentException if parameters are invalid, or if the item does not exist in the system
+	 * 
+	 * @author Ralph Nassar
+	 */
+	
 	@Transactional
 	public ShoppableItem updateInventory(String name, int newQuantityAvailable) {
 
@@ -88,7 +122,17 @@ public class ShoppableItemService {
 
 		return item;
 	}
-
+	
+	/**
+	 * Deletes a shoppable item from the system
+	 * 
+	 * @param name
+	 * @return true if the item was successfully deleted
+	 * @throws IllegalArgumentException if parameters are invalid, or if the item does not exist in the system
+	 * 
+	 * @author Ralph Nassar
+	 */
+	
 	@Transactional
 	public boolean deleteShoppableItem(String name) {
 
@@ -105,6 +149,16 @@ public class ShoppableItemService {
 
 		return true;
 	}
+	
+	/**
+	 * Return a shoppable item in the system
+	 * 
+	 * @param name
+	 * @return a shoppable item
+	 * @throws IllegalArgumentException if the item does not exist in the system
+	 * 
+	 * @author Ralph Nassar
+	 */
 
 	@Transactional
 	public ShoppableItem getShoppableItem(String name) {
@@ -114,18 +168,40 @@ public class ShoppableItemService {
 
 		return shoppableItemRepository.findByName(name);
 	}
-
+	
+	/**
+	 * Return a list containing all the shoppable items in the system
+	 * 
+	 * @return a list of shoppable items
+	 * 
+	 * @author Ralph Nassar
+	 */
+	
 	@Transactional
 	public List<ShoppableItem> getAllShoppableItems() {
 		return toList(shoppableItemRepository.findAll());
 	}
-
+	
+	/**
+	 * Helper method that throws exception if the item is already in the system
+	 * @param name
+	 * 
+	 * @author Ralph Nassar
+	 */
+	
 	private void nameIsValid(String name) {
 		if (shoppableItemRepository.findByName(name) != null) {
 			throw new IllegalArgumentException("Item already in the system");
 		}
 	}
-
+	
+	/**
+	 * Helper method to return a list of iterable object
+	 * @param <T>
+	 * @param iterable
+	 * @return resultList
+	 */
+	
 	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();
 		for (T t : iterable) {
