@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
+import GroceryStore from '@/components/GroceryStore'
+import SignInCustomer from '@/components/SignInCustomer'
 
 Vue.use(Router)
 
@@ -10,6 +12,16 @@ export default new Router({
       path: '/',
       name: 'Hello',
       component: Hello
+    },
+    {
+      path: '/app',
+      name: 'GroceryStore',
+      component: GroceryStore
+    },
+    {
+      path: '/SignInCustomer',
+      name: 'signin',
+      component: SignInCustomer
     }
   ]
 })
