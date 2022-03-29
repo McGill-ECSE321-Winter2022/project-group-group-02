@@ -8,7 +8,6 @@
         <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
           <h2 class="mb-4">Login</h2>
           <form action="#" class="appointment">
-            <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
                   <div class="form-field">
@@ -16,7 +15,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="row-md-6">
                 <div class="form-group">
                   <input
                     type="text"
@@ -26,7 +25,7 @@
                   />
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="row-md-6">
                 <div class="form-group">
                   <input
                     type="password"
@@ -36,7 +35,7 @@
                   />
                 </div>
               </div>
-              <div class="col-md-12">
+              <div class="row-md-12">
                 <div class="form-group">
                   <h5 v-if="errorLogin" style="color: red; padding-top: 20px">
                     Error: {{ errorLogin }}
@@ -47,14 +46,13 @@
                 <div class="form-group">
                   <button
                     type="button"
-                    class="btn btn-dark py-3 px-4"
+                    class="btn btn-dark py-50 px-6"
                     v-bind:disabled="!username || !password"
                     @click="login(username, password)"
                   >
                     Login
                   </button>
                 </div>
-              </div>
             </div>
           </form>
           <br />

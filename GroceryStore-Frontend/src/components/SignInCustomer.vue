@@ -1,38 +1,83 @@
 <template>
-<div id="signin">
-     <h2>People</h2>
-    <table>
-      <tr>
-          <td>
-              <input type="email" placeholder="Customer email">
-          </td>
-      </tr>
-	  <tr>
-		  <td>
-              <input type="name" placeholder="Customer name">
-          </td>
-	  </tr>
-	  <tr>
-		  <td>
-              <input type="password" placeholder="Customer password">
-          </td>
-	  </tr>
-	  	  <tr>
-		  <td>
-              <input type="Address" placeholder="Customer address">
-          </td>
-	  </tr>
-	  	  <tr>
-		<td>
-              <button>Create</button>
-          </td>
-	  </tr>
-    </table>
-    <p>
-      <span style="color:red">Error: Message text comes here</span>
-    </p>   
-
-
+<div id="signincustomer">
+ <div class="overlay">
+	</div>
+    <div class="container">
+      <div class="row d-md-flex">
+        <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
+          <h2 class="mb-4">Customer Sign In</h2>
+          <form action="#" class="appointment">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="form-field">
+                    <div class="select-wrap"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row-md-6">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="email"
+                    placeholder="Email"
+                  />
+                </div>
+              </div>
+              <div class="row-md-6">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="name"
+                    placeholder="Name"
+                  />
+                </div>
+              </div>
+                        <div class="row-md-6">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="address"
+                    placeholder="Address"
+                  />
+                </div>
+              </div>
+              <div class="row-md-6">
+                <div class="form-group">
+                  <input
+                    type="password"
+                    class="form-control"
+                    v-model="password"
+                    placeholder="Password"
+                  />
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <h5 v-if="errorLogin" style="color: red; padding-top: 20px">
+                    Error: {{ errorLogin }}
+                  </h5>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <button
+                    type="button"
+                    class="btn btn-dark py-50 px-6"
+                    v-bind:disabled="!username || !password || !address || !name"
+                    @click="login(username, password)"
+                  >
+                    Sign In
+                  </button>
+              </div>
+            </div>
+          </form>
+          <br />
+        </div>
+      </div>
+    </div>
 </div>
 
 </template>
