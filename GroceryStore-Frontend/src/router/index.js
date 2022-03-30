@@ -7,6 +7,7 @@ import Login from '@/components/Login'
 import ViewCustomerOrders from '@/components/ViewCustomerOrders'
 import ChangeOrderStatus from '@/components/ChangeOrderStatus'
 import CreateItem from '@/components/CreateItem'
+import EmployeeManagement from '@/components/EmployeeManagement'
 
 Vue.use(Router)
 
@@ -43,20 +44,11 @@ export default new Router({
       name: 'changeorderstatus',
       component: ChangeOrderStatus
     },
+
     {
-      path: '/CreateItem',
-      name: 'createItem',
-      component: CreateItem
-    },
-    {
-      path: '/UpdateItem',
-      name: 'updateItem',
-      component: UpdateItem
-    },
-    {
-      path: '/DeleteItem',
-      name: 'deleteItem',
-      component: DeleteItem
+      path: '/EmployeeManagement',
+      name: 'employeeManagement',
+      component: EmployeeManagement
     }
   ]
 })
