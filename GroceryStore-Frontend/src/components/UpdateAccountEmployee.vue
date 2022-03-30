@@ -1,11 +1,11 @@
 <template>
-<div id="signincustomer">
+<div id="updateaccountemployee">
  <div class="overlay">
 	</div>
     <div class="container">
       <div class="row d-md-flex">
         <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
-          <h2 class="mb-4">Customer Sign In</h2>
+          <h2 class="mb-4">Update Account</h2>
           <form action="#" class="appointment">
               <div class="col-md-12">
                 <div class="form-group">
@@ -19,28 +19,8 @@
                   <input
                     type="text"
                     class="form-control"
-                    v-model="email"
-                    placeholder="Email"
-                  />
-                </div>
-              </div>
-              <div class="row-md-6">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
                     v-model="name"
                     placeholder="Name"
-                  />
-                </div>
-              </div>
-                        <div class="row-md-6">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="address"
-                    placeholder="Address"
                   />
                 </div>
               </div>
@@ -51,16 +31,6 @@
                     class="form-control"
                     v-model="password"
                     placeholder="Password"
-                  />
-                </div>
-              </div>
-                            <div class="row-md-6">
-                <div class="form-group">
-                  <input
-                    type="password"
-                    class="form-control"
-                    v-model="confirmPassword"
-                    placeholder="Confirm Password"
                   />
                 </div>
               </div>
@@ -76,10 +46,10 @@
                   <button
                     type="button"
                     class="btn btn-dark py-50 px-6"
-                    v-bind:disabled="!email || !password || !address || !confirmPassword || !name"
-                    @click="login(email, password, confirmPassword, name, address)"
+                    v-bind:disabled="!username || !password || !address || !name"
+                    @click="login(username, password)"
                   >
-                    Sign In
+                    Update
                   </button>
               </div>
             </div>
@@ -91,7 +61,8 @@
 </div>
 
 </template>
-<script src="./signin.js">
+<script>
+
 
 </script>
 <style>

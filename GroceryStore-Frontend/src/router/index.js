@@ -7,6 +7,9 @@ import Login from '@/components/Login'
 import ViewCustomerOrders from '@/components/ViewCustomerOrders'
 import ChangeOrderStatus from '@/components/ChangeOrderStatus'
 import CreateItem from '@/components/CreateItem'
+import UpdateCustomer from '@/components/UpdateAccountCustomer'
+import UpdateEmployee from '@/components/UpdateAccountEmployee'
+import UpdateAdmin from '@/components/UpdateAccountAdmin'
 
 Vue.use(Router)
 
@@ -31,6 +34,21 @@ export default new Router({
       path: '/Login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/UpdateAccountCustomer',
+      name: 'updateaccountcustomer',
+      component: UpdateCustomer
+    },
+    {
+      path: '/UpdateAccountEmployee',
+      name: 'updateaccountemployee',
+      component: UpdateEmployee
+    },
+    {
+      path: '/UpdateAccountAdmin',
+      name: 'updateaccountadmin',
+      component: UpdateAdmin
     },
     {
       path: '/ViewCustomerOrders',
