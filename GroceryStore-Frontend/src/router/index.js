@@ -10,6 +10,7 @@ import CreateItem from '@/components/CreateItem'
 import UpdateCustomer from '@/components/UpdateAccountCustomer'
 import UpdateEmployee from '@/components/UpdateAccountEmployee'
 import UpdateAdmin from '@/components/UpdateAccountAdmin'
+import EmployeeManagement from '@/components/EmployeeManagement'
 
 Vue.use(Router)
 
@@ -61,10 +62,11 @@ export default new Router({
       name: 'changeorderstatus',
       component: ChangeOrderStatus
     },
+
     {
-      path: '/CreateItem',
-      name: 'createItem',
-      component: CreateItem
+      path: '/EmployeeManagement',
+      name: 'employeeManagement',
+      component: EmployeeManagement
     }
   ]
 })
