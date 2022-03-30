@@ -4,6 +4,7 @@ import Hello from '@/components/Hello'
 import GroceryStore from '@/components/GroceryStore'
 import SignInCustomer from '@/components/SignInCustomer'
 import Login from '@/components/Login'
+import ViewCustomerOrders from '@/components/ViewCustomerOrders'
 
 Vue.use(Router)
 
@@ -24,11 +25,15 @@ export default new Router({
       name: 'signincustomer',
       component: SignInCustomer
     },
-    ,
     {
       path: '/Login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/ViewCustomerOrders',
+      name: 'viewCustomerOrders',
+      component: ViewCustomerOrders
     }
   ]
 })
