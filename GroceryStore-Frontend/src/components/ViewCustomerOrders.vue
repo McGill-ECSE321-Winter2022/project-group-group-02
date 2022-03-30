@@ -9,6 +9,7 @@
       <th>Status</th>
       <th>Items</th>
       <th>Subtotal</th>
+      <th>Rating</th>
       <th>Review</th>
 
     </tr>
@@ -19,7 +20,9 @@
       <td>Confirmed</td>
       <td>None</td>
       <td>$0</td>
+      <td>Very Poor</td>
       <td>Still hasn't arrived, this is too slow</td>
+      
 
     </tr>
      <tr>
@@ -29,14 +32,14 @@
       <td>Complete</td>
       <td>Pizza, Vegetables</td>
       <td>$32</td>
-      <td>
+      <td colspan="2">
         <button
                     type="button"
                     class="btn btn-dark py-50 px-6"
                     v-bind:disabled="false"
                     @click="null"
                   >
-                    Add Review
+                    Review order
         </button>
       </td>
 
