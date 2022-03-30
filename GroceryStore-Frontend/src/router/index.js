@@ -4,6 +4,7 @@ import Hello from '@/components/Hello'
 import GroceryStore from '@/components/GroceryStore'
 import SignInCustomer from '@/components/SignInCustomer'
 import Login from '@/components/Login'
+import ChangeOrderStatus from '@/components/ChangeOrderStatus'
 
 Vue.use(Router)
 
@@ -29,6 +30,12 @@ export default new Router({
       path: '/Login',
       name: 'login',
       component: Login
+    }
+    ,
+    {
+      path: '/ChangeOrderStatus',
+      name: 'changeorderstatus',
+      component: ChangeOrderStatus
     }
   ]
 })
