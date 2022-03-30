@@ -4,6 +4,7 @@ import Hello from '@/components/Hello'
 import GroceryStore from '@/components/GroceryStore'
 import SignInCustomer from '@/components/SignInCustomer'
 import Login from '@/components/Login'
+import ViewCustomerOrders from '@/components/ViewCustomerOrders'
 import ChangeOrderStatus from '@/components/ChangeOrderStatus'
 
 Vue.use(Router)
@@ -22,14 +23,18 @@ export default new Router({
     },
     {
       path: '/SignInCustomer',
-      name: 'signin',
+      name: 'signincustomer',
       component: SignInCustomer
     },
-    ,
     {
       path: '/Login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/ViewCustomerOrders',
+      name: 'viewCustomerOrders',
+      component: ViewCustomerOrders
     }
     ,
     {
