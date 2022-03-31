@@ -108,6 +108,11 @@ export default new Router({
       path: '/OwnerMenuu',
       name: 'ownermenu',
       component: OwnerMenu
+    },
+    {
+      path: '/ViewItemsOwner',
+      name: 'viewItemsOwner',
+      component: ViewItemsOwner
     }
   ]
   
