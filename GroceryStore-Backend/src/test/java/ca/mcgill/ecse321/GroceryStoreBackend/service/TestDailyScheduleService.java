@@ -73,7 +73,7 @@ public class TestDailyScheduleService {
 		DailySchedule dailySchedule = null;
 
 		try {
-			dailySchedule = dailyScheduleService.createDailySchedule(did, dayOfWeek, startTime, endTime);
+			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
 
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
@@ -96,7 +96,7 @@ public class TestDailyScheduleService {
 		Long did = 222L;
 
 		try {
-			dailySchedule = dailyScheduleService.createDailySchedule(did, dayOfWeek, startTime, endTime);
+			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
 
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -117,7 +117,7 @@ public class TestDailyScheduleService {
 		Long did = 222L;
 
 		try {
-			dailySchedule = dailyScheduleService.createDailySchedule(did, dayOfWeek, startTime, endTime);
+			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
 
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -139,7 +139,7 @@ public class TestDailyScheduleService {
 		Long did = 222L;
 
 		try {
-			dailySchedule = dailyScheduleService.createDailySchedule(did, dayOfWeek, startTime, endTime);
+			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
 
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -163,7 +163,7 @@ public class TestDailyScheduleService {
 		Long did = 289L;
 
 		try {
-			dailySchedule = dailyScheduleService.createDailySchedule(did,dayOfWeek, startTime, endTime);
+			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
 
     } catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -188,7 +188,7 @@ public class TestDailyScheduleService {
 		Long did = 222L;
 
 		try {
-			dailySchedule = dailyScheduleService.createDailySchedule(did, dayOfWeek, startTime, endTime);
+			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
 
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();

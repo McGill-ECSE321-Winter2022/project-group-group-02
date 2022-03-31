@@ -172,14 +172,14 @@ public class TestOrderItemService {
 		long itemId = 234L;
 		OrderItem orderItem = null;
 		try {
-			orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, ORDER_ID);
+			orderItem = orderItemService.createOrderItem(quantityOrder, name, ORDER_ID);
 
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 
 		assertNotNull(orderItem);
-		assertEquals(itemId, orderItem.getId());
+		//assertEquals(itemId, orderItem.getId());
 		assertEquals(quantityOrder, orderItem.getQuantity());
 		assertEquals(name, orderItem.getItem().getName());
 
@@ -200,7 +200,7 @@ public class TestOrderItemService {
 		OrderItem orderItem = null;
 		String error = null;
 		try {
-			orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, ORDER_ID);
+			orderItem = orderItemService.createOrderItem(quantityOrder, name, ORDER_ID);
 
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -221,7 +221,7 @@ public class TestOrderItemService {
 		OrderItem orderItem = null;
 		String error = null;
 		try {
-			orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, ORDER_ID);
+			orderItem = orderItemService.createOrderItem(quantityOrder, name, ORDER_ID);
 
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -247,7 +247,7 @@ public class TestOrderItemService {
 		Long fakeOrderId = 1L;
 		String error = null;
 		try {
-			orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, fakeOrderId);
+			orderItem = orderItemService.createOrderItem(quantityOrder, name, fakeOrderId);
 
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -383,7 +383,7 @@ public class TestOrderItemService {
 
 		int quantityOrder = 1;
 		long itemId = 234L;
-		OrderItem orderItem = orderItemService.createOrderItem(itemId, quantityOrder, name, ORDER_ID);
+		OrderItem orderItem = orderItemService.createOrderItem(quantityOrder, name, ORDER_ID);
 		lenient().when(orderItemRepo.findOrderItemById(itemId)).thenReturn(orderItem);
 
 		boolean deleted = false;

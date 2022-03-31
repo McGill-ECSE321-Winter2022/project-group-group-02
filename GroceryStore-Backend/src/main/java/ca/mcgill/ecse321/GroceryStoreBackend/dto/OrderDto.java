@@ -15,17 +15,19 @@ public class OrderDto {
 	private Time time;
 	private CustomerDto customer;
 	private List<OrderItemDto> orderItems;
+	private Long id;
 	
 	public OrderDto() {
 		}
 
-	public OrderDto(OrderType orderType, OrderStatus orderStatus, Date date, Time time, CustomerDto customer, List<OrderItemDto> orderItems) {
+	public OrderDto(OrderType orderType, OrderStatus orderStatus, Date date, Time time, CustomerDto customer, List<OrderItemDto> orderItems, Long orderID) {
 			this.orderType = orderType;
 			this.orderStatus = orderStatus;
 			this.date = date;
 			this.time = time;
 			this.customer = customer;
 			this.orderItems = orderItems;
+			this.id = orderID;
 		}
 
 	public OrderType getOrderType() {
@@ -50,6 +52,10 @@ public class OrderDto {
 	
 	public Date getDate() {
 		return date;
+	}
+	
+	public Long getId() {
+	  return id;
 	}
 	
 	public Time getTime() {

@@ -54,7 +54,7 @@ public class TestOrderItemPersistence {
 		shoppableItem.setQuantityAvailable(quantityAvailable);
 		
 		// Save the created ShoppableItem instance
-		shoppableItemRepository.save(shoppableItem);
+		ShoppableItem newshopItem = shoppableItemRepository.save(shoppableItem);
 
 		// Creation of an OrderItem instance with test attributes
 		//Long orderItemId = (long) 1234;

@@ -61,14 +61,14 @@ public class OrderItemController {
 	 */
 	@PostMapping(value = { "/create_order_item", "/create_order_item/" })
 	public ResponseEntity<?> createOrderItem(@RequestParam("quantity") int quantity,
-			@RequestParam("itemName") String itemName, @RequestParam("orderItemId") Long orderItemId,
+			@RequestParam("itemName") String itemName,
 			@RequestParam("orderId") Long orderId) {
 
 		OrderItem orderItem = null;
 
 		try {
-			orderItem = orderItemService.createOrderItem(orderItemId, quantity, itemName, orderId);
-			orderService.addItemsToOrder(orderId, orderItemId);
+			orderItem = orderItemService.createOrderItem(quantity, itemName, orderId);
+			orderService.addItemsToOrder(orderId, orderItem.getId());
 		} catch (IllegalArgumentException exception) {
 			return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -129,6 +129,6 @@ public class OrderItemController {
 
 		ShoppableItemDto itemDto = ShoppableItemController.convertToDTO(orderItem.getItem());
 
-		return new OrderItemDto(orderItem.getQuantity(), itemDto);
+		return new OrderItemDto(orderItem.getQuantity(), itemDto, orderItem.getId());
 	}
 }

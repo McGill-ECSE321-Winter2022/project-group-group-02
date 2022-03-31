@@ -34,7 +34,7 @@ public class OrderItemService {
 	 * @author Karl Rouhana
 	 */
 	@Transactional
-	public OrderItem createOrderItem(Long orderItemId, int quantity, String itemName, Long orderId)
+	public OrderItem createOrderItem(int quantity, String itemName, Long orderId)
 			throws IllegalArgumentException {
 
 		Order order = orderRepo.findOrderById(orderId);
@@ -49,17 +49,17 @@ public class OrderItemService {
 		if (item == null)
 			throw new IllegalArgumentException("Please enter a valid item. ");
 
-		if (orderItemRepo.existsById(orderItemId) == true)
-			throw new IllegalArgumentException("This ID is being used. ");
+//		if (orderItemRepo.existsById(orderItemId) == true)
+//			throw new IllegalArgumentException("This ID is being used. ");
 
 		OrderItem orderItem = new OrderItem();
 		orderItem.setQuantity(quantity);
 		orderItem.setItem(item);
-		orderItem.setId(orderItemId);
+		//orderItem.setId(orderItemId);
 
-		orderItemRepo.save(orderItem);
+		OrderItem newOrderItem = orderItemRepo.save(orderItem);
 
-		return orderItem;
+		return newOrderItem;
 
 	}
 

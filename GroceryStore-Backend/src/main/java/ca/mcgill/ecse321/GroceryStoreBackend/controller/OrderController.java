@@ -77,14 +77,14 @@ public class OrderController {
 	 */
 	@PostMapping(value = { "/create_order", "/create_order/" })
 	public ResponseEntity<?> createOrder(@RequestParam("orderType") String orderType,
-			@RequestParam("email") String email, @RequestParam("orderId") Long orderId) {
+			@RequestParam("email") String email) {
 
 
 		Order order = null;
 
 		try {
 			order = orderService.createOrder(orderType, OrderStatus.Confirmed, Date.valueOf(LocalDate.now()),
-					Time.valueOf(LocalTime.now()), email, orderId);
+					Time.valueOf(LocalTime.now()), email);
 		} catch (IllegalArgumentException exception) {
 			return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -135,7 +135,7 @@ public class OrderController {
 		}
 
 		return new OrderDto(order.getOrderType(), order.getOrderStatus(), order.getDate(), order.getTime(), customerDTO,
-				orderItemDto);
+				orderItemDto, order.getId());
 	}
 
 }

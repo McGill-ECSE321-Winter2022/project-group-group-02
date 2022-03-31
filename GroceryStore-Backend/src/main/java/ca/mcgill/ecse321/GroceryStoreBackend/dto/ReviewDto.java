@@ -13,16 +13,18 @@ public class ReviewDto {
 
   private CustomerDto customer;
   private OrderDto order;
+  private Long id;
 
   public ReviewDto() {
     
   }
 
-  public ReviewDto(Rating aRating, String aDescription, CustomerDto aCustomer, OrderDto aOrder) {
+  public ReviewDto(Rating aRating, String aDescription, CustomerDto aCustomer, OrderDto aOrder, Long id) {
       this.rating = aRating;
       this.description = aDescription;
       this.customer = aCustomer;
       this.order = aOrder;
+      this.id = id;
   }
 
   public Rating getRating(){
@@ -40,6 +42,10 @@ public class ReviewDto {
   
   public OrderDto getOrder() {
     return order;
+  }
+  
+  public Long getId() {
+    return id;
   }
   
   public void setOrder(OrderDto order) {

@@ -43,8 +43,8 @@ public class OrderService {
 	 * @author Karl Rouhana
 	 */
 	@Transactional
-	public Order createOrder(String aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, String email,
-			Long orderId) throws IllegalArgumentException {
+	public Order createOrder(String aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, String email) 
+	    throws IllegalArgumentException {
 
 		if (aOrderType == null ||aOrderType.equals("") )
 			throw new IllegalArgumentException("Please enter a valid order type. ");
@@ -59,14 +59,13 @@ public class OrderService {
 		if (aCustomer == null)
 			throw new IllegalArgumentException("Please enter a valid customer. ");
 
-		Order order = orderRepo.findOrderById(orderId);
-		if (order != null)
-			throw new IllegalArgumentException("Order with ID already exists.");
+//		Order order = orderRepo.findOrderById(orderId);
+//		if (order != null)
+//			throw new IllegalArgumentException("Order with ID already exists.");
 
-		order = new Order(convertOrderType(aOrderType), aOrderStatus, aDate, aTime, aCustomer);
-		order.setId(orderId);
-		orderRepo.save(order);
-		return order;
+		Order order = new Order(convertOrderType(aOrderType), aOrderStatus, aDate, aTime, aCustomer);
+		Order newOrder = orderRepo.save(order);
+		return newOrder;
 
 	}
 
@@ -121,6 +120,10 @@ public class OrderService {
 			throw new IllegalArgumentException("Please enter a valid order. ");
 
 		added = order.addOrderItem(item);
+		
+		item.getItem().setQuantityAvailable(
+            item.getItem().getQuantityAvailable() - item.getQuantity()
+            );
 
 		return added;
 
@@ -149,6 +152,10 @@ public class OrderService {
 
 		removed = order.removeOrderItem(item);
 
+		item.getItem().setQuantityAvailable(
+            item.getItem().getQuantityAvailable() + item.getQuantity()
+            );
+		
 		return removed;
 
 	}
@@ -174,6 +181,10 @@ public class OrderService {
 
 			for (OrderItem item : listOfItems) {
 
+			  item.getItem().setQuantityAvailable(
+	                item.getItem().getQuantityAvailable() + item.getQuantity()
+	                );
+			  
 				orderItemRepo.delete(item);
 			}
 

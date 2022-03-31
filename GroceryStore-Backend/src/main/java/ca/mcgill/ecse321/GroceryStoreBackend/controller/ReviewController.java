@@ -43,7 +43,7 @@ public class ReviewController {
 
 		Review review = null;
 		try {
-			review = reviewService.createReview(rating, description, customerEmail, orderId, reviewId);
+			review = reviewService.createReview(rating, description, customerEmail, orderId);
 		} catch (IllegalArgumentException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -134,7 +134,7 @@ public class ReviewController {
 			throw new IllegalArgumentException("Review not found.");
 
 		return new ReviewDto(review.getRating(), review.getDescription(),
-				CustomerController.convertToDto(review.getCustomer()), OrderController.convertToDTO(review.getOrder()));
+				CustomerController.convertToDto(review.getCustomer()), OrderController.convertToDTO(review.getOrder()), review.getId());
 
 	}
 

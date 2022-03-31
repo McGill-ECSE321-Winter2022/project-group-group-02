@@ -60,14 +60,14 @@ public class DailyScheduleController {
      * @return DailyScheduleDto
      */
 	@PostMapping(value = { "/create_dailyschedule" })
-	public ResponseEntity<?> createDailySchedule(@RequestParam("DailyScheduleId") Long DailyScheduleId,
-			@RequestParam("Dayofweek") DayOfWeek dayOfWeek, @RequestParam("startTime") String startTime,
+	public ResponseEntity<?> createDailySchedule(@RequestParam("Dayofweek") DayOfWeek dayOfWeek,
+	    @RequestParam("startTime") String startTime,
 			@RequestParam("endTime") String endTime) {
 
 		DailySchedule dailySchedule = null;
 
 		try {
-			dailySchedule = dailyScheduleService.createDailySchedule(DailyScheduleId, dayOfWeek,
+			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek,
 					Time.valueOf(startTime), Time.valueOf(endTime));
 		} catch (IllegalArgumentException exception) {
 			return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -123,7 +123,7 @@ public class DailyScheduleController {
 			throw new IllegalArgumentException("Daily schedule not found.");
 
 		DailyScheduleDto dailyScheduleDto = new DailyScheduleDto(dailySchedule.getDayOfWeek(),
-				dailySchedule.getStartTime(), dailySchedule.getEndTime());
+				dailySchedule.getStartTime(), dailySchedule.getEndTime(), dailySchedule.getId());
 		return dailyScheduleDto;
 
 	}

@@ -40,7 +40,7 @@ public class ReviewService {
      * @return Review
      */
 	@Transactional
-	public Review createReview(Rating aRating, String aDescription, String customerEmail, Long orderId, Long reviewId) {
+	public Review createReview(Rating aRating, String aDescription, String customerEmail, Long orderId) {
 
 		if (aDescription == null) {
 			throw new IllegalArgumentException("Description cannot be null");
@@ -69,19 +69,19 @@ public class ReviewService {
 			throw new IllegalArgumentException("Review already exists for this order");
 		}
 
-		review = reviewRepository.findReviewById(reviewId);
-		if (review != null) {
-			throw new IllegalArgumentException("Review with this id already exists");
-		}
+//		review = reviewRepository.findReviewById(reviewId);
+//		if (review != null) {
+//			throw new IllegalArgumentException("Review with this id already exists");
+//		}
 
 		review = new Review();
 		review.setOrder(order);
 		review.setCustomer(customer);
 		review.setDescription(aDescription);
 		review.setRating(aRating);
-		review.setId(reviewId);
-		reviewRepository.save(review);
-		return review;
+		//review.setId(reviewId);
+		Review newReview = reviewRepository.save(review);
+		return newReview;
 	}
 
 	

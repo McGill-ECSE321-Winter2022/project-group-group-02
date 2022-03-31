@@ -28,13 +28,13 @@ public class DailyScheduleService {
      * @return dailySchedule
      */
 	@Transactional
-	public DailySchedule createDailySchedule(Long id, DayOfWeek dayOfWeek, Time startTime, Time endTime) {
+	public DailySchedule createDailySchedule(DayOfWeek dayOfWeek, Time startTime, Time endTime) {
          
 		//check the uniqueness of id
-		DailySchedule dailyschedulee = dailyScheduleRepository.findDailyScheduleById(id);
-
-		if (dailyschedulee != null)
-			throw new IllegalArgumentException("Daily Schedule with the same id already exists.");
+//		DailySchedule dailyschedulee = dailyScheduleRepository.findDailyScheduleById(id);
+//
+//		if (dailyschedulee != null)
+//			throw new IllegalArgumentException("Daily Schedule with the same id already exists.");
 		
 		//check if all the inputs are valid
 		if (dayOfWeek == null)
@@ -55,11 +55,11 @@ public class DailyScheduleService {
 		//create dailyschedule
 		DailySchedule dailySchedule = new DailySchedule();
 		dailySchedule.setDayOfWeek(dayOfWeek);
-		dailySchedule.setId(id);
+		//dailySchedule.setId(id);
 		dailySchedule.setStartTime(startTime);
 		dailySchedule.setEndTime(endTime);
-		dailyScheduleRepository.save(dailySchedule);
-		return dailySchedule;
+		DailySchedule newSchedule = dailyScheduleRepository.save(dailySchedule);
+		return newSchedule;
        
     }
 

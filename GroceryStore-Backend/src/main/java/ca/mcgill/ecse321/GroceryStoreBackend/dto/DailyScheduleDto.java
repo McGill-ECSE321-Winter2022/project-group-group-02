@@ -9,14 +9,16 @@ public class DailyScheduleDto {
 	private DayOfWeek dayOfWeek;
 	private Time startTime;
 	private Time endTime;
+	private Long id;
 
 	public DailyScheduleDto() {
 	}
 
-	public DailyScheduleDto(DayOfWeek dayOfWeek, Time startTime, Time endTime) {
+	public DailyScheduleDto(DayOfWeek dayOfWeek, Time startTime, Time endTime, Long id) {
 		this.dayOfWeek = dayOfWeek;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		this.id = id;
 	}
 
 	public Time getEndTime() {
@@ -29,6 +31,10 @@ public class DailyScheduleDto {
 
 	public DayOfWeek getDayOfWeek() {
 		return dayOfWeek;
+	}
+	
+	public Long getId() {
+	  return id;
 	}
 
 }

@@ -220,7 +220,7 @@ public class TestOrderService {
 		Order order = null;
 
 		try {
-			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email, orderId);
+			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email);
 
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -231,7 +231,6 @@ public class TestOrderService {
 		assertEquals(time, order.getTime());
 		assertEquals(date, order.getDate());
 		assertEquals(customer, order.getCustomer());
-		assertEquals(orderId, order.getId());
 
 	}
 
@@ -250,7 +249,7 @@ public class TestOrderService {
 		String error = null;
 
 		try {
-			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email, orderId);
+			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email);
 
 		} catch (IllegalArgumentException e) {
 
@@ -282,7 +281,7 @@ public class TestOrderService {
 		String error = null;
 
 		try {
-			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email, orderId);
+			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email);
 
 		} catch (IllegalArgumentException e) {
 
@@ -314,7 +313,7 @@ public class TestOrderService {
 		String error = null;
 
 		try {
-			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email, orderId);
+			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email);
 
 		} catch (IllegalArgumentException e) {
 
@@ -346,7 +345,7 @@ public class TestOrderService {
 		String error = null;
 
 		try {
-			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email, orderId);
+			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email);
 
 		} catch (IllegalArgumentException e) {
 
@@ -378,7 +377,7 @@ public class TestOrderService {
 		String error = null;
 
 		try {
-			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email, orderId);
+			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email);
 
 		} catch (IllegalArgumentException e) {
 
@@ -389,34 +388,34 @@ public class TestOrderService {
 
 	}
 
-	@Test
-	public void testCreateOrderWithOrderIdAlreadyTaken() {
-		String name = "Karl";
-		String password = "passwordTest1";
-		String email = "karl@localTown.com";
-		String address = "1325 Depaneur Pa Kiwi";
-
-		Customer customer = customerService.createCustomer(email, password, name, address);
-		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
-
-		String aOrderType ="PickUp";
-		OrderStatus aOrderStatus = OrderStatus.Ready;
-		Date date = Date.valueOf("2022-05-10");
-		Time time = Time.valueOf("08:54:00");
-
-		Order order = null;
-		String error = null;
-		try {
-			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email, ORDER_ID);
-
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-
-		}
-		assertNull(order);
-		assertEquals(error, "Order with ID already exists.");
-
-	}
+//	@Test
+//	public void testCreateOrderWithOrderIdAlreadyTaken() {
+//		String name = "Karl";
+//		String password = "passwordTest1";
+//		String email = "karl@localTown.com";
+//		String address = "1325 Depaneur Pa Kiwi";
+//
+//		Customer customer = customerService.createCustomer(email, password, name, address);
+//		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
+//
+//		String aOrderType ="PickUp";
+//		OrderStatus aOrderStatus = OrderStatus.Ready;
+//		Date date = Date.valueOf("2022-05-10");
+//		Time time = Time.valueOf("08:54:00");
+//
+//		Order order = null;
+//		String error = null;
+//		try {
+//			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email);
+//
+//		} catch (IllegalArgumentException e) {
+//			error = e.getMessage();
+//
+//		}
+//		assertNull(order);
+//		assertEquals(error, "Order with ID already exists.");
+//
+//	}
 
 	// -----------------------------------------------------------------------------------------------------------------------------------//
 
@@ -655,7 +654,7 @@ public class TestOrderService {
 		Time time = Time.valueOf("08:00:00");
 
 		Order order = null;
-		order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email, orderId);
+		order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email);
 		lenient().when(orderRepo.findOrderById(orderId)).thenReturn(order);
 
 		boolean deleted = false;
