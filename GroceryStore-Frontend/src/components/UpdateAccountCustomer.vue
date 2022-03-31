@@ -44,6 +44,16 @@
                   />
                 </div>
               </div>
+                            <div class="row-md-6">
+                <div class="form-group">
+                  <input
+                    type="password"
+                    class="form-control"
+                    v-model="confirmPassword"
+                    placeholder="Confirm Password"
+                  />
+                </div>
+              </div>
               <div class="col-md-12">
                 <div class="form-group">
                   <h5 v-if="errorLogin" style="color: red; padding-top: 20px">
@@ -56,8 +66,8 @@
                   <button
                     type="button"
                     class="btn btn-dark py-50 px-6"
-                    v-bind:disabled="!username || !password || !address || !name"
-                    @click="login(username, password)"
+                    v-bind:disabled="!password || !address || !name || !confirmPassword"
+                    @click="updatecustomer(email, password, confirmPassword, name, address)"
                   >
                     Update
                   </button>
@@ -71,9 +81,7 @@
 </div>
 
 </template>
-<script>
-
-
+<script src="./js/updatecustomer.js">
 </script>
 <style>
 </style>

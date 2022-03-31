@@ -1,5 +1,5 @@
  <template>
-  <div id="emoloyeemenu">
+  <div id="customermenu">
     <div class="overlay"></div>
     <div class="container">
       <div class="col-md-12">
@@ -15,7 +15,7 @@
           type="button"
           class="block"
           @click="login(email, password, confirmPassword, name, address)"
-        >Manage Orders</button>
+        >Browse</button>
       </div>
       <br />
       <div class="col-md-12">
@@ -23,7 +23,7 @@
           type="button"
           class="block"
           @click="login(email, password, confirmPassword, name, address)"
-        >Add Items</button>
+        >View Orders</button>
       </div>
       <br />
     </div>

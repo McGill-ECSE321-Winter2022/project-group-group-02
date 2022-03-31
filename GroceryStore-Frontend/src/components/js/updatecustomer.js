@@ -7,7 +7,7 @@ function CustomerDto(email, name, password, confirmPassword, address) {
 }
 
 export default {
-	name: 'signin',
+	name: 'updatecustomer',
 	data() {
 		return {
 			email: '',
@@ -17,11 +17,11 @@ export default {
 		}
 	},
 	methods: {
-		signin: function (email, password, confirmPassword, name, address) {
+		updatecustomer: function (email, password, confirmPassword, name, address) {
 			if (password != confirmPassword) {
 				swal("ERROR", "Passwords do not match.", "error");
 			} else {
-				AXIOS.post('/create_customer/', {}, {
+				AXIOS.post('/update_customer/', {}, {
 					params: {
 						email: email,
 						address: address,
@@ -36,7 +36,7 @@ export default {
 								this.address = '',
 								this.names = '',
 								this.email = '',
-							swal("Success", "Account created successfully!", "success");
+							swal("Success", "Information updated successfully!", "success");
 						}
 					})
 					.catch(e => {

@@ -6,7 +6,6 @@ import SignInCustomer from '@/components/SignInCustomer'
 import Login from '@/components/Login'
 import ViewCustomerOrders from '@/components/ViewCustomerOrders'
 import ChangeOrderStatus from '@/components/ChangeOrderStatus'
-import CreateItem from '@/components/CreateItem'
 import UpdateCustomer from '@/components/UpdateAccountCustomer'
 import UpdateEmployee from '@/components/UpdateAccountEmployee'
 import UpdateAdmin from '@/components/UpdateAccountAdmin'
@@ -14,6 +13,11 @@ import EmployeeManagement from '@/components/EmployeeManagement'
 import ManageStoreInfo from '@/components/ManageStoreInfo'
 import DeleteDailySchedule from '@/components/DeleteDailySchedule'
 import AddDailySchedule from '@/components/AddDailySchedule'
+import CustomerMenu from '@/components/CustomerMenu'
+import OwnerMenu from '@/components/OwnerMenu'
+import EmployeeMenu from '@/components/EmployeeMenu'
+
+
 
 Vue.use(Router)
 
@@ -79,6 +83,12 @@ export default new Router({
     },
 
     {
+      path: '/CustomerMenu',
+      name: 'customermenu',
+      component: CustomerMenu
+    },
+
+    {
       path: '/DeleteDailySchedule',
       name: 'deleteDailySchedule',
       component: DeleteDailySchedule
@@ -88,6 +98,16 @@ export default new Router({
       path: '/AddDailySchedule',
       name: 'addDailySchedule',
       component: AddDailySchedule
+    },
+     {
+      path: '/EmployeeMenu',
+      name: 'employeemenu',
+      component: EmployeeMenu
+    },
+     {
+      path: '/OwnerMenuu',
+      name: 'ownermenu',
+      component: OwnerMenu
     }
   ]
   

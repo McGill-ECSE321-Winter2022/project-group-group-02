@@ -1,5 +1,5 @@
  <template>
-  <div id="emoloyeemenu">
+  <div id="ownermenu">
     <div class="overlay"></div>
     <div class="container">
       <div class="col-md-12">
@@ -24,6 +24,22 @@
           class="block"
           @click="login(email, password, confirmPassword, name, address)"
         >Add Items</button>
+      </div>
+      <br />
+	        <div class="col-md-12">
+        <button
+          type="button"
+          class="block"
+          @click="login(email, password, confirmPassword, name, address)"
+        >Manage Employees</button>
+      </div>
+      <br />
+	  	        <div class="col-md-12">
+        <button
+          type="button"
+          class="block"
+          @click="login(email, password, confirmPassword, name, address)"
+        >Manage Schedules</button>
       </div>
       <br />
     </div>

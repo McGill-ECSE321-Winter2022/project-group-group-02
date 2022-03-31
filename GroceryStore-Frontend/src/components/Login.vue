@@ -20,8 +20,8 @@
                   <input
                     type="text"
                     class="form-control"
-                    v-model="username"
-                    placeholder="Username"
+                    v-model="email"
+                    placeholder="Email"
                   />
                 </div>
               </div>
@@ -47,8 +47,8 @@
                   <button
                     type="button"
                     class="btn btn-dark py-50 px-6"
-                    v-bind:disabled="!username || !password"
-                    @click="login(username, password)"
+                    v-bind:disabled="!email || !password"
+                    @click="login(email, password)"
                   >
                     Login
                   </button>
@@ -63,8 +63,7 @@
 </div>
 </template>
 
-<script>
-
+<script src="./js/login.js">
 
 </script>
 <style>

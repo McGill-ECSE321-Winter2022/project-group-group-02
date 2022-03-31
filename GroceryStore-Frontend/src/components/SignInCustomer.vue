@@ -91,7 +91,7 @@
 </div>
 
 </template>
-<script src="./signin.js">
+<script src="./js/signin.js">
 
 </script>
 <style>
