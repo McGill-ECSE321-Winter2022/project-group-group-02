@@ -34,8 +34,8 @@ export default {
         orderStatus: '',
         review: '',
         rating: '',
-        subtotal: '',
-        customerEmail: '',
+        subtotal: '$0',
+        customerEmail: 'Jeff@me',
         errorReview: '',
         items: [],
         orders: [],
@@ -43,42 +43,42 @@ export default {
       }
     },
     created: function () {
-        // // Test data
-        // const o1 = new OrderDto('12 March', '12:43', 'Delivery', 'Complete', 'Good', 'Arrived on time', 0)
-        // const o2 = new OrderDto('2 April', '4:22', 'Pickup', 'Preparing', 'Okay', 'Could be faster', 1)
-        // // Sample initial content
-        // this.orders = [o1, o2]
+        // Test data
+        const o1 = new OrderDto('12 March', '12:43', 'Delivery', 'Complete', 'Good', 'Arrived on time', 0)
+        const o2 = new OrderDto('2 April', '4:22', 'Pickup', 'Preparing', 'Okay', 'Could be faster', 1)
+        // Sample initial content
+        this.orders = [o1, o2]
 
-      AXIOS.get('/view_all_orders_for_customer', {
-        params: {
-          customerEmail: this.customerEmail
-        }
-      })
-        .then(response => {
+      // AXIOS.get('/view_all_orders_for_customer', {
+      //   params: {
+      //     email: this.customerEmail
+      //   }
+      // })
+      //   .then(response => {
       
-          // JSON responses are automatically parsed.
-          this.orders = response.data
-        })
-        .catch(e => {
-          this.errorOrder = e
-        })
+      //     // JSON responses are automatically parsed.
+      //     this.orders = response.data
+      //   })
+      //   .catch(e => {
+      //     this.errorOrder = e
+      //   })
 
       
 
-      AXIOS.get('/view_reviews_for_customer', {
-          params: {
-            customerEmail: customerEmail
-          }
-        })
-        .then(response => {
+      // AXIOS.get('/view_reviews_for_customer', {
+      //     params: {
+      //       customerEmail: this.customerEmail
+      //     }
+      //   })
+      //   .then(response => {
       
-          // JSON responses are automatically parsed.
-          this.reviews = response.data
+      //     // JSON responses are automatically parsed.
+      //     this.reviews = response.data
           
-        })
-        .catch(e => {
-          this.errorReview = e
-        })
+      //   })
+      //   .catch(e => {
+      //     this.errorReview = e
+      //   })
       },
 
       

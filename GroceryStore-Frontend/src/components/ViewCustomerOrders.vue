@@ -11,6 +11,7 @@
       <th>Subtotal</th>
       <th>Rating</th>
       <th>Review</th>
+      
 
     </tr>
     <tr v-for="order in orders" :key=order.date>
@@ -20,8 +21,38 @@
       <td>{{ order.orderStatus }}</td>
       <td>{{ order.items }}</td>
       <td>{{ order.subtotal }}</td>
-      <td>{{ order.rating }}</td>
-      <td>{{ order.review }}</td>      
+      <!-- <td>{{ order.rating }}</td>
+      <td>{{ order.review }}</td>       -->
+      <td>
+        <select class="form-control" @change="null">
+          <option disabled value="">Please Select</option>
+          <option>Very Poor</option>
+          <option>Poor</option>
+          <option>Okay</option>
+          <option>Good</option>
+          <option>Very Good</option>
+        </select>  
+      </td>
+      <td>
+        <input
+                    type="text"
+                    class="form-control"
+                    v-model="order.review"
+                    placeholder="Insert review"
+                  />
+      </td>
+
+
+      <td>
+        <button
+                    type="button"
+                    class="btn btn-dark py-50 px-6"
+                    
+                    @click="null"
+                  >
+                    Change review
+        </button>
+      </td>
 
     </tr>
      <!-- <tr>
