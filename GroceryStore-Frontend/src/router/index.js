@@ -16,6 +16,7 @@ import AddDailySchedule from '@/components/AddDailySchedule'
 import CustomerMenu from '@/components/CustomerMenu'
 import OwnerMenu from '@/components/OwnerMenu'
 import EmployeeMenu from '@/components/EmployeeMenu'
+import ViewItemsOwner from '@/components/ViewItemsOwner'
 
 
 

@@ -125,6 +125,7 @@
 
 
 		</table>
+		<div id="addItem">
 		<div class = "center">
 			<div class = "overplay">
 			</div>
@@ -194,6 +195,7 @@
 				</div>
 			</div>
 		</div>
+		</div>
 
 	</div>
 
@@ -214,5 +216,13 @@
   th, td {
     border: 1px solid black;
     padding: 10px;
+}
+#addItem {
+	width: 140%;
+    margin-left: auto;
+    margin-right: auto;
+    
+    text-align: center;
+    padding: 5px;
 }
 </style>
