@@ -35,9 +35,11 @@ export default {
         review: '',
         rating: '',
         subtotal: '',
-        errorOrder: '',
+        customerEmail: '',
+        errorReview: '',
         items: [],
-        orders: []
+        orders: [],
+        reviews:[]
       }
     },
     created: function () {
@@ -47,7 +49,11 @@ export default {
         // // Sample initial content
         // this.orders = [o1, o2]
 
-      AXIOS.get('/view_all_orders')
+      AXIOS.get('/view_all_orders_for_customer', {
+        params: {
+          customerEmail: this.customerEmail
+        }
+      })
         .then(response => {
       
           // JSON responses are automatically parsed.
@@ -57,7 +63,25 @@ export default {
           this.errorOrder = e
         })
 
+      
+
+      AXIOS.get('/view_reviews_for_customer', {
+          params: {
+            customerEmail: customerEmail
+          }
+        })
+        .then(response => {
+      
+          // JSON responses are automatically parsed.
+          this.reviews = response.data
+          
+        })
+        .catch(e => {
+          this.errorReview = e
+        })
       },
+
+      
     
     methods: {
         createOrder: function (date, time, orderType, orderStatus, rating, review) {
