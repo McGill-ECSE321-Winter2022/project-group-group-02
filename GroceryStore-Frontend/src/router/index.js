@@ -11,6 +11,9 @@ import UpdateCustomer from '@/components/UpdateAccountCustomer'
 import UpdateEmployee from '@/components/UpdateAccountEmployee'
 import UpdateAdmin from '@/components/UpdateAccountAdmin'
 import EmployeeManagement from '@/components/EmployeeManagement'
+import ManageStoreInfo from '@/components/ManageStoreInfo'
+import DeleteDailySchedule from '@/components/DeleteDailySchedule'
+import AddDailySchedule from '@/components/AddDailySchedule'
 
 Vue.use(Router)
 
@@ -67,6 +70,25 @@ export default new Router({
       path: '/EmployeeManagement',
       name: 'employeeManagement',
       component: EmployeeManagement
+    },
+
+    {
+      path: '/ManageStoreInfo',
+      name: 'manageStoreInfo',
+      component: ManageStoreInfo
+    },
+
+    {
+      path: '/DeleteDailySchedule',
+      name: 'deleteDailySchedule',
+      component: DeleteDailySchedule
+    },
+
+    {
+      path: '/AddDailySchedule',
+      name: 'addDailySchedule',
+      component: AddDailySchedule
     }
   ]
+  
 })
