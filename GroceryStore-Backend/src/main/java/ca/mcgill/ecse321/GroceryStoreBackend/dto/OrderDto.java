@@ -36,6 +36,18 @@ public class OrderDto {
 		return orderStatus;
 	}
 	
+	public Double getSubtotal() {
+	  
+	  Double subtotal = (double) 0;
+	  
+	  for(OrderItemDto orderItem : orderItems) {
+	    
+	    subtotal += orderItem.getQuantity() * orderItem.getShoppableItem().getPrice();
+	  }
+	  
+	  return subtotal;
+	}
+	
 	public Date getDate() {
 		return date;
 	}
