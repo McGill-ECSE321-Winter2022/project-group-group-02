@@ -57,21 +57,21 @@ public class TestOrderItemPersistence {
 		shoppableItemRepository.save(shoppableItem);
 
 		// Creation of an OrderItem instance with test attributes
-		Long orderItemId = (long) 1234;
+		//Long orderItemId = (long) 1234;
 		int quantityWanted = 2;
 		OrderItem orderItem = new OrderItem();
 		orderItem.setQuantity(quantityWanted);
-		orderItem.setId(orderItemId);
+		//orderItem.setId(orderItemId);
 
 		// Set the ShoppableItem attribute of orderItem, because of the many-to-one association
 		orderItem.setItem(shoppableItem);
 
 		// Save the created OrderItem instance
-		orderItemRepository.save(orderItem);
+		OrderItem newItem = orderItemRepository.save(orderItem);
 
 		// Set the variable to null, and then try retrieving the saved instance using its id
 		orderItem = null;
-		orderItem = orderItemRepository.findOrderItemById(orderItemId);
+		orderItem = orderItemRepository.findOrderItemById(newItem.getId());
 		
 		// Determine whether the instance is null, if the attribute quantity matches, and if the reference to ShoppableItem matches
 		assertNotNull(orderItem);

@@ -95,6 +95,7 @@ public class Order {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	public Long getId() {
 		return id;
 	}

@@ -45,6 +45,7 @@ public class OrderItem {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	public Long getId() {
 		return id;
 	}

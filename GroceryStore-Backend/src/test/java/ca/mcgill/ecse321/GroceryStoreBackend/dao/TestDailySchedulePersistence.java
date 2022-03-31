@@ -39,19 +39,19 @@ public class TestDailySchedulePersistence {
 		DayOfWeek dayOfWeek = DayOfWeek.Monday;
 		Time startTime = Time.valueOf("08:00:00");
 		Time endTime = Time.valueOf("20:00:00");
-		Long id = (long) 321;
+		//Long id = (long) 321;
 		DailySchedule dailySchedule = new DailySchedule();
 		dailySchedule.setDayOfWeek(dayOfWeek);
 		dailySchedule.setStartTime(startTime);
 		dailySchedule.setEndTime(endTime);
-		dailySchedule.setId(id);
+		//dailySchedule.setId(id);
 
 		// Save the created instance
-		DailyScheduleRepository.save(dailySchedule);
+		DailySchedule newSchedule = DailyScheduleRepository.save(dailySchedule);
 
 		// Set the variable to null, and then try retrieving the saved instance using its id
 		dailySchedule = null;
-		dailySchedule = DailyScheduleRepository.findDailyScheduleById(id);
+		dailySchedule = DailyScheduleRepository.findDailyScheduleById(newSchedule.getId());
 
 		// Determine whether the instance is null and if the attribute dayOfWeek matches.
 		assertNotNull(dailySchedule);

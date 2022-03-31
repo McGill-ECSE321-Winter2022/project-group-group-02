@@ -65,6 +65,7 @@ public class DailySchedule {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	public Long getId() {
 		return this.id;
 	}

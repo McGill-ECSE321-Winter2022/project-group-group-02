@@ -76,18 +76,18 @@ public class TestOrderPersistence {
 		shoppableItemRepository.save(shoppableItem);
 
 		// Creation of an OrderItem instance with test attributes
-		Long orderItemId = (long) 1234;
+		//Long orderItemId = (long) 1234;
 		int quantityWanted = 2;
 		OrderItem orderItem = new OrderItem();
 		orderItem.setQuantity(quantityWanted);
 		orderItem.setItem(shoppableItem);
-		orderItem.setId(orderItemId);
+		//orderItem.setId(orderItemId);
 		
 		// Save the created OrderItem instance
-		orderItemRepository.save(orderItem);
+		OrderItem newItem = orderItemRepository.save(orderItem);
 
 		// Creation of an Order instance with test attributes
-		Long orderId = (long) 1234;
+		//Long orderId = (long) 1234;
 		OrderType orderType = OrderType.Delivery;
 		OrderStatus orderStatus = OrderStatus.Confirmed;
 		Date date = new Date(0);
@@ -97,18 +97,18 @@ public class TestOrderPersistence {
 		order.setOrderStatus(orderStatus);
 		order.setDate(date);
 		order.setTime(time);
-		order.setId(orderId);
+		//order.setId(orderId);
 
 		// Set the Customer & OrderItem attribute of order, because of the many-to-one and one-to-many associations
 		order.setCustomer(customer);
-		order.addOrderItem(orderItem);
+		order.addOrderItem(newItem);
 
 		// Save the created Order instance
-		orderRepository.save(order);
+		Order newOrder = orderRepository.save(order);
 
 		// Set the variable to null, and then try retrieving the saved instance using its id
 		order = null;
-		order = orderRepository.findOrderById(orderId);
+		order = orderRepository.findOrderById(newOrder.getId());
 		
 		// Determine whether the instance is null, if the attribute orderType matches and if the reference to customer matches.
 		assertNotNull(order);
