@@ -69,7 +69,7 @@ public class ShoppableItemController {
   
   @PostMapping(value = {"/create_shoppable_item"})
   public ResponseEntity<?> createShoppableItem(@RequestParam("name") String name,
-      @RequestParam("price") double price, @RequestParam("quantity available") int quantityAvailable) {
+      @RequestParam("price") double price, @RequestParam("quantityAvailable") int quantityAvailable) {
 
     ShoppableItem shoppableItem = null;
 
