@@ -1,8 +1,27 @@
 import axios from 'axios'
 var config = require('../../../config')
 
+var backendConfigurer = function(){
+	switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
+      case 'production':
+          return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+	}
+};
+
+var frontendConfigurer = function(){
+	switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.host + ':' + config.dev.port;
+      case 'production':
+          return 'https://' + config.build.host + ':' + config.build.port ;
+	}
+};
+
+var backendUrl = backendConfigurer();
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
+
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
@@ -37,7 +56,8 @@ export default {
 
       AXIOS.get('/view_all_orders_for_customer', {
         params: {
-          email: window.localStorage.getItem('email')
+          //email: window.localStorage.getItem('email')
+          email: 'Jeff@me'
         }
       })
         .then(response => {
@@ -53,7 +73,8 @@ export default {
 
       AXIOS.get('/view_reviews_for_customer', {
           params: {
-            customerEmail: window.localStorage.getItem('email')
+            //customerEmail: window.localStorage.getItem('email')
+            customerEmail: 'Jeff@me'
           }
         })
         .then(response => {
@@ -85,7 +106,8 @@ export default {
 
               AXIOS.get('/view_reviews_for_customer', {
                 params: {
-                  customerEmail: localStorage.getItem('email')
+                  //customerEmail: localStorage.getItem('email')
+                  customerEmail: 'Jeff@me'
                 }
               })
                 .then(response => {
