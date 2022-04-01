@@ -3,8 +3,7 @@
 
   <div class="overlay">
   </div>
-
-
+  <div class="vertical-center">
 
 
   <div class="container">
@@ -176,7 +175,7 @@
     </div>
   </div>
 
-
+</div>
 
 
 
@@ -192,6 +191,9 @@
 
 </template>
 
+
+
+
 <script>
 export default {
   name: "EmployeeManagement"
@@ -199,5 +201,13 @@ export default {
 </script>
 
 <style scoped>
+.vertical-center {
+  width: 140%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 5px;
+
+}
 
 </style>

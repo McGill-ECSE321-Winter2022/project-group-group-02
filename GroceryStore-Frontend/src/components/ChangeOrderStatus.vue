@@ -10,7 +10,7 @@
       <th>Update Status</th>
     </tr>
 
-    <tr>
+    <tr v-for="order in orders" :key=order.id>
       <td>
         <button
           type="button"
@@ -18,23 +18,31 @@
           v-bind:disabled="false"
           @click="null"
         >
-          106
+          {{ order.id }}
         </button>
       </td>
 
-      <td>Delivery</td>
-      <td>georges@deschamps.ca</td>
-      <td>Preparing</td>
+      <td>{{ order.orderType }}</td>
+      <td>{{ order.email }}</td>
+      <td>{{ order.orderStatus }}</td>
       <td>
-        <select class="form-control" @change="null">
-          <option value="" selected disabled>Choose</option>
-          <option v-for="oderStatus in oderStatus" :value="oderStatus.id" :key="oderStatus.id">{{ oderStatus.status }}</option>
+        <select class="form-control"
+        v-model="newStatus"
+        >
+          <option value="" selected disabled>Please select a new Status</option>
+          <option>Confirmed</option>
+          <option>Preparing</option>
+          <option>Cancelled</option>
+          <option>Ready</option>
+          <option>Delivering</option>
+          <option>Fulfilled</option>
+
         </select>
         <button
           type="button"
           class="btn btn-dark py-50 px-6"
-          v-bind:disabled="false"
-          @click="null"
+
+          @click="updateStatus(newStatus, order)"
         >
           Update Status
         </button>
@@ -42,56 +50,15 @@
       </td>
 
     </tr>
-
-    <tr>
-      <td>
-        <button
-        type="button"
-        class="btn btn-dark py-50 px-6"
-        v-bind:disabled="false"
-        @click="null"
-      >
-        987
-      </button>
-      </td>
-      <td>PickUp</td>
-      <td>scotties@michael.ca</td>
-      <td>Ready</td>
-      <td>
-        <select class="form-control" @change="null">
-          <option value="" selected disabled>Choose</option>
-          <option v-for="oderStatus in oderStatus" :value="oderStatus.id" :key="oderStatus.id">{{ oderStatus.status }}</option>
-        </select>
-
-        <button
-          type="button"
-          class="btn btn-dark py-50 px-6"
-          v-bind:disabled="false"
-          @click="null"
-        >
-          Update Status
-        </button>
-
-      </td>
-
-    </tr>
-
 
 
   </table>
 
-
-
-
-
 </div>
-
-
-
 
 </template>
 
-<script>
+<script src= "./js/changeOrderStatus.js">
 export default {
   name: "ChangeOrderStatus"
 }

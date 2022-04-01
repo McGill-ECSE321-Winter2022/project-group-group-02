@@ -19,8 +19,22 @@
       <td>{{ order.time }}</td>
       <td>{{ order.orderType }}</td>
       <td>{{ order.orderStatus }}</td>
-      <td>{{ order.items }}</td>
-      <td>{{ order.subtotal }}</td>
+      <td>
+        <table id="ItemTable">
+          <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>U. price</th>
+          </tr>
+          <tr v-for="orderItem in order.orderItems" :key=orderItem.shoppableItem.name>
+
+            <td>{{ orderItem.shoppableItem.name }}</td>
+            <td>{{ orderItem.quantity }}</td>
+            <td>${{ orderItem.shoppableItem.price }}</td>
+          </tr>
+        </table>
+      </td>
+      <td>${{ order.subtotal }}</td>
       <!-- <td>{{ order.rating }}</td>
       <td>{{ order.review }}</td>       -->
       <td>
@@ -87,7 +101,7 @@
 
 <style>
   #OrderTable{
-    width: 80%;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
     border: 2px solid black;
@@ -95,10 +109,14 @@
     text-align: center;
     padding: 5px;
   }
-  th, td {
+  #OrderTable th, #OrderTable td{
     border: 1px solid black;
-    padding: 10px;
-}
+    padding: 10px; 
+  } 
+
+  #ItemTable th, #ItemTable td{
+    border: none;
+  }
 
 
 </style>
