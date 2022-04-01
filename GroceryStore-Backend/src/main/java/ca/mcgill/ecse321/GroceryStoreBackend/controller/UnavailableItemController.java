@@ -50,8 +50,8 @@ public class UnavailableItemController {
    * @author Ralph Nassar
    */
 
-  @GetMapping(value = {"/view_unavailable_item/{name}"})
-  public UnavailableItemDto viewUnavailableItem(@PathVariable("name") String name) {
+  @GetMapping(value = {"/view_unavailable_item"})
+  public UnavailableItemDto viewUnavailableItem(@RequestParam("name") String name) {
     return convertToDTO(unavailableItemService.getUnavailableItem(name));
   }
 
@@ -89,8 +89,8 @@ public class UnavailableItemController {
    * @author Ralph Nassar
    */
 
-  @PutMapping(value = {"/update_unavailable_item_price/{name}"})
-  public UnavailableItemDto updatePrice(@PathVariable("name") String name,
+  @PutMapping(value = {"/update_unavailable_item_price"})
+  public UnavailableItemDto updatePrice(@RequestParam("name") String name,
       @RequestParam("newPrice") double newPrice) {
     UnavailableItem UnavailableItem = unavailableItemService.updatePrice(name, newPrice);
     return convertToDTO(UnavailableItem);
@@ -103,8 +103,8 @@ public class UnavailableItemController {
    * @author Ralph Nassar
    */
   
-  @DeleteMapping(value = {"/delete_unavailable_item/{name}"})
-  public void deleteUnavailableItem (@PathVariable("name") String name) {
+  @DeleteMapping(value = {"/delete_unavailable_item"})
+  public void deleteUnavailableItem (@RequestParam("name") String name) {
 	  try {
           unavailableItemService.deleteUnavailableItem(name);
       } catch (Exception e) {

@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,8 +50,8 @@ public class ShoppableItemController {
    * @author Ralph Nassar
    */
 
-  @GetMapping(value = {"/view_shoppable_item/{name}"})
-  public ShoppableItemDto viewShoppableItem(@PathVariable("name") String name) {
+  @GetMapping(value = {"/view_shoppable_item"})
+  public ShoppableItemDto viewShoppableItem(@RequestParam("name") String name) {
     return convertToDTO(shoppableItemService.getShoppableItem(name));
   }
 
@@ -91,8 +90,8 @@ public class ShoppableItemController {
    * @author Ralph Nassar
    */
   
-  @PutMapping(value = {"/update_shoppable_item_price/{name}"})
-  public ShoppableItemDto updatePrice(@PathVariable("name") String name,
+  @PutMapping(value = {"/update_shoppable_item_price"})
+  public ShoppableItemDto updatePrice(@RequestParam("name") String name,
       @RequestParam("newPrice") double newPrice) {
     ShoppableItem shoppableItem = shoppableItemService.updatePrice(name, newPrice);
     return convertToDTO(shoppableItem);
@@ -107,8 +106,8 @@ public class ShoppableItemController {
    * @author Ralph Nassar
    */
   
-  @PutMapping(value = {"/update_shoppable_item_quantity_available/{name}"})
-  public ShoppableItemDto updateQuantityAvailable(@PathVariable("name") String name,
+  @PutMapping(value = {"/update_shoppable_item_quantity_available"})
+  public ShoppableItemDto updateQuantityAvailable(@RequestParam("name") String name,
       @RequestParam("newQuantityAvailable") int newQuantityAvailable) {
     ShoppableItem ShoppableItem = shoppableItemService.updateInventory(name, newQuantityAvailable);
     return convertToDTO(ShoppableItem);
@@ -121,8 +120,8 @@ public class ShoppableItemController {
    * @author Ralph Nassar
    */
   
-  @DeleteMapping(value = {"/delete_shoppable_item/{name}"})
-  public void deleteShoppableItem (@PathVariable("name") String name) {
+  @DeleteMapping(value = {"/delete_shoppable_item"})
+  public void deleteShoppableItem (@RequestParam("name") String name) {
 	  try {
           shoppableItemService.deleteShoppableItem(name);
       } catch (Exception e) {

@@ -9,9 +9,9 @@
 				<th>Quantity</th>
 				<th></th>
 			</tr>
-			<tr v-for="item in items" :key=item.name>
-				<td>{{item.name}}</td>
-				<td>{{item.price}}</td>
+			<tr v-for="shoppableItem in shoppableItems" :key=shoppableItem.name>
+				<td>{{shoppableItem.name}}</td>
+				<td>{{shoppableItem.price}}</td>
 				<td>
 					<input
 						type="text"
@@ -23,7 +23,9 @@
 						type="button"
 						class="btn btn-dark py-50 px-6"
 						v-bind:disabled="false"
+						
 						@click="null"
+						
 						>
 					Update Price
 					</button>
@@ -31,23 +33,64 @@
 				</td>
 				<td>
 					
-					{{item.quantityAvailable}}
+					
+					{{shoppableItem.quantityAvailable}}
 					<button
 						type="button"
 						class="btn btn-dark py-50 px-6"
 						v-bind:disabled="false"
-						@click="null"
+						@click="replenishInventory(shoppableItem.name,shoppableItem.quantityAvailable+10)"
 						>
 						Replenish
 					</button>
-
 				</td>
+				
 				<td>
 					<button
 						type="button"
 						class="btn btn-dark py-50 px-6"
 						v-bind:disabled="false"
+						@click="deleteShoppableItem(shoppableItem.name)"
+						>
+						Delete
+					</button>
+
+				</td>
+
+			</tr>
+
+			<tr v-for="unavailableItem in unavailableItems" :key=unavailableItem.name>
+				<td>{{unavailableItem.name}}</td>
+				<td>{{unavailableItem.price}}</td>
+				<td>
+					<input
+						type="text"
+						class="form-control"
+						v-model="newPrice"
+						placeholder="New Price"
+					/>
+					<button
+						type="button"
+						class="btn btn-dark py-50 px-6"
+						v-bind:disabled="false"
+						
 						@click="null"
+						
+						>
+					Update Price
+					</button>
+
+				</td>
+				<td>
+					N/A
+				</td>
+				
+				<td>
+					<button
+						type="button"
+						class="btn btn-dark py-50 px-6"
+						v-bind:disabled="false"
+						@click="deleteUnavailableItem(unavailableItem.name)"
 						>
 						Delete
 					</button>
@@ -92,7 +135,7 @@
 							<div class="row-md-6">
 								<div class="form-group">
 								<input
-									type="text"
+									type="decimal"
 									class="form-control"
 									v-model="price"
 									placeholder="Price"
@@ -102,7 +145,7 @@
 							<div class="row-md-6">
 								<div class="form-group">
 								<input
-									type="text"
+									type="number"
 									class="form-control"
 									v-model="quantityAvailable"
 									placeholder="Quantity"
@@ -121,7 +164,7 @@
 									<button
 										type="button"
 										class="btn btn-dark py-50 px-6"
-										v-bind:disabled=false
+										v-bind:disabled="false"
 										@click="createShoppableItem(name, price, quantityAvailable)"
 									>
 										Create Shoppable Item
@@ -185,7 +228,7 @@
 										type="button"
 										class="btn btn-dark py-50 px-6"
 										v-bind:disabled=false
-										@click="createItem(name, price, quantityAvailable)"
+										@click="createUnavailableItem(name, price)"
 									>
 										Create Unavailable Item
 									</button>
