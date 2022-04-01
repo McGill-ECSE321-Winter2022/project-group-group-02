@@ -6,7 +6,7 @@
         <button
           type="button"
           class="block"
-          @click="login(email, password, confirmPassword, name, address)"
+          onClick="location.href='/#/updateaccountadmin'"
         >Update Account</button>
       </div>
       <br />
@@ -14,7 +14,7 @@
         <button
           type="button"
           class="block"
-          @click="login(email, password, confirmPassword, name, address)"
+          onClick="location.href='/#/changeorderstatus'"
         >Manage Orders</button>
       </div>
       <br />
@@ -22,7 +22,7 @@
         <button
           type="button"
           class="block"
-          @click="login(email, password, confirmPassword, name, address)"
+          onClick="location.href='/#/viewitemsowner'"
         >Add Items</button>
       </div>
       <br />
@@ -30,7 +30,7 @@
         <button
           type="button"
           class="block"
-          @click="login(email, password, confirmPassword, name, address)"
+          onClick="location.href='/#/employeeManagement'"
         >Manage Employees</button>
       </div>
       <br />
@@ -38,14 +38,14 @@
         <button
           type="button"
           class="block"
-          @click="login(email, password, confirmPassword, name, address)"
+          onClick="location.href='/#/manageStoreInfo'"
         >Manage Schedules</button>
       </div>
       <br />
     </div>
   </div>
 </template>
-<script src="./js/signin.js">
+<script>
 </script>
 <style>
 .block {

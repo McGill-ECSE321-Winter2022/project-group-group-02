@@ -6,6 +6,7 @@ public class CustomerDto {
 	private String email;
 	private String password;
 	private String name;
+	private String userType;
 
 	public CustomerDto() {
 		}
@@ -15,6 +16,7 @@ public class CustomerDto {
 			this.password = password;
 			this.name = name;
 			this.address = address;
+			this.userType = "customer";
 		}
 
 	public String getEmail() {
@@ -23,6 +25,10 @@ public class CustomerDto {
 	
 	public String getPassword() {
 		return password;
+	}
+	
+	public String getUserType() {
+		return userType;
 	}
 	
 	public String getAddress() {

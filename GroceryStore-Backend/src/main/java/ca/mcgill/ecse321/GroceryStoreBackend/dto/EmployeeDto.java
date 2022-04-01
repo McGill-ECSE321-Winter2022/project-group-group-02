@@ -11,7 +11,7 @@ public class EmployeeDto {
 	private String password;
 	private String name;
 	private List<DailySchedule> dailySchedules;
-
+	private String userType;
 
 	public EmployeeDto() {
 		}
@@ -22,10 +22,16 @@ public class EmployeeDto {
 			this.name = name;
 			this.salary = salary;
 			this.dailySchedules = dailySchedules;
+			this.userType = "employee";
+
 		}
 
 	public String getEmail() {
 		return email;
+	}
+	
+	public String getUserType() {
+		return userType;
 	}
 	
 	public String getPassword() {

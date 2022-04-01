@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.DailyScheduleRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.EmployeeRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Employee;
 
@@ -181,6 +182,23 @@ public class EmployeeService {
 	@Transactional
 	public List<Employee> getAllEmployees() {
 		return toList(employeeRepository.findAll());
+	}
+
+	/*** Return the employee associated with the email if it exists in the system.
+	 * 
+	 * @author anaelle.drai
+	 * @param email
+	 * @return employee
+	 */
+	@Transactional
+	public Employee getEmployee(String email) {
+		// Checking the employee exists in the system
+		Employee employee = employeeRepository.findByEmail(email);
+		if (employee == null) {
+			throw new IllegalArgumentException("Employee not found.");
+		}
+		
+		return employee;
 	}
 
 	/*** Deletes the employee from the system if there is no error and returns true in this case.

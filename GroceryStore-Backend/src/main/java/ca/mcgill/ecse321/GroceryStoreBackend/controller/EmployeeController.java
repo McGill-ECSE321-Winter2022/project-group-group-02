@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.GroceryStoreBackend.dto.CustomerDto;
 import ca.mcgill.ecse321.GroceryStoreBackend.dto.EmployeeDto;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Employee;
 import ca.mcgill.ecse321.GroceryStoreBackend.service.EmployeeService;
@@ -28,6 +29,11 @@ public class EmployeeController {
 		return service.getAllEmployees().stream().map(e -> convertToDto(e)).collect(Collectors.toList());
 	}
 
+	@GetMapping(value = { "/get_employee", "/get_employee/" })
+	public EmployeeDto getEmployee(@RequestParam("email") String email) {
+		return convertToDto(service.getEmployee(email));
+	}
+	
 	@PostMapping(value = { "/create_employee", "/create_employee/" })
 	public EmployeeDto createEmployee(@RequestParam("email") String email, @RequestParam("password") String password,
 			@RequestParam("name") String name, @RequestParam("salary") Double salary) throws IllegalArgumentException {

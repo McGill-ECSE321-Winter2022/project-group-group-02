@@ -78,7 +78,6 @@ public class OwnerController {
 		Owner owner = ownerService.updateOwnerName(newName);
 		return convertToDTO(owner);
 	}
-
 	
 	/**
      * @author Matthieu Hakim

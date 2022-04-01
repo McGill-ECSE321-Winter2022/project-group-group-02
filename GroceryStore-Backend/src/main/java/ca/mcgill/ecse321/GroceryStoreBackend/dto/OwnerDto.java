@@ -5,6 +5,7 @@ public class OwnerDto {
 	private String email;
 	private String password;
 	private String name;
+	private String userType;
 
 	public OwnerDto() {
 		}
@@ -13,6 +14,7 @@ public class OwnerDto {
 			this.email = email;
 			this.password = password;
 			this.name = name;
+			this.userType = "owner";
 	}
 
 	public String getEmail() {
@@ -23,6 +25,9 @@ public class OwnerDto {
 		return password;
 	}
 	
+	public String getUserType() {
+		return userType;
+	}
 	public String getName() {
 		return name;
 	}

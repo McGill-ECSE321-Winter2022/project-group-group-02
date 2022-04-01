@@ -6,7 +6,7 @@
         <button
           type="button"
           class="block"
-          @click="login(email, password, confirmPassword, name, address)"
+          onClick="location.href='/#/updateaccountcustomer'"
         >Update Account</button>
       </div>
       <br />
@@ -22,14 +22,14 @@
         <button
           type="button"
           class="block"
-          @click="login(email, password, confirmPassword, name, address)"
+           onClick="location.href='/#/viewcustomerorders'"
         >View Orders</button>
       </div>
       <br />
     </div>
   </div>
 </template>
-<script src="./js/signin.js">
+<script>
 </script>
 <style>
 .block {

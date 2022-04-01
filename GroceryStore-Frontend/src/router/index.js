@@ -106,7 +106,7 @@ export default new Router({
       component: EmployeeMenu
     },
      {
-      path: '/OwnerMenuu',
+      path: '/OwnerMenu',
       name: 'ownermenu',
       component: OwnerMenu
     },

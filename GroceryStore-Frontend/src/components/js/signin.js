@@ -1,28 +1,10 @@
 import axios from 'axios'
 import JQuery from 'jquery'
 let $ = JQuery
-var config = require ('../../../config')
+var config = require('../../../config')
 
-var backendConfigurer = function(){
-	switch(process.env.NODE_ENV){
-      case 'development':
-          return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
-      case 'production':
-          return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
-	}
-};
-
-var frontendConfigurer = function(){
-	switch(process.env.NODE_ENV){
-      case 'development':
-          return 'http://' + config.dev.host + ':' + config.dev.port;
-      case 'production':
-          return 'https://' + config.build.host + ':' + config.build.port ;
-	}
-};
-
-var backendUrl = backendConfigurer();
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
+var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
@@ -37,6 +19,7 @@ export default {
 			password: '',
 			address: '',
 			name: '',
+			errorLogin: ''
 		}
 	},
 	methods: {
@@ -53,17 +36,21 @@ export default {
 					}
 				})
 					.then(response => {
-						if (response.status === 201) {
-								this.password = '',
+						if (response.status === 200) {
+							this.password = '',
 								this.confirmPassword = '',
 								this.address = '',
 								this.names = '',
 								this.email = '',
-							swal("Success", "Account created successfully!", "success");
+								localStorage.setItem('email', this.user.email)
+								localStorage.setItem('type', this.type)
+								swal("Success", "Account created successfully!", "success");
 						}
 					})
 					.catch(e => {
-						swal("ERROR", e.response.data, "error");
+						this.errorSignIn = e.message,
+						console.log(this.errorSignIn)
+						swal("ERROR", e.response.data.message, "error");
 					})
 
 			}
