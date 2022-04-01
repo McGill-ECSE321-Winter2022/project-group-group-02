@@ -39,7 +39,7 @@ public class ReviewController {
 	@PostMapping(value = { "/create_review/", "/create_review" })
 	public ResponseEntity<?> createReview(@RequestParam("rating") Rating rating,
 			@RequestParam("description") String description, @RequestParam("customerEmail") String customerEmail,
-			@RequestParam("orderId") Long orderId, @RequestParam("reviewId") Long reviewId) {
+			@RequestParam("orderId") Long orderId) {
 
 		Review review = null;
 		try {

@@ -22,7 +22,6 @@ export default {
         review: '',
         rating: '',
         subtotal: '$0',
-        customerEmail: 'Jeff@me',
         errorReview: '',
         items: [],
         orders: [],
@@ -38,7 +37,7 @@ export default {
 
       AXIOS.get('/view_all_orders_for_customer', {
         params: {
-          email: this.customerEmail
+          email: window.localStorage.getItem('email')
         }
       })
         .then(response => {
@@ -54,7 +53,7 @@ export default {
 
       AXIOS.get('/view_reviews_for_customer', {
           params: {
-            customerEmail: this.customerEmail
+            customerEmail: window.localStorage.getItem('email')
           }
         })
         .then(response => {
@@ -71,14 +70,38 @@ export default {
       
     
     methods: {
-        createOrder: function (date, time, orderType, orderStatus, rating, review) {
-            // Create a new order and add it to the list of order
-            var p = new OrderDto(date, time, orderType, orderStatus,rating, review)
-            this.orders.push(p)
-            
-        },
-
+        
         createReview: function (rating, description, order){
+
+          AXIOS.post('/create_review/', {}, {
+            params: {
+              rating: rating,
+              description: description,
+              customerEmail: window.localStorage.getItem('email'),
+              orderId: order.id,
+            }
+          })
+            .then(response => {
+
+              AXIOS.get('/view_reviews_for_customer', {
+                params: {
+                  customerEmail: localStorage.getItem('email')
+                }
+              })
+                .then(response => {
+                  this.reviews = response.data
+                })
+                .catch(e => {
+                  this.reviews = []
+    
+                })
+    
+              swal("Success", "Thank you for your feedback!", "success");
+    
+            })
+            .catch(e => {
+              swal("ERROR", e.response.data, "error");
+            })
 
         }
 
