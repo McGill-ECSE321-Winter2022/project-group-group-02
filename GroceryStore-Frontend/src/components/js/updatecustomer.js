@@ -20,7 +20,8 @@ export default {
 			confirmPassword: '',
 			address: '',
 			name: '',
-			errorUpdate: ''
+			errorUpdate: '',
+			successUpdate: '',
 		}
 	},
 	created: function () {
@@ -34,7 +35,7 @@ export default {
 				document.getElementById('addressfield').setAttribute('value', this.address);
 			})
             .catch(e => {
-                this.errorUpdate = e.message,
+                this.errorUpdate = e.response,
 				console.log(this.errorUpdate)
             })
 	},
@@ -42,7 +43,7 @@ export default {
 	methods: {
 		updatecustomer: function (password, confirmPassword, name, address) {
 			if (password != confirmPassword) {
-				swal("ERROR", "Passwords do not match.", "error");
+				this.errorUpdate= "Passwords do not match."
 			} else {
 				var email = localStorage.getItem('email')
 				AXIOS.put('/update_customer/', {}, {
@@ -60,12 +61,12 @@ export default {
 								this.address = '',
 								this.name = '',
 								this.email = '',
-							swal("Success", "Information updated successfully!", "success");
+								this.successUpdate = 'Account updated successfully!'
 						}
 					})
 					.catch(e => {
-						swal("ERROR", e.response.data, "error");
-					})
+					this.errorUpdate = e.response.data
+					console.log(this.errorUpdate)					})
 
 			}
 

@@ -44,10 +44,9 @@ export default {
 								this.address = '',
 								this.names = '',
 								this.email = '',
+								this.successSignIn = 'Account created successfully!',
 								localStorage.setItem('email', this.user.email)
 								localStorage.setItem('type', this.type)
-								//this.successSignIn = "Account created successfully!"
-								//console.log(this.successSignIn)
 						}
 					})
 					.catch(e => {

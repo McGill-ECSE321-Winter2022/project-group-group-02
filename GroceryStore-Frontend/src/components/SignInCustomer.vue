@@ -60,7 +60,7 @@
                     <h5
                       v-if="successSignIn"
                       style="color: green; padding-top: 20px"
-                    >Error: {{ successSignIn }}</h5>
+                    >{{ successSignIn }}</h5>
                   </div>
                 </div>
             <div class="col-md-12">
