@@ -49,12 +49,12 @@ public class TestEmployeeService {
 	private static final Double EMPLOYEE_SALARY = 1500.0;
 	private static final String EMPLOYEE_PASSWORD = "2222";
 
-	static final long DAILYSCHEDULE_KEY = (long) 321;
+	static final Long DAILYSCHEDULE_KEY = 321L;
 	private static final Time DAILYSCHEDULE_STARTTIME = Time.valueOf("08:00:00");
 	private static final Time DAILYSCHEDULE_ENDTIME = Time.valueOf("20:00:00");
 	private static final DayOfWeek DAILYSCHEDULE_DAYOFWEEK = DayOfWeek.Monday;
 
-	static final long DAILYSCHEDULE_KEY2 = (long) 123;
+	static final Long DAILYSCHEDULE_KEY2 = 123L;
 	private static final Time DAILYSCHEDULE_STARTTIME2 = Time.valueOf("07:00:00");
 	private static final Time DAILYSCHEDULE_ENDTIME2 = Time.valueOf("21:00:00");
 	private static final DayOfWeek DAILYSCHEDULE_DAYOFWEEK2 = DayOfWeek.Tuesday;
@@ -474,7 +474,7 @@ public class TestEmployeeService {
 
 		boolean success = false;
 		try {
-			success = service.addDailySchedule(EMPLOYEE_KEY, 123);
+			success = service.addDailySchedule(EMPLOYEE_KEY, 123L);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -504,7 +504,7 @@ public class TestEmployeeService {
 
 		boolean success = false;
 		try {
-			success = service.addDailySchedule(EMPLOYEE_KEY, 456);
+			success = service.addDailySchedule(EMPLOYEE_KEY, 456L);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -564,7 +564,7 @@ public class TestEmployeeService {
 		String error = null;
 		boolean success = false;
 		try {
-			success = service.removeDailySchedule(EMPLOYEE_KEY, (long) 66);
+			success = service.removeDailySchedule(EMPLOYEE_KEY, 66L);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -579,7 +579,7 @@ public class TestEmployeeService {
 		String error = null;
 		boolean success = false;
 		try {
-			success = service.removeDailySchedule(EMPLOYEE_KEY, (long) 123);
+			success = service.removeDailySchedule(EMPLOYEE_KEY,  123L);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
