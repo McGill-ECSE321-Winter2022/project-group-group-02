@@ -39,12 +39,19 @@ export default {
         price : '',
         errorItem: '',
         quantityAvailable : '',
+        isOwner: '',
+        isEmployee: '',
         shoppableItems: [],
         unavailableItems: []
 
       }
     },
     created: function () {
+          if (localStorage.getItem('type').localeCompare("employee") == 0) {
+        this.isEmployee = true
+    } else if (localStorage.getItem('type').localeCompare("owner") == 0) {
+        this.isOwner = true
+    }
         // Initializing shoppable items from backend
         AXIOS.get('/view_all_shoppable_item')
       .then(response => {

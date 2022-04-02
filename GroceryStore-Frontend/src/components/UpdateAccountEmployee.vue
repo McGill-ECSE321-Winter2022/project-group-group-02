@@ -74,11 +74,7 @@
             </div>
             <br />
             <div class="col-md-12">
-              <button
-                type="button"
-                class="block"
-                onclick="location.href='/#/employeemenu'"
-              >Go Back to Menu</button>
+              <a href="/#/employeemenu" class="button" id="button-1">Go back to menu</a>
             </div>
           </form>
           <br />
@@ -99,5 +95,48 @@ created();
   margin-right: auto;
   text-align: center;
   padding: 5px;
+}
+
+/* ALL BUTTONS */
+
+.button {
+  display: block;
+  padding: 20px 30px;
+  margin: 20px 0;
+  position: relative;
+  color: #ecf0f1;
+}
+
+/* BUTTON 1 */
+
+#button-1 {
+  border: 2px solid #34495e;
+  color: #34495e;
+  overflow: hidden;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#button-1:before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background-color: #34495e;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#button-1:hover {
+  color: #ecf0f1;
+}
+
+#button-1:hover:before {
+  left: 0;
 }
 </style>

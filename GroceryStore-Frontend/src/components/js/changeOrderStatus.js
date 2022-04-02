@@ -16,14 +16,18 @@ export default {
     return {
       orderType: '',
       orderStatus: '',
+      isOwner: '',
+      isEmployee: '',
       updatedOrderStatus: '',
       orders: []
     }
   },
-
-
-
   created: function () {
+    if (localStorage.getItem('type').localeCompare("employee") == 0) {
+        this.isEmployee = true
+    } else if (localStorage.getItem('type').localeCompare("owner") == 0) {
+        this.isOwner = true
+    }
 
     AXIOS.get('/view_all_orders', {})
       .then(response => {
