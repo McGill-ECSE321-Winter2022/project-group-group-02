@@ -1,7 +1,7 @@
  <template>
   <div id="customermenu">
     <div class="overlay"></div>
-    <div class="container">
+    <div class="container-menu">
     <h1>Menu</h1>
     <div class="row cf">
       <div class="six col">
@@ -65,7 +65,7 @@ a{
   margin-left: 0;
 }
 
-.container{
+.container-menu{
   width: 100%;
   max-width: 600px;
   margin: 0 auto;

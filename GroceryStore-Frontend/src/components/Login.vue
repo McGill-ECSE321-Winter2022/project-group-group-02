@@ -80,7 +80,7 @@
 
 .button{
   display: block;
-  padding: 20px 30px;
+  padding: 20px 20px;
   margin: 20px 0;
   position: relative;
   color: #ecf0f1;
