@@ -11,8 +11,7 @@ import UpdateEmployee from '@/components/UpdateAccountEmployee'
 import UpdateAdmin from '@/components/UpdateAccountAdmin'
 import EmployeeManagement from '@/components/EmployeeManagement'
 import ManageStoreInfo from '@/components/ManageStoreInfo'
-import DeleteDailySchedule from '@/components/DeleteDailySchedule'
-import AddDailySchedule from '@/components/AddDailySchedule'
+import AddDailySchedule from '@/components/UpdateDailySchedule'
 import CustomerMenu from '@/components/CustomerMenu'
 import OwnerMenu from '@/components/OwnerMenu'
 import EmployeeMenu from '@/components/EmployeeMenu'
@@ -89,15 +88,10 @@ export default new Router({
       component: CustomerMenu
     },
 
-    {
-      path: '/DeleteDailySchedule',
-      name: 'deleteDailySchedule',
-      component: DeleteDailySchedule
-    },
 
     {
-      path: '/AddDailySchedule',
-      name: 'addDailySchedule',
+      path: '/UpdateDailySchedule',
+      name: 'updateDailySchedule',
       component: AddDailySchedule
     },
      {
