@@ -16,7 +16,6 @@ public class OrderDto {
 	private CustomerDto customer;
 	private List<OrderItemDto> orderItems;
 	private Long id;
-	private String email;
 	
 	public OrderDto() {
 		}
@@ -29,7 +28,6 @@ public class OrderDto {
 			this.customer = customer;
 			this.orderItems = orderItems;
 			this.id = orderID;
-			setCustomerEmail(customer);
 		}
 
 	public OrderType getOrderType() {
@@ -68,13 +66,6 @@ public class OrderDto {
 		return customer;
 	}
 	
-	public void setCustomerEmail(CustomerDto customer) {
-	  this.email = customer.getEmail();
-	}
-	
-	public String getCustomerEmail() {
-         return email;
-    }
 	
 	public void setCustomer(CustomerDto customer) {
 		this.customer = customer;

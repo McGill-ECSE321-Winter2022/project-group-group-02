@@ -23,7 +23,7 @@
       </td>
 
       <td>{{ order.orderType }}</td>
-      <td>{{ order.email }}</td>
+      <td>{{ order.customer.email }}</td>
       <td>{{ order.orderStatus }}</td>
       <td>
         <select class="form-control"
