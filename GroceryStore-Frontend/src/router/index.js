@@ -16,6 +16,7 @@ import CustomerMenu from '@/components/CustomerMenu'
 import OwnerMenu from '@/components/OwnerMenu'
 import EmployeeMenu from '@/components/EmployeeMenu'
 import ViewItemsOwner from '@/components/ViewItemsOwner'
+import BrowseItems from '@/components/BrowseItems'
 
 
 
@@ -108,6 +109,11 @@ export default new Router({
       path: '/ViewItemsOwner',
       name: 'viewItemsOwner',
       component: ViewItemsOwner
+    },
+    {
+      path: '/BrowseItems',
+      name: 'browseItems',
+      component: BrowseItems
     }
   ]
   
