@@ -55,12 +55,10 @@ export default {
 					}
 				})
 					.then(response => {
-						if (response.status === 201) {
+						if (response.status === 200) {
 								this.password = '',
 								this.confirmPassword = '',
-								this.address = '',
-								this.name = '',
-								this.email = '',
+								this.errorUpdate = '',
 								this.successUpdate = 'Account updated successfully!'
 						}
 					})

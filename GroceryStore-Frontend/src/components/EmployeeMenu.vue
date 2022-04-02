@@ -1,33 +1,27 @@
  <template>
   <div id="emoloyeemenu">
-    <div class="overlay"></div>
+     <div class="overlay"></div>
     <div class="container">
-      <div class="col-md-12">
-        <button
-          type="button"
-          class="block"
-          onClick="location.href='/#/updateaccountemployee'"
-        >Update Account</button>
+    <h1>Menu</h1>
+    <div class="row cf">
+      <div class="six col">
+        <a href='/#/updateaccountemployee' class="button" id="button-1">Update Account</a>
       </div>
-      <br />
-      <div class="col-md-12">
-        <button
-          type="button"
-          class="block"
-          onClick="location.href='/#/changeorderstatus'"
-        >Manage Orders</button>
+      <div class="six col">
+        <a href="/#/changeorderstatus" class="button" id="button-1">Manage Orders</a>
       </div>
-      <br />
-      <div class="col-md-12">
-        <button
-          type="button"
-          class="block"
-          onClick="location.href='/#/viewitemsowner'"
-        >Add Items</button>
+    </div>
+    <div class="row cf">
+      <div class="six col">
+        <a href="/#/viewitemsowner" class="button" id="button-1">Add Items</a>
       </div>
-      <br />
+      <div class="six col">
+        <a href="/#/login" class="button" id="button-1">Logout</a>
+      </div>
     </div>
   </div>
+  </div>
+
 </template>
 <script >
 </script>

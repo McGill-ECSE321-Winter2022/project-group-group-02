@@ -54,6 +54,14 @@
                 >Error: {{ errorUpdate }}</h5>
               </div>
             </div>
+                                            <div class="row-md-12">
+                  <div class="form-group">
+                    <h5
+                      v-if="successUpdate"
+                      style="color: green; padding-top: 20px"
+                    >{{ successUpdate }}</h5>
+                  </div>
+                </div>
             <div class="col-md-12">
               <div class="form-group">
                 <button

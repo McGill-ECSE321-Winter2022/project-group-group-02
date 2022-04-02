@@ -19,7 +19,9 @@ export default {
 			password: '',
 			confirmPassword: '',
 			name: '',
-			errorUpdate: ''
+			errorUpdate: '',
+			successUpdate: '',
+
 		}
 	},
 	created: function () {
@@ -31,15 +33,15 @@ export default {
 				document.getElementById('namefield').setAttribute('value', this.name)
 			})
 			.catch(e => {
-				this.errorUpdate = e.message,
-					console.log(this.errorUpdate)
+                this.errorUpdate = e.response,
+				console.log(this.errorUpdate)
 			})
 	},
 
 	methods: {
 		updateowner: function (password, confirmPassword, name) {
 			if (password != confirmPassword) {
-				swal("ERROR", "Passwords do not match.", "error");
+				this.errorUpdate= "Passwords do not match."
 			} else {
 				AXIOS.put('/update_owner_password/', {}, {
 					params: {
@@ -47,17 +49,16 @@ export default {
 					}
 				})
 					.then(response => {
-						if (response.status === 201) {
-							this.password = '',
+						if (response.status === 200) {
+								this.password = '',
 								this.confirmPassword = '',
-								this.name = '',
-								this.email = '',
-								swal("Success", "Information updated successfully!", "success");
+								this.errorUpdate = '',
+								this.successUpdate = 'Account updated successfully!'
 						}
 					})
 					.catch(e => {
-						swal("ERROR", e.response.data, "error");
-					})
+					this.errorUpdate = e.response.data
+					console.log(this.errorUpdate)					})
 
 
 				AXIOS.put('/update_owner_name/', {}, {
@@ -66,17 +67,16 @@ export default {
 					}
 				})
 					.then(response => {
-						if (response.status === 201) {
-							this.password = '',
+						if (response.status === 200) {
+								this.password = '',
 								this.confirmPassword = '',
-								this.name = '',
-								this.email = '',
-								swal("Success", "Information updated successfully!", "success");
+								this.errorUpdate = '',
+								this.successUpdate = 'Account updated successfully!'
 						}
 					})
 					.catch(e => {
-						swal("ERROR", e.response.data, "error");
-					})
+					this.errorUpdate = e.response.data
+					console.log(this.errorUpdate)					})
 			}
 
 		}
