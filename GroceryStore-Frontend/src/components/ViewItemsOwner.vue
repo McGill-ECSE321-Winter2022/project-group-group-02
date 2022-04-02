@@ -1,9 +1,9 @@
 <template>
 	<div id="viewItemsOwner">
-  		<h2> Items </h2>
+  		<h2> Shoppable Items </h2>
   		<table id="viewItemsOwnerTable">
     		<tr>
-				<th>Item</th>
+				<th>Items</th>
 				<th>Current Price</th>
 				<th>New Price</th>
 				<th>Quantity</th>
@@ -23,8 +23,7 @@
 						type="button"
 						class="btn btn-dark py-50 px-6"
 						v-bind:disabled="false"
-						
-						@click="null"
+						@click="updateShoppableItemPrice(shoppableItem.name,newPrice)"
 						
 						>
 					Update Price
@@ -58,53 +57,8 @@
 				</td>
 
 			</tr>
+  		</table>
 
-			<tr v-for="unavailableItem in unavailableItems" :key=unavailableItem.name>
-				<td>{{unavailableItem.name}}</td>
-				<td>{{unavailableItem.price}}</td>
-				<td>
-					<input
-						type="text"
-						class="form-control"
-						v-model="newPrice"
-						placeholder="New Price"
-					/>
-					<button
-						type="button"
-						class="btn btn-dark py-50 px-6"
-						v-bind:disabled="false"
-						
-						@click="null"
-						
-						>
-					Update Price
-					</button>
-
-				</td>
-				<td>
-					N/A
-				</td>
-				
-				<td>
-					<button
-						type="button"
-						class="btn btn-dark py-50 px-6"
-						v-bind:disabled="false"
-						@click="deleteUnavailableItem(unavailableItem.name)"
-						>
-						Delete
-					</button>
-
-				</td>
-
-			</tr>
-
-
-
-
-		</table>
-
-		
 
 		<div id="addShoppableItem">
 		<div class = "center">
@@ -178,6 +132,61 @@
 		</div>
 		</div>
 
+
+		  <h2> Unavailable Items </h2>
+		<table id="viewUnavailableItemsOwnerTable">
+			<tr>
+			<th>Items</th>
+				<th>Current Price</th>
+				<th>New Price</th>
+				<th></th>
+			</tr>
+			<tr v-for="unavailableItem in unavailableItems" :key=unavailableItem.name>
+				<td>{{unavailableItem.name}}</td>
+				<td>{{unavailableItem.price}}</td>
+				<td>
+					<input
+						type="text"
+						class="form-control"
+						v-model="newPrice"
+						placeholder="New Price"
+					/>
+					<button
+						type="button"
+						class="btn btn-dark py-50 px-6"
+						v-bind:disabled="false"
+						
+						@click="null"
+						
+						>
+					Update Price
+					</button>
+
+				</td>
+				
+				<td>
+					<button
+						type="button"
+						class="btn btn-dark py-50 px-6"
+						v-bind:disabled="false"
+						@click="deleteUnavailableItem(unavailableItem.name)"
+						>
+						Delete
+					</button>
+
+				</td>
+
+			</tr>
+
+
+
+
+		</table>
+
+		
+
+		
+
 		<div id="addUnavailableItem">
 		<div class = "center">
 			<div class = "overplay">
@@ -199,7 +208,7 @@
 								<input
 									type="text"
 									class="form-control"
-									v-model="name"
+									v-model="unavailableItemName"
 									placeholder="Name"
 								/>
 								</div>
@@ -209,7 +218,7 @@
 								<input
 									type="text"
 									class="form-control"
-									v-model="price"
+									v-model="unavailableItemPrice"
 									placeholder="Price"
 								/>
 								</div>
@@ -227,8 +236,8 @@
 									<button
 										type="button"
 										class="btn btn-dark py-50 px-6"
-										v-bind:disabled=false
-										@click="createUnavailableItem(name, price)"
+										v-bind:disabled="false"
+										@click="createUnavailableItem(unavailableItemName, unavailableItemPrice)"
 									>
 										Create Unavailable Item
 									</button>
@@ -247,8 +256,23 @@
 
 <script src= "./js/viewItemsOwner.js">
 </script>
+
 <style>
 #viewItemsOwnerTable{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 5px;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#viewUnavailableItemsOwnerTable{
     width: 80%;
     margin-left: auto;
     margin-right: auto;

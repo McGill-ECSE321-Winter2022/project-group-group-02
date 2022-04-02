@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 var config = require('../../../config')
 
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
@@ -59,6 +60,36 @@ export default {
     
     
     methods: {
+        createUnavailableItem: function (name,price) {
+            // Create a new Unavailable item and add it to the list of order
+            AXIOS.post('/create_unavailable_item', {}, {
+            params: {
+              name: name,
+              price: price,
+              
+            }
+          })
+            .then(response => {
+
+              AXIOS.get('/view_all_unavailable_items', {})
+                .then(response => {
+                  this.unavailableItems = response.data.unavailableItems
+                })
+                .catch(e => {
+                  
+    
+                })
+    
+              swal("Success", "Item successfully added", "success");
+    
+            })
+            .catch(e => {
+              swal("ERROR", e.response.data, "error");
+            })
+
+          
+      },
+
         createShoppableItem: function (name,price,quantityAvailable) {
           AXIOS.post('/create_shoppable_item', {}, {
             params: {
@@ -72,7 +103,7 @@ export default {
 
               AXIOS.get('/view_all_shoppable_items', {})
                 .then(response => {
-                  this.shoppableItems = response.data
+                  this.shoppableItems = response.data.shoppableItems
                 })
                 .catch(e => {
                   
@@ -90,42 +121,12 @@ export default {
       
        
       },
-        createUnavailableItem: function (name,price) {
-            // Create a new Unavailable item and add it to the list of order
-            AXIOS.post('/create_unavailable_item', {}, {
-            params: {
-              name: name,
-              price: price,
-              
-            }
-          })
-            .then(response => {
-
-              AXIOS.get('/view_all_unavailable_items', {})
-                .then(response => {
-                  this.unavailableItems = response.data
-                })
-                .catch(e => {
-                  
-    
-                })
-    
-              swal("Success", "Item successfully added", "success");
-    
-            })
-            .catch(e => {
-              swal("ERROR", e.response.data, "error");
-            })
-
-          
-      },
         replenishInventory: function (itemName,newQuantityAvailable) {
           // Create a new Shoppable item and add it to the list of order
             AXIOS.put('/update_shoppable_item_quantity_available', {
             params: {
               name: itemName,
               newQuantityAvailable: newQuantityAvailable
-              
             }
           })
             .then(response => {
@@ -198,11 +199,11 @@ export default {
               swal("ERROR", e.response.data, "error");
             })
         },
-        deleteShoppableItem: function (name) {
+        deleteShoppableItem: function (deletedName) {
           // Create a new Unavailable item and add it to the list of order
-            AXIOS.put('/delete_shoppable_item', {}, {
+            AXIOS.delete('/delete_shoppable_item', {}, {
             params: {
-              name: name,
+              name: deletedName,
             }
           })
             .then(response => {
@@ -225,7 +226,7 @@ export default {
         },
         deleteUnavailableItem: function (name) {
           // Create a new Unavailable item and add it to the list of order
-            AXIOS.put('/delete_unavailable_item', {}, {
+            AXIOS.delete('/delete_unavailable_item', {}, {
             params: {
               name: name,
             }
