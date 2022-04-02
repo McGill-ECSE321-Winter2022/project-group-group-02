@@ -25,18 +25,6 @@ export default {
 
   created: function () {
 
-
-    // AXIOS.get('/view_customers', {})
-    //   .then(response => {
-    //
-    //     // JSON responses are automatically parsed.
-    //     this.customer = response.data
-    //   })
-    //   .catch(e => {
-    //     this.errorOrder = e
-    //   })
-
-
     AXIOS.get('/view_all_orders', {})
       .then(response => {
 
@@ -86,7 +74,7 @@ export default {
         .catch(e => {
           swal("ERROR", e.response.data, "error");
         })
-    }
+    },
 
   }
 

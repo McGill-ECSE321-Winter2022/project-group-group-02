@@ -41,7 +41,7 @@ public class OrderItemService {
 		if (order == null)
 			throw new IllegalArgumentException("Order Item cannot exist without an order. ");
 
-		if (quantity < 0)
+		if (quantity <= 0)
 			throw new IllegalArgumentException("Please enter a valid quantity. ");
 		
 
@@ -97,7 +97,7 @@ public class OrderItemService {
 		if (order == null)
 			throw new IllegalArgumentException("Order Item cannot exist without an order. ");
 
-		if (quantity < 0)
+		if (quantity <= 0)
 			throw new IllegalArgumentException("Please enter a valid quantity. ");
 
 		ShoppableItem item = itemRepo.findByName(itemName);

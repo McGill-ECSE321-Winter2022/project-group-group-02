@@ -91,6 +91,13 @@ public class OrderService {
 			throw new IllegalArgumentException("Please enter a valid order status. ");
 		
 		
+		if(aOrderStatus.equals("Cancelled")) {
+		  
+		  cancelOrder(orderId);
+		  return null;
+		  
+		  
+		}
 
 		order.setOrderStatus(convertOrderStatus(aOrderStatus));
 		orderRepo.save(order);
@@ -191,8 +198,10 @@ public class OrderService {
 			order.getOrderItems().clear();
 		}
 
-		orderRepo.delete(order);
-		order.delete();
+		
+		order.setOrderStatus(convertOrderStatus("Cancelled"));
+//		orderRepo.delete(order);
+//		order.delete();
 		return true;
 
 	}

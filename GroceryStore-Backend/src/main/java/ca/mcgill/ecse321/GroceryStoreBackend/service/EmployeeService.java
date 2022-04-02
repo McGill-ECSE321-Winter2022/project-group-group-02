@@ -108,7 +108,7 @@ public class EmployeeService {
 	 * @return true
 	 */
 	@Transactional
-	public boolean addDailySchedule(String email, long id) {
+	public boolean addDailySchedule(String email, Long id) {
 		Employee employee;
 		DailySchedule dailySchedule;
 
@@ -146,7 +146,7 @@ public class EmployeeService {
 	 * @return true
 	 */
 	@Transactional
-	public boolean removeDailySchedule(String email, long id) {
+	public boolean removeDailySchedule(String email, Long id) {
 		Employee employee;
 		DailySchedule dailySchedule;
 
@@ -224,7 +224,7 @@ public class EmployeeService {
 
 		// Delete the employee
 		employeeRepository.deleteByEmail(email);
-		return true;
+		return true;      
 	}
 
 	/*** Converts an iterable into a list.

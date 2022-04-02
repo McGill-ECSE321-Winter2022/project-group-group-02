@@ -54,13 +54,13 @@ public class EmployeeController {
 	}
 
 	@PostMapping(value = { "/add_dailySchedule", "/add_dailySchedule/" })
-	public void addDailySchedule(@RequestParam("email") String email, @RequestParam("id") long id)
+	public void addDailySchedule(@RequestParam("email") String email, @RequestParam("id") Long id)
 			throws IllegalArgumentException {
 		service.addDailySchedule(email, id);
 	}
 
 	@DeleteMapping(value = { "/remove_dailySchedule", "/remove_dailySchedule/" })
-	public void removeDailySchedule(@RequestParam("email") String email, @RequestParam("id") long id)
+	public void removeDailySchedule(@RequestParam("email") String email, @RequestParam("id") Long id)
 			throws IllegalArgumentException {
 		service.removeDailySchedule(email, id);
 	}
