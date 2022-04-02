@@ -130,8 +130,10 @@ public class ReviewController {
      * @return ReviewDto
      */
 	public static ReviewDto convertToDto(Review review) {
-		if (review == null)
-			throw new IllegalArgumentException("Review not found.");
+		if (review == null) {
+		  return null;
+		}
+			
 
 		return new ReviewDto(review.getRating(), review.getDescription(),
 				CustomerController.convertToDto(review.getCustomer()), OrderController.convertToDTO(review.getOrder()), review.getId());

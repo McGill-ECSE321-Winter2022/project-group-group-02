@@ -39,7 +39,6 @@ export default {
         orderType: '',
         orderStatus: '',
         review: '',
-        rating: '',
         subtotal: '$0',
         errorReview: '',
         items: [],
@@ -56,39 +55,22 @@ export default {
 
       AXIOS.get('/view_all_orders_for_customer', {
         params: {
-          //email: window.localStorage.getItem('email')
-          email: 'Jeff@me'
+          email: window.localStorage.getItem('email')
+          //email: 'Jeff@me'
         }
       })
         .then(response => {
       
           // JSON responses are automatically parsed.
           this.orders = response.data
+
         })
         .catch(e => {
           this.errorOrder = e
         })
-
       
-
-      AXIOS.get('/view_reviews_for_customer', {
-          params: {
-            //customerEmail: window.localStorage.getItem('email')
-            customerEmail: 'Jeff@me'
-          }
-        })
-        .then(response => {
-      
-          // JSON responses are automatically parsed.
-          this.reviews = response.data
-          
-        })
-        .catch(e => {
-          this.errorReview = e
-        })
       },
 
-      
     
     methods: {
         
@@ -99,26 +81,112 @@ export default {
               rating: rating,
               description: description,
               customerEmail: window.localStorage.getItem('email'),
+              //customerEmail: 'Jeff@me',
               orderId: order.id,
             }
           })
             .then(response => {
 
-              AXIOS.get('/view_reviews_for_customer', {
+              AXIOS.get('/view_review_for_order', {
                 params: {
-                  //customerEmail: localStorage.getItem('email')
-                  customerEmail: 'Jeff@me'
+                  orderId: order.id
                 }
               })
                 .then(response => {
-                  this.reviews = response.data
+                  this.review = response.data
                 })
                 .catch(e => {
-                  this.reviews = []
+                  this.errorReview = e
     
                 })
     
               swal("Success", "Thank you for your feedback!", "success");
+    
+            })
+            .catch(e => {
+              swal("ERROR", e.response.data, "error");
+            })
+
+        },
+
+        getReviewForOrder: function(order){
+
+          AXIOS.get('/view_review_for_order', {
+            params: {
+              orderId: order.id
+            }
+          })
+            .then(response => {
+          
+              // JSON responses are automatically parsed.
+              this.review = response.data
+              return this.review
+            })
+            .catch(e => {
+              this.errorReview = e
+            })
+            return this.review
+
+        },
+
+
+        updateReview: function (rating, description, order){
+
+          AXIOS.put('/update_review/', {}, {
+            params: {
+              orderId: order.id,
+              newDescription: description,
+              rating: rating,
+            }
+          })
+            .then(response => {
+
+              AXIOS.get('/view_review_for_order', {
+                params: {
+                  orderId: order.id
+                }
+              })
+                .then(response => {
+                  this.review = response.data
+                })
+                .catch(e => {
+                  this.errorReview = e
+    
+                })
+    
+              swal("Success", "Thank you for your feedback!", "success");
+    
+            })
+            .catch(e => {
+              swal("ERROR", e.response.data, "error");
+            })
+
+        },
+
+        deleteReview: function (order){
+
+          AXIOS.delete('/delete_review/', {
+            params: {
+              orderId: order.id,
+            }
+          })
+            .then(response => {
+
+              AXIOS.get('/view_review_for_order', {
+                params: {
+                  orderId: order.id
+                }
+              })
+                .then(response => {
+                  this.review.description = 'NA'
+                  this.review.rating = 'NA'
+                })
+                .catch(e => {
+                  this.errorReview = e
+    
+                })
+    
+              swal("Success", "Feedback deleted successfully", "success");
     
             })
             .catch(e => {

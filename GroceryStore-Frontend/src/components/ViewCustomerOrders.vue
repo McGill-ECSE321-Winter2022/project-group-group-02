@@ -35,59 +35,71 @@
         </table>
       </td>
       <td>${{ order.subtotal }}</td>
-      <!-- <td>{{ order.rating }}</td>
-      <td>{{ order.review }}</td>       -->
       <td>
-        <select class="form-control" @change="null">
+        <div>Current rating: {{ getReviewForOrder(order).rating }}</div>
+        <select 
+            class="form-control"
+            @change="null"
+            v-model="newRating"
+         >
           <option disabled value="">Please Select</option>
-          <option>Very Poor</option>
+          <option>VeryPoor</option>
           <option>Poor</option>
           <option>Okay</option>
           <option>Good</option>
-          <option>Very Good</option>
+          <option>VeryGood</option>
         </select>  
       </td>
       <td>
+        <div>Current review: {{ getReviewForOrder(order).description }}</div>
         <input
                     type="text"
                     class="form-control"
-                    v-model="order.review"
+                    v-model="newDescription"
                     placeholder="Insert review"
-                  />
+        />
       </td>
 
 
       <td>
+        <tr>
         <button
+                    v-if="getReviewForOrder(order).description == null"
                     type="button"
                     class="btn btn-dark py-50 px-6"
-                    
-                    @click="null"
+                    v-bind:disabled="false"
+                    @click="createReview(newRating, newDescription, order)"
+                  >
+                    Create review
+        </button>
+        </tr>
+        <tr>
+        <button
+                    v-if="getReviewForOrder(order).description != null"
+                    type="button"
+                    class="btn btn-dark py-50 px-6"
+                    v-bind:disabled="false"
+                    @click="updateReview(newRating, newDescription, order)"
                   >
                     Change review
         </button>
+        </tr>
+        <tr>
+        <button
+                    v-if="getReviewForOrder(order).description != null"
+                    type="button"
+                    class="btn btn-dark py-50 px-6"
+                    v-bind:disabled="false"
+                    @click="deleteReview(order)"
+                  >
+                    Delete review
+        </button>
+        </tr>
+
       </td>
 
     </tr>
-     <!-- <tr>
-      <td>March 20th</td>
-      <td>12h45</td>
-      <td>Pickup</td>
-      <td>Complete</td>
-      <td>Pizza, Vegetables</td>
-      <td>$32</td>
-      <td colspan="2">
-        <button
-                    type="button"
-                    class="btn btn-dark py-50 px-6"
-                    
-                    @click="null"
-                  >
-                    Review order
-        </button>
-      </td>
-
-    </tr> -->
+     
     </table>
 
 
