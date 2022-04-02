@@ -42,7 +42,7 @@ export default {
 							this.password = '',
 								this.confirmPassword = '',
 								this.address = '',
-								this.names = '',
+								this.name = '',
 								this.email = '',
 								this.successSignIn = 'Account created successfully!',
 								localStorage.setItem('email', this.user.email)

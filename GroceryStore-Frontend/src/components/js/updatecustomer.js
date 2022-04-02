@@ -22,6 +22,8 @@ export default {
 			name: '',
 			errorUpdate: '',
 			successUpdate: '',
+			errorDelete: '',
+			passwordDelete: '',
 		}
 	},
 	created: function () {
@@ -68,6 +70,24 @@ export default {
 
 			}
 
+		},
+		deletecustomer: function (password) {
+			if (password != this.user.password) {
+				this.errorDelete= "The password is incorrect."
+			} else {
+				var email = localStorage.getItem('email')
+				console.log(email)
+				AXIOS.delete('/delete_customer/?email='.concat(email))
+					.then(response => {
+						if (response.status === 200) {
+							window.location.href = "/#/login"
+						}
+					})
+					.catch(e => {
+					this.errorDelete = e.response.data
+					console.log(this.errorDelete)					})
+
+			}
 		}
 	}
 }
