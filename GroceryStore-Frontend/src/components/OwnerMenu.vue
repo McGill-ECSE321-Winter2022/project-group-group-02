@@ -21,16 +21,14 @@
     </div>
         <div class="row cf">
       <div class="six col">
-        <a href='/#/addDailySchedule' class="button" id="button-1">Add Daily Schedules</a>
+        <a href='/#/UpdateDailySchedule' class="button" id="button-1">Update Daily Schedules</a>
       </div>
-      <div class="six col">
-        <a href="/#/deleteDailySchedule" class="button" id="button-1">Delete Daily Schedules</a>
+     <div class="six col">
+        <a href="/#/viewitemsowner" class="button" id="button-1">Add Items</a>
       </div>
     </div>
     <div class="row cf">
-      <div class="six col">
-        <a href="/#/viewitemsowner" class="button" id="button-1">Add Items</a>
-      </div>
+      
       <div class="six col">
         <a href="/#/login" class="button" id="button-1">Logout</a>
       </div>
