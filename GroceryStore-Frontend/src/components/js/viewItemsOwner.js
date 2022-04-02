@@ -2,8 +2,27 @@ import axios from 'axios'
 
 var config = require('../../../config')
 
+
+var backendConfigurer = function(){
+	switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
+      case 'production':
+          return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+	}
+};
+
+var frontendConfigurer = function(){
+	switch(process.env.NODE_ENV){
+      case 'development':
+          return 'http://' + config.dev.host + ':' + config.dev.port;
+      case 'production':
+          return 'https://' + config.build.host + ':' + config.build.port ;
+	}
+};
+
+var backendUrl = backendConfigurer();
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
@@ -61,6 +80,7 @@ export default {
     
     
     methods: {
+      
         createUnavailableItem: function (name,price) {
             // Create a new Unavailable item and add it to the list of order
             AXIOS.post('/create_unavailable_item', {}, {
@@ -118,15 +138,15 @@ export default {
               swal("ERROR", e.response.data, "error");
             })
 
-        }
+        },
       
        
-      },
-        replenishInventory: function (itemName,newQuantityAvailable) {
+      
+        replenishInventory: function (name,newQuantityAvailable) {
           // Create a new Shoppable item and add it to the list of order
             AXIOS.put('/update_shoppable_item_quantity_available', {
             params: {
-              name: itemName,
+              name: name,
               newQuantityAvailable: newQuantityAvailable
             }
           })
@@ -149,11 +169,11 @@ export default {
             })
         },
 
-        updateShoppableItemPrice: function (item, price) {
+        updateShoppableItemPrice: function (name, price) {
           // Create a new Unavailable item and add it to the list of order
             AXIOS.put('/update_shoppable_item_price', {
             params: {
-              name: item.name,
+              name: name,
               newPrice: price              
             }
           })
@@ -175,6 +195,7 @@ export default {
               swal("ERROR", e.response.data, "error");
             })
         },
+
         updateUnavailableItemPrice: function (name,newPrice) {
           // Create a new Unavailable item and add it to the list of order
             AXIOS.put('/update_unavailable_item_price', {}, {
@@ -201,34 +222,37 @@ export default {
               swal("ERROR", e.response.data, "error");
             })
         },
-        deleteShoppableItem: function (deletedName) {
+
+        deleteShoppableItem: function (name) {
           // Create a new Unavailable item and add it to the list of order
-            AXIOS.delete('/delete_shoppable_item', {}, {
+            AXIOS.delete('/delete_shoppable_item',{}, {
             params: {
-              name: deletedName,
+              name: name,
             }
           })
             .then(response => {
 
               AXIOS.get('/view_all_shoppable_items', {})
                 .then(response => {
+
                   this.shoppableItems = response.data
                 })
                 .catch(e => {
-                  
+                  this.errorItem = e
     
                 })
     
-              swal("Success", "", "success");
+              swal("success", "", "success");
     
             })
             .catch(e => {
               swal("ERROR", e.response.data, "error");
             })
         },
+
         deleteUnavailableItem: function (name) {
           // Create a new Unavailable item and add it to the list of order
-            AXIOS.delete('/delete_unavailable_item', {}, {
+            AXIOS.delete('/delete_unavailable_item', {
             params: {
               name: name,
             }
@@ -254,4 +278,5 @@ export default {
         
 
     }
+}
   
