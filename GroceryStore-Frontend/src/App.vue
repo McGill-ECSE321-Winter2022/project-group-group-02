@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/LogoGS.png">
+    <img src="./assets/grocery_store-ConvertImage.png">
     <router-view></router-view>
   </div>
 </template>
