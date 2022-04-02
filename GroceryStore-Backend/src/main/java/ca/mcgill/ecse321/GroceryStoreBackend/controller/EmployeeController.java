@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.dto.CustomerDto;
 import ca.mcgill.ecse321.GroceryStoreBackend.dto.EmployeeDto;
+import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Employee;
 import ca.mcgill.ecse321.GroceryStoreBackend.service.EmployeeService;
 
@@ -35,22 +38,38 @@ public class EmployeeController {
 	}
 	
 	@PostMapping(value = { "/create_employee", "/create_employee/" })
-	public EmployeeDto createEmployee(@RequestParam("email") String email, @RequestParam("password") String password,
+	public ResponseEntity<?> createEmployee(@RequestParam("email") String email, @RequestParam("password") String password,
 			@RequestParam("name") String name, @RequestParam("salary") Double salary) throws IllegalArgumentException {
-		Employee employee = service.createEmployee(email, password, name, salary);
-		return convertToDto(employee);
+		try {
+			Employee employee = service.createEmployee(email, password, name, salary);
+			return new ResponseEntity<>(convertToDto(employee), HttpStatus.OK);
+
+		}catch(IllegalArgumentException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PutMapping(value = { "/update_employee", "/update_employees/" })
-	public EmployeeDto updateEmployee(@RequestParam("email") String email, @RequestParam("password") String password,
+	public ResponseEntity<?> updateEmployee(@RequestParam("email") String email, @RequestParam("password") String password,
 			@RequestParam("name") String name, @RequestParam("salary") Double salary) throws IllegalArgumentException {
-		Employee employee = service.updateEmployee(email, password, name, salary);
-		return convertToDto(employee);
+		try {
+			Employee employee = service.updateEmployee(email, password, name, salary);
+			return new ResponseEntity<>(convertToDto(employee), HttpStatus.OK);
+
+		}catch(IllegalArgumentException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@DeleteMapping(value = { "/delete_employee", "/delete_employee/" })
-	public void deleteEmployee(@RequestParam("email") String email) throws IllegalArgumentException {
-		service.deleteEmployee(email);
+	public ResponseEntity<?> deleteEmployee(@RequestParam("email") String email) throws IllegalArgumentException {
+		try {
+			service.deleteEmployee(email);
+			return new ResponseEntity<>(HttpStatus.OK);
+
+		}catch(IllegalArgumentException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PostMapping(value = { "/add_dailySchedule", "/add_dailySchedule/" })

@@ -62,9 +62,14 @@ public class OwnerController {
      * @return OwnerDTO
      */
 	@PutMapping(value = { "/update_owner_password/", "/update_owner_password" })
-	public OwnerDto updateOwnerPassword(@RequestParam("newPassword") String newPassword) {
-		Owner owner = ownerService.updateOwnerPassword(newPassword);
-		return convertToDTO(owner);
+	public ResponseEntity<?> updateOwnerPassword(@RequestParam("newPassword") String newPassword) {
+		try {
+			Owner owner = ownerService.updateOwnerPassword(newPassword);
+			return new ResponseEntity<>(convertToDTO(owner), HttpStatus.OK);
+
+		}catch(IllegalArgumentException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	/**
@@ -74,9 +79,14 @@ public class OwnerController {
      * @return OwnerDTO
      */
 	@PutMapping(value = { "/update_owner_name/", "/update_owner_name" })
-	public OwnerDto updateOwnerName(@RequestParam("newName") String newName) {
-		Owner owner = ownerService.updateOwnerName(newName);
-		return convertToDTO(owner);
+	public ResponseEntity<?> updateOwnerName(@RequestParam("newName") String newName) {
+		try {
+			Owner owner = ownerService.updateOwnerName(newName);
+			return new ResponseEntity<>(convertToDTO(owner), HttpStatus.OK);
+
+		}catch(IllegalArgumentException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	/**
