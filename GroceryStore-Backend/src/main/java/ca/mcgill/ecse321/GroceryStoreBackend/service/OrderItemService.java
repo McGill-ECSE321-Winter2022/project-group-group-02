@@ -43,11 +43,27 @@ public class OrderItemService {
 
 		if (quantity < 0)
 			throw new IllegalArgumentException("Please enter a valid quantity. ");
+		
 
 		ShoppableItem item = itemRepo.findByName(itemName);
+		
+
+		List<OrderItem> list = order.getOrderItems();
+		
+		  if(!list.isEmpty()) {
+		    
+		    for(int i = 0; i < list.size(); i++) {
+		      
+		      if(list.get(i).getItem().getName().equals(itemName))
+		        throw new IllegalArgumentException("Item already in cart. "); 
+		    }
+		  }
 
 		if (item == null)
 			throw new IllegalArgumentException("Please enter a valid item. ");
+		
+		if(item.getQuantityAvailable() < quantity)
+          throw new IllegalArgumentException("Quantity exceeds the amount in inventory. ");
 
 //		if (orderItemRepo.existsById(orderItemId) == true)
 //			throw new IllegalArgumentException("This ID is being used. ");
@@ -88,6 +104,9 @@ public class OrderItemService {
 
 		if (item == null)
 			throw new IllegalArgumentException("Please enter a valid item. ");
+		
+		if(item.getQuantityAvailable() < quantity)
+          throw new IllegalArgumentException("Quantity exceeds the amount in inventory. ");
 
 		OrderItem orderItem = orderItemRepo.findOrderItemById(orderItemId);
 		if (orderItem == null)
