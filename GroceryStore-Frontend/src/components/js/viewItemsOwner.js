@@ -18,6 +18,7 @@ export default {
       return {
         name : '',
         price : '',
+        errorItem: '',
         quantityAvailable : '',
         shoppableItems: [],
         unavailableItems: []
@@ -73,7 +74,7 @@ export default {
 
               AXIOS.get('/view_all_unavailable_items', {})
                 .then(response => {
-                  this.unavailableItems = response.data.unavailableItems
+                  this.unavailableItems = response.data
                 })
                 .catch(e => {
                   
@@ -103,7 +104,7 @@ export default {
 
               AXIOS.get('/view_all_shoppable_items', {})
                 .then(response => {
-                  this.shoppableItems = response.data.shoppableItems
+                  this.shoppableItems = response.data
                 })
                 .catch(e => {
                   
@@ -147,12 +148,13 @@ export default {
               swal("ERROR", e.response.data, "error");
             })
         },
-        updateShoppableItemPrice: function (name,newPrice) {
+
+        updateShoppableItemPrice: function (item, price) {
           // Create a new Unavailable item and add it to the list of order
-            AXIOS.put('/update_shoppable_item_price', {}, {
+            AXIOS.put('/update_shoppable_item_price', {
             params: {
-              name: name,
-              newPrice: newPrice              
+              name: item.name,
+              newPrice: price              
             }
           })
             .then(response => {

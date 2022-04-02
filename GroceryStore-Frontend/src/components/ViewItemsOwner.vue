@@ -7,7 +7,7 @@
 				<th>Current Price</th>
 				<th>New Price</th>
 				<th>Quantity</th>
-				<th></th>
+				
 			</tr>
 			<tr v-for="item in shoppableItems" :key=item.name>
 				<td>{{item.name}}</td>
@@ -16,15 +16,14 @@
 					<input
 						type="text"
 						class="form-control"
-						v-model="newPrice"
+						v-model="newShoppablePrice"
 						placeholder="New Price"
 					/>
 					<button
 						type="button"
 						class="btn btn-dark py-50 px-6"
 						v-bind:disabled="false"
-						@click="updateShoppableItemPrice(item.name,newPrice)"
-						
+						@click="updateShoppableItemPrice(item,newShoppablePrice)"
 						>
 					Update Price
 					</button>
@@ -148,7 +147,7 @@
 					<input
 						type="text"
 						class="form-control"
-						v-model="newPrice"
+						v-model="newUnavailablePrice"
 						placeholder="New Price"
 					/>
 					<button
@@ -156,7 +155,7 @@
 						class="btn btn-dark py-50 px-6"
 						v-bind:disabled="false"
 						
-						@click="null"
+						@click="updateUnavailableItemPrice(unavailableItem.name, newUnavailablePrice)"
 						
 						>
 					Update Price
