@@ -7,7 +7,6 @@
 				<th>Current Price</th>
 				<th>New Price</th>
 				<th>Quantity</th>
-				
 			</tr>
 			<tr v-for="item in shoppableItems" :key=item.name>
 				<td>{{item.name}}</td>
@@ -21,9 +20,10 @@
 					/>
 					<button
 						type="button"
-						class="btn btn-dark py-50 px-6"
+						class="btn btn-dark py-6 px-6"
 						v-bind:disabled="false"
-						@click="updateShoppableItemPrice(item,newShoppablePrice)"
+						@click="updateShoppableItemPrice(item.name,newShoppablePrice)"
+						
 						>
 					Update Price
 					</button>
@@ -44,6 +44,7 @@
 				</td>
 				
 				<td>
+					
 					<button
 						type="button"
 						class="btn btn-dark py-50 px-6"
@@ -52,6 +53,7 @@
 						>
 						Delete
 					</button>
+					
 
 				</td>
 
@@ -61,20 +63,14 @@
 
 		<div id="addShoppableItem">
 		<div class = "center">
-			<div class = "overplay">
+			<div class = "overlay">
 			</div>
 			<div class = "container">
 				<div class = "row d-md-flex">
 					<div class = "col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
 						<h2 class = "mb-4">Add Shoppable Item</h2>
-						<form action="#" class="appointment">
-							<div class="col-md-12">
-								<div class = "form-group">
-									<div class="form-field">
-										<div class="select-wrap"></div>
-									</div>
-								</div>
-							</div>
+						<!-- <form action="#" class="appointment"> -->
+							
 							<div class="row-md-6">
 								<div class="form-group">
 								<input
@@ -105,13 +101,7 @@
 								/>
 								</div>
 							</div>
-							<div class="col-md-12">
-								<div class="form-group">
-									<h5 v-if="errorCreate" style="color: red; padding-top: 20px">
-										Error: {{ errorLogin }}
-									</h5>
-								</div>
-							</div>
+							
 							<div class="col-md-12">
 								<div class="form-group">
 									<button
@@ -124,7 +114,9 @@
 									</button>
 								</div>
 							</div>
-						</form>
+							
+
+						<!-- </form> -->
 					</div>
 				</div>
 			</div>
@@ -140,9 +132,9 @@
 				<th>New Price</th>
 				<th></th>
 			</tr>
-			<tr v-for="unavailableItem in unavailableItems" :key=unavailableItem.name>
-				<td>{{unavailableItem.name}}</td>
-				<td>${{unavailableItem.price}}</td>
+			<tr v-for="item in unavailableItems" :key=item.name>
+				<td>{{item.name}}</td>
+				<td>${{item.price}}</td>
 				<td>
 					<input
 						type="text"
@@ -155,7 +147,7 @@
 						class="btn btn-dark py-50 px-6"
 						v-bind:disabled="false"
 						
-						@click="updateUnavailableItemPrice(unavailableItem.name, newUnavailablePrice)"
+						@click="updateUnavailableItemPrice(item.name, newUnavailablePrice)"
 						
 						>
 					Update Price
@@ -168,7 +160,7 @@
 						type="button"
 						class="btn btn-dark py-50 px-6"
 						v-bind:disabled="false"
-						@click="deleteUnavailableItem(unavailableItem.name)"
+						@click="deleteUnavailableItem(item.name)"
 						>
 						Delete
 					</button>
