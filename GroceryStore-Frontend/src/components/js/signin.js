@@ -51,7 +51,7 @@ export default {
 						}
 					})
 					.catch(e => {
-					this.errorSignIn = e.response
+					this.errorSignIn = e.response.data
 					console.log(this.errorLogIn)
 					})
 
