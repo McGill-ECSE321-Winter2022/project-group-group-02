@@ -2,6 +2,8 @@
 <div id="updateaccountcustomer">
  <div class="overlay">
 	</div>
+    <div class="vertical-center">
+
     <div class="container">
       <div class="row d-md-flex">
         <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
@@ -86,6 +88,8 @@
           </form>
           <br />
         </div>
+                </div>
+
       </div>
     </div>
 </div>
@@ -94,5 +98,12 @@
 <script src="./js/updatecustomer.js">
 created()
 </script>
-<style>
+<style scoped>
+.vertical-center {
+  width: 140%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 5px;
+}
 </style>

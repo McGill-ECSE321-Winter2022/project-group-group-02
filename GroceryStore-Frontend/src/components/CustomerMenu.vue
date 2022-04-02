@@ -15,7 +15,7 @@
           type="button"
           class="block"
           @click="login(email, password, confirmPassword, name, address)"
-        >Browse</button>
+        >New Order/Browse</button>
       </div>
       <br />
       <div class="col-md-12">

@@ -33,13 +33,27 @@
           onClick="location.href='/#/employeeManagement'"
         >Manage Employees</button>
       </div>
-      <br />
 	  	        <div class="col-md-12">
         <button
           type="button"
           class="block"
           onClick="location.href='/#/manageStoreInfo'"
-        >Manage Schedules</button>
+        >Manage Store Information</button>
+      </div>
+      	  	        <div class="col-md-12">
+        <button
+          type="button"
+          class="block"
+          onClick="location.href='/#/addDailySchedule'"
+        >Add Daily Schedules</button>
+      </div>
+      <br />
+            	  	        <div class="col-md-12">
+        <button
+          type="button"
+          class="block"
+          onClick="location.href='/#/deleteDailySchedule'"
+        >Delete Daily Schedules</button>
       </div>
       <br />
     </div>

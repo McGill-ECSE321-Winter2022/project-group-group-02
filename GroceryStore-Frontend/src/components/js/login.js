@@ -54,9 +54,8 @@ export default {
 					}
 				})
 				.catch(e => {
-					this.errorLogin = e.message
+					this.errorLogin = e.response.data
 					console.log(this.errorLogIn)
-					swal("ERROR", e.message, "error");
 				})
 		}
 	}

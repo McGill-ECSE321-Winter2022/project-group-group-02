@@ -19,13 +19,15 @@ export default {
 			password: '',
 			address: '',
 			name: '',
-			errorLogin: ''
+			errorSignIn: '',
+			successSignIn: '', 
+			confirmPassword: '',
 		}
 	},
 	methods: {
 		signin: function (email, password, confirmPassword, name, address) {
 			if (password != confirmPassword) {
-				swal("ERROR", "Passwords do not match.", "error");
+				this.errorSignIn = "Passwords do not match."
 			} else {
 				AXIOS.post('/create_customer/', {}, {
 					params: {
@@ -44,13 +46,13 @@ export default {
 								this.email = '',
 								localStorage.setItem('email', this.user.email)
 								localStorage.setItem('type', this.type)
-								swal("Success", "Account created successfully!", "success");
+								//this.successSignIn = "Account created successfully!"
+								//console.log(this.successSignIn)
 						}
 					})
 					.catch(e => {
-						this.errorSignIn = e.message,
-						console.log(this.errorSignIn)
-						swal("ERROR", e.response.data.message, "error");
+					this.errorSignIn = e.response
+					console.log(this.errorLogIn)
 					})
 
 			}
