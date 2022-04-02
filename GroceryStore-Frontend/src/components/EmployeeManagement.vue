@@ -1,18 +1,20 @@
 <template>
-  <div id="employeeManagement">
-    <div class="overlay"></div>
-    <div class="vertical-center">
-      <div class="container">
-        <div class="row d-md-flex">
-          <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
-            <h2 class="mb-4">Hire new employee</h2>
-            <form action="#" class="appointment">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <div class="form-field">
-                    <div class="select-wrap"></div>
-                  </div>
-                </div>
+<div id="employeeManagement">
+
+  <div class="overlay">
+  </div>
+  <div class="vertical-center">
+
+
+  <div class="container">
+    <div class="row d-md-flex">
+      <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
+        <h2 class="mb-4">Hire new employee</h2>
+        <form action="#" class="appointment">
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="form-field">
+                <div class="select-wrap"></div>
               </div>
             </div>
           </div>
@@ -68,7 +70,8 @@
               </button>
             </div>
           </div>
-        </div>
+        </form>
+        <br />
       </div>
     </div>
   </div>
@@ -243,7 +246,8 @@
 
             </div>
           </div>
-        </div>
+        </form>
+        <br />
       </div>
     </div>
   </div>
@@ -349,7 +353,7 @@
 <script src= "./js/employeeManagement.js">
 export default {
   name: "EmployeeManagement"
-};
+}
 </script>
 
 <style scoped>
@@ -359,6 +363,7 @@ export default {
   margin-right: auto;
   text-align: center;
   padding: 5px;
+
 }
 
 
