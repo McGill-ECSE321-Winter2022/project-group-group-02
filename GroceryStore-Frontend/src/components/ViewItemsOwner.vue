@@ -9,9 +9,9 @@
 				<th>Quantity</th>
 				<th></th>
 			</tr>
-			<tr v-for="shoppableItem in shoppableItems" :key=shoppableItem.name>
-				<td>{{shoppableItem.name}}</td>
-				<td>{{shoppableItem.price}}</td>
+			<tr v-for="item in shoppableItems" :key=item.name>
+				<td>{{item.name}}</td>
+				<td>${{item.price}}</td>
 				<td>
 					<input
 						type="text"
@@ -23,7 +23,7 @@
 						type="button"
 						class="btn btn-dark py-50 px-6"
 						v-bind:disabled="false"
-						@click="updateShoppableItemPrice(shoppableItem.name,newPrice)"
+						@click="updateShoppableItemPrice(item.name,newPrice)"
 						
 						>
 					Update Price
@@ -33,12 +33,12 @@
 				<td>
 					
 					
-					{{shoppableItem.quantityAvailable}}
+					{{item.quantityAvailable}}
 					<button
 						type="button"
 						class="btn btn-dark py-50 px-6"
 						v-bind:disabled="false"
-						@click="replenishInventory(shoppableItem.name,shoppableItem.quantityAvailable+10)"
+						@click="replenishInventory(item.name,item.quantityAvailable+10)"
 						>
 						Replenish
 					</button>
@@ -49,7 +49,7 @@
 						type="button"
 						class="btn btn-dark py-50 px-6"
 						v-bind:disabled="false"
-						@click="deleteShoppableItem(shoppableItem.name)"
+						@click="deleteShoppableItem(item.name)"
 						>
 						Delete
 					</button>
@@ -143,7 +143,7 @@
 			</tr>
 			<tr v-for="unavailableItem in unavailableItems" :key=unavailableItem.name>
 				<td>{{unavailableItem.name}}</td>
-				<td>{{unavailableItem.price}}</td>
+				<td>${{unavailableItem.price}}</td>
 				<td>
 					<input
 						type="text"
