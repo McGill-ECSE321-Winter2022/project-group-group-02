@@ -8,6 +8,9 @@
         <th>Customer Email</th>
         <th>Current Status</th>
         <th>Update Status</th>
+        <th>Rating</th>
+        <th>Review</th>
+
       </tr>
 
       <tr v-for="order in orders" :key="order.id">
@@ -35,6 +38,8 @@
             @click="updateStatus(order.newStatus, order)"
           >Update Status</button>
         </td>
+        <td>{{ order.rating }}</td>
+        <td>{{ order.description }}</td>
       </tr>
     </table>
     <br />

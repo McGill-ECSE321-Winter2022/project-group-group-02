@@ -60,6 +60,31 @@ export default {
 
         // JSON responses are automatically parsed.
         this.orders = response.data
+        for (let i = 0; i < this.orders.length; i++) {
+
+
+          AXIOS.get('/view_review_for_order', {
+            params: {
+              orderId: this.orders[i].id
+            }
+          })
+            .then(response => {
+
+              if(response.data.description != null){
+                this.orders[i].description = response.data.description
+                this.orders[i].rating = response.data.rating
+              }
+              else{
+                this.orders[i].description = "No description"
+                this.orders[i].rating ="No rating"
+              }
+            })
+
+            .catch(e => {
+              this.errorReview = e
+            })
+
+        }
       })
       .catch(e => {
         this.errorOrder = e
@@ -99,6 +124,32 @@ export default {
 
               // JSON responses are automatically parsed.
               this.orders = response.data
+
+              for (let i = 0; i < this.orders.length; i++) {
+
+
+                AXIOS.get('/view_review_for_order', {
+                  params: {
+                    orderId: this.orders[i].id
+                  }
+                })
+                  .then(response => {
+
+                    if(response.data.description != null){
+                      this.orders[i].description = response.data.description
+                      this.orders[i].rating = response.data.rating
+                    }
+                    else{
+                      this.orders[i].description = "No description"
+                      this.orders[i].rating ="No rating"
+                    }
+                  })
+
+                  .catch(e => {
+                    this.errorReview = e
+                  })
+
+              }
             })
             .catch(e => {
 
