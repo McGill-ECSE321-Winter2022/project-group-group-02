@@ -26,14 +26,7 @@
 					Update Price
 					</button>
 
-              <div class="row-md-12">
-                <div class="form-group">
-                  <h5
-                    v-if="successItem"
-                    style="color: green; padding-top: 20px"
-                  >{{ successItem }}</h5>
-                </div>
-              </div>
+              
 				</td>
 				<td>
 					
@@ -65,6 +58,23 @@
 
 			</tr>
   		</table>
+		
+		<div class="row-md-12">
+			<div class="form-group">
+				<h5
+				v-if="successUpdateShoppableItemPrice"
+				style="color: green; padding-top: 20px"
+				>{{ successUpdateShoppableItemPrice }}</h5>
+			</div>
+		</div>
+		<div class="row-md-12">
+			<div class="form-group">
+				<h5
+				v-if="successReplenishInventory"
+				style="color: green; padding-top: 20px"
+				>{{ successReplenishInventory }}</h5>
+			</div>
+		</div>
 
 
 		<div id="addShoppableItem">
@@ -108,10 +118,10 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<h5 v-if="errorItem" style="color: red; padding-top: 20px">Error: {{ errorItem }}</h5>
+								<h5 v-if="errorCreateShoppableItem" style="color: red; padding-top: 20px">Error: {{ errorCreateShoppableItem }}</h5>
 							</div>
 							<div class="form-group">
-								<h5 v-if="successItem" style="color: blue; padding-top: 20px">{{ successItem }}</h5>
+								<h5 v-if="successCreateShoppableItem" style="color: green; padding-top: 20px">{{ successCreateShoppableItem }}</h5>
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
@@ -133,6 +143,7 @@
 			</div>
 		</div>
 		</div>
+		
 
 
 		  <h2> Unavailable Items </h2>
@@ -185,6 +196,15 @@
 
 		</table>
 
+		<div class="row-md-12">
+			<div class="form-group">
+				<h5
+				v-if="successUpdateUnavailableItemPrice"
+				style="color: green; padding-top: 20px"
+				>{{ successUpdateUnavailableItemPrice }}</h5>
+			</div>
+		</div>
+
 		
 
 		
@@ -227,10 +247,10 @@
 							</div>
 							
 							<div class="form-group">
-								<h5 v-if="errorItem" style="color: red; padding-top: 20px">Error: {{ errorItem }}</h5>
+								<h5 v-if="errorCreateUnavailableItem" style="color: red; padding-top: 20px">Error: {{ errorCreateUnavailableItem }}</h5>
 							</div>
 							<div class="form-group">
-								<h5 v-if="successItem" style="color: blue; padding-top: 20px">{{ successItem }}</h5>
+								<h5 v-if="successCreateUnavailableItem" style="color: green; padding-top: 20px">{{ successCreateUnavailableItem }}</h5>
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
