@@ -20,7 +20,7 @@
         <td>{{ order.orderStatus }}</td>
         <td>
           <select class="form-control" v-model="order.newStatus">
-            <option disabled value label="Please select a new status">Please select a new status</option>
+            <option disabled value="Please select a new status">Please select a new status</option>
             <option>Confirmed</option>
             <option>Preparing</option>
             <option>Cancelled</option>
@@ -31,6 +31,7 @@
           <button
             type="button"
             class="btn btn-dark py-50 px-6"
+            v-bind:disabled="!order.newStatus"
             @click="updateStatus(order.newStatus, order)"
           >Update Status</button>
         </td>

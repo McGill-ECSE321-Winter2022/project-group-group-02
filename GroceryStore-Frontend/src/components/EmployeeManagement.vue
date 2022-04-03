@@ -78,6 +78,13 @@
             >Error: {{ errorHire }}</h5>
           </div>
 
+          <div class="form-group">
+            <h5
+              v-if="sucessHire"
+              style="color: green; padding-top: 20px"
+            >{{ sucessHire }}</h5>
+          </div>
+
         </form>
         <br />
       </div>
@@ -158,6 +165,15 @@
                 style="color: red; padding-top: 20px"
               >Error: {{ errorUpdate }}</h5>
             </div>
+
+
+            <div class="form-group">
+              <h5
+                v-if="sucessUpdate"
+                style="color: green; padding-top: 20px"
+              >{{ sucessUpdate }}</h5>
+            </div>
+
           </form>
           <br />
 
@@ -214,6 +230,15 @@
                 style="color: red; padding-top: 20px"
               >Error: {{ errorFire }}</h5>
             </div>
+
+
+            <div class="form-group">
+              <h5
+                v-if="sucessFire"
+                style="color: green; padding-top: 20px"
+              >{{ sucessFire }}</h5>
+            </div>
+
 
           </form>
           <br />
@@ -283,6 +308,14 @@
             >Error: {{ errorAssign }}</h5>
           </div>
 
+          <div class="form-group">
+            <h5
+              v-if="sucessAssign"
+              style="color: green; padding-top: 20px"
+            >{{ sucessAssign }}</h5>
+          </div>
+
+
         </form>
         <br />
       </div>
@@ -351,6 +384,14 @@
               style="color: red; padding-top: 20px"
             >Error: {{ errorUnasign }}</h5>
           </div>
+
+          <div class="form-group">
+            <h5
+              v-if="sucessUnasign"
+              style="color: green; padding-top: 20px"
+            >{{ sucessUnasign }}</h5>
+          </div>
+
         </td>
 
 

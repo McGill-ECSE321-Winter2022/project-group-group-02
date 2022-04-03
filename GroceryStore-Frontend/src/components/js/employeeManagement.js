@@ -50,11 +50,20 @@ export default {
       errorViewSchedules: '',
       errorViewEmployees : '',
 
+      sucessHire:'',
+      sucessFire:'',
+      sucessUpdate:'',
+      sucessAssign:'',
+      sucessUnasign:'',
+      sucessViewSchedules: '',
+      sucessViewEmployees : '',
+
     }
   },
 
     created: function() {
 
+    //get schedules in the system
       AXIOS.get('/view_dailyschedules', {})
         .then(response => {
 
@@ -68,6 +77,7 @@ export default {
 
 
 
+      //get employees in system
       AXIOS.get('/view_employees', {})
         .then(response => {
 
@@ -87,8 +97,14 @@ export default {
 
     methods:{
 
+
+      /**
+       * Create an employee in the system
+       * @author Karl Rouhana
+       */
       hireEmployee: function (email, password, name, salary){
 
+        //Call backend with correct parameters
         AXIOS.post('/create_employee',{},{
           params:{
 
@@ -104,11 +120,13 @@ export default {
 
           .then(response =>{
 
+            //Refresh the employees
             AXIOS.get('/view_employees', {})
               .then(response => {
 
                 // JSON responses are automatically parsed.
                 this.employees = response.data
+                this.sucessHire = 'Hire successfully !'
               })
               .catch(e => {
                 this.errorHire = e.response.data
@@ -148,6 +166,7 @@ export default {
 
                 // JSON responses are automatically parsed.
                 this.employees = response.data
+                this.sucessUpdate = 'Updated successfully !'
               })
               .catch(e => {
                 this.errorUpdate = e.response.data
@@ -183,6 +202,7 @@ export default {
 
                 // JSON responses are automatically parsed.
                 this.employees = response.data
+                this.sucessFire = 'Fired successfully !'
               })
               .catch(e => {
                 this.errorFire = e.response.data
@@ -234,6 +254,7 @@ export default {
 
                 // JSON responses are automatically parsed.
                 this.employees = response.data
+                this.sucessAssign = 'Assigned successfully'
               })
               .catch(e => {
                 this.errorAssign = e.response.data
@@ -295,6 +316,7 @@ export default {
 
                 // JSON responses are automatically parsed.
                 this.dailySchedules = response.data
+                this.sucessUnasign = 'Removed successfully !'
               })
               .catch(e => {
                 this.errorUnassign = e.response.data
