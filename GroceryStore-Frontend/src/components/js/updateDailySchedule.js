@@ -36,12 +36,15 @@ export default {
     name: 'dailyschedule',
     data () {
       return {
+        dailyschedule:'',
+        dailyschedules:[],
         dayOfWeek: '',
         startTime:'',
         endTime:'',
-        errorUpdate: '',
-        successUpdate: '',
-
+        errorAdd: '',
+        successAdd: '',
+        errorDelete: '',
+        successDelete: '',
       }
     },
     
@@ -49,7 +52,7 @@ export default {
         AXIOS.get('/view_dailyschedules')
         .then(response => {
           // JSON responses are automatically parsed.
-          this.dailyschedule = response.data
+          this.dailyschedules = response.data
         })
         .catch(e => {
           this.errorUpdate = e
@@ -77,7 +80,7 @@ export default {
 						if (response.status === 200) {
 							this.dayOfWeek = '',
 								this.startTime = '',
-                                this.endTime = '',
+                this.endTime = '',
 								this.successUpdate = 'Daily Schedule added successfully!'
 						}
 					})
@@ -85,16 +88,15 @@ export default {
 					this.errorUpdate = e.response.data
 					console.log(this.errorUpdate)
 					})
-
           
       },
 
 
-        deleteDailySchedule: function (id) {
+        deleteDailySchedule: function (dailyschedule) {
           // Create a new Unavailable item and add it to the list of order
             AXIOS.delete('/delete_dailyschedule',{}, {
             params: {
-                DailyScheduleId:id
+                DailyScheduleId:dailyshcedule.id
             }
           })
             .then(response => {
@@ -105,7 +107,7 @@ export default {
                   this.dailyschedule = response.data
                 })
                 .catch(e => {
-                  this.errorUpdate = e
+                  this.errorDelete = e
     
                 })
     
