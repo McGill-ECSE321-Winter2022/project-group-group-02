@@ -120,7 +120,6 @@ export default {
           
               // JSON responses are automatically parsed.
               this.review = response.data
-              return this.review
             })
             .catch(e => {
               this.errorReview = e

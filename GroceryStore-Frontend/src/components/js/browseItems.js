@@ -78,9 +78,27 @@ export default {
     methods: {
         addToBasket: function(newItemName, quantityDesired){
 
-            for (let i = 0; i < this.basketItems.length; i++) {
-                if(this.basketItems[i].itemName == newItemName){
-                    this.basketItems.splice(i, 1);
+            
+
+
+            if(quantityDesired == null || quantityDesired < 1){
+                removeFromBasket(newItemName)
+            }
+            else{
+
+                for (let i = 0; i < this.shoppableItems.length; i++) {
+                    if(this.shoppableItems[i].name == newItemName){
+                        
+                        if(this.shoppableItems[i].quantityAvailable < quantityDesired){
+                            return console.error();
+                        }
+                    }
+                }
+
+                for (let i = 0; i < this.basketItems.length; i++) {
+                    if(this.basketItems[i].itemName == newItemName){
+                        this.basketItems.splice(i, 1);
+                    }
                 }
             }
 
@@ -103,8 +121,8 @@ export default {
             AXIOS.post('/create_order', {}, {
                 params: {
                     orderType: type,
-                    //email: window.localStorage.getItem('email')
-                    email: 'Jeff@me'
+                    email: window.localStorage.getItem('email')
+                    //email: 'Jeff@me'
                 }
               })
                 .then(response => {
@@ -132,7 +150,7 @@ export default {
                         })
     
                   }
-                  this.basketItems = null;
+                  this.basketItems = [];
         
                 })
                 .catch(e => {

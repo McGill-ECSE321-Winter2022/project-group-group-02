@@ -16,7 +16,7 @@
             <input
 				type="number"
 				class="form-control"
-                min="0"
+                min="1"
 				v-model="item.quantityDesired"
 				placeholder="Quantity"
 			/>
@@ -32,33 +32,10 @@
                     Add to cart
         </button>
 
-        <button
-                    type="button"
-                    class="btn btn-dark py-50 px-6"
-                    v-bind:disabled="false"
-                    @click="removeFromBasket(item.name)"
-                  >
-                    Remove from cart
-        </button>
         </td>
     </tr>
 
     </table>
-
-<h5>Choose Order Type: </h5>
-<select  @change="null" v-model="orderType">
-            <option disabled value>Please Select</option>
-            <option>Pick Up</option>
-            <option>Delivery</option>
-</select>
-<button
-                    type="button"
-                    class="btn btn-dark py-50 px-6"
-                    v-bind:disabled="false"
-                    @click="createOrder(orderType)"
-                  >
-                    Confirm Order
-</button>
 
 
 <h2> Exclusively available in store!</h2>
@@ -78,12 +55,38 @@
     <tr>
       <th>Item</th>
       <th>Quantity</th>
+
     </tr>
     <tr v-for="item in basketItems" :key=item.name>
       <td>{{ item.itemName }}</td>
       <td>{{ item.quantityDesired }}</td>
+      <td>
+      <button
+                    type="button"
+                    class="btn btn-dark py-50 px-6"
+                    v-bind:disabled="false"
+                    @click="removeFromBasket(item.itemName)"
+                  >
+                    Remove from cart
+        </button>
+        </td>
     </tr>
 </table>
+
+<h5>Choose Order Type: </h5>
+<select  @change="null" v-model="orderType">
+            <option disabled value>Please Select</option>
+            <option>Pick Up</option>
+            <option>Delivery</option>
+</select>
+<button
+                    type="button"
+                    class="btn btn-dark py-50 px-6"
+                    v-bind:disabled="(basketItems[0] == null) || (orderType == '')"
+                    @click="createOrder(orderType)"
+                  >
+                    Confirm Order
+</button>
 
 </div>
 
