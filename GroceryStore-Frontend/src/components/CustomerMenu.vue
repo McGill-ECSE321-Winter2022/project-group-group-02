@@ -8,7 +8,7 @@
         <a href='/#/updateaccountcustomer' class="button" id="button-1">Update Account</a>
       </div>
       <div class="six col">
-        <a href="#" class="button" id="button-1">New Order/Browse</a>
+        <a href="/#/browseitems" class="button" id="button-1">New Order/Browse</a>
       </div>
     </div>
     <div class="row cf">

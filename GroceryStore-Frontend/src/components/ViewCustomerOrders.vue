@@ -34,7 +34,7 @@
         <td>${{ order.subtotal }}</td>
         <td>
           <div>Current rating: {{ getReviewForOrder(order).rating }}</div>
-          <select class="form-control" @change="null" v-model="newRating">
+          <select class="form-control" @change="null" v-model="order.newRating">
             <option disabled value>Please Select</option>
             <option>VeryPoor</option>
             <option>Poor</option>
@@ -48,7 +48,7 @@
           <input
             type="text"
             class="form-control"
-            v-model="newDescription"
+            v-model="order.newDescription"
             placeholder="Insert review"
           />
         </td>
@@ -60,7 +60,7 @@
               type="button"
               class="btn btn-dark py-50 px-6"
               v-bind:disabled="false"
-              @click="createReview(newRating, newDescription, order)"
+              @click="createReview(order.newRating, order.newDescription, order)"
             >Create review</button>
           </tr>
           <tr>
@@ -69,7 +69,7 @@
               type="button"
               class="btn btn-dark py-50 px-6"
               v-bind:disabled="false"
-              @click="updateReview(newRating, newDescription, order)"
+              @click="updateReview(order.newRating, order.newDescription, order)"
             >Change review</button>
           </tr>
           <tr>

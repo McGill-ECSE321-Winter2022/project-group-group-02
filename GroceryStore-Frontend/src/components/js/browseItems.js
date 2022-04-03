@@ -28,6 +28,11 @@ var AXIOS = axios.create({
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
+function BasketItemDTO (itemName, quantityDesired) {
+    this.itemName = itemName
+    this.quantityDesired = quantityDesired
+}
+
 
 export default {
     
@@ -37,9 +42,14 @@ export default {
         name: '',
         price: '',
         order: '',
+        orderType: '',
         errorItem: '',
+        errorOrder: '',
+        errorOrderItem: '',
         shoppableItems: [],
         unavailableItems: [],
+        orderItems: [],
+        basketItems: []
       }
     },
 
@@ -66,8 +76,72 @@ export default {
     },
 
     methods: {
+        addToBasket: function(newItemName, quantityDesired){
 
+            for (let i = 0; i < this.basketItems.length; i++) {
+                if(this.basketItems[i].itemName == newItemName){
+                    this.basketItems.splice(i, 1);
+                }
+            }
+
+            var p = new BasketItemDTO(newItemName, quantityDesired)
+            this.basketItems.push(p)
+        },
+
+        removeFromBasket: function(nameToDelete){
+            for (let i = 0; i < this.basketItems.length; i++) {
+              
+                if(this.basketItems[i].itemName == nameToDelete){
+                    this.basketItems.splice(i, 1);
+                }
+            }
+            
+        },
+
+        createOrder: function(type){
+
+            AXIOS.post('/create_order', {}, {
+                params: {
+                    orderType: type,
+                    //email: window.localStorage.getItem('email')
+                    email: 'Jeff@me'
+                }
+              })
+                .then(response => {
+              
+                  // JSON responses are automatically parsed.
+                  this.order = response.data
         
+                })
+                .catch(e => {
+                  this.errorOrder = e
+                })
+            
+            for (let i = 0; i < this.basketItems.length; i++) {
+        
+                AXIOS.post('/create_order_item', {}, {
+                    params: {
+                        quantity: basketItems[i].quantityDesired,
+                        itemName: basketItems[i].itemName,
+                        orderId: this.order.id
+                    }
+                  })
+                    .then(response => {
+                  
+                      // JSON responses are automatically parsed.
+                      this.orderItems.put(response.data)
+            
+                    })
+                    .catch(e => {
+                      this.errorOrderItem = e
+                    })
+
+
+            }
+
+
+
+        }
 
     }
 }

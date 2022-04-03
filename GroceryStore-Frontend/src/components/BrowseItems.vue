@@ -12,31 +12,53 @@
     <tr v-for="item in shoppableItems" :key=item.name>
       <td>{{ item.name }}</td>
       <td>{{ item.price }}</td>
-
         <td> 
             <input
 				type="number"
 				class="form-control"
-				v-model="quantityAvailable"
+                min="0"
+				v-model="item.quantityDesired"
 				placeholder="Quantity"
 			/>
 
         </td>
         <td> 
-            <button
-                    v-if="quantityAvailable != null"
+        <button
                     type="button"
                     class="btn btn-dark py-50 px-6"
                     v-bind:disabled="false"
-                    @click="null"
+                    @click="addToBasket(item.name, item.quantityDesired)"
                   >
-                    Add to order
+                    Add to cart
         </button>
-            
-        </td>
 
+        <button
+                    type="button"
+                    class="btn btn-dark py-50 px-6"
+                    v-bind:disabled="false"
+                    @click="removeFromBasket(item.name)"
+                  >
+                    Remove from cart
+        </button>
+        </td>
     </tr>
+
     </table>
+
+<h5>Choose Order Type: </h5>
+<select  @change="null" v-model="orderType">
+            <option disabled value>Please Select</option>
+            <option>Pick Up</option>
+            <option>Delivery</option>
+</select>
+<button
+                    type="button"
+                    class="btn btn-dark py-50 px-6"
+                    v-bind:disabled="false"
+                    @click="createOrder(orderType)"
+                  >
+                    Confirm Order
+</button>
 
 
 <h2> Exclusively available in store!</h2>
@@ -51,6 +73,18 @@
     </tr>
 </table>
 
+<h2> Your Cart</h2>
+<table id="ItemTable">
+    <tr>
+      <th>Item</th>
+      <th>Quantity</th>
+    </tr>
+    <tr v-for="item in basketItems" :key=item.name>
+      <td>{{ item.itemName }}</td>
+      <td>{{ item.quantityDesired }}</td>
+    </tr>
+</table>
+
 </div>
 
 </template>
@@ -61,7 +95,7 @@
 
 <style>
   #ItemTable{
-    width: 90%;
+    width: 60%;
     margin-left: auto;
     margin-right: auto;
     border: 2px solid black;
