@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.CustomerRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.EmployeeRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.OwnerRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 
 @Service
@@ -16,6 +18,13 @@ public class CustomerService {
 
 	@Autowired
 	CustomerRepository customerRepository;
+	
+	@Autowired
+	EmployeeRepository employeeRepository;
+
+	@Autowired
+	OwnerRepository ownerRepository;
+
 
 	/*** Service method for the creation of a customer. Returns the created instance if there was no error.
 	 * 
@@ -42,8 +51,18 @@ public class CustomerService {
 			throw new IllegalArgumentException("Customer address must not be empty!");
 		}
 
+		if (employeeRepository.existsByEmail(email) ) {
+			throw new IllegalArgumentException("This email is already in use for an employee.");
+		}
+		
+		if (ownerRepository.existsByEmail(email) ) {
+			throw new IllegalArgumentException("This is the owner's email.");
+		}
+		
 		// Check the email is not already associated to a customer account
 		Customer customer = customerRepository.findByEmail(email);
+		
+		
 		if (customer != null) {
 			throw new IllegalArgumentException("This email is already in use for a customer.");
 		}

@@ -239,30 +239,6 @@ public class TestStoreService {
 	}
 
 	@Test
-	public void testUpdateStoreNotFound() {
-		String error = null;
-		String town = "FakeTown";
-		Double delifee = 45d;
-		Long sid = 000L;
-		Store store = null;
-
-
-		
-		try {
-           
-			store = storeService.updateStore(sid, town, delifee);
-
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-
-		//check if the store is not updated
-		assertNull(store);
-		//check error message
-		assertEquals("No store found", error);
-	}
-
-	@Test
 	public void testUpdateStoreNullTown() {
 		String error = null;
 		String town = null;

@@ -36,8 +36,15 @@
     </tr>
 
     </table>
-
-
+              <div class="col-md-12">
+                <div class="form-group">
+                  <h5
+                    v-if="errorOrder"
+                    style="color: red; padding-top: 20px"
+                  >Error: {{ errorOrder }}</h5>
+                </div>
+              </div>
+<br />
 <h2> Exclusively available in store!</h2>
 <table id="ItemTable">
     <tr>
@@ -49,6 +56,8 @@
       <td>{{ item.price }}</td>
     </tr>
 </table>
+
+<br />
 
 <h2> Your Cart</h2>
 <table id="ItemTable">
@@ -72,6 +81,7 @@
         </td>
     </tr>
 </table>
+<br />
 
 <h5>Choose Order Type: </h5>
 <select  @change="null" v-model="orderType">

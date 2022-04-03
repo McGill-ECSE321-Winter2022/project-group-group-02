@@ -45,7 +45,6 @@ export default {
         orderType: '',
         errorItem: '',
         errorOrder: '',
-        errorOrderItem: '',
         shoppableItems: [],
         unavailableItems: [],
         orderItems: [],
@@ -70,7 +69,7 @@ export default {
           this.unavailableItems = response.data
         })
         .catch(e => {
-          this.errorItem = e
+          this.errorOrder = e.response.data
         })
 
     },
@@ -90,7 +89,7 @@ export default {
                     if(this.shoppableItems[i].name == newItemName){
                         
                         if(this.shoppableItems[i].quantityAvailable < quantityDesired){
-                            return console.error();
+                            this.errorOrder = "There is not enough items in the store. Please order less than the quantity available."
                         }
                     }
                 }
@@ -146,7 +145,7 @@ export default {
                 
                         })
                         .catch(e => {
-                          this.errorOrderItem = e
+                            this.errorOrder = e.response.data
                         })
     
                   }
@@ -154,7 +153,7 @@ export default {
         
                 })
                 .catch(e => {
-                  this.errorOrder = e
+                  this.errorOrder =  e.response.data
                 })
         }
 
