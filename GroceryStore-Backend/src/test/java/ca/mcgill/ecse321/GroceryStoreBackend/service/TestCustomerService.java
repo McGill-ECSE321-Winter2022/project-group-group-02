@@ -20,12 +20,20 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.CustomerRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.EmployeeRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.OwnerRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 
 @ExtendWith(MockitoExtension.class)
 public class TestCustomerService {
 	@Mock
 	private CustomerRepository customerDao;
+
+	@Mock
+	private EmployeeRepository employeeDao;
+	
+	@Mock
+	private OwnerRepository ownerDao;
 
 	@InjectMocks
 	private CustomerService service;
@@ -49,6 +57,12 @@ public class TestCustomerService {
 				return null;
 			}
 
+		});
+		lenient().when(employeeDao.existsByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
+			return false;
+		});
+		lenient().when(ownerDao.existsByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
+			return false;
 		});
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);

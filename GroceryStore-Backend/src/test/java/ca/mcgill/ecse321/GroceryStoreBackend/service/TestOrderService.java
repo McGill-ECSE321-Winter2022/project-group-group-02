@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 import java.sql.Date;
@@ -22,7 +23,9 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.CustomerRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.EmployeeRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.OrderRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.OwnerRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order.OrderStatus;
@@ -35,6 +38,12 @@ public class TestOrderService {
 	private OrderRepository orderRepo;
 	@Mock
 	private CustomerRepository customerRepo;
+
+	@Mock
+	private EmployeeRepository employeeDao;
+
+	@Mock
+	private OwnerRepository ownerDao;
 
 	@Mock
 	private OrderItemRepository orderItemRepo;
@@ -92,7 +101,12 @@ public class TestOrderService {
 			}
 
 		});
-
+		lenient().when(employeeDao.existsByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
+			return false;
+		});
+		lenient().when(ownerDao.existsByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
+			return false;
+		});
 		lenient().when(orderRepo.findAll()).thenAnswer((InvocationOnMock invocation) -> {
 
 			List<Order> list = new ArrayList<>();
