@@ -85,6 +85,19 @@
         </td>
       </tr>
     </table>
+     <div class="form-group">
+            <h5
+              v-if="errorReview"
+              style="color: red; padding-top: 20px"
+            >Error: {{ errorReview }}</h5>
+          </div>
+
+          <div class="form-group">
+            <h5
+              v-if="successReview"
+              style="color: green; padding-top: 20px"
+            >{{ successReview }}</h5>
+          </div>
     <br />
     <div class="col-md-12">
       <a href="/#/customermenu" class="button" id="button-1">Go back to menu</a>

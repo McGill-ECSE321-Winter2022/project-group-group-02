@@ -40,6 +40,7 @@ export default {
         orderStatus: '',
         subtotal: '$0',
         errorReview: '',
+        successReview: '',
         errorOrder: '',
         items: [],
         orders: [],
@@ -125,11 +126,12 @@ export default {
     
                 })
     
-              swal("Success", "Thank you for your feedback!", "success");
+              this.successReview = 'Thank you for your Feedback!'
     
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorReview = e.response.data
+              console.log(this.errorReview)
             })
 
         },
@@ -185,11 +187,12 @@ export default {
     
                 })
     
-              swal("Success", "Thank you for your feedback!", "success");
+                this.successReview = 'Thank you for your Feedback!'
     
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorReview = e.response.data
+              console.log(this.errorReview)
             })
 
         },
@@ -217,11 +220,12 @@ export default {
     
                 })
     
-              swal("Success", "Feedback deleted successfully", "success");
+                this.successReview = "Feedback deleted successfully"
     
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorReview = e.response.data
+              console.log(this.errorReview)
             })
 
         }
