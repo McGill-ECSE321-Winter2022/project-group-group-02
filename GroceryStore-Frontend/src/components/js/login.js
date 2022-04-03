@@ -18,9 +18,12 @@ var frontendConfigurer = function(){
           return 'http://' + config.dev.host + ':' + config.dev.port;
       case 'production':
           return 'https://' + config.build.host + ':' + config.build.port ;
-		  
+
 	}
 };
+
+var backendUrl = backendConfigurer();
+var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
 
 var AXIOS = axios.create({
 	baseURL: backendUrl,
