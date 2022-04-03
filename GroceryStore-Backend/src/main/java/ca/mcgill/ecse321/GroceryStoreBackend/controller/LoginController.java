@@ -30,7 +30,14 @@ public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
-
+	
+	/*** Login controller method to login a user in the system.
+	 * 
+	 * @author anaelle.drai
+	 * @param email
+	 * @param password
+	 * @return
+	 */
 	@PostMapping(value = {"/login", "/login/"})
 	public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
 		Person user = null;
@@ -38,8 +45,9 @@ public class LoginController {
 			user = loginService.login(email, password);
 		}catch(IllegalArgumentException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-		
 		}
+		
+		// Determine what type of user is login in in the system.
 		if(user instanceof Customer) {
 
 			return new ResponseEntity<>(convertToCustomerDto((Customer) user), HttpStatus.OK);

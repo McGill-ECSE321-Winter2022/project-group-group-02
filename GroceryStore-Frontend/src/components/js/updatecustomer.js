@@ -26,26 +26,35 @@ export default {
 			passwordDelete: '',
 		}
 	},
+	/*** Get the customer information to prefill the name and address fields.
+
+	 * @author anaelle.drai
+	 */
 	created: function () {
 		this.email = localStorage.getItem('email')
 		AXIOS.get('/get_customer/?email='.concat(this.email))
-            .then(response => {
+			.then(response => {
 				this.user = response.data
 				this.address = this.user.address
 				this.name = this.user.name
+				// Fill the name and attribute fields
 				document.getElementById('namefield').setAttribute('value', this.name)
 				document.getElementById('addressfield').setAttribute('value', this.address);
 			})
-            .catch(e => {
-                this.errorUpdate = e.response,
+			.catch(e => {
+				// Display the error message
+				this.errorUpdate = e.response,
 				console.log(this.errorUpdate)
-            })
+			})
 	},
 
 	methods: {
+		/*** Method to update a customer's information
+		 * @author anaelle.drai
+		 */
 		updatecustomer: function (password, confirmPassword, name, address) {
 			if (password != confirmPassword) {
-				this.errorUpdate= "Passwords do not match."
+				this.errorUpdate = "Passwords do not match."
 			} else {
 				var email = localStorage.getItem('email')
 				AXIOS.put('/update_customer/', {}, {
@@ -58,34 +67,43 @@ export default {
 				})
 					.then(response => {
 						if (response.status === 200) {
-								this.password = '',
+							// If the update was successfull, empty all the fields and display a success message
+							this.password = '',
 								this.confirmPassword = '',
 								this.errorUpdate = '',
 								this.successUpdate = 'Account updated successfully!'
 						}
 					})
 					.catch(e => {
-					this.errorUpdate = e.response.data
-					console.log(this.errorUpdate)					})
+						// Display the error message.
+						this.errorUpdate = e.response.data
+						console.log(this.errorUpdate)
+					})
 
 			}
 
 		},
+		/*** Method to delete a customer from the system
+		 * @author anaelle.drai
+		 */
 		deletecustomer: function (password) {
 			if (password != this.user.password) {
-				this.errorDelete= "The password is incorrect."
+				this.errorDelete = "The password is incorrect."
 			} else {
 				var email = localStorage.getItem('email')
 				console.log(email)
 				AXIOS.delete('/delete_customer/?email='.concat(email))
 					.then(response => {
 						if (response.status === 200) {
+							// When the customer is deleted, go to the login page.
 							window.location.href = "/#/login"
 						}
 					})
 					.catch(e => {
-					this.errorDelete = e.response.data
-					console.log(this.errorDelete)					})
+						// Display the error message
+						this.errorDelete = e.response.data
+						console.log(this.errorDelete)
+					})
 
 			}
 		}

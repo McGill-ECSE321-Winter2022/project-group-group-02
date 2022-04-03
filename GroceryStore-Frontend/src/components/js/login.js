@@ -23,9 +23,14 @@ export default {
 			response: []
 		}
 	},
+
+	/*** @author anaelle.drai
+	 * Create an instance of owner if it does not exist in the system
+	 */
 	created: function () {
 		AXIOS.get('/view_owner/')
 			.catch(e => {
+				// If there is an error because the owner does not exist, create it.
 				console.log(e.response.data)
 				AXIOS.post('/create_owner/', {}, {
 					params: {
@@ -39,6 +44,9 @@ export default {
 			})
 	},
 	methods: {
+		/*** @author anaelle.drai
+ 		* Login the user into the system.
+		*/
 		login: function (email, password) {
 			AXIOS.post('/login/', {}, {
 				params: {
@@ -49,11 +57,14 @@ export default {
 				.then(response => {
 					if (response.status === 200) {
 						this.user = response.data
+						// Get the user type to determine the corresponding page it should be sent to.
 						this.type = this.user.userType
 						console.log(this.user)
+						
+						// Store the customer information
 						localStorage.setItem('email', this.user.email)
 						localStorage.setItem('type', this.type)
-						console.log(localStorage.getItem('email'))
+
 						if (this.type.localeCompare("customer") == 0) {
 
 							window.location.href = "/#/customermenu"
@@ -64,11 +75,12 @@ export default {
 						else {
 							window.location.href = "/#/ownermenu"
 						}
-
+						// Send the customer to the next page
 						location.reload();
 					}
 				})
 				.catch(e => {
+					// Display the error
 					this.errorLogin = e.response.data
 					console.log(this.errorLogIn)
 				})

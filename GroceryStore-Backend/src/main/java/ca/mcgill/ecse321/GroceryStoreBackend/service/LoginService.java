@@ -32,17 +32,18 @@ public class LoginService {
 	 */
 	@Transactional
 	public Person login(String email, String password) {
-
+		
+		// Check if the user exists in the system, and throw an error if it does not.
 		if(!customerRepository.existsByEmail(email) &&
 				!ownerRepository.existsByEmail(email) &&
 				!employeeRepository.existsByEmail(email)) {
 			throw new IllegalArgumentException("Invalid email");
 		}
 
+		// Determine what type of user is logging in. 
 		Customer customer = customerRepository.findByEmail(email);
 		if (customer!=null && customer.getPassword().equals(password))
 			return customer;
-
 
 		Owner owner = ownerRepository.findByEmail(email);
 		if(owner!=null && owner.getPassword().equals(password))
@@ -52,6 +53,7 @@ public class LoginService {
 		if (employee!=null && employee.getPassword().equals(password))
 			return employee;
 
+		// Throw an exception if the password is incorrect.
 		throw new IllegalArgumentException("Incorrect password");
 	}
 

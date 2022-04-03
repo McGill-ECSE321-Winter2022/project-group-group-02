@@ -184,6 +184,9 @@ public class TestLoginService {
 		lenient().when(ownerDao.save(any(Owner.class))).thenAnswer(returnParameterAsAnswer);
 	}
 
+	/*** Test the login service method when a customer logs in.
+	 * @author anaelle.drai
+	 */
 	@Test
 	public void testLoginCustomer() {
 		Customer customer= null;
@@ -201,6 +204,9 @@ public class TestLoginService {
 		assertEquals(CUSTOMER_ADDRESS, customer.getAddress());
 	}
 	
+	/*** Test the login service method when an employee logs in.
+	 * @author anaelle.drai
+	 */
 	@Test
 	public void testLoginEmployee() {
 		Employee employee= null;
@@ -217,7 +223,10 @@ public class TestLoginService {
 		assertEquals(EMPLOYEE_NAME, employee.getName());
 		assertEquals(EMPLOYEE_SALARY, employee.getSalary());
 	}
-		
+	
+	/*** Test the login service method when the owner logs in.
+	 * @author anaelle.drai
+	 */
 	@Test
 	public void testLoginOwner() {
 		Owner owner= null;
@@ -234,6 +243,9 @@ public class TestLoginService {
 		assertEquals(OWNER_NAME, owner.getName());
 	}
 	
+	/*** Test the login service method when the user is not found.
+	 * @author anaelle.drai
+	 */
 	@Test
 	public void testLoginNotFound() {
 		Person test= null;
@@ -249,6 +261,9 @@ public class TestLoginService {
 		assertEquals(error, "Invalid email");
 	}
 	
+	/*** Test the login service method when the password is incorrect.
+	 * @author anaelle.drai
+	 */
 	@Test
 	public void testLoginWrongPassword() {
 		Person test= null;
