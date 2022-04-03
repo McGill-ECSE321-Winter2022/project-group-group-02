@@ -74,7 +74,8 @@ public class StoreService {
 		Store store = storeRepository.findStoreById(id);
 
 		if (store == null) {
-			throw new IllegalArgumentException("No store found");
+			createStore(id,town,deliveryFee);
+			//throw new IllegalArgumentException("No store found");
 		}
 
 		// check all inputs are valid

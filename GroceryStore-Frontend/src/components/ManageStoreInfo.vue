@@ -25,15 +25,22 @@
           </div>
 
           <div class="form-group">
-            <h5 v-if="errorLogin" style="color: red; padding-top: 20px">Error: {{ errorLogin }}</h5>
+            <h5 v-if="errorUpdate" style="color: red; padding-top: 20px">Error: {{ errorUpdate }}</h5>
           </div>
+
+          <div class="form-group">
+                  <h5
+                    v-if="successUpdate"
+                    style="color: green; padding-top: 20px"
+                  >{{ successUpdate }}</h5>
+                </div>
 
           <div class="form-group">
             <button
               type="button"
               class="btn btn-dark py-50 px-6"
-              v-bind:disabled=" false "
-              @click="null"
+               v-bind:disabled="!town || !deliveryfee"
+                  @click="managestoreinfo(email, password, confirmPassword, name, address)"
             >Update</button>
           </div>
         </form>
@@ -44,7 +51,7 @@
     </div>
   </div>
 </template>
-<script>
+<script src="./js/manageStoreInfo.js">
 </script>
 <style scoped>
 /* ALL BUTTONS */

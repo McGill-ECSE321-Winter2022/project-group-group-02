@@ -10,10 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.*;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.*;
+import ca.mcgill.ecse321.GroceryStoreBackend.service.*;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule.DayOfWeek;
 
 @Service
 public class DailyScheduleService {
+
+    @Autowired
+    private StoreService storeService;
 
 	@Autowired
 	DailyScheduleRepository dailyScheduleRepository;
@@ -59,6 +63,7 @@ public class DailyScheduleService {
 		dailySchedule.setStartTime(startTime);
 		dailySchedule.setEndTime(endTime);
 		DailySchedule newSchedule = dailyScheduleRepository.save(dailySchedule);
+		storeService.addDailyScheduleToStore(1l, dailySchedule.getId());
 		return newSchedule;
        
     }

@@ -60,7 +60,7 @@ public class DailyScheduleController {
      * @return DailyScheduleDto
      */
 	@PostMapping(value = { "/create_dailyschedule" })
-	public ResponseEntity<?> createDailySchedule(@RequestParam("Dayofweek") DayOfWeek dayOfWeek,
+	public ResponseEntity<?> createDailySchedule(@RequestParam("dayofweek") DayOfWeek dayOfWeek,
 	    @RequestParam("startTime") String startTime,
 			@RequestParam("endTime") String endTime) {
 
@@ -86,7 +86,7 @@ public class DailyScheduleController {
      */
 	@PutMapping(value = { "/update_dailyschedule" })
 	public ResponseEntity<?> updateDailySchedule(@RequestParam("DailyScheduleId") String DailyScheduleId,
-			@RequestParam("Dayofweek") DayOfWeek dayOfWeek, @RequestParam("startTime") String startTime,
+			@RequestParam("dayofweek") DayOfWeek dayOfWeek, @RequestParam("startTime") String startTime,
 			@RequestParam("endTime") String endTime) {
 
 		DailySchedule dailySchedule = null;

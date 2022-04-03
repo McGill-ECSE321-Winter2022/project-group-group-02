@@ -62,13 +62,13 @@ public class StoreController {
      * @return StoreDto
      */
   @PostMapping(value = {"/create_store"})
-  public ResponseEntity<?> createStore(@RequestParam("StoreId") Long StoreId,@RequestParam("town") String town,
-      @RequestParam("delivery_fee") Double deliveryFee) {
+  public ResponseEntity<?> createStore(@RequestParam("storeId") Long storeId,@RequestParam("town") String town,
+      @RequestParam("deliveryFee") Double deliveryFee) {
 
    Store store = null;
 
     try {
-      store = storeService.createStore(StoreId,town, deliveryFee);
+      store = storeService.createStore(storeId,town, deliveryFee);
     } catch (IllegalArgumentException exception) {
       return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -85,13 +85,13 @@ public class StoreController {
      */
     @PutMapping(value = {"/update_store"})
     public ResponseEntity<?> updateStore(@RequestParam("town") String town,
-    @RequestParam("delivery_fee") Double deliveryFee, @RequestParam("StoreId") String StoreId) {
+    @RequestParam("deliveryFee") Double deliveryFee, @RequestParam("storeId") String storeId) {
   
       
         Store store = null;
   
       try {
-        store = storeService.updateStore(Long.parseLong(StoreId), town, deliveryFee);
+        store = storeService.updateStore(Long.parseLong(storeId), town, deliveryFee);
       } catch (IllegalArgumentException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
       }
@@ -105,10 +105,10 @@ public class StoreController {
      * @return true if store has been deleted
      */
     @DeleteMapping(value = {"/delete_store"})
-    public boolean deleteStore( @RequestParam("StoreId") String StoreId) {
+    public boolean deleteStore( @RequestParam("storeId") String storeId) {
   
       
-        return storeService.deleteStore(Long.parseLong(StoreId));
+        return storeService.deleteStore(Long.parseLong(storeId));
     
     }
  
