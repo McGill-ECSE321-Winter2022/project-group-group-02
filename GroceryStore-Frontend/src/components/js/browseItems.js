@@ -132,6 +132,7 @@ export default {
                         })
     
                   }
+                  this.basketItems = null;
         
                 })
                 .catch(e => {
