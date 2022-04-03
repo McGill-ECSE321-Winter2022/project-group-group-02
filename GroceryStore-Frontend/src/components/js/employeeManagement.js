@@ -144,6 +144,10 @@ export default {
 
 
 
+      /**
+       * Update an employee already the system
+       * @author Karl Rouhana
+       */
 
       updateEmployee: function (email, password, name, salary){
 
@@ -185,6 +189,10 @@ export default {
 
 
 
+      /**
+       * Fire an employee already the system
+       * @author Karl Rouhana
+       */
 
       fireEmployee: function (email){
 
@@ -234,7 +242,10 @@ export default {
 
 
 
-
+      /**
+       * Assign a schedule to an employee already the system
+       * @author Karl Rouhana
+       */
       assignSchedule: function (email, dailySchedule){
 
         AXIOS.post('/add_dailySchedule',{},{
@@ -285,7 +296,10 @@ export default {
 
 
 
-
+      /**
+       * Unassign a schedule to an employee already the system
+       * @author Karl Rouhana
+       */
       unassignSchedule: function (employee, dailySchedule){
 
         AXIOS.delete('/remove_dailySchedule',{
@@ -331,11 +345,6 @@ export default {
             console.log(this.errorUnassign)
           })
       }
-
-
-
-
-
 
     },
   }
