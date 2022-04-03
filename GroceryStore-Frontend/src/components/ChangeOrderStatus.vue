@@ -47,7 +47,7 @@
     </div>
     <br />
     <div class="col-md-12" v-if="isEmployee">
-      <a href="/#/employeemenu" class="button" id="button-1">Go back to menu</a>
+      <a href="/#/employeemenu" class="button" id="button-2">Go back to menu</a>
     </div>
   </div>
 </template>
@@ -113,6 +113,41 @@ td {
 }
 
 #button-1:hover:before {
+  left: 0;
+}
+
+
+
+/* BUTTON 2 */
+
+#button-2 {
+  border: 2px solid #34495e;
+  color: #34495e;
+  overflow: hidden;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#button-2:before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background-color: #34495e;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#button-2:hover {
+  color: #ecf0f1;
+}
+
+#button-2:hover:before {
   left: 0;
 }
 </style>

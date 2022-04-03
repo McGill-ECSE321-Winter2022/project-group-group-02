@@ -6,10 +6,11 @@
   <div class="vertical-center">
 
 
+
   <div class="container">
     <div class="row d-md-flex">
-      <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
-        <h2 class="mb-4">Hire new employee</h2>
+      <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5" id = "firstHeader">
+        <h2 class="mb-4" >Hire new employee</h2>
         <form action="#" class="appointment">
           <div class="col-md-12">
             <div class="form-group">
@@ -82,8 +83,8 @@
 
     <div class="container">
       <div class="row d-md-flex">
-        <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
-          <h2 class="mb-4">Update existing employee</h2>
+        <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5" id = "secondHeader">
+          <h2 class="mb-4" >Update existing employee</h2>
           <form action="#" class="appointment">
             <div class="col-md-12">
               <div class="form-group">
@@ -155,7 +156,7 @@
 
     <div class="container">
       <div class="row d-md-flex">
-        <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
+        <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5" id = "thirdHeader">
           <h2 class="mb-4">Fire Employee</h2>
           <form action="#" class="appointment">
             <div class="col-md-12">
@@ -170,13 +171,17 @@
                 <input v-model="emailToBeFired"
                   type="text"
                   class="form-control"
-
                   placeholder="Employee Email"
+
                 />
+                <row>  </row>
               </div>
             </div>
+            <div class="row-md-6">
 
             <div class="col-md-12">
+
+
               <div class="form-group">
                 <button
                   type="button"
@@ -187,6 +192,7 @@
                   Fire Employee
                 </button>
               </div>
+            </div>
             </div>
           </form>
           <br />
@@ -201,7 +207,7 @@
 
   <div class="container">
     <div class="row d-md-flex">
-      <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
+      <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5" id = fourthHeader>
         <h2 class="mb-4">Assign schedule</h2>
         <form action="#" class="appointment">
           <div class="col-md-12">
@@ -259,7 +265,8 @@
 
 
 
-    <h2>Employees </h2>
+    <h2 class="mb-4">Employees</h2>
+
     <table id="currentEmployees">
       <tr>
         <th>Name</th>
@@ -270,7 +277,8 @@
       </tr>
 
 
-      <tr v-for="employee in employees" :key=employee.name>
+      <tr v-for="employee in employees" :key=employee.name >
+
         <td>{{ employee.name }}</td>
         <td>{{ employee.email }}</td>
         <td>{{ employee.salary }}</td>
@@ -290,14 +298,13 @@
               <td>{{ dailySchedule.startTime }}</td>
               <td>{{ dailySchedule.endTime }}</td>
               <td>
-
                 <button
                   type="button"
                   class="btn btn-dark py-50 px-6"
 
                   @click="unassignSchedule(employee, dailySchedule)"
                 >
-                  Remove, {{employee.email}}
+                  Remove
                 </button>
 
 
@@ -361,22 +368,55 @@ export default {
 
 <style scoped>
 .vertical-center {
-  width: 140%;
-  margin-left: auto;
-  margin-right: auto;
+
+
   text-align: center;
   padding: 5px;
+  position: center;
+
 
 }
 
+#employeeManagement{
+  text-align: center;
+  position: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#firstHeader{
+  text-align: center;
+  position: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+#secondHeader{
+  text-align: center;
+  position: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+#thirdHeader{
+  text-align: center;
+  position: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+#fourthHeader{
+  text-align: center;
+  position: center;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 #currentEmployees{
-  width: 80%;
+  width: 60%;
   margin-left: auto;
   margin-right: auto;
   border: 2px solid black;
-  border-collapse: collapse;
   text-align: center;
+  border-collapse: collapse;
+
   padding: 5px;
 }
 th, td {

@@ -160,18 +160,22 @@ public class EmployeeService {
 			throw new IllegalArgumentException("Daily Schedule not found.");
 		}
 		
+		employee.removeDailySchedule(dailySchedule);
+		employeeRepository.save(employee);
+		return true;
+		
 		// Checking the dailySchedule is in the employee's dailySchedyles and in that case, remove it and return.
-		List<DailySchedule> dailySchedules = employee.getDailySchedules();
-
-		for (DailySchedule d : dailySchedules) {
-			if (d.getId() == id) {
-				dailySchedules.remove(d);
-				employee.setDailySchedules(dailySchedules);
-				employeeRepository.save(employee);
-				return true;
-			}
-		}
-		throw new IllegalArgumentException("Daily Schedule is not assigned to the employee.");
+//		List<DailySchedule> dailySchedules = employee.getDailySchedules();
+//
+//		for (DailySchedule d : dailySchedules) {
+//			if (d.getId() == id) {
+//				dailySchedules.remove(d);
+//				employee.setDailySchedules(dailySchedules);
+//				employeeRepository.save(employee);
+//				return true;
+//			}
+//		}
+		//throw new IllegalArgumentException("Daily Schedule is not assigned to the employee.");
 	}
 
 	/*** Returns a list of all the employees in the system.

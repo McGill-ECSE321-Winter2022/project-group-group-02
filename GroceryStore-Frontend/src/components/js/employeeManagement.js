@@ -156,7 +156,7 @@ export default {
 
       fireEmployee: function (email){
 
-        AXIOS.delete('/delete_employee',{},{
+        AXIOS.delete('/delete_employee',{
           params:{
             email: email
           }
@@ -250,7 +250,7 @@ export default {
 
       unassignSchedule: function (employee, dailySchedule){
 
-        AXIOS.delete('/remove_dailySchedule',{},{
+        AXIOS.delete('/remove_dailySchedule',{
           params:{
 
             email: employee.email,

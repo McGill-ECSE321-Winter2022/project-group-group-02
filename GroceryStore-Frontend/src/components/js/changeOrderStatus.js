@@ -1,8 +1,27 @@
 import axios from 'axios'
 var config = require('../../../config')
 
+var backendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+    case 'development':
+      return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
+    case 'production':
+      return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
+  }
+};
+
+var frontendConfigurer = function(){
+  switch(process.env.NODE_ENV){
+    case 'development':
+      return 'http://' + config.dev.host + ':' + config.dev.port;
+    case 'production':
+      return 'https://' + config.build.host + ':' + config.build.port ;
+  }
+};
+
+var backendUrl = backendConfigurer();
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
+
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
@@ -29,7 +48,7 @@ export default {
         this.isOwner = true
     }
 
-    AXIOS.get('/view_all_orders', {})
+    AXIOS.get('/view_all_orders')
       .then(response => {
 
         // JSON responses are automatically parsed.
@@ -49,15 +68,15 @@ export default {
 
     updateStatus: function (status, order){
 
-      AXIOS.put('/update_order',{},{
-    params:{
+      AXIOS.put('/update_order', {
+        params: {
 
-        orderStatus: status,
-        orderId: order.id,
+          orderStatus: status,
+          orderId: order.id,
 
-      }
+        }
 
-    })
+      })
 
         .then(response =>{
 
