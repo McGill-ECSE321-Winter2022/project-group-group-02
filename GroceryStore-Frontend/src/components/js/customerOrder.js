@@ -130,7 +130,7 @@ export default {
     
             })
             .catch(e => {
-              this.errorReview = e.response.data
+              this.errorReview = 'Please enter both a rating and a review'
               console.log(this.errorReview)
             })
 
@@ -191,7 +191,7 @@ export default {
     
             })
             .catch(e => {
-              this.errorReview = e.response.data
+              this.errorReview = 'Please enter both a rating and a review'
               console.log(this.errorReview)
             })
 
