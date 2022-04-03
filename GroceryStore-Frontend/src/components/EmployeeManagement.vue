@@ -408,7 +408,7 @@
 
 
 
-
+<br />
                       <div class="col-md-12">
               <a href="/#/ownermenu" class="button" id="button-1">Go back to menu</a>
             </div>
@@ -511,7 +511,14 @@ th, td {
   margin: 20px 0;
   position: relative;
   color: #ecf0f1;
+        position: center;
+      width: 20%;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      padding: 10px;
 }
+
 
 /* BUTTON 1 */
 

@@ -313,14 +313,20 @@
 }
 
 /* ALL BUTTONS */
-
-.button{
+.button {
   display: block;
-  padding: 20px 50px;
+  padding: 20px 30px;
   margin: 20px 0;
   position: relative;
   color: #ecf0f1;
+        position: center;
+      width: 20%;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      padding: 10px;
 }
+
 
 /* BUTTON 1 */
 
