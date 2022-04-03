@@ -35,6 +35,12 @@ public class TestReviewService {
 	private CustomerRepository customerRepo;
 
 	@Mock
+	private EmployeeRepository employeeDao;
+	
+	@Mock
+	private OwnerRepository ownerDao;
+
+	@Mock
 	private OrderRepository orderRepo;
 
 	@InjectMocks
@@ -101,7 +107,12 @@ public class TestReviewService {
 			}
 
 		});
-
+		lenient().when(employeeDao.existsByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
+			return false;
+		});
+		lenient().when(ownerDao.existsByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
+			return false;
+		});
 		lenient().when(reviewRepo.findReviewById(any(Long.class))).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(REVIEW_ID)) {
 
