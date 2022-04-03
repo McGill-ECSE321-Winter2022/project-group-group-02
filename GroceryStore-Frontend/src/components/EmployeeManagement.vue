@@ -71,6 +71,13 @@
               </button>
             </div>
           </div>
+          <div class="form-group">
+            <h5
+              v-if="errorHire"
+              style="color: red; padding-top: 20px"
+            >Error: {{ errorHire }}</h5>
+          </div>
+
         </form>
         <br />
       </div>
@@ -144,6 +151,13 @@
                 </button>
               </div>
             </div>
+
+            <div class="form-group">
+              <h5
+                v-if="errorUpdate"
+                style="color: red; padding-top: 20px"
+              >Error: {{ errorUpdate }}</h5>
+            </div>
           </form>
           <br />
 
@@ -194,6 +208,13 @@
               </div>
             </div>
             </div>
+            <div class="form-group">
+              <h5
+                v-if="errorFire"
+                style="color: red; padding-top: 20px"
+              >Error: {{ errorFire }}</h5>
+            </div>
+
           </form>
           <br />
         </div>
@@ -251,8 +272,17 @@
                 Assign new schedule
               </button>
 
+
             </div>
           </div>
+
+          <div class="form-group">
+            <h5
+              v-if="errorAssign"
+              style="color: red; padding-top: 20px"
+            >Error: {{ errorAssign }}</h5>
+          </div>
+
         </form>
         <br />
       </div>
@@ -308,11 +338,19 @@
                 </button>
 
 
+
               </td>
 
 
             </tr>
           </table>
+
+          <div class="form-group">
+            <h5
+              v-if="errorUnasign"
+              style="color: red; padding-top: 20px"
+            >Error: {{ errorUnasign }}</h5>
+          </div>
         </td>
 
 

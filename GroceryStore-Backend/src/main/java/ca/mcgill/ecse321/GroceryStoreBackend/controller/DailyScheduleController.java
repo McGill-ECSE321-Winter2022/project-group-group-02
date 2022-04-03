@@ -73,6 +73,7 @@ public class DailyScheduleController {
 			return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(convertToDTO(dailySchedule), HttpStatus.CREATED);
+		
 	}
 
     /**

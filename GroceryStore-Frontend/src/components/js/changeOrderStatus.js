@@ -68,7 +68,7 @@ export default {
 
     updateStatus: function (status, order){
 
-      AXIOS.put('/update_order', {
+      AXIOS.put('/update_order', {}, {
         params: {
 
           orderStatus: status,
@@ -98,6 +98,14 @@ export default {
           swal("ERROR", e.response.data, "error");
         })
     },
+
+    getUpdatedStatus: function (order){
+
+      return order.orderStatus
+
+
+    }
+
 
   }
 

@@ -42,6 +42,13 @@ export default {
       employees: [],
       dailySchedule: '',
       dailySchedules: [],
+      errorHire:'',
+      errorFire:'',
+      errorUpdate:'',
+      errorAssign:'',
+      errorUnasign:'',
+      errorViewSchedules: '',
+      errorViewEmployees : '',
 
     }
   },
@@ -55,7 +62,8 @@ export default {
           this.dailySchedules = response.data
         })
         .catch(e => {
-          this.errorOrder = e
+          this.errorViewSchedules = e.response.data
+          console.log(this.errorViewSchedules)
         })
 
 
@@ -67,7 +75,8 @@ export default {
           this.employees = response.data
         })
         .catch(e => {
-          this.errorOrder = e
+          this.errorViewEmployees = e.response.data
+          console.log(this.errorViewEmployees)
         })
 
 
@@ -90,6 +99,7 @@ export default {
 
           }
 
+
         })
 
           .then(response =>{
@@ -101,15 +111,16 @@ export default {
                 this.employees = response.data
               })
               .catch(e => {
-                this.errorOrder = e
+                this.errorHire = e.response.data
+                console.log(this.errorHire)
               })
 
 
-            swal("Success", "Hire Succesfully !", "success");
 
           })
           .catch(e => {
-            swal("ERROR", e.response.data, "error");
+            this.errorHire = e.response.data
+            console.log(this.errorHire)
           })
       },
 
@@ -139,15 +150,17 @@ export default {
                 this.employees = response.data
               })
               .catch(e => {
-                this.errorOrder = e
+                this.errorUpdate = e.response.data
+                console.log(this.errorUpdate)
               })
 
 
-            swal("Success", "Updated Succesfully !", "success");
+
 
           })
           .catch(e => {
-            swal("ERROR", e.response.data, "error");
+            this.errorUpdate = e.response.data
+            console.log(this.errorUpdate)
           })
       },
 
@@ -172,7 +185,8 @@ export default {
                 this.employees = response.data
               })
               .catch(e => {
-                this.errorOrder = e
+                this.errorFire = e.response.data
+                console.log(this.errorFire)
               })
 
             AXIOS.get('/view_dailyschedules', {})
@@ -182,15 +196,16 @@ export default {
                 this.dailySchedules = response.data
               })
               .catch(e => {
-                this.errorOrder = e
+                this.errorFire = e.response.data
+                console.log(this.errorFire)
               })
 
 
-            swal("Success", "Fired Succesfully !", "success");
 
           })
           .catch(e => {
-            swal("ERROR", e.response.data, "error");
+            this.errorFire = e.response.data
+            console.log(this.errorFire)
           })
       },
 
@@ -221,7 +236,8 @@ export default {
                 this.employees = response.data
               })
               .catch(e => {
-                this.errorOrder = e
+                this.errorAssign = e.response.data
+                console.log(this.errorAssign)
               })
 
             AXIOS.get('/view_dailyschedules', {})
@@ -231,15 +247,16 @@ export default {
                 this.dailySchedules = response.data
               })
               .catch(e => {
-                this.errorOrder = e
+                this.errorAssign = e.response.data
+                console.log(this.errorAssign)
               })
 
 
-            swal("Success", "Assigned Succesfully !", "success");
 
           })
           .catch(e => {
-            swal("ERROR", e.response.data, "error");
+            this.errorAssign = e.response.data
+            console.log(this.errorAssign)
           })
       },
 
@@ -269,7 +286,8 @@ export default {
                 this.employees = response.data
               })
               .catch(e => {
-                this.errorOrder = e
+                this.errorUnassign = e.response.data
+                console.log(this.errorUnassign)
               })
 
             AXIOS.get('/view_dailyschedules', {})
@@ -279,14 +297,16 @@ export default {
                 this.dailySchedules = response.data
               })
               .catch(e => {
-                this.errorOrder = e
+                this.errorUnassign = e.response.data
+                console.log(this.errorUnassign)
               })
 
-            swal("Success", "Unasigned Succesfully !", "success");
+
 
           })
           .catch(e => {
-            swal("ERROR", e.response.data, "error");
+            this.errorUnassign = e.response.data
+            console.log(this.errorUnassign)
           })
       }
 
