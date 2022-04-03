@@ -36,8 +36,10 @@ export default {
     data () {
       return {
         name : '',
+        newShoppablePrice: '',
         price : '',
         errorItem: '',
+        successItem: '',
         quantityAvailable : '',
         isOwner: '',
         isEmployee: '',
@@ -59,7 +61,7 @@ export default {
         this.shoppableItems = response.data
       })
       .catch(e => {
-        this.errorItem = e
+        this.errorItem = e.response.data
       })
 
       AXIOS.get('/view_all_unavailable_item')
@@ -68,22 +70,14 @@ export default {
         this.unavailableItems = response.data
       })
       .catch(e => {
-        this.errorItem = e
+        this.errorItem = e.response.data
       })
        
 
       
       },
 
-    //   name: 'unavailable item',
-    //   data () {
-    //   return {
-    //     name : '',
-    //     price : '',
-    //     items: []
-
-    //   }
-    // },
+    
     
     
     methods: {
@@ -101,18 +95,18 @@ export default {
 
               AXIOS.get('/view_all_unavailable_items', {})
                 .then(response => {
+                  this.successItem='Item successfully created'
                   this.unavailableItems = response.data
                 })
                 .catch(e => {
-                  
+                  this.errorItem = e.response.data
     
                 })
     
-              swal("Success", "Item successfully added", "success");
     
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorItem = e.response.data
             })
 
           
@@ -131,18 +125,18 @@ export default {
 
               AXIOS.get('/view_all_shoppable_items', {})
                 .then(response => {
+                  this.successItem='Item successfully created'
                   this.shoppableItems = response.data
                 })
                 .catch(e => {
-                  
+                  this.errorItem = e.response.data
     
                 })
     
-              swal("Success", "Item successfully added", "success");
     
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorItem = e.response.data
             })
 
         },
@@ -151,55 +145,45 @@ export default {
       
         replenishInventory: function (name,newQuantityAvailable) {
           // Create a new Shoppable item and add it to the list of order
-            AXIOS.put('/update_shoppable_item_quantity_available', {
-            params: {
-              name: name,
-              newQuantityAvailable: newQuantityAvailable
-            }
-          })
-            .then(response => {
+        AXIOS.put('/update_shoppable_item_quantity_available/?name='.concat(name, "&newQuantityAvailable=", newQuantityAvailable))            
+        .then(response => {
 
               AXIOS.get('/view_all_shoppable_items', {})
                 .then(response => {
+                  this.successItem='Inventory replenished'
                   this.shoppableItems = response.data
                 })
                 .catch(e => {
-                  
+                  this.errorItem = e.response.data
     
                 })
     
-              swal("Success", "", "success");
     
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorItem = e.reponse.data
             })
         },
 
         updateShoppableItemPrice: function (name, price) {
           // Create a new Unavailable item and add it to the list of order
-            AXIOS.put('/update_shoppable_item_price', {
-            params: {
-              name: name,
-              newPrice: price              
-            }
-          })
+            AXIOS.put('/update_shoppable_item_price/?name='.concat(name, "&newPrice=", price))
             .then(response => {
 
-              AXIOS.get('/view_all_shoppable_items', {})
+              AXIOS.get('/view_all_shoppable_items/', {})
                 .then(response => {
+                  this.successItem='Price updated!'
                   this.shoppableItems = response.data
                 })
                 .catch(e => {
-                  
+                  this.errorItem = e.response.data
     
                 })
     
-              swal("Success", "", "success");
     
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorItem = e.response.data
             })
         },
 
@@ -215,45 +199,39 @@ export default {
 
               AXIOS.get('/view_all_unavailable_items', {})
                 .then(response => {
+                  this.successItem='Price updated!'
                   this.unavailableItems = response.data
                 })
                 .catch(e => {
-                  
+                  this.errorItem = e.response.data
     
                 })
     
-              swal("Success", "", "success");
     
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorItem = e.response.data
             })
         },
 
         deleteShoppableItem: function (name) {
           // Create a new Unavailable item and add it to the list of order
-            AXIOS.delete('/delete_shoppable_item',{}, {
-            params: {
-              name: name,
-            }
-          })
+            AXIOS.delete('/delete_shoppable_item/?name='.concat(name))
             .then(response => {
 
               AXIOS.get('/view_all_shoppable_items', {})
                 .then(response => {
-
                   this.shoppableItems = response.data
                 })
                 .catch(e => {
-                  this.errorItem = e
+                  this.errorItem = e.response.data
     
                 })
     
-              swal("success", "", "success");
     
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorItem = e.response.data
             })
         },
 
@@ -271,15 +249,14 @@ export default {
                   this.unavailableItems = response.data
                 })
                 .catch(e => {
-                  
+                  this.errorItem = e.reponse.data
     
                 })
     
-              swal("Success", "", "success");
     
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorItem = e.response.data
             })
         }
         
