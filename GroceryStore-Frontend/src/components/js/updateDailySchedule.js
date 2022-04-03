@@ -56,12 +56,6 @@ export default {
 
     created: function () {
 
-       // Test data
-    //const p1 = new dailyScheduleDto('Monday','08:00','20:00')
-    //const p2 = new dailyScheduleDto('Tuesday','08:00','20:00')
-    // Sample initial content
-    //this.dailyschedules = [p1, p2]
-
         AXIOS.get('/view_dailyschedules')
         .then(response => {
           // JSON responses are automatically parsed.
@@ -73,8 +67,6 @@ export default {
 
 
       },
-
-
 
 
     methods: {
@@ -109,12 +101,6 @@ export default {
                   console.log(this.errorAdd)
                   this.successAdd=''
 
-                  // if (response.status === 200) {
-                  // 	this.dayOfWeek = '',
-                  // 		this.startTime = '',
-                  //     this.endTime = '',
-                  // 		this.successAdd = 'Daily Schedule added successfully!'
-                  // }
                 })
 
                 })
@@ -135,7 +121,6 @@ export default {
        */
 
         deleteDailySchedule: function (id) {
-          // Create a new Unavailable item and add it to the list of order
           AXIOS.delete('/delete_dailyschedule/?DailyScheduleId='.concat(id))
             .then(response => {
 

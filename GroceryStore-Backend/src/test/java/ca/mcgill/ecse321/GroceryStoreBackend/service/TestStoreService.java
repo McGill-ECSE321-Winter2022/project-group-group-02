@@ -246,7 +246,6 @@ public class TestStoreService {
 		Long sid = 000L;
 		Store store = null;
 
-
 		
 		try {
            
@@ -258,8 +257,10 @@ public class TestStoreService {
 
 		//check if the store is not updated
 		assertNotNull(store);
-		//check error message
-		//assertEquals("No store found", error);
+		assertEquals(STORE_KEY, store.getId());
+		assertEquals(town, store.getTown());
+		assertEquals(delifee, store.getDeliveryFee());
+
 	}
 
 	@Test
