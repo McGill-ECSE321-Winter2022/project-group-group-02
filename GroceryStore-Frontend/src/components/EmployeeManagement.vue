@@ -278,7 +278,7 @@
             <div class="form-group3234">
               <select v-model="selected"  class="form-control"  >
                 <option disabled value="">Choose Schedule</option>
-                <option v-for="dailyScheduleToBeAssigned in dailySchedules" :value = "dailyScheduleToBeAssigned">{{dailyScheduleToBeAssigned.dayOfWeek}}, Start Time: {{dailyScheduleToBeAssigned.startTime}}, End Time: {{dailyScheduleToBeAssigned.endTime}} </option>
+                <option v-for="dailyScheduleToBeAssigned in dailySchedules" :value = "dailyScheduleToBeAssigned" v-bind:key="dailyScheduleToBeAssigned.id">{{dailyScheduleToBeAssigned.dayOfWeek}}, Start Time: {{dailyScheduleToBeAssigned.startTime}}, End Time: {{dailyScheduleToBeAssigned.endTime}} </option>
 
               </select>
             </div>
@@ -347,7 +347,7 @@
         <td>{{ employee.salary }}</td>
 
         <td>
-          <table id="schedules">
+          <table id="schedules" v-if="employee.dailySchedules[0] != null">
             <tr>
               <th>Day of Week</th>
               <th>Start Time</th>
@@ -378,19 +378,7 @@
             </tr>
           </table>
 
-          <div class="form-group">
-            <h5
-              v-if="errorUnasign"
-              style="color: red; padding-top: 20px"
-            >Error: {{ errorUnasign }}</h5>
-          </div>
 
-          <div class="form-group">
-            <h5
-              v-if="sucessUnasign"
-              style="color: green; padding-top: 20px"
-            >{{ sucessUnasign }}</h5>
-          </div>
 
         </td>
 
@@ -405,10 +393,23 @@
 
 
     </table>
+    <div class="form-group">
+      <h5
+        v-if="errorUnasign"
+        style="color: red; padding-top: 20px"
+      >Error: {{ errorUnasign }}</h5>
+    </div>
+
+    <div class="form-group">
+      <h5
+        v-if="sucessUnasign"
+        style="color: green; padding-top: 20px"
+      >{{ sucessUnasign }}</h5>
+    </div>
 
 
 
-
+<br />
                       <div class="col-md-12">
               <a href="/#/ownermenu" class="button" id="button-1">Go back to menu</a>
             </div>
@@ -511,7 +512,14 @@ th, td {
   margin: 20px 0;
   position: relative;
   color: #ecf0f1;
+        position: center;
+      width: 20%;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      padding: 10px;
 }
+
 
 /* BUTTON 1 */
 

@@ -82,9 +82,6 @@ public class ShoppableItemService {
 		if (item == null)
 			throw new IllegalArgumentException("This item does not exist in the system");
 
-		if (newPrice == item.getPrice())
-			throw new IllegalArgumentException("The price is the same");
-
 		item.setPrice(newPrice);
 
 		return item;

@@ -40,6 +40,7 @@ export default {
         orderStatus: '',
         subtotal: '$0',
         errorReview: '',
+        successReview: '',
         errorOrder: '',
         items: [],
         orders: [],
@@ -66,24 +67,22 @@ export default {
 
           for (let i = 0; i < this.orders.length; i++) {
         
-            var temp = orders[i]
 
             AXIOS.get('/view_review_for_order', {
               params: {
-                orderId: temp.id
+                orderId: this.orders[i].id
               }
             })
               .then(response => {
                 
-                temp.description = response.data.description
-                temp.rating = response.data.rating
+                this.orders[i].description = response.data.description
+                this.orders[i].rating = response.data.rating
               })
 
               .catch(e => {
                 this.errorReview = e  
               })
 
-              orders[i] = temp
           }
 
         })
@@ -127,11 +126,12 @@ export default {
     
                 })
     
-              swal("Success", "Thank you for your feedback!", "success");
+              this.successReview = 'Thank you for your Feedback!'
     
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorReview = 'Please enter both a rating and a review'
+              console.log(this.errorReview)
             })
 
         },
@@ -187,11 +187,12 @@ export default {
     
                 })
     
-              swal("Success", "Thank you for your feedback!", "success");
+                this.successReview = 'Thank you for your Feedback!'
     
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorReview = 'Please enter both a rating and a review'
+              console.log(this.errorReview)
             })
 
         },
@@ -211,19 +212,20 @@ export default {
                 }
               })
                 .then(response => {
-                  order.description = 'None'
-                  order.rating = 'None'
+                  order.description = null
+                  order.rating = null
                 })
                 .catch(e => {
                   this.errorReview = e
     
                 })
     
-              swal("Success", "Feedback deleted successfully", "success");
+                this.successReview = "Feedback deleted successfully"
     
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorReview = e.response.data
+              console.log(this.errorReview)
             })
 
         }

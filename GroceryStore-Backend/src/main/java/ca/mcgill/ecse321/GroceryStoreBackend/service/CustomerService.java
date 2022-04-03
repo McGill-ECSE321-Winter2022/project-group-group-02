@@ -50,7 +50,10 @@ public class CustomerService {
 		} else if (address == null || address.isEmpty()) {
 			throw new IllegalArgumentException("Customer address must not be empty!");
 		}
-
+		
+		// Check the email is not already associated to a customer account
+		Customer customer = customerRepository.findByEmail(email);
+		
 		if (employeeRepository.existsByEmail(email) ) {
 			throw new IllegalArgumentException("This email is already in use for an employee.");
 		}
@@ -58,10 +61,6 @@ public class CustomerService {
 		if (ownerRepository.existsByEmail(email) ) {
 			throw new IllegalArgumentException("This is the owner's email.");
 		}
-		
-		// Check the email is not already associated to a customer account
-		Customer customer = customerRepository.findByEmail(email);
-		
 		
 		if (customer != null) {
 			throw new IllegalArgumentException("This email is already in use for a customer.");

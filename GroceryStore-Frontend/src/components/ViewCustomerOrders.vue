@@ -57,7 +57,7 @@
         <td>
           
             <button
-              
+              v-if="order.description == null"
               type="button"
               class="btn btn-dark py-50 px-6"
               v-bind:disabled="false"
@@ -66,7 +66,7 @@
           
           
             <button
-              
+              v-if="order.description != null"
               type="button"
               class="btn btn-dark py-50 px-6"
               v-bind:disabled="false"
@@ -75,7 +75,7 @@
           
           
             <button
-              
+              v-if="order.description != null"
               type="button"
               class="btn btn-dark py-50 px-6"
               v-bind:disabled="false"
@@ -85,6 +85,19 @@
         </td>
       </tr>
     </table>
+     <div class="form-group">
+            <h5
+              v-if="errorReview"
+              style="color: red; padding-top: 20px"
+            >Error: {{ errorReview }}</h5>
+          </div>
+
+          <div class="form-group">
+            <h5
+              v-if="successReview"
+              style="color: green; padding-top: 20px"
+            >{{ successReview }}</h5>
+          </div>
     <br />
     <div class="col-md-12">
       <a href="/#/customermenu" class="button" id="button-1">Go back to menu</a>
@@ -95,7 +108,7 @@
 <script src= "./js/customerOrder.js">
 </script>
 
-<style>
+<style scoped>
 #OrderTable {
   width: 90%;
   margin-left: auto;
@@ -115,4 +128,54 @@
 #ItemTable td {
   border: none;
 }
+
+.button {
+  display: block;
+  padding: 20px 30px;
+  margin: 20px 0;
+  position: relative;
+  color: #ecf0f1;
+        position: center;
+      width: 20%;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      padding: 10px;
+}
+
+
+/* BUTTON 1 */
+
+#button-1 {
+  border: 2px solid #34495e;
+  color: #34495e;
+  overflow: hidden;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#button-1:before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background-color: #34495e;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#button-1:hover {
+  color: #ecf0f1;
+}
+
+#button-1:hover:before {
+  left: 0;
+}
+
+
 </style>

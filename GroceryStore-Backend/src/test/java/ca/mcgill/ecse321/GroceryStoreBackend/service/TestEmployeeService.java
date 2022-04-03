@@ -24,8 +24,10 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.CustomerRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.DailyScheduleRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.EmployeeRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.OwnerRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Employee;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule.DayOfWeek;
@@ -34,6 +36,12 @@ import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule.DayOfWeek;
 public class TestEmployeeService {
 	@Mock
 	private EmployeeRepository employeeDao;
+
+	@Mock
+	private CustomerRepository customerDao;
+
+	@Mock
+	private OwnerRepository ownerDao;
 
 	@Mock
 	private DailyScheduleRepository dailyScheduleDao;
@@ -80,6 +88,12 @@ public class TestEmployeeService {
 				return null;
 			}
 
+		});
+		lenient().when(customerDao.existsByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
+			return false;
+		});
+		lenient().when(ownerDao.existsByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
+			return false;
 		});
 
 		lenient().when(dailyScheduleDao.findDailyScheduleById(anyLong())).thenAnswer((InvocationOnMock invocation) -> {

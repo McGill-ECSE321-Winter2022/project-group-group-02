@@ -5,13 +5,15 @@
     <tr>
       <th>Item</th>
       <th>Price</th>
-      <th>Quantity</th>
+      <th>In Stock</th>
+      <th>How much do you want?</th>
       <th>Order</th>      
 
     </tr>
     <tr v-for="item in shoppableItems" :key=item.name>
       <td>{{ item.name }}</td>
       <td>{{ item.price }}</td>
+      <td>{{ item.quantityAvailable }}</td>
         <td> 
             <input
 				type="number"
@@ -84,11 +86,12 @@
 <br />
 
 <h5>Choose Order Type: </h5>
-<select  @change="null" v-model="orderType">
+<select id="selectButn" @change="null" v-model="orderType" class="form-control">
             <option disabled value>Please Select</option>
             <option>Pick Up</option>
             <option>Delivery</option>
 </select>
+<br />
 <button
                     type="button"
                     class="btn btn-dark py-50 px-6"
@@ -97,8 +100,14 @@
                   >
                     Confirm Order
 </button>
+<br />
+<div class="col-md-12">
+      <a href="/#/customermenu" class="button" id="button-1">Go back to menu</a>
+    </div>
+    </div>
 
-</div>
+
+
 
 </template>
 
@@ -106,7 +115,7 @@
 
 </script>
 
-<style>
+<style scoped>
   #ItemTable{
     width: 60%;
     margin-left: auto;
@@ -121,5 +130,63 @@
     padding: 10px; 
   } 
 
+  #selectButn{
+      position: center;
+      width: 20%;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      padding: 5px;
+  }
+
+
+/* ALL BUTTONS */
+
+.button {
+  display: block;
+  padding: 20px 30px;
+  margin: 20px 0;
+  position: relative;
+  color: #ecf0f1;
+        position: center;
+      width: 20%;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      padding: 10px;
+}
+
+/* BUTTON 1 */
+
+#button-1 {
+  border: 2px solid #34495e;
+  color: #34495e;
+  overflow: hidden;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#button-1:before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background-color: #34495e;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#button-1:hover {
+  color: #ecf0f1;
+}
+
+#button-1:hover:before {
+  left: 0;
+}
 
 </style>

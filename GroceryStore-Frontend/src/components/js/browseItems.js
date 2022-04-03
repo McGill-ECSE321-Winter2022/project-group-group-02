@@ -90,6 +90,7 @@ export default {
                         
                         if(this.shoppableItems[i].quantityAvailable < quantityDesired){
                             this.errorOrder = "There is not enough items in the store. Please order less than the quantity available."
+                            return errorOrder
                         }
                     }
                 }
