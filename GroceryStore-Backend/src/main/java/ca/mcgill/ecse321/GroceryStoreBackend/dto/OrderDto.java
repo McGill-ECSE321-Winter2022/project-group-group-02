@@ -6,6 +6,7 @@ import java.util.List;
 
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order.OrderStatus;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order.OrderType;
+import ca.mcgill.ecse321.GroceryStoreBackend.model.Review.Rating;
 
 public class OrderDto {
 
@@ -16,6 +17,8 @@ public class OrderDto {
 	private CustomerDto customer;
 	private List<OrderItemDto> orderItems;
 	private Long id;
+	private Rating rating;
+	private String description;
 	
 	public OrderDto() {
 		}
@@ -37,6 +40,16 @@ public class OrderDto {
 	public OrderStatus getOrderStatus() {
 		return orderStatus;
 	}
+	
+	public Rating getRating() {
+	  
+	  return rating;
+	}
+	
+	public String getDescription() {
+      
+      return description;
+    }
 	
 	public Double getSubtotal() {
 	  

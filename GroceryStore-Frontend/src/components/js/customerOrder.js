@@ -38,12 +38,12 @@ export default {
         time: '',
         orderType: '',
         orderStatus: '',
-        review: '',
         subtotal: '$0',
         errorReview: '',
+        errorOrder: '',
         items: [],
         orders: [],
-        reviews:[]
+        reviews: [],
       }
     },
     created: function () {
@@ -64,12 +64,37 @@ export default {
           // JSON responses are automatically parsed.
           this.orders = response.data
 
+          for (let i = 0; i < this.orders.length; i++) {
+        
+            var temp = orders[i]
+
+            AXIOS.get('/view_review_for_order', {
+              params: {
+                orderId: temp.id
+              }
+            })
+              .then(response => {
+                
+                temp.description = response.data.description
+                temp.rating = response.data.rating
+              })
+
+              .catch(e => {
+                this.errorReview = e  
+              })
+
+              orders[i] = temp
+          }
+
         })
         .catch(e => {
           this.errorOrder = e
         })
       
+
       },
+
+      
 
     
     methods: {
@@ -93,7 +118,9 @@ export default {
                 }
               })
                 .then(response => {
-                  this.review = response.data
+                  order.description = response.data.description
+                  order.rating = response.data.rating
+
                 })
                 .catch(e => {
                   this.errorReview = e
@@ -119,7 +146,10 @@ export default {
             .then(response => {
           
               // JSON responses are automatically parsed.
-              this.review = response.data
+              order.description = response.data.description
+              order.rating = response.data.rating
+              reviews.push(response.data)
+
             })
             .catch(e => {
               this.errorReview = e
@@ -146,7 +176,11 @@ export default {
                 }
               })
                 .then(response => {
-                  this.review = response.data
+                  order.description = response.data.description
+                  order.rating = response.data.rating
+                  reviews.push(response.data)
+
+                 
                 })
                 .catch(e => {
                   this.errorReview = e
@@ -177,8 +211,8 @@ export default {
                 }
               })
                 .then(response => {
-                  this.review.description = 'NA'
-                  this.review.rating = 'NA'
+                  order.description = 'None'
+                  order.rating = 'None'
                 })
                 .catch(e => {
                   this.errorReview = e

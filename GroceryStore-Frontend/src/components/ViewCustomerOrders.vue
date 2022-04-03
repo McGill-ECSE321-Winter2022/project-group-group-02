@@ -45,7 +45,7 @@
           </select>
         </td>
         <td>
-          <div>Current review: {{ getReviewForOrder(order).description }}</div>
+          <div>Current review: {{ order.description }}</div>
           <input
             type="text"
             class="form-control"

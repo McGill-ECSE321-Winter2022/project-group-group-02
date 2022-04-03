@@ -38,7 +38,8 @@ export default {
       isOwner: '',
       isEmployee: '',
       updatedOrderStatus: '',
-      orders: []
+      orders: [],
+      errorChange: '',
     }
   },
   created: function () {
@@ -47,6 +48,12 @@ export default {
     } else if (localStorage.getItem('type').localeCompare("owner") == 0) {
         this.isOwner = true
     }
+
+
+    /**
+     * Refresh all orders in system
+     * @author Karl Rouhana
+     */
 
     AXIOS.get('/view_all_orders')
       .then(response => {
@@ -66,11 +73,17 @@ export default {
 
   methods:{
 
+    /**
+     * Update an orders' status in the system
+     * @author Karl Rouhana
+     */
     updateStatus: function (status, order){
 
+      //Call backend controllers to update the order
       AXIOS.put('/update_order', {}, {
         params: {
 
+          //Using specific params
           orderStatus: status,
           orderId: order.id,
 
@@ -80,6 +93,7 @@ export default {
 
         .then(response =>{
 
+          //Refresh the orders in system
           AXIOS.get('/view_all_orders', {})
             .then(response => {
 
@@ -87,24 +101,22 @@ export default {
               this.orders = response.data
             })
             .catch(e => {
-              this.errorOrder = e
+
             })
 
 
-          swal("Success", "Updated successfully !", "success");
+
 
         })
         .catch(e => {
-          swal("ERROR", e.response.data, "error");
+          //Catch and output errors
+        this.errorChange = e.response.data
+          console.log(this.errorChange)
+
         })
     },
 
-    getUpdatedStatus: function (order){
 
-      return order.orderStatus
-
-
-    }
 
 
   }
