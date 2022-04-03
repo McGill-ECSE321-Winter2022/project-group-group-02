@@ -239,19 +239,6 @@ public class TestShoppableItemService {
 		assertEquals("This item does not exist in the system", error);
 	}
 
-	@Test
-	public void testUpdatePriceSamePrice() {
-		assertEquals(0, shoppableItemService.getAllShoppableItems().size());
-		String error = "";
-		ShoppableItem shoppableItem = null;
-		try {
-			shoppableItem = shoppableItemService.updatePrice(SHOPPABLE_ITEM_NAME, SHOPPABLE_ITEM_PRICE);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		assertNull(shoppableItem);
-		assertEquals("The price is the same", error);
-	}
 
 	// UpdateInventory
 
