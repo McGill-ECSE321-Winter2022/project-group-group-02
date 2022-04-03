@@ -18,6 +18,7 @@ var frontendConfigurer = function(){
           return 'http://' + config.dev.host + ':' + config.dev.port;
       case 'production':
           return 'https://' + config.build.host + ':' + config.build.port ;
+		  
 	}
 };
 
