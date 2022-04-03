@@ -110,37 +110,33 @@ export default {
                 .then(response => {
               
                   // JSON responses are automatically parsed.
-                  this.order = response.data
+                    this.order = response.data
+
+                  for (let i = 0; i < this.basketItems.length; i++) {
+        
+                    AXIOS.post('/create_order_item', {}, {
+                        params: {
+                            quantity: this.basketItems[i].quantityDesired,
+                            itemName: this.basketItems[i].itemName,
+                            orderId: this.order.id
+                        }
+                      })
+                        .then(response => {
+                      
+                          // JSON responses are automatically parsed.
+                          this.orderItems.push(response.data)
+                
+                        })
+                        .catch(e => {
+                          this.errorOrderItem = e
+                        })
+    
+                  }
         
                 })
                 .catch(e => {
                   this.errorOrder = e
                 })
-            
-            for (let i = 0; i < this.basketItems.length; i++) {
-        
-                AXIOS.post('/create_order_item', {}, {
-                    params: {
-                        quantity: basketItems[i].quantityDesired,
-                        itemName: basketItems[i].itemName,
-                        orderId: this.order.id
-                    }
-                  })
-                    .then(response => {
-                  
-                      // JSON responses are automatically parsed.
-                      this.orderItems.put(response.data)
-            
-                    })
-                    .catch(e => {
-                      this.errorOrderItem = e
-                    })
-
-
-            }
-
-
-
         }
 
     }
