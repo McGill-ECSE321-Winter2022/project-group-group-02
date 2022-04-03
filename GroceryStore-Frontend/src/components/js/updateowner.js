@@ -70,6 +70,7 @@ export default {
 					// Display the error message
 					this.errorUpdate = e.response.data
 					console.log(this.errorUpdate)	
+					})
 				// Update the owner's name
 				AXIOS.put('/update_owner_name/', {}, {
 					params: {
