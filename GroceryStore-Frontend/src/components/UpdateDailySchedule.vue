@@ -15,7 +15,7 @@
           </div>
 
           <div class="form-group">
-            <label for="dayoffweek">Enter a day of week :</label>
+            <label for="dayofweek">Enter a day of week :</label>
 
             <select name="Day of Week" id="dayofweek">
               <option value="Monday">Monday</option>
@@ -39,15 +39,19 @@
           </div>
 
           <div class="form-group">
-            <h5 v-if="errorLogin" style="color: red; padding-top: 20px">Error: {{ errorLogin }}</h5>
+            <h5 v-if="errorAdd" style="color: red; padding-top: 20px">Error: {{ errorAdd }}</h5>
+          </div>
+
+          <div class="form-group">
+            <h5 v-if="successAdd" style="color: red; padding-top: 20px">Error: {{ successAdd }}</h5>
           </div>
 
           <div class="form-group">
             <button
               type="button"
               class="btn btn-dark py-50 px-6"
-              v-bind:disabled=" false "
-              @click="null"
+              v-bind:disabled="!dayofweek || !startTime || !endTime"
+             @click="addDailySchedule(dayofweek,startTime,endTime)"
             >Update</button>
           </div>
         </form>
@@ -64,36 +68,34 @@
         <th>Day of Week</th>
         <th>Start Time</th>
         <th>End Time</th>
-        <th>Select Schedules to Delete</th>
+        <th>Select Schedule to Delete</th>
       </tr>
-      <tr>
-        <td>Monday</td>
-        <td>08:00</td>
-        <td>20:00</td>
+     <tr v-for="schedule in dailyschedules" :key=schedule.dayOfWeek>
+				<td>{{schedule.dayOfWeek}}</td>
+				<td>${{schedule.startTime}}</td>
+        <td>${{schedule.endTime}}</td>
         <td>
-          <input type="checkbox" name="scheduletodelete1" />
-        </td>
-      </tr>
-      <tr>
-        <td>Tuesday</td>
-        <td>08:00</td>
-        <td>20:00</td>
-        <td>
-          <input type="checkbox" name="scheduletodelete2" />
-        </td>
-      </tr>
-      <tr>
-        <td>Sunday</td>
-        <td>08:00</td>
-        <td>18:00</td>
-        <td>
-          <input type="checkbox" name="scheduletodelete3" />
-        </td>
-      </tr>
+					
+					<button
+						type="button"
+						class="btn btn-dark py-50 px-6"
+						v-bind:disabled="false"
+						@click="deleteDailySchedule(schedule)"
+						>
+						Delete
+					</button>
+					
+
+				</td>
+
+			</tr>
     </table>
 
-    <br />
-    <input type="submit" class="btn btn-dark py-50 px-6" value="Delete Schedule" />
+    <div class="form-group">
+            <h5 v-if="errorDelete" style="color: red; padding-top: 20px">Error: {{ errorDelete }}</h5>
+          </div>
+
+
     <br />
     <div class="col-md-12">
       <a href="/#/ownermenu" class="button" id="button-1">Go back to menu</a>
