@@ -36,7 +36,11 @@ export default {
     data () {
       return {
         name : '',
-        newShoppablePrice: '',
+        unavailableItemName: '',
+        unavailableItemPrice: '',
+        unavailableItemName: '',
+        unavailableItemPrice: '',
+        newUnavailablePrice: '',
         price : '',
         errorItem: '',
         successItem: '',
@@ -169,6 +173,7 @@ export default {
           // Create a new Unavailable item and add it to the list of order
             AXIOS.put('/update_shoppable_item_price/?name='.concat(name, "&newPrice=", price))
             .then(response => {
+                  this.successItem='Price updated!'
 
               AXIOS.get('/view_all_shoppable_items/', {})
                 .then(response => {
@@ -179,7 +184,7 @@ export default {
                   this.errorItem = e.response.data
     
                 })
-    
+                
     
             })
             .catch(e => {

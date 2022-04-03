@@ -4,30 +4,36 @@
   		<table id="viewItemsOwnerTable">
     		<tr>
 				<th>Items</th>
-				<th>Current Price</th>
-				<th>New Price</th>
+				<th>Price</th>
 				<th>Quantity</th>
 			</tr>
 			<tr v-for="item in shoppableItems" :key=item.name>
 				<td>{{item.name}}</td>
-				<td>${{item.price}}</td>
 				<td>
 					<input
 						type="text"
 						class="form-control"
-						v-model="newShoppablePrice"
+						v-model="item.price"
 						placeholder="New Price"
 					/>
 					<button
 						type="button"
 						class="btn btn-dark py-6 px-6"
-						v-bind:disabled="!newShoppablePrice"
-						@click="updateShoppableItemPrice(item.name,newShoppablePrice)"
+						v-bind:disabled="!item.price"
+						@click="updateShoppableItemPrice(item.name,item.price)"
 						
 						>
 					Update Price
 					</button>
 
+              <div class="row-md-12">
+                <div class="form-group">
+                  <h5
+                    v-if="successItem"
+                    style="color: green; padding-top: 20px"
+                  >{{ successItem }}</h5>
+                </div>
+              </div>
 				</td>
 				<td>
 					
