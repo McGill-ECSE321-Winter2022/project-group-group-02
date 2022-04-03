@@ -62,7 +62,7 @@ export default {
 					}
 				})
 					.then(response => {
-						if (response.status === 200) {
+						if (response.status === 201) {
 								// If the update was successfull, empty all the fields and display a success message
 								this.password = '',
 								this.confirmPassword = '',
@@ -73,7 +73,7 @@ export default {
 					.catch(e => {
 						// Display the error message
 						this.errorUpdate = e.response.data
-						console.log(this.errorUpdate)					
+						console.log(this.errorUpdate)
 					})
 
 			}

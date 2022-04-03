@@ -17,25 +17,25 @@
           <div class="form-group">
             <label for="dayofweek">Enter a day of week :</label>
 
-            <select name="Day of Week" id="dayofweek">
-              <option value="Monday">Monday</option>
-              <option value="Tuesday">Tuesday</option>
-              <option value="Wednesday">Wednesday</option>
-              <option value="Thursday">Thursday</option>
-              <option value="Friday">Friday</option>
-              <option value="Saturday">Saturday</option>
-              <option value="Sunday">Sunday</option>
+            <select name="Day of Week" id="dayofweek" v-model="dayofweek">
+              <option value=Monday>Monday</option>
+              <option value=Tuesday>Tuesday</option>
+              <option value=Wednesday>Wednesday</option>
+              <option value=Thursday>Thursday</option>
+              <option value=Friday>Friday</option>
+              <option value=Saturday>Saturday</option>
+              <option value=Sunday>Sunday</option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="startTime">Select a start time:</label>
-            <input type="time" id="startTime" name="startTime" />
+            <input type="time" id="startTime" name="startTime" v-model="startTime"/>
           </div>
 
           <div class="form-group">
             <label for="endTime">Select an end time:</label>
-            <input type="time" id="endTime" name="endTime" />
+            <input type="time" id="endTime" name="endTime" v-model="endTime"/>
           </div>
 
           <div class="form-group">
@@ -50,7 +50,7 @@
             <button
               type="button"
               class="btn btn-dark py-50 px-6"
-              v-bind:disabled="!dayofweek || !startTime || !endTime"
+              v-bind:disabled="false"
              @click="addDailySchedule(dayofweek,startTime,endTime)"
             >Update</button>
           </div>
@@ -65,26 +65,28 @@
       style="border:1px solid black;margin-left:auto;margin-right:auto;"
     >
       <tr>
+
         <th>Day of Week</th>
         <th>Start Time</th>
         <th>End Time</th>
         <th>Select Schedule to Delete</th>
       </tr>
-     <tr v-for="schedule in dailyschedules" :key=schedule.dayOfWeek>
+     <tr v-for="schedule in dailyschedules":key=schedule.id>
+
 				<td>{{schedule.dayOfWeek}}</td>
 				<td>{{schedule.startTime}}</td>
         <td>{{schedule.endTime}}</td>
         <td>
-					
+
 					<button
 						type="button"
 						class="btn btn-dark py-50 px-6"
 						v-bind:disabled="false"
-						@click="deleteDailySchedule(schedule)"
+						@click="deleteDailySchedule(41)"
 						>
 						Delete
 					</button>
-					
+
 
 				</td>
 

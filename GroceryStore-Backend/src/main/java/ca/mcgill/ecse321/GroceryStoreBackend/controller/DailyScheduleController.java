@@ -52,19 +52,32 @@ public class DailyScheduleController {
 
 	/**
      * @author Cora Cheung
-     * This method creates a daily schedule 
-	 * @param DailyScheduleId
+     * This method creates a daily schedule
 	 * @param dayOfWeek
 	 * @param startTime
 	 * @param endTime
      * @return DailyScheduleDto
      */
 	@PostMapping(value = { "/create_dailyschedule" })
-	public ResponseEntity<?> createDailySchedule(@RequestParam("dayofweek") DayOfWeek dayOfWeek,
+	public ResponseEntity<?> createDailySchedule(@RequestParam("dayOfWeek") DayOfWeek dayOfWeek,
 	    @RequestParam("startTime") String startTime,
 			@RequestParam("endTime") String endTime) {
 
 		DailySchedule dailySchedule = null;
+
+		startTime = startTime+":00";
+		endTime = endTime+":00";
+		/* DayOfWeek dow=null;
+
+
+		if (dayOfWeek=="Monday") dow=DayOfWeek.Monday;
+		if (dayOfWeek=="Tuesday") dow=DayOfWeek.Tuesday;
+		if (dayOfWeek=="Wednesday") dow=DayOfWeek.Wednesday;
+		if (dayOfWeek=="Thursday") dow=DayOfWeek.Thursday;
+		if (dayOfWeek=="Friday") dow=DayOfWeek.Friday;
+		if (dayOfWeek=="Saturday") dow=DayOfWeek.Saturday;
+		if (dayOfWeek=="Sunday") dow=DayOfWeek.Sunday; */
+
 
 		try {
 			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek,
@@ -108,7 +121,7 @@ public class DailyScheduleController {
      * @return true if daily schedule has been deleted
      */
 	@DeleteMapping(value = { "/delete_dailyschedule" })
-	public boolean deleteStore(@RequestParam("DailyScheduleId") String DailyScheduleId) {
+	public boolean deleteDailySchedule(@RequestParam("DailyScheduleId") String DailyScheduleId) {
 
 		return dailyScheduleService.deleteDailySchedule(Long.parseLong(DailyScheduleId));
 

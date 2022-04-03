@@ -18,7 +18,7 @@ export default {
 			town: '',
 			deliveryfee: '',
 			errorUpdate: '',
-			successUpdate: '',
+			successUpdate: ''
 		}
 	},
 
@@ -28,7 +28,7 @@ export default {
 					params: {
                         town: town,
                         deliveryFee: deliveryfee,
-                        storeID:1
+                        storeId:1
 					}
 				})
 					.then(response => {

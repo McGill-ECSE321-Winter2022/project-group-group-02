@@ -50,10 +50,10 @@ export default {
         errorAdd: '',
         successAdd: '',
         errorDelete: '',
-        successDelete: '',
+        successDelete: ''
       }
     },
-    
+
     created: function () {
 
        // Test data
@@ -69,16 +69,16 @@ export default {
         })
         .catch(e => {
           this.errorUpdate = e
-        }) 
+        })
 
-     
+
       },
 
 
-    
-    
+
+
     methods: {
-      
+
         addDailySchedule: function (dayOfWeek,startTime,endTime) {
 
             AXIOS.post('/create_dailyschedule', {}, {
@@ -86,7 +86,7 @@ export default {
               dayOfWeek:dayOfWeek,
               startTime:startTime,
               endTime:endTime
-              
+
             }
           })
             .then(response => {
@@ -94,24 +94,20 @@ export default {
 							this.dayOfWeek = '',
 								this.startTime = '',
                 this.endTime = '',
-								this.successUpdate = 'Daily Schedule added successfully!'
+								this.successAdd = 'Daily Schedule added successfully!'
 						}
 					})
 					.catch(e => {
-					this.errorUpdate = e.response.data
-					console.log(this.errorUpdate)
+					this.errorAdd = e.response.data
+            console.log(this.errorAdd)
 					})
-          
+
       },
 
 
-        deleteDailySchedule: function (dailyschedule) {
+        deleteDailySchedule: function (id) {
           // Create a new Unavailable item and add it to the list of order
-            AXIOS.delete('/delete_dailyschedule',{}, {
-            params: {
-                DailyScheduleId:dailyshcedule.id
-            }
-          })
+          AXIOS.delete('/delete_dailyschedule/?DailyScheduleId='.concat(id))
             .then(response => {
 
               AXIOS.get('/view_dailyschedules', {})
@@ -121,19 +117,19 @@ export default {
                 })
                 .catch(e => {
                   this.errorDelete = e
-    
+
                 })
-    
+
               swal("success", "", "success");
-    
+
             })
             .catch(e => {
-              swal("ERROR", e.response.data, "error");
+              this.errorAdd = e.response.data
+              console.log(this.errorAdd)
             })
         },
 
-        
+
 
     }
 }
-  

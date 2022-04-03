@@ -29,7 +29,7 @@
           </div>
 
           <div class="form-group">
-                  <h5
+             <h5
                     v-if="successUpdate"
                     style="color: green; padding-top: 20px"
                   >{{ successUpdate }}</h5>
@@ -40,7 +40,7 @@
               type="button"
               class="btn btn-dark py-50 px-6"
                v-bind:disabled="!town || !deliveryfee"
-                  @click="managestoreinfo(email, password, confirmPassword, name, address)"
+                  @click="managestoreinfo(town,deliveryfee)"
             >Update</button>
           </div>
         </form>
