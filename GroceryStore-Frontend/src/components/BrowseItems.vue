@@ -91,6 +91,7 @@
             <option>Pick Up</option>
             <option>Delivery</option>
 </select>
+<br />
 <button
                     type="button"
                     class="btn btn-dark py-50 px-6"
@@ -99,7 +100,7 @@
                   >
                     Confirm Order
 </button>
-
+<br />
 <div class="col-md-12">
       <a href="/#/customermenu" class="button" id="button-1">Go back to menu</a>
     </div>
