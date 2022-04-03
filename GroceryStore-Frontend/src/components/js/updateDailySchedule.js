@@ -30,6 +30,12 @@ var AXIOS = axios.create({
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
+function dailyScheduleDto (dayOfWeek,startTime,endTime) {
+  this.dayOfWeek = dayOfWeek
+  this.startTime = startTime
+  this.endTime = endTime
+}
+
 
 
 export default {
@@ -49,6 +55,13 @@ export default {
     },
     
     created: function () {
+
+       // Test data
+    //const p1 = new dailyScheduleDto('Monday','08:00','20:00')
+    //const p2 = new dailyScheduleDto('Tuesday','08:00','20:00')
+    // Sample initial content
+    //this.dailyschedules = [p1, p2]
+
         AXIOS.get('/view_dailyschedules')
         .then(response => {
           // JSON responses are automatically parsed.
@@ -56,7 +69,7 @@ export default {
         })
         .catch(e => {
           this.errorUpdate = e
-        })
+        }) 
 
      
       },
