@@ -72,8 +72,8 @@
       </tr>
      <tr v-for="schedule in dailyschedules" :key=schedule.dayOfWeek>
 				<td>{{schedule.dayOfWeek}}</td>
-				<td>${{schedule.startTime}}</td>
-        <td>${{schedule.endTime}}</td>
+				<td>{{schedule.startTime}}</td>
+        <td>{{schedule.endTime}}</td>
         <td>
 					
 					<button
@@ -102,7 +102,7 @@
     </div>
   </div>
 </template>
-<script>
+<script src="./js/updateDailySchedule.js">
 </script>
 <style>
 #activeOrdersTable {
