@@ -27,3 +27,16 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       working-directory: GroceryStore-Backend
+      
+  frontend:
+    runs-on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: push frontend
+        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "grocerystore-frontend-best" #Must be unique in Heroku
+          heroku_email: "matthieu.hakim@mail.mcgill.ca"
+          dontuseforce: false
