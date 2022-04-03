@@ -13,6 +13,7 @@
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
+    "dev": "node build/dev-server.js",
     "postinstall": "npm run build",
     "start": "node server.js",
     "axios": "^0.26.1",
