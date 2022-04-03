@@ -66,6 +66,7 @@
 </template>
 
 <script src="./js/login.js">
+created();
 </script>
 <style scoped>
 .vertical-center {

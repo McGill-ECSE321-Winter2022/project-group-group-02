@@ -29,8 +29,12 @@ public class OwnerController {
      * @return OwnerDto
      */
 	@GetMapping(value = { "/view_owner/", "/view_owner" })
-	public OwnerDto viewOwner() {
-		return convertToDTO(ownerService.getOwner());
+	public ResponseEntity<?> viewOwner() {
+		if (ownerService.getOwner() == null)  {
+			return new ResponseEntity<>("Owner not created", HttpStatus.INTERNAL_SERVER_ERROR);
+		} else {
+			return new ResponseEntity<>(convertToDTO(ownerService.getOwner()), HttpStatus.OK);
+		}
 	}
 
 	/**

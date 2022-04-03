@@ -23,6 +23,21 @@ export default {
 			response: []
 		}
 	},
+	created: function () {
+		AXIOS.get('/view_owner/')
+			.catch(e => {
+				console.log(e.response.data)
+				AXIOS.post('/create_owner/', {}, {
+					params: {
+						email: "admin@grocerystore.com",
+						password: "1234",
+						name: "Owner",
+					}
+				}).catch(e => {
+					console.log(e.response)
+				})
+			})
+	},
 	methods: {
 		login: function (email, password) {
 			AXIOS.post('/login/', {}, {
@@ -31,7 +46,7 @@ export default {
 					password: password,
 				}
 			})
-			.then(response => {
+				.then(response => {
 					if (response.status === 200) {
 						this.user = response.data
 						this.type = this.user.userType
