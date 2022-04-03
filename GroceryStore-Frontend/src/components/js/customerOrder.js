@@ -66,24 +66,22 @@ export default {
 
           for (let i = 0; i < this.orders.length; i++) {
         
-            var temp = orders[i]
 
             AXIOS.get('/view_review_for_order', {
               params: {
-                orderId: temp.id
+                orderId: this.orders[i].id
               }
             })
               .then(response => {
                 
-                temp.description = response.data.description
-                temp.rating = response.data.rating
+                this.orders[i].description = response.data.description
+                this.orders[i].rating = response.data.rating
               })
 
               .catch(e => {
                 this.errorReview = e  
               })
 
-              orders[i] = temp
           }
 
         })
@@ -211,8 +209,8 @@ export default {
                 }
               })
                 .then(response => {
-                  order.description = 'None'
-                  order.rating = 'None'
+                  order.description = null
+                  order.rating = null
                 })
                 .catch(e => {
                   this.errorReview = e

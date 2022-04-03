@@ -347,7 +347,7 @@
         <td>{{ employee.salary }}</td>
 
         <td>
-          <table id="schedules">
+          <table id="schedules" v-if="employee.dailySchedules[0] != null">
             <tr>
               <th>Day of Week</th>
               <th>Start Time</th>

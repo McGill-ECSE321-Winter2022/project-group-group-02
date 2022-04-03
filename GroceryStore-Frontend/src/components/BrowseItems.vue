@@ -5,13 +5,15 @@
     <tr>
       <th>Item</th>
       <th>Price</th>
-      <th>Quantity</th>
+      <th>In Stock</th>
+      <th>How much do you want?</th>
       <th>Order</th>      
 
     </tr>
     <tr v-for="item in shoppableItems" :key=item.name>
       <td>{{ item.name }}</td>
       <td>{{ item.price }}</td>
+      <td>{{ item.quantityAvailable }}</td>
         <td> 
             <input
 				type="number"
@@ -84,7 +86,7 @@
 <br />
 
 <h5>Choose Order Type: </h5>
-<select  @change="null" v-model="orderType">
+<select id="selectButn" @change="null" v-model="orderType" class="form-control">
             <option disabled value>Please Select</option>
             <option>Pick Up</option>
             <option>Delivery</option>
@@ -98,7 +100,13 @@
                     Confirm Order
 </button>
 
-</div>
+<div class="col-md-12">
+      <a href="/#/customermenu" class="button" id="button-1">Go back to menu</a>
+    </div>
+    </div>
+
+
+
 
 </template>
 
@@ -120,6 +128,17 @@
     border: 1px solid black;
     padding: 10px; 
   } 
+
+  #selectButn{
+      position: center;
+      width: 20%;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      padding: 5px;
+  }
+
+
 
 
 </style>

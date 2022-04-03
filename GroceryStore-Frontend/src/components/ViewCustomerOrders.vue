@@ -57,7 +57,7 @@
         <td>
           
             <button
-              
+              v-if="order.description == null"
               type="button"
               class="btn btn-dark py-50 px-6"
               v-bind:disabled="false"
@@ -66,7 +66,7 @@
           
           
             <button
-              
+              v-if="order.description != null"
               type="button"
               class="btn btn-dark py-50 px-6"
               v-bind:disabled="false"
@@ -75,7 +75,7 @@
           
           
             <button
-              
+              v-if="order.description != null"
               type="button"
               class="btn btn-dark py-50 px-6"
               v-bind:disabled="false"
