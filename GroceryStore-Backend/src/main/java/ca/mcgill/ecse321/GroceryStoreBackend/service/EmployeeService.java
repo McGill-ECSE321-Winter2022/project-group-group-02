@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.CustomerRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.DailyScheduleRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.EmployeeRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.OwnerRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Employee;
@@ -18,7 +20,14 @@ import ca.mcgill.ecse321.GroceryStoreBackend.model.Employee;
 public class EmployeeService {
 
 	@Autowired
+	CustomerRepository customerRepository;
+	
+	@Autowired
 	EmployeeRepository employeeRepository;
+
+	@Autowired
+	OwnerRepository ownerRepository;
+
 
 	@Autowired
 	DailyScheduleRepository dailyScheduleRepository;
@@ -50,6 +59,15 @@ public class EmployeeService {
 		// Checking the employee does not already exist in the system
 		Employee employee = employeeRepository.findByEmail(email);
 
+		
+		if (customerRepository.existsByEmail(email) ) {
+			throw new IllegalArgumentException("This email is already in use for a customer.");
+		}
+		
+		if (ownerRepository.existsByEmail(email) ) {
+			throw new IllegalArgumentException("This is the owner's email.");
+		}
+		
 		if (employee != null) {
 			throw new IllegalArgumentException("An employee with this email already exists.");
 		}
