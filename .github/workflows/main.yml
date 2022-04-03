@@ -34,7 +34,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: push frontend
-        uses: akhileshns/heroku-deploy@version-4 # This is the action
+        uses: akhileshns/heroku-deploy@v3.12.12  # This is the action
         with:
           heroku_api_key: 05c008a4-f8d0-44cf-95e7-31a33db94fef
           heroku_app_name: "grocerystore-frontend-best" #Must be unique in Heroku
