@@ -278,7 +278,7 @@
             <div class="form-group3234">
               <select v-model="selected"  class="form-control"  >
                 <option disabled value="">Choose Schedule</option>
-                <option v-for="dailyScheduleToBeAssigned in dailySchedules" :value = "dailyScheduleToBeAssigned">{{dailyScheduleToBeAssigned.dayOfWeek}}, Start Time: {{dailyScheduleToBeAssigned.startTime}}, End Time: {{dailyScheduleToBeAssigned.endTime}} </option>
+                <option v-for="dailyScheduleToBeAssigned in dailySchedules" :value = "dailyScheduleToBeAssigned" v-bind:key="dailyScheduleToBeAssigned.id">{{dailyScheduleToBeAssigned.dayOfWeek}}, Start Time: {{dailyScheduleToBeAssigned.startTime}}, End Time: {{dailyScheduleToBeAssigned.endTime}} </option>
 
               </select>
             </div>
