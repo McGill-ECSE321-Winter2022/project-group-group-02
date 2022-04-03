@@ -378,19 +378,7 @@
             </tr>
           </table>
 
-          <div class="form-group">
-            <h5
-              v-if="errorUnasign"
-              style="color: red; padding-top: 20px"
-            >Error: {{ errorUnasign }}</h5>
-          </div>
 
-          <div class="form-group">
-            <h5
-              v-if="sucessUnasign"
-              style="color: green; padding-top: 20px"
-            >{{ sucessUnasign }}</h5>
-          </div>
 
         </td>
 
@@ -405,6 +393,19 @@
 
 
     </table>
+    <div class="form-group">
+      <h5
+        v-if="errorUnasign"
+        style="color: red; padding-top: 20px"
+      >Error: {{ errorUnasign }}</h5>
+    </div>
+
+    <div class="form-group">
+      <h5
+        v-if="sucessUnasign"
+        style="color: green; padding-top: 20px"
+      >{{ sucessUnasign }}</h5>
+    </div>
 
 
 
