@@ -21,7 +21,7 @@
 					<button
 						type="button"
 						class="btn btn-dark py-6 px-6"
-						v-bind:disabled="false"
+						v-bind:disabled="!newShoppablePrice"
 						@click="updateShoppableItemPrice(item.name,newShoppablePrice)"
 						
 						>
@@ -101,13 +101,18 @@
 								/>
 								</div>
 							</div>
-							
+							<div class="form-group">
+								<h5 v-if="errorItem" style="color: red; padding-top: 20px">Error: {{ errorItem }}</h5>
+							</div>
+							<div class="form-group">
+								<h5 v-if="successItem" style="color: blue; padding-top: 20px">{{ successItem }}</h5>
+							</div>
 							<div class="col-md-12">
 								<div class="form-group">
 									<button
 										type="button"
 										class="btn btn-dark py-50 px-6"
-										v-bind:disabled="false"
+										v-bind:disabled="!(name && price && quantityAvailable)"
 										@click="createShoppableItem(name, price, quantityAvailable)"
 									>
 										Create Shoppable Item
@@ -145,7 +150,7 @@
 					<button
 						type="button"
 						class="btn btn-dark py-50 px-6"
-						v-bind:disabled="false"
+						v-bind:disabled="!(newUnavailablePrice && newUnavailablePrice!=item.price)"
 						
 						@click="updateUnavailableItemPrice(item.name, newUnavailablePrice)"
 						
@@ -215,19 +220,18 @@
 								</div>
 							</div>
 							
-							<div class="col-md-12">
-								<div class="form-group">
-									<h5 v-if="errorCreate" style="color: red; padding-top: 20px">
-										Error: {{ errorLogin }}
-									</h5>
-								</div>
+							<div class="form-group">
+								<h5 v-if="errorItem" style="color: red; padding-top: 20px">Error: {{ errorItem }}</h5>
+							</div>
+							<div class="form-group">
+								<h5 v-if="successItem" style="color: blue; padding-top: 20px">{{ successItem }}</h5>
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
 									<button
 										type="button"
 										class="btn btn-dark py-50 px-6"
-										v-bind:disabled="false"
+										v-bind:disabled="!unavailableItemName"
 										@click="createUnavailableItem(unavailableItemName, unavailableItemPrice)"
 									>
 										Create Unavailable Item
