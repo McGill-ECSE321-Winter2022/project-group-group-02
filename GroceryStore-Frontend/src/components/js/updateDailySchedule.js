@@ -68,7 +68,7 @@ export default {
           this.dailyschedules = response.data
         })
         .catch(e => {
-          this.errorUpdate = e
+          this.errorAdd = e
         })
 
 
@@ -78,6 +78,10 @@ export default {
 
 
     methods: {
+
+      /*** Method to add a daily schedule
+       * @author cora.cheung
+       */
 
         addDailySchedule: function (dayOfWeek,startTime,endTime) {
 
@@ -90,44 +94,71 @@ export default {
             }
           })
             .then(response => {
-						if (response.status === 200) {
-							this.dayOfWeek = '',
-								this.startTime = '',
-                this.endTime = '',
-								this.successAdd = 'Daily Schedule added successfully!'
-						}
-					})
-					.catch(e => {
-					this.errorAdd = e.response.data
-            console.log(this.errorAdd)
-					})
+              AXIOS.get('/view_dailyschedules')
+                .then(response => {
+                  // JSON responses are automatically parsed.
+                  this.dailyschedules = response.data
+                  this.dayOfWeek = ''
+                  this.startTime = ''
+                  this.endTime = ''
+                  this.successAdd = 'Daily Schedule added successfully!'
+                  this.errorAdd=''
+                })
+                .catch(e => {
+                  this.errorAdd = e.response.data
+                  console.log(this.errorAdd)
+                  this.successAdd=''
+
+                  // if (response.status === 200) {
+                  // 	this.dayOfWeek = '',
+                  // 		this.startTime = '',
+                  //     this.endTime = '',
+                  // 		this.successAdd = 'Daily Schedule added successfully!'
+                  // }
+                })
+
+                })
+              .catch(e => {
+                this.errorAdd = e.response.data
+                console.log(this.errorAdd)
+                this.successAdd=''
+
+
+              })
+
 
       },
 
+
+      /*** Method to delete a daily schedule
+       * @author cora.cheung
+       */
 
         deleteDailySchedule: function (id) {
           // Create a new Unavailable item and add it to the list of order
           AXIOS.delete('/delete_dailyschedule/?DailyScheduleId='.concat(id))
             .then(response => {
 
-              AXIOS.get('/view_dailyschedules', {})
+              AXIOS.get('/view_dailyschedules')
                 .then(response => {
-
-                  this.dailyschedule = response.data
+                  // JSON responses are automatically parsed.
+                  this.dailyschedules = response.data
+                  this.errorAdd=''
+                  this.successAdd=''
                 })
                 .catch(e => {
-                  this.errorDelete = e
-
+                  this.errorDelete = e.response.data
+                  this.errorAdd=''
+                  this.successAdd=''
                 })
-
-              swal("success", "", "success");
-
             })
             .catch(e => {
               this.errorAdd = e.response.data
               console.log(this.errorAdd)
+              this.errorAdd=''
+              this.successAdd=''
             })
-        },
+        }
 
 
 

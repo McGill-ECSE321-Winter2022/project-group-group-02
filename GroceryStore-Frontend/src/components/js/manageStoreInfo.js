@@ -23,6 +23,10 @@ export default {
 	},
 
 	methods: {
+
+    /*** Method to update store information
+     * @author cora.cheung
+     */
 		managestoreinfo: function (town,deliveryfee) {
 				AXIOS.put('/update_store', {}, {
 					params: {
@@ -32,11 +36,11 @@ export default {
 					}
 				})
 					.then(response => {
-						if (response.status === 200) {
-							this.town = '',
-								this.deliveryfee = '',
+
+							this.town = ''
+								this.deliveryfee = ''
 								this.successUpdate = 'Store Information Updated successfully!'
-						}
+
 					})
 					.catch(e => {
 					this.errorUpdate = e.response.data
