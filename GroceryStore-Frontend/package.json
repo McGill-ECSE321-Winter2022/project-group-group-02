@@ -13,9 +13,9 @@
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
-    "dev": "node build/dev-server.js",
     "postinstall": "npm run build",
     "start": "node server.js",
+    "build": "node build/build.js",
     "axios": "^0.26.1",
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "latest",
