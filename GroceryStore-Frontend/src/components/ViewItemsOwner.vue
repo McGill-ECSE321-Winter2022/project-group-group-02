@@ -150,8 +150,7 @@
 		<table id="viewUnavailableItemsOwnerTable">
 			<tr>
 			<th>Items</th>
-				<th>Current Price</th>
-				<th>New Price</th>
+				<th>Price</th>
 			</tr>
 			<tr v-for="item in unavailableItems" :key=item.name>
 				<td>{{item.name}}</td>
@@ -166,9 +165,9 @@
 					<button
 						type="button"
 						class="btn btn-dark py-50 px-6"
-						v-bind:disabled="!(newUnavailablePrice && newUnavailablePrice!=item.price)"
+						v-bind:disabled="!item.price"
 						
-						@click="updateUnavailableItemPrice(item.name, newUnavailablePrice)"
+						@click="updateUnavailableItemPrice(item.name, item.price)"
 						
 						>
 					Update Price
