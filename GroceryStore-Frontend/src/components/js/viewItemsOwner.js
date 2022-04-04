@@ -22,7 +22,7 @@ var frontendConfigurer = function(){
 };
 
 var backendUrl = backendConfigurer();
-var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
+var frontendUrl = frontendConfigurer();
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
