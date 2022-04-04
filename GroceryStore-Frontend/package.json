@@ -13,11 +13,13 @@
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
+    "dev": "node build/dev-server.js",
     "postinstall": "npm run build",
     "start": "node server.js",
     "axios": "^0.26.1",
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "latest",
+    "express": "^4.17.3",
     "fs": "^0.0.1-security",
     "jquery": "^3.6.0",
     "net": "^1.0.2",
@@ -46,7 +48,6 @@
     "css-loader": "^0.28.0",
     "cssnano": "^3.10.0",
     "eventsource-polyfill": "^0.9.6",
-    "express": "^4.17.3",
     "extract-text-webpack-plugin": "^2.0.0",
     "file-loader": "^0.11.1",
     "friendly-errors-webpack-plugin": "^1.1.3",

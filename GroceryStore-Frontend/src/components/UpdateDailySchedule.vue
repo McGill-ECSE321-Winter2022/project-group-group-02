@@ -43,7 +43,7 @@
           </div>
 
           <div class="form-group">
-            <h5 v-if="successAdd" style="color: red; padding-top: 20px">Error: {{ successAdd }}</h5>
+            <h5 v-if="successAdd" style="color: green; padding-top: 20px">{{ successAdd }}</h5>
           </div>
 
           <div class="form-group">
@@ -82,7 +82,7 @@
 						type="button"
 						class="btn btn-dark py-50 px-6"
 						v-bind:disabled="false"
-						@click="deleteDailySchedule(41)"
+						@click="deleteDailySchedule(schedule.id)"
 						>
 						Delete
 					</button>

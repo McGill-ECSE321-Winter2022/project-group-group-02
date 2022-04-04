@@ -23,29 +23,33 @@ export default {
 	},
 
 	methods: {
-		managestoreinfo: function (town,deliveryfee) {
-				AXIOS.put('/update_store', {}, {
-					params: {
-                        town: town,
-                        deliveryFee: deliveryfee,
-                        storeId:1
+
+		/*** Method to update store information
+		 * @author cora.cheung
+		 */
+		managestoreinfo: function (town, deliveryfee) {
+			AXIOS.put('/update_store', {}, {
+				params: {
+					town: town,
+					deliveryFee: deliveryfee,
+					storeId: 1
+				}
+			})
+				.then(response => {
+					if (response.status === 201) {
+						this.town = '',
+							this.deliveryfee = '',
+							this.errorUpdate = ''
+						this.successUpdate = 'Store Information Updated successfully!'
 					}
 				})
-					.then(response => {
-						if (response.status === 201) {
-							this.town = '',
-								this.deliveryfee = '',
-								this.errorUpdate = ''
-								this.successUpdate = 'Store Information Updated successfully!'
-						}
-					})
-					.catch(e => {
+				.catch(e => {
 					this.successUpdate = ''
 					this.errorUpdate = e.response.data
 					console.log(this.errorUpdate)
-					})
-
-			}
+				})
 
 		}
+
 	}
+}

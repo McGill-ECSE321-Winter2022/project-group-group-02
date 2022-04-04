@@ -11,7 +11,7 @@ import UpdateEmployee from '@/components/UpdateAccountEmployee'
 import UpdateAdmin from '@/components/UpdateAccountAdmin'
 import EmployeeManagement from '@/components/EmployeeManagement'
 import ManageStoreInfo from '@/components/ManageStoreInfo'
-import AddDailySchedule from '@/components/UpdateDailySchedule'
+import UpdateDailySchedule from '@/components/UpdateDailySchedule'
 import CustomerMenu from '@/components/CustomerMenu'
 import OwnerMenu from '@/components/OwnerMenu'
 import EmployeeMenu from '@/components/EmployeeMenu'
@@ -93,7 +93,7 @@ export default new Router({
     {
       path: '/UpdateDailySchedule',
       name: 'updateDailySchedule',
-      component: AddDailySchedule
+      component: UpdateDailySchedule
     },
      {
       path: '/EmployeeMenu',
@@ -116,5 +116,5 @@ export default new Router({
       component: BrowseItems
     }
   ]
-  
+
 })
