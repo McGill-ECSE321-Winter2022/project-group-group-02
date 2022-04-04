@@ -1,5 +1,11 @@
 # project-group-02
 
+## The Project
+
+Frontend: https://grocerystore-frontend-best.herokuapp.com
+
+
+
 ## The Team
 
 | Name | GitHub |Major |Year|
