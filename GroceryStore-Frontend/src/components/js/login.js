@@ -61,6 +61,21 @@ export default {
 					console.log(e.response)
 				})
 			})
+
+		AXIOS.get('/view_store/?id='.concat(1))
+			.catch(e => {
+				// If there is an error because the owner does not exist, create it.
+				console.log(e.response.data)
+				AXIOS.post('/create_store/', {}, {
+					params: {
+						storeId: 1,
+						town: "Montreal",
+						deliveryFee: "10",
+					}
+				}).catch(e => {
+					console.log(e.response)
+				})
+			})
 	},
 	methods: {
 		/*** @author anaelle.drai

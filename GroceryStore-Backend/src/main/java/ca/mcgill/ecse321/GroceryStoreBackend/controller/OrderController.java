@@ -41,6 +41,11 @@ public class OrderController {
 	public List<OrderDto> getAllOrders() {
 		return orderService.getAllOrder().stream().map(order -> convertToDTO(order)).collect(Collectors.toList());
 	}
+	
+	@GetMapping(value = { "/get_order_price", "/get_order_price/" })
+	public double getOrderPrice(@RequestParam("id") long id) {
+		return orderService.getOrderPrice(id);
+	}
 
 	/**
 	 * View all orders for a specific customer

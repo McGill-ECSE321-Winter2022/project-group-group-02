@@ -21,7 +21,7 @@
     </div>
         <div class="row cf">
       <div class="six col">
-        <a href='/#/UpdateDailySchedule' class="button" id="button-1">Update Daily Schedules</a>
+        <a href='/#/UpdateDailySchedule' class="button" id="button-1">Manage Opening Hours</a>
       </div>
      <div class="six col">
         <a href="/#/viewitemsowner" class="button" id="button-1">Add Items</a>

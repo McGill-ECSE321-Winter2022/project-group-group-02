@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.CustomerRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.OrderItemRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.OrderRepository;
+import ca.mcgill.ecse321.GroceryStoreBackend.dao.StoreRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order.OrderStatus;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Order.OrderType;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.OrderItem;
+import ca.mcgill.ecse321.GroceryStoreBackend.model.Store;
 
 @Service
 public class OrderService {
@@ -28,7 +30,9 @@ public class OrderService {
 	@Autowired
 	OrderItemRepository orderItemRepo;
 
-	
+	@Autowired
+	StoreRepository storeRepo;
+
 	/**
 	 * 
 	 * Creates an order in the system
@@ -262,6 +266,30 @@ public class OrderService {
 
 	}
 
+	/**
+	 * Gets the order price
+	 * @param orderId
+	 * @return total
+	 * @throws IllegalArgumentException
+	 * @author anaelle.drai
+	 */
+	@Transactional
+	public double getOrderPrice(Long orderId) throws IllegalArgumentException {
+
+		if (orderId == null)
+			throw new IllegalArgumentException("Please enter a valid order ID. ");
+		Order order = orderRepo.findOrderById(orderId);
+		double total = 0;
+		for (OrderItem orderItem: order.getOrderItems()) {
+			total += orderItem.getQuantity() * orderItem.getItem().getPrice();
+		}
+		if (order.getOrderType() == OrderType.Delivery) {
+			Store store = storeRepo.findStoreById((long) 1);
+			total += store.getDeliveryFee();
+		}
+		return total;
+
+	}
 
 	/**
 	 * Converts from a string to an order type

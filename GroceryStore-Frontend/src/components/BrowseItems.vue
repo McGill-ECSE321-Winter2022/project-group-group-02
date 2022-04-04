@@ -86,7 +86,7 @@
 <br />
 
 <h5>Choose Order Type: </h5>
-<select id="selectButn" @change="null" v-model="orderType" class="form-control">
+<select id="selectButn" v-model="orderType" class="form-control">
             <option disabled value>Please Select</option>
             <option>Pick Up</option>
             <option>Delivery</option>
@@ -98,9 +98,18 @@
                     v-bind:disabled="(basketItems[0] == null) || (orderType == '')"
                     @click="createOrder(orderType)"
                   >
-                    Confirm Order
+                    Confirm Payment
 </button>
 <br />
+            <div class="row-md-12">
+                <div class="form-group">
+                  <h5
+                    v-if="successOrder"
+                    style="color: green; padding-top: 20px"
+                  >{{ successOrder }}</h5>
+                </div>
+              </div>
+              <br />
 <div class="col-md-12">
       <a href="/#/customermenu" class="button" id="button-1">Go back to menu</a>
     </div>

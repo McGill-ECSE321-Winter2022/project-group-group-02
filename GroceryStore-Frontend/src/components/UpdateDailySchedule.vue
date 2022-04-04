@@ -5,7 +5,7 @@
       <div class="container">
         <br />
 
-        <h2>Add Daily Schedule</h2>
+        <h2>Add Store Opening Hour</h2>
 
         <form action="#" class="appointment">
           <div class="form-group">
@@ -52,14 +52,14 @@
               class="btn btn-dark py-50 px-6"
               v-bind:disabled="false"
              @click="addDailySchedule(dayofweek,startTime,endTime)"
-            >Update</button>
+            >Create</button>
           </div>
         </form>
         <br />
       </div>
     </div>
 
-    <h2>Delete Daily Schedule</h2>
+    <h2>Delete Store Opening Hour</h2>
     <table
       id="deleteDailyScheduleTable"
       style="border:1px solid black;margin-left:auto;margin-right:auto;"
@@ -71,7 +71,7 @@
         <th>End Time</th>
         <th>Select Schedule to Delete</th>
       </tr>
-     <tr v-for="schedule in dailyschedules":key=schedule.id>
+     <tr v-for="schedule in dailyschedules" :key=schedule.id>
 
 				<td>{{schedule.dayOfWeek}}</td>
 				<td>{{schedule.startTime}}</td>

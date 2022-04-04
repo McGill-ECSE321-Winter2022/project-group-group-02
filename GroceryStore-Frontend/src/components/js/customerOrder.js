@@ -39,6 +39,7 @@ export default {
         orderType: '',
         orderStatus: '',
         subtotal: '$0',
+        total: '$0',
         errorReview: '',
         successReview: '',
         errorOrder: '',
@@ -68,7 +69,17 @@ export default {
           for (let i = 0; i < this.orders.length; i++) {
         
 
-            AXIOS.get('/view_review_for_order', {
+            AXIOS.get('/get_order_price/?id='.concat(this.orders[i].id))
+              .then(response => {
+                
+                this.orders[i].total = response.data
+              })
+
+              .catch(e => {
+                console.log(e)
+              })
+
+              AXIOS.get('/view_review_for_order', {
               params: {
                 orderId: this.orders[i].id
               }

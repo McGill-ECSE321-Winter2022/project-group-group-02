@@ -45,7 +45,7 @@ public class StoreController {
 	 * @param id
      * @return StoreDto
      */
-    @GetMapping(value = {"/view_store/{id}"})
+    @GetMapping(value = {"/view_store/"})
     public StoreDto viewStore(@RequestParam("id") String id) {
         
       

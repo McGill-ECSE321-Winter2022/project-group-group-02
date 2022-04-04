@@ -50,7 +50,8 @@ export default {
         errorAdd: '',
         successAdd: '',
         errorDelete: '',
-        successDelete: ''
+        successDelete: '',
+        dayofweek:'',
       }
     },
 
@@ -77,11 +78,11 @@ export default {
 
         addDailySchedule: function (dayOfWeek,startTime,endTime) {
 
-            AXIOS.post('/create_dailyschedule', {}, {
+            AXIOS.post('/create_dailyschedule/', {}, {
             params: {
-              dayOfWeek:dayOfWeek,
-              startTime:startTime,
-              endTime:endTime
+              dayofweek: dayOfWeek,
+              startTime:startTime.concat(":00"),
+              endTime: endTime.concat(":00")
 
             }
           })

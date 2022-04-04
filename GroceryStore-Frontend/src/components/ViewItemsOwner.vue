@@ -152,7 +152,6 @@
 			<th>Items</th>
 				<th>Current Price</th>
 				<th>New Price</th>
-				<th></th>
 			</tr>
 			<tr v-for="item in unavailableItems" :key=item.name>
 				<td>{{item.name}}</td>

@@ -9,6 +9,7 @@
         <th>Status</th>
         <th>Items</th>
         <th>Subtotal</th>
+        <th>Total</th>
         <th>Rating</th>
         <th>Review</th>
       </tr>
@@ -33,9 +34,11 @@
           <div v-if="order.orderItems[0] == null">NA</div>
         </td>
         <td>${{ order.subtotal }}</td>
+        <td>${{ order.total }}</td>
+
         <td>
           <div>Current rating: {{ order.rating }}</div>
-          <select class="form-control" @change="null" v-model="order.r">
+          <select class="form-control" v-model="order.r">
             <option disabled value>Please Select</option>
             <option>VeryPoor</option>
             <option>Poor</option>
@@ -72,7 +75,7 @@
               v-bind:disabled="false"
               @click="updateReview(order.r, order.d, order)"
             >Change review</button>
-          
+           <br />
           
             <button
               v-if="order.description != null"

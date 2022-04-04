@@ -45,6 +45,7 @@ export default {
         orderType: '',
         errorItem: '',
         errorOrder: '',
+        successOrder: '',
         shoppableItems: [],
         unavailableItems: [],
         orderItems: [],
@@ -77,9 +78,6 @@ export default {
     methods: {
         addToBasket: function(newItemName, quantityDesired){
 
-            
-
-
             if(quantityDesired == null || quantityDesired < 1){
                 removeFromBasket(newItemName)
             }
@@ -90,7 +88,7 @@ export default {
                         
                         if(this.shoppableItems[i].quantityAvailable < quantityDesired){
                             this.errorOrder = "There is not enough items in the store. Please order less than the quantity available."
-                            return errorOrder
+                            return this.errorOrder
                         }
                     }
                 }
@@ -151,7 +149,7 @@ export default {
     
                   }
                   this.basketItems = [];
-        
+                  this.successOrder = 'Order confirmed!'
                 })
                 .catch(e => {
                   this.errorOrder =  e.response.data
