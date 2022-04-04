@@ -52,7 +52,7 @@
 
   
             <div class="col-md-12">
-                      <a href="/#/signincustomer" class="button" id="button-1">Click Here To Sign In</a>
+                      <a href="/#/signincustomer" class="button" id="button-1">Click Here To Sign Up</a>
 
             </div>
               </form>

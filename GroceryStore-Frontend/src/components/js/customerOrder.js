@@ -210,7 +210,6 @@ export default {
                 .then(response => {
                   order.description = response.data.description
                   order.rating = response.data.rating
-                  reviews.push(response.data)
 
                  
                 })

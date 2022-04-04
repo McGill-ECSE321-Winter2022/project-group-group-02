@@ -5,7 +5,7 @@
       <div class="container">
         <div class="row d-md-flex">
           <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5">
-            <h2 class="mb-4">Customer Sign In</h2>
+            <h2 class="mb-4">Customer Sign Up</h2>
             <form action="#" class="appointment">
               <div class="col-md-12">
                 <div class="form-group">
@@ -72,7 +72,7 @@
                     class="btn btn-dark py-50 px-6"
                     v-bind:disabled="!email || !password || !address || !confirmPassword || !name"
                     @click="signin(email, password, confirmPassword, name, address)"
-                  >Sign In</button>
+                  >Sign Up</button>
                 </div>
               </div>
               <br />
