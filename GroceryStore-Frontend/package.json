@@ -6,28 +6,23 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
-    "start": "node build/dev-server.js",
+    "postinstall": "npm run build",
+    "start": "node server.js",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
-    "postinstall": "npm run build",
-    "start": "node server.js",
-    "build": "node build/build.js",
     "axios": "^0.26.1",
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "latest",
-    "express": "^4.17.3",
-    "fs": "^0.0.1-security",
     "jquery": "^3.6.0",
-    "net": "^1.0.2",
     "popper.js": "^1.12.9",
-    "serve-static": "^1.15.0",
-    "sweetalert2": "^11.4.8",
+    "serve-static": "^1.14.2",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "express": "^4.17.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
