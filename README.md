@@ -48,11 +48,11 @@ Click for [Project Report Deliverable 2] !
 ### Roles and Time Spent
 | Name  | Roles/Tasks |Time Spent (Hours)|
 | ------------- | ------------- |---|
-| Matthieu Hakim | Implementation of View Orders, Leave Review pages, architecture model, project report | 35 |
-| Cora Cheung | Implementation of Manage Store Information, Add and Delete Daily Schedule pages, architecture model, project report| 35 |
-| Karl Rouhana | Implementation of Change Order Status, Employee Management pages, architecture model, project report| 35 |
-| Ralph Nassar | Implementation of View Items, Add Items pages, architecture model, project report | 35 |
-| Anaëlle Drai Laguéns | Implementation of Login, Sign In Customer and Update Account pages, architecture model, project report| 35 |
+| Matthieu Hakim | Implementation of View Orders, Leave Review pages, architecture model, project report | 45 |
+| Cora Cheung | Implementation of Manage Store Information, Add and Delete Daily Schedule pages, architecture model, project report| 45 |
+| Karl Rouhana | Implementation of Change Order Status, Employee Management pages, architecture model, project report| 45 |
+| Ralph Nassar | Implementation of View Items, Add Items pages, architecture model, project report | 45 |
+| Anaëlle Drai Laguéns | Implementation of Login, Sign In Customer and Update Account pages, architecture model, project report| 45 |
 
 Click for [Project Report Deliverable 3] !
 

@@ -99,9 +99,12 @@ export default {
   methods:{
 
     /**
-     * Update an orders' status in the system
      * @author Karl Rouhana
+     * @param {Status} status 
+     * @param {Order} order 
+     * @description updates the status of an order
      */
+    
     updateStatus: function (status, order){
 
       //Call backend controllers to update the order

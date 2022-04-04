@@ -105,9 +105,14 @@ export default {
 
 
       /**
-       * Create an employee in the system
        * @author Karl Rouhana
+       * @param {String} email
+       * @param {String} password
+       * @param {String} name
+       * @param {Double} salary
+       * @description Creates an employee in the system
        */
+
       hireEmployee: function (email, password, name, salary){
 
         //Call backend with correct parameters
@@ -154,8 +159,12 @@ export default {
 
 
       /**
-       * Update an employee already the system
        * @author Karl Rouhana
+       * @param {String} email 
+       * @param {String} password 
+       * @param {String} name 
+       * @param {Double} salary
+       * @description Updates an employee already the system
        */
 
       updateEmployee: function (email, password, name, salary){
@@ -200,10 +209,11 @@ export default {
 
 
 
-      /**
-       * Fire an employee already the system
-       * @author Karl Rouhana
-       */
+        /**
+        * @author Karl Rouhana
+        * @param {String} email
+        * @description Fires an employee already the system
+        */
 
       fireEmployee: function (email){
 
@@ -257,9 +267,12 @@ export default {
 
 
       /**
-       * Assign a schedule to an employee already the system
        * @author Karl Rouhana
+       * @param {String} email 
+       * @param {DailySchedule} dailySchedule
+       * @description Assigns a schedule to an employee already the system
        */
+
       assignSchedule: function (email, dailySchedule){
 
         AXIOS.post('/add_dailySchedule',{},{
@@ -313,9 +326,12 @@ export default {
 
 
       /**
-       * Unassign a schedule to an employee already the system
-       * @author Karl Rouhana
-       */
+      * @author Karl Rouhana
+      * @param {Employee} employee 
+      * @param {DailySchedule} dailySchedule
+      * @description Unassigns a schedule to an employee already the system
+      */
+     
       unassignSchedule: function (employee, dailySchedule){
 
         AXIOS.delete('/remove_dailySchedule',{

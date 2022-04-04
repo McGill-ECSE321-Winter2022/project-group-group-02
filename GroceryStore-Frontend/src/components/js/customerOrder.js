@@ -107,8 +107,17 @@ export default {
       
 
     
+
     methods: {
         
+        /**
+         * @author Matthieu Hakim
+         * @param {Rating} rating 
+         * @param {String} description 
+         * @param {Order} order
+         * @description creates a review for an order and add it in the table 
+         */
+
         createReview: function (rating, description, order){
 
           AXIOS.post('/create_review/', {}, {
@@ -147,6 +156,12 @@ export default {
 
         },
 
+        /**
+         * @author Matthieu Hakim
+         * @param {Order} order
+         * @description takes as input an order and return its associated review, if any
+         */
+
         getReviewForOrder: function(order){
 
           AXIOS.get('/view_review_for_order', {
@@ -169,7 +184,13 @@ export default {
 
         },
 
-
+        /**
+         * @author Matthieu Hakim
+         * @param {Rating} rating 
+         * @param {String} description 
+         * @param {Order} order
+         * @description updates the review and rating of an order 
+         */
         updateReview: function (rating, description, order){
 
           AXIOS.put('/update_review/', {}, {
@@ -208,6 +229,12 @@ export default {
 
         },
 
+        /**
+         * @author
+         * @param {Order} order
+         * @description deletes the review of the input order 
+         */
+        
         deleteReview: function (order){
 
           AXIOS.delete('/delete_review/', {
