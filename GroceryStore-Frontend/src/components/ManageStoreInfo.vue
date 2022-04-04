@@ -63,7 +63,7 @@
   position: relative;
   color: #ecf0f1;
         position: center;
-      width: 20%;
+      width: 40%;
       margin-left: auto;
       margin-right: auto;
       text-align: center;

@@ -49,7 +49,13 @@ export default {
       errorUnasign:'',
       errorViewSchedules: '',
       errorViewEmployees : '',
-
+      emailUpdate: '',
+      passwordUpdate:'',
+      emailToBeFired:'',
+      nameUpdate:'',
+      salaryUpdate:'',
+      employeeEmailToAssignDailySchedule:'',
+      selected:'',
       sucessHire:'',
       sucessFire:'',
       sucessUpdate:'',
@@ -127,8 +133,10 @@ export default {
                 // JSON responses are automatically parsed.
                 this.employees = response.data
                 this.sucessHire = 'Hire successfully !'
+                this.errorHire =''
               })
               .catch(e => {
+                this.sucessHire =''
                 this.errorHire = e.response.data
                 console.log(this.errorHire)
               })
@@ -137,6 +145,7 @@ export default {
 
           })
           .catch(e => {
+            this.sucessHire =''
             this.errorHire = e.response.data
             console.log(this.errorHire)
           })
@@ -171,6 +180,7 @@ export default {
                 // JSON responses are automatically parsed.
                 this.employees = response.data
                 this.sucessUpdate = 'Updated successfully !'
+                this.errorUpdate =''
               })
               .catch(e => {
                 this.errorUpdate = e.response.data
@@ -182,6 +192,7 @@ export default {
 
           })
           .catch(e => {
+            this.successUpdate = ''
             this.errorUpdate = e.response.data
             console.log(this.errorUpdate)
           })
@@ -211,9 +222,11 @@ export default {
                 // JSON responses are automatically parsed.
                 this.employees = response.data
                 this.sucessFire = 'Fired successfully !'
+                this.errorFire = ''
               })
               .catch(e => {
                 this.errorFire = e.response.data
+                this.successFire = ''
                 console.log(this.errorFire)
               })
 
@@ -232,6 +245,7 @@ export default {
 
           })
           .catch(e => {
+            this.successFire = ''
             this.errorFire = e.response.data
             console.log(this.errorFire)
           })
@@ -266,9 +280,11 @@ export default {
                 // JSON responses are automatically parsed.
                 this.employees = response.data
                 this.sucessAssign = 'Assigned successfully'
+                this.errorAssign = ''
               })
               .catch(e => {
                 this.errorAssign = e.response.data
+                this.successAssign= ''
                 console.log(this.errorAssign)
               })
 

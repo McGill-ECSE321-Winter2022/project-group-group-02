@@ -32,13 +32,15 @@ export default {
 					}
 				})
 					.then(response => {
-						if (response.status === 200) {
+						if (response.status === 201) {
 							this.town = '',
 								this.deliveryfee = '',
+								this.errorUpdate = ''
 								this.successUpdate = 'Store Information Updated successfully!'
 						}
 					})
 					.catch(e => {
+					this.successUpdate = ''
 					this.errorUpdate = e.response.data
 					console.log(this.errorUpdate)
 					})
