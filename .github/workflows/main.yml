@@ -1,0 +1,42 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+        cache: gradle
+    - name: Validate Gradle wrapper
+      uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+      working-directory: GroceryStore-Backend
+    - name: Build with Gradle
+      run: ./gradlew build
+      working-directory: GroceryStore-Backend
+      
+  frontend:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: push frontend
+        uses: akhileshns/heroku-deploy@v3.12.12  # This is the action
+        with:
+          heroku_api_key: 477827bb-a719-44bf-8325-c9c1d43b00b4
+          heroku_app_name: "grocerystore-frontend-best" #Must be unique in Heroku
+          heroku_email: "matthieu.hakim@mail.mcgill.ca"
+          dontuseforce: false
