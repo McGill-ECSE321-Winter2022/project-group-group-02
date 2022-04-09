@@ -50,30 +50,35 @@
             android:padding="5dp">
 
             <TextView
+                android:id="@+id/orderDateLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Zaatar" />
 
             <TextView
+                android:id="@+id/orderTimeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="2.95" />
 
             <TextView
+                android:id="@+id/orderTypeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="23" />
 
             <TextView
+                android:id="@+id/orderStatusLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="2.95" />
 
             <TextView
+                android:id="@+id/orderTotalLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
