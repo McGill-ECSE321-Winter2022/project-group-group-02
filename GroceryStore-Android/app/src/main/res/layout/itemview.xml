@@ -6,16 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
         android:layout_weight="1"
         android:text="Items available for Order"
-
         android:textSize="25sp"
-        tools:layout_editor_absoluteX="86dp"
-        tools:layout_editor_absoluteY="59dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/itemsAvailable"
@@ -62,12 +62,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
         android:layout_weight="1"
         android:text="Items only available in Store"
-
         android:textSize="25sp"
-        tools:layout_editor_absoluteX="67dp"
-        tools:layout_editor_absoluteY="375dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/itemsUnavailable"
@@ -85,12 +87,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="560dp"
         android:layout_weight="1"
-        android:text="Items in Cart"
-
         android:textSize="25sp"
-        tools:layout_editor_absoluteX="152dp"
-        tools:layout_editor_absoluteY="536dp" />
+        android:text="Items in Cart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/itemsInCart"
