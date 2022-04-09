@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:layout_weight="1"
-        android:text="Items available for Order"
+        android:text="Our Top Products"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,11 +23,12 @@
         android:layout_height="39dp"
         android:ems="10"
         android:inputType="testItemName"
+        android:text="Our Top Products"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.603">
+        app:layout_constraintVertical_bias="0.423">
 
     </Spinner>
 
@@ -35,8 +36,8 @@
         android:id="@+id/selectedQuantity"
         android:layout_width="205dp"
         android:layout_height="45dp"
-        android:layout_marginTop="208dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="124dp"
         android:ems="10"
         android:gravity="center_vertical"
         android:hint="Quantity"
@@ -48,26 +49,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/add"
+        android:id="@+id/addToCart"
         android:layout_width="200dp"
         android:layout_height="38dp"
-        android:layout_marginTop="292dp"
+        android:layout_marginTop="212dp"
         android:onClick="addToOrder"
         android:text="Add To Cart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="268dp"
         android:layout_weight="1"
-        android:text="Items only available in Store"
+        android:text="Exclusively available in store!"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,17 +81,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.174">
-    </Spinner>
+        app:layout_constraintVertical_bias="0.136"></Spinner>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="560dp"
+        android:layout_marginTop="372dp"
         android:layout_weight="1"
+        android:text="Your Cart"
         android:textSize="25sp"
-        android:text="Items in Cart"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -105,9 +105,57 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.805">
+        app:layout_constraintVertical_bias="0.561">
 
     </Spinner>
+
+    <Button
+        android:id="@+id/removeFromCart"
+        android:layout_width="200dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="464dp"
+        android:onClick="addToOrder"
+        android:text="Remove From Cart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="532dp"
+        android:layout_weight="1"
+        android:text="Choose Order Type"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/orderType"
+        android:layout_width="224dp"
+        android:layout_height="39dp"
+        android:ems="10"
+        android:inputType="testItemName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.788">
+
+    </Spinner>
+
+    <Button
+        android:id="@+id/confirmPayment"
+        android:layout_width="200dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="652dp"
+        android:onClick="addToOrder"
+        android:text="Confirm Payment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
