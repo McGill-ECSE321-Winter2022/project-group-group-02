@@ -146,4 +146,51 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+    public void getOrdersOfCustomer(View v) {
+        error = "";
+
+        final TextView dateTV = (TextView) findViewById(R.id.orderDateLabel);
+        final TextView timeTV = (TextView) findViewById(R.id.orderTimeLabel);
+        final TextView typeTV = (TextView) findViewById(R.id.orderTypeLabel);
+        final TextView statusTV = (TextView) findViewById(R.id.orderStatusLabel);
+        final TextView totalTV = (TextView) findViewById(R.id.orderTotalLabel);
+
+        HttpUtils.get("view_all_orders_for_customer/", new RequestParams(), new JsonHttpResponseHandler() {
+
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    JSONObject serverResp = new JSONObject(response.toString());
+
+                    //TODO: Insert values at the table here
+                    dateTV.setText(serverResp.getJSONObject("date").toString());
+                    timeTV.setText(serverResp.getJSONObject("time").toString());
+                    typeTV.setText(serverResp.getJSONObject("orderType").toString());
+                    statusTV.setText(serverResp.getJSONObject("orderStatus").toString());
+                    totalTV.setText(serverResp.getJSONObject("total").toString());
+
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+
+                refreshErrorMessage();
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error += errorResponse.get("message").toString();
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+        });
+
+
+
+    }
 }
