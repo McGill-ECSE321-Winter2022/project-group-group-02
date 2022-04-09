@@ -20,10 +20,19 @@ import cz.msebera.android.httpclient.entity.mime.Header;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private String error = null;
@@ -193,4 +202,112 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+    /**
+     * @author Karl Rouhana
+     */
+
+    public void getShoppableItems(View view){
+
+        error = "";
+
+        HttpUtils.get("view_all_shoppable_item/", new RequestParams(), new JsonHttpResponseHandler(){
+
+
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                try {
+
+
+                    Spinner allItemsSpinner = findViewById(R.id.itemsAvailable);
+
+                    String[] allItems = new String[response.length()];
+
+
+                    for(int i = 0; i < response.length(); i++){
+
+                        JSONObject item = response.getJSONObject(i);
+
+                        String name = item.getJSONObject("name").toString();
+                        String price = item.getJSONObject("price").toString();
+                        String quantityAvailable = item.getJSONObject("quantityAvailable").toString();
+
+                        String itemString = "";
+                        itemString+=name+", $ "
+                                +price+","
+                                +quantityAvailable+" available";
+
+                        allItems[i]=itemString;
+
+                    }
+
+                    ArrayList<String> list = new ArrayList<>(Arrays.asList(allItems));
+
+                    ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, list);
+                    allItemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    allItemsSpinner.setAdapter(allItemsAdapter);
+                    allItemsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view,
+                                                   int position, long id) {
+                            Object item = adapterView.getItemAtPosition(position);
+                            if (item != null) {
+                                Toast.makeText(MainActivity.this, item.toString(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            Toast.makeText(MainActivity.this, "Selected",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
+
+
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+
+                refreshErrorMessage();
+
+            }
+
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error += errorResponse.get("message").toString();
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
 }
