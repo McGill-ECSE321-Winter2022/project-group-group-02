@@ -23,7 +23,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/Password"
+        android:id="@+id/PasswordLogin"
         android:layout_width="406dp"
         android:layout_height="59dp"
         android:hint="@string/password"
@@ -37,7 +37,7 @@
         app:layout_constraintVertical_bias="0.492" />
 
     <Button
-        android:id="@+id/SignInCustomer"
+        android:id="@+id/goToSignInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="157dp"
@@ -52,11 +52,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_first"
+        app:layout_constraintTop_toBottomOf="@+id/LoginUserButton"
         app:rippleColor="#474242" />
 
     <Button
-        android:id="@+id/button_first"
+        android:id="@+id/LoginUserButton"
         android:layout_width="173dp"
         android:layout_height="55dp"
         android:layout_marginTop="34dp"
@@ -66,10 +66,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Password" />
+        android:onClick="login"
+        app:layout_constraintTop_toBottomOf="@+id/PasswordLogin" />
 
     <EditText
-        android:id="@+id/Email"
+        android:id="@+id/EmailLogin"
         android:layout_width="409dp"
         android:layout_height="61dp"
         android:hint="@string/email"
@@ -94,7 +95,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#474242"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/Email"
+        app:layout_constraintBottom_toTopOf="@+id/EmailLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

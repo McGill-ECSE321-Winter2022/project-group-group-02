@@ -23,7 +23,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/SignInCustomer"
+        android:id="@+id/goToLoginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="157dp"
@@ -39,12 +39,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.625"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_first"
+        app:layout_constraintTop_toBottomOf="@+id/SignInCustomerButton"
         app:layout_constraintVertical_bias="0.0"
         app:rippleColor="#474242" />
 
     <Button
-        android:id="@+id/button_first"
+        android:id="@+id/SignInCustomerButton"
         android:layout_width="173dp"
         android:layout_height="55dp"
         android:layout_marginBottom="192dp"
@@ -55,7 +55,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/Email"
+        android:id="@+id/NameSignIn"
         android:layout_width="388dp"
         android:layout_height="47dp"
         android:hint="@string/name"
@@ -68,7 +68,7 @@
         app:layout_constraintVertical_bias="0.406" />
 
     <EditText
-        android:id="@+id/email4"
+        android:id="@+id/AddressSignIn"
         android:layout_width="388dp"
         android:layout_height="47dp"
         android:hint="@string/address"
@@ -81,7 +81,7 @@
         app:layout_constraintVertical_bias="0.47" />
 
     <EditText
-        android:id="@+id/email6"
+        android:id="@+id/ConfirmPasswordSignIn"
         android:layout_width="388dp"
         android:layout_height="47dp"
         android:hint="@string/confirmPassword"
@@ -94,7 +94,7 @@
         app:layout_constraintVertical_bias="0.597" />
 
     <EditText
-        android:id="@+id/email5"
+        android:id="@+id/PasswordSignIn"
         android:layout_width="388dp"
         android:layout_height="47dp"
         android:hint="@string/password"
@@ -107,14 +107,14 @@
         app:layout_constraintVertical_bias="0.533" />
 
     <EditText
-        android:id="@+id/email3"
+        android:id="@+id/EmailSignIn"
         android:layout_width="388dp"
         android:layout_height="47dp"
         android:hint="@string/email"
         android:textColor="#F7292626"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.342" />
@@ -132,7 +132,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#474242"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/Email"
+        app:layout_constraintBottom_toTopOf="@+id/NameSignIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"

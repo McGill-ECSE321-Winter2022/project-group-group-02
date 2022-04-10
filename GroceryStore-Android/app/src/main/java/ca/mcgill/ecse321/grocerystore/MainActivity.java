@@ -20,7 +20,6 @@ import cz.msebera.android.httpclient.entity.mime.Header;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -119,18 +118,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void login(View v) {
         error = "";
-        final TextView emailTextView = (TextView) findViewById(R.id.Email);
-        final TextView passwordTextView = (TextView) findViewById(R.id.Password);
+        final TextView emailTextView = (TextView) findViewById(R.id.EmailLogin);
+        final TextView passwordTextView = (TextView) findViewById(R.id.PasswordLogin);
         HttpUtils.post("/login/?email=" + emailTextView.getText().toString() + "&password=" + passwordTextView.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
 
-          //  @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+           @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                 //refreshErrorMessage();
                 emailTextView.setText("");
                 passwordTextView.setText("");
             }
-           // @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
@@ -143,8 +143,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void signInCustomer(View v) {
         error = "";
-        final TextView emailTextView = (TextView) findViewById(R.id.Email);
-        final TextView passwordTextView = (TextView) findViewById(R.id.Password);
+        final TextView emailTextView = (TextView) findViewById(R.id.EmailSignIn);
+        final TextView passwordTextView = (TextView) findViewById(R.id.PasswordSignIn);
+        final TextView nameTextView = (TextView) findViewById(R.id.NameSignIn);
+        final TextView addressTextView = (TextView) findViewById(R.id.AddressSignIn);
+        final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordSignIn);
+
         HttpUtils.post("/login/?email=" + emailTextView.getText().toString() + "&password=" + passwordTextView.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override

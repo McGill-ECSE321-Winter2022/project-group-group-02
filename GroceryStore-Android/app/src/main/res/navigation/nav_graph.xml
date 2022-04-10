@@ -6,31 +6,24 @@
     app:startDestination="@id/Login">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="ca.mcgill.ecse321.grocerystore.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-
-    <fragment
         android:id="@+id/Login"
         android:name="ca.mcgill.ecse321.grocerystore.Login"
         android:label="@string/login_label"
         tools:layout="@layout/login">
+        <action
+            android:id="@+id/action_Login_to_SignIn"
+            app:destination="@id/SignInCustomer" />
     </fragment>
 
+
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="ca.mcgill.ecse321.grocerystore.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/SignInCustomer"
+        android:name="ca.mcgill.ecse321.grocerystore.SignIn"
+        android:label="@string/signIn_label"
+        tools:layout="@layout/sign_in_customer">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_SignIn_to_Login"
+            app:destination="@id/Login" />
     </fragment>
 </navigation>
