@@ -141,21 +141,19 @@ public class MainActivity extends AppCompatActivity {
         final TextView passwordTextView = (TextView) findViewById(R.id.Password);
         HttpUtils.post("/login/?email=" + emailTextView.getText().toString() + "&password=" + passwordTextView.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
 
-           // @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-               // refreshErrorMessage();
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 emailTextView.setText("");
                 passwordTextView.setText("");
             }
 
-           // @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
                     error += e.getMessage();
                 }
-                //refreshErrorMessage();
             }
         });
     }
@@ -175,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
         HttpUtils.get("view_all_orders_for_customer/?email=Romy@me", new RequestParams(), new JsonHttpResponseHandler() {
 
-            @Override
+           // @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     JSONObject serverResp = new JSONObject(response.toString());
@@ -387,7 +385,7 @@ public class MainActivity extends AppCompatActivity {
                     error += e.getMessage();
                 }
 
-                refreshErrorMessage();
+               // refreshErrorMessage();
 
             }
 
@@ -397,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     error += e.getMessage();
                 }
-                refreshErrorMessage();
+               // refreshErrorMessage();
             }
 
 
