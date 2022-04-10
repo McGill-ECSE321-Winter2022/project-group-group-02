@@ -26,9 +26,10 @@
         android:text="Our Top Products"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.423">
+        app:layout_constraintVertical_bias="0.456">
 
     </Spinner>
 
@@ -36,8 +37,8 @@
         android:id="@+id/selectedQuantity"
         android:layout_width="205dp"
         android:layout_height="45dp"
-        android:layout_marginTop="148dp"
-        android:layout_marginEnd="124dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginEnd="104dp"
         android:ems="10"
         android:gravity="center_vertical"
         android:hint="Quantity"
@@ -103,9 +104,10 @@
         android:inputType="testItemName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.561">
+        app:layout_constraintVertical_bias="0.586">
 
     </Spinner>
 
@@ -139,9 +141,10 @@
         android:inputType="testItemName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.788">
+        app:layout_constraintVertical_bias="0.83">
 
     </Spinner>
 
