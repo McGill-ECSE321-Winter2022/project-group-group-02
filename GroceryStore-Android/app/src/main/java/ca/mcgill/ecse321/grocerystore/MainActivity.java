@@ -84,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_itemView) {
+           setContentView(R.layout.itemview);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -211,15 +215,15 @@ public class MainActivity extends AppCompatActivity {
     public void getShoppableItems(View view){
 
         error = "";
-
+        System.out.println("itemString");
         HttpUtils.get("view_all_shoppable_item/", new RequestParams(), new JsonHttpResponseHandler(){
 
-
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 try {
 
 
-                    Spinner allItemsSpinner = findViewById(R.id.itemsAvailable);
+
 
                     String[] allItems = new String[response.length()];
 
@@ -238,14 +242,12 @@ public class MainActivity extends AppCompatActivity {
                                 +quantityAvailable+" available";
 
                         allItems[i]=itemString;
+                        //System.out.println(itemString);
 
                     }
 
-                    ArrayList<String> list = new ArrayList<>(Arrays.asList(allItems));
+                    Spinner allItemsSpinner = (Spinner) findViewById(R.id.itemsAvailable);
 
-                    ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, list);
-                    allItemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    allItemsSpinner.setAdapter(allItemsAdapter);
                     allItemsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                         @Override
@@ -268,6 +270,14 @@ public class MainActivity extends AppCompatActivity {
                     });
 
 
+                    ArrayList<String> list = new ArrayList<>(Arrays.asList(allItems));
+
+                    ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, allItems);
+                    allItemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    allItemsSpinner.setAdapter(allItemsAdapter);
+
+
+
 
                 } catch (JSONException e) {
                     error += e.getMessage();
@@ -277,7 +287,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
