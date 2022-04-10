@@ -30,6 +30,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -124,33 +126,38 @@ public class MainActivity extends AppCompatActivity {
         error = "";
         final TextView emailTextView = (TextView) findViewById(R.id.EmailLogin);
         final TextView passwordTextView = (TextView) findViewById(R.id.PasswordLogin);
-        HttpUtils.post("/login/?email=" + emailTextView.getText().toString() + "&password=" + passwordTextView.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
+        try {
+            HttpUtils.post("/login/?email=" + URLEncoder.encode(emailTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) , new RequestParams(), new JsonHttpResponseHandler() {
 
-           @Override
-            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
-                //refreshErrorMessage();
-                try {
-                    customerEmail = response.getString("email");
-                    System.out.println(customerEmail);
-                    userType = response.getString("userType");
-                    emailTextView.setText("");
-                    passwordTextView.setText("");
-                } catch (Exception e) {
-                    System.out.println("Non");
+                @Override
+                public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                    //refreshErrorMessage();
+                    try {
+                        customerEmail = response.getString("email");
+                        userType = response.getString("userType");
+                        customerName = response.getString("name");
+                        customerAddress = response.getString("address");
+                        emailTextView.setText("");
+                        passwordTextView.setText("");
+                    } catch (Exception e) {
+                        System.out.println("Non");
+                    }
+
                 }
 
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
+                @Override
+                public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    try {
+                        error += errorResponse.get("message").toString();
+                    } catch (JSONException e) {
+                        error += e.getMessage();
+                    }
+                    //refreshErrorMessage();
                 }
-                //refreshErrorMessage();
-            }
-        });
+            });
+        } catch (Exception e) {
+            System.out.println("Encoding Error");
+        }
     }
 
     /**
@@ -164,28 +171,33 @@ public class MainActivity extends AppCompatActivity {
         final TextView nameTextView = (TextView) findViewById(R.id.NameSignIn);
         final TextView addressTextView = (TextView) findViewById(R.id.AddressSignIn);
         final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordSignIn);
+        if (!confirmPasswordTextView.getText().equals(passwordTextView)) {
+            error = "The passwords don't match";
+        } else {
+            try {
+                HttpUtils.post("/create_customer/?email=" + URLEncoder.encode(emailTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&name=" + URLEncoder.encode(nameTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&address=" + URLEncoder.encode(addressTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
+                        emailTextView.setText("");
+                        passwordTextView.setText("");
+                        confirmPasswordTextView.setText("");
+                        nameTextView.setText("");
+                        addressTextView.setText("");
+                    }
 
-        HttpUtils.post("/create_customer/?email=" + emailTextView.getText().toString() + "&password=" + passwordTextView.getText().toString() + "&name=" + nameTextView.getText().toString() + "&address=" + addressTextView.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
-                emailTextView.setText("");
-                passwordTextView.setText("");
-                confirmPasswordTextView.setText("");
-                nameTextView.setText("");
-                addressTextView.setText("");
-
+                    @Override
+                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        try {
+                            error += errorResponse.get("message").toString();
+                        } catch (JSONException e) {
+                            error += e.getMessage();
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                System.out.println("Encoding Error");
             }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-            }
-        });
+        }
     }
 
     public void updateCustomer(View v) {
@@ -195,28 +207,36 @@ public class MainActivity extends AppCompatActivity {
         final TextView nameTextView = (TextView) findViewById(R.id.NameUpdate);
         final TextView addressTextView = (TextView) findViewById(R.id.AddressUpdate);
         final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordUpdate);
+        if (!confirmPasswordTextView.getText().equals(passwordTextView)) {
+            error = "The passwords don't match";
+        } else {
+            try {
+                HttpUtils.put("/update_customer/?email=" + URLEncoder.encode(emailTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&name=" + URLEncoder.encode(nameTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&address=" + URLEncoder.encode(addressTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new JsonHttpResponseHandler() {
 
-        HttpUtils.put("/update_customer/?email=" + emailTextView.getText().toString() + "&password=" + passwordTextView.getText().toString() + "&name=" + nameTextView.getText().toString() + "&address=" + addressTextView.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
+                        emailTextView.setText("");
+                        passwordTextView.setText("");
+                        confirmPasswordTextView.setText("");
+                        nameTextView.setText("");
+                        addressTextView.setText("");
 
-            @Override
-            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
-                emailTextView.setText("");
-                passwordTextView.setText("");
-                confirmPasswordTextView.setText("");
-                nameTextView.setText("");
-                addressTextView.setText("");
+                    }
 
+                    @Override
+                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        try {
+                            error += errorResponse.get("message").toString();
+                        } catch (JSONException e) {
+                            error += e.getMessage();
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                System.out.println("Encoding error");
             }
+        }
 
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-            }
-        });
     }
 
 
