@@ -157,7 +157,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * @author Matthieu Hakim
+     */
     public void getOrdersOfCustomer(View v) {
         error = "";
 
@@ -167,8 +169,9 @@ public class MainActivity extends AppCompatActivity {
         final TextView statusTV = (TextView) findViewById(R.id.orderStatusLabel);
         final TextView totalTV = (TextView) findViewById(R.id.orderTotalLabel);
 
-        HttpUtils.get("view_all_orders_for_customer/", new RequestParams(), new JsonHttpResponseHandler() {
+        HttpUtils.get("view_all_orders_for_customer/?email=Romy@me", new RequestParams(), new JsonHttpResponseHandler() {
 
+            @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     JSONObject serverResp = new JSONObject(response.toString());
