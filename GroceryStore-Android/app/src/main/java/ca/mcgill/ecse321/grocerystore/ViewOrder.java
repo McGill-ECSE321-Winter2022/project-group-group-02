@@ -20,6 +20,7 @@ public class ViewOrder extends Fragment {
             Bundle savedInstanceState
     ) {
         binding = FragmentFirstBinding.inflate(inflater, container, false);
+
         return binding.getRoot();
     }
 

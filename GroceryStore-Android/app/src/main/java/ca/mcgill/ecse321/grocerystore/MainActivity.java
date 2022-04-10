@@ -89,6 +89,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.action_orderView) {
+            setContentView(R.layout.order_view);
+            return true;
+        }
+
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -171,22 +177,32 @@ public class MainActivity extends AppCompatActivity {
         final TextView statusTV = (TextView) findViewById(R.id.orderStatusLabel);
         final TextView totalTV = (TextView) findViewById(R.id.orderTotalLabel);
 
-        HttpUtils.get("view_all_orders_for_customer/?email=Romy@me", new RequestParams(), new JsonHttpResponseHandler() {
+        HttpUtils.get("view_all_orders_for_customer?email=Romy@mail", new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
-            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 try {
-                    JSONObject serverResp = new JSONObject(response.toString());
+
+//                    for(int i = 0; i < response.length(); i++) {
+//
+//                        JSONObject serverResp = response.getJSONObject(i);
+//                    }
+
+                    JSONObject serverResp = response.getJSONObject(0);
+
 
                     //TODO: Insert values at the table here
                     dateTV.setText(serverResp.getJSONObject("date").toString());
                     timeTV.setText(serverResp.getJSONObject("time").toString());
                     typeTV.setText(serverResp.getJSONObject("orderType").toString());
                     statusTV.setText(serverResp.getJSONObject("orderStatus").toString());
-                    totalTV.setText(serverResp.getJSONObject("total").toString());
+                    totalTV.setText(serverResp.getJSONObject("subtotal").toString());
+
 
                 } catch (JSONException e) {
                     error += e.getMessage();
+
+
                 }
 
                 //refreshErrorMessage();
@@ -196,6 +212,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
+                    System.out.println("Failure method");
+
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
                     error += e.getMessage();
@@ -297,10 +315,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //refreshErrorMessage();
             }
-
-
-
-
 
         });
 

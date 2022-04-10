@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="ca.mcgill.ecse321.grocerystore.ViewOrder"
+    tools:showIn="@layout/order_view">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
@@ -54,35 +56,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Zaatar" />
+                android:text=""
+                 />
 
             <TextView
                 android:id="@+id/orderTimeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="2.95" />
+                android:text=""
+                 />
 
             <TextView
                 android:id="@+id/orderTypeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="23" />
+                android:text=""
+                />
 
             <TextView
                 android:id="@+id/orderStatusLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="2.95" />
+                android:text=""
+                 />
 
             <TextView
                 android:id="@+id/orderTotalLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="23" />
+                android:text=""
+                 />
 
 
         </TableRow>

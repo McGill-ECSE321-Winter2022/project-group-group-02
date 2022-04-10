@@ -13,4 +13,10 @@
         android:orderInCategory="100"
         android:title="Items"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_orderView"
+        android:orderInCategory="100"
+        android:title="My Orders"
+        app:showAsAction="never" />
 </menu>
