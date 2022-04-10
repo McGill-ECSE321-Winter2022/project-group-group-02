@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         HttpUtils.get("view_all_orders_for_customer/?email=Romy@me", new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                 try {
                     JSONObject serverResp = new JSONObject(response.toString());
 
@@ -195,8 +195,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-           // @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
@@ -305,104 +305,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-    /**
-     * @author Ralph Nassar
-     */
-
-    public void getUnavailableItems(View view){
-
-        error = "";
-
-        HttpUtils.get("view_all_unavailable_item/", new RequestParams(), new JsonHttpResponseHandler() {
-
-
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                try {
-
-
-                    Spinner allItemsSpinner = findViewById(R.id.itemsAvailable);
-
-                    String[] allItems = new String[response.length()];
-
-
-                    for (int i = 0; i < response.length(); i++) {
-
-                        JSONObject item = response.getJSONObject(i);
-
-                        String name = item.getJSONObject("name").toString();
-                        String price = item.getJSONObject("price").toString();
-
-                        String itemString = "";
-                        itemString += name + ", $ "
-                                + price + ",";
-
-                        allItems[i] = itemString;
-
-                    }
-
-                    ArrayList<String> list = new ArrayList<>(Arrays.asList(allItems));
-
-                    ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, list);
-                    allItemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    allItemsSpinner.setAdapter(allItemsAdapter);
-                    allItemsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view,
-                                                   int position, long id) {
-                            Object item = adapterView.getItemAtPosition(position);
-                            if (item != null) {
-                                Toast.makeText(MainActivity.this, item.toString(),
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                            Toast.makeText(MainActivity.this, "Selected",
-                                    Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
-
-
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-
-                refreshErrorMessage();
-
-            }
-
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-
-
-        });
-
 
     }
 
