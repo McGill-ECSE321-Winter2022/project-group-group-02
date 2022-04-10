@@ -35,6 +35,10 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private String error = null;
+    private String customerEmail = null;
+    private String userType = null;
+    private String customerName = null;
+    private String customerAddress = null;
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
@@ -125,8 +129,16 @@ public class MainActivity extends AppCompatActivity {
            @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                 //refreshErrorMessage();
-                emailTextView.setText("");
-                passwordTextView.setText("");
+                try {
+                    customerEmail = response.getString("email");
+                    System.out.println(customerEmail);
+                    userType = response.getString("userType");
+                    emailTextView.setText("");
+                    passwordTextView.setText("");
+                } catch (Exception e) {
+                    System.out.println("Non");
+                }
+
             }
 
             @Override
@@ -159,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 emailTextView.setText("");
                 passwordTextView.setText("");
+                confirmPasswordTextView.setText("");
                 nameTextView.setText("");
                 addressTextView.setText("");
 
@@ -181,14 +194,15 @@ public class MainActivity extends AppCompatActivity {
         final TextView passwordTextView = (TextView) findViewById(R.id.PasswordUpdate);
         final TextView nameTextView = (TextView) findViewById(R.id.NameUpdate);
         final TextView addressTextView = (TextView) findViewById(R.id.AddressUpdate);
-        final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordSignIn);
+        final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordUpdate);
 
-        HttpUtils.post("/create_customer/?email=" + emailTextView.getText().toString() + "&password=" + passwordTextView.getText().toString() + "&name=" + nameTextView.getText().toString() + "&address=" + addressTextView.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
+        HttpUtils.put("/update_customer/?email=" + emailTextView.getText().toString() + "&password=" + passwordTextView.getText().toString() + "&name=" + nameTextView.getText().toString() + "&address=" + addressTextView.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 emailTextView.setText("");
                 passwordTextView.setText("");
+                confirmPasswordTextView.setText("");
                 nameTextView.setText("");
                 addressTextView.setText("");
 

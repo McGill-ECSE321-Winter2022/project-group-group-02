@@ -49,6 +49,7 @@
         android:layout_height="55dp"
         android:layout_marginBottom="192dp"
         android:text="Sign In "
+        android:onClick="signInCustomer"
         app:iconTint="#9E9393"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

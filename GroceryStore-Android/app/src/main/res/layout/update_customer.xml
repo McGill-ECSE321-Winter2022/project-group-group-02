@@ -23,33 +23,12 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/SignInCustomer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="157dp"
-        android:layout_marginTop="47dp"
-        android:layout_marginEnd="156dp"
-        android:layout_marginBottom="150dp"
-        android:backgroundTint="#00FFFFFF"
-        android:text="Menu"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#807777"
-        app:icon="?attr/homeAsUpIndicator"
-        app:iconTint="#673AB7"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.625"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_first"
-        app:layout_constraintVertical_bias="0.0"
-        app:rippleColor="#474242" />
-
-    <Button
         android:id="@+id/button_first"
         android:layout_width="173dp"
         android:layout_height="55dp"
         android:layout_marginBottom="192dp"
-        android:text="Update "
+        android:text="Update"
+        android:onClick="updateCustomer"
         app:iconTint="#9E9393"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
