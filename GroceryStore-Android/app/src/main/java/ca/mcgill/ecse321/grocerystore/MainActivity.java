@@ -173,8 +173,8 @@ public class MainActivity extends AppCompatActivity {
 
         HttpUtils.get("view_all_orders_for_customer/?email=Romy@me", new RequestParams(), new JsonHttpResponseHandler() {
 
-           // @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                 try {
                     JSONObject serverResp = new JSONObject(response.toString());
 
@@ -193,8 +193,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-           // @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
