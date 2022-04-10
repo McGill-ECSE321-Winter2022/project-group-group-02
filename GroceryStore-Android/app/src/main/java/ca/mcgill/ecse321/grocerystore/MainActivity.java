@@ -141,6 +141,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * @author anaelle.drai
+     * @param v
+     */
     public void signInCustomer(View v) {
         error = "";
         final TextView emailTextView = (TextView) findViewById(R.id.EmailSignIn);
@@ -149,12 +153,45 @@ public class MainActivity extends AppCompatActivity {
         final TextView addressTextView = (TextView) findViewById(R.id.AddressSignIn);
         final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordSignIn);
 
-        HttpUtils.post("/login/?email=" + emailTextView.getText().toString() + "&password=" + passwordTextView.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
+        HttpUtils.post("/create_customer/?email=" + emailTextView.getText().toString() + "&password=" + passwordTextView.getText().toString() + "&name=" + nameTextView.getText().toString() + "&address=" + addressTextView.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 emailTextView.setText("");
                 passwordTextView.setText("");
+                nameTextView.setText("");
+                addressTextView.setText("");
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error += errorResponse.get("message").toString();
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+            }
+        });
+    }
+
+    public void updateCustomer(View v) {
+        error = "";
+        final TextView emailTextView = (TextView) findViewById(R.id.EmailUpdate);
+        final TextView passwordTextView = (TextView) findViewById(R.id.PasswordUpdate);
+        final TextView nameTextView = (TextView) findViewById(R.id.NameUpdate);
+        final TextView addressTextView = (TextView) findViewById(R.id.AddressUpdate);
+        final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordSignIn);
+
+        HttpUtils.post("/create_customer/?email=" + emailTextView.getText().toString() + "&password=" + passwordTextView.getText().toString() + "&name=" + nameTextView.getText().toString() + "&address=" + addressTextView.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
+                emailTextView.setText("");
+                passwordTextView.setText("");
+                nameTextView.setText("");
+                addressTextView.setText("");
+
             }
 
             @Override
