@@ -29,13 +29,13 @@ public class ItemView extends Fragment implements AdapterView.OnItemSelectedList
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Spinner itemsAvailableSpinner = view.findViewById(R.id.itemsAvailable);
-
-        ArrayAdapter<CharSequence> itemsAvailableAdapter = ArrayAdapter.createFromResource(this.getContext(),R.array, android.R.layout.simple_spinner_item);
-
-        itemsAvailableAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        itemsAvailableSpinner.setAdapter(itemsAvailableAdapter);
-        itemsAvailableSpinner.setOnItemSelectedListener(this);
+//        Spinner itemsAvailableSpinner = view.findViewById(R.id.itemsAvailable);
+//
+//        ArrayAdapter<String> itemsAvailableAdapter = ArrayAdapter.createFromResource(this.getContext(),, android.R.layout.simple_spinner_item);
+//
+//        itemsAvailableAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        itemsAvailableSpinner.setAdapter(itemsAvailableAdapter);
+//        itemsAvailableSpinner.setOnItemSelectedListener(this);
 
         ((MainActivity)getActivity()).getShoppableItems(view);
 

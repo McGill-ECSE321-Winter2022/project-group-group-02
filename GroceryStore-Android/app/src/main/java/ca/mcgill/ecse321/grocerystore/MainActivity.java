@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // initialize error message text view
-        refreshErrorMessage();
+        //refreshErrorMessage();
     }
 
     @Override
@@ -95,17 +95,17 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    private void refreshErrorMessage() {
-        // set the error message
-        TextView tvError = (TextView) findViewById(R.id.error);
-        tvError.setText(error);
-
-        if (error == null || error.length() == 0) {
-            tvError.setVisibility(View.GONE);
-        } else {
-            tvError.setVisibility(View.VISIBLE);
-        }
-    }
+//    private void refreshErrorMessage() {
+//        // set the error message
+//        TextView tvError = (TextView) findViewById(R.id.error);
+//        tvError.setText(error);
+//
+//        if (error == null || error.length() == 0) {
+//            tvError.setVisibility(View.GONE);
+//        } else {
+//            tvError.setVisibility(View.VISIBLE);
+//        }
+//    }
 
     public void login(View v) {
         error = "";
@@ -113,20 +113,20 @@ public class MainActivity extends AppCompatActivity {
         final TextView passwordTextView = (TextView) findViewById(R.id.Password);
         HttpUtils.post("/login/?email=" + emailTextView.getText().toString() + "&password=" + passwordTextView.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
 
-            @Override
+          //  @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                refreshErrorMessage();
+                //refreshErrorMessage();
                 emailTextView.setText("");
                 passwordTextView.setText("");
             }
-            @Override
+           // @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
                     error += e.getMessage();
                 }
-                refreshErrorMessage();
+                //refreshErrorMessage();
             }
         });
     }
@@ -137,21 +137,21 @@ public class MainActivity extends AppCompatActivity {
         final TextView passwordTextView = (TextView) findViewById(R.id.Password);
         HttpUtils.post("/login/?email=" + emailTextView.getText().toString() + "&password=" + passwordTextView.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
 
-            @Override
+           // @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                refreshErrorMessage();
+               // refreshErrorMessage();
                 emailTextView.setText("");
                 passwordTextView.setText("");
             }
 
-            @Override
+           // @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
                     error += e.getMessage();
                 }
-                refreshErrorMessage();
+                //refreshErrorMessage();
             }
         });
     }
@@ -184,18 +184,18 @@ public class MainActivity extends AppCompatActivity {
                     error += e.getMessage();
                 }
 
-                refreshErrorMessage();
+                //refreshErrorMessage();
 
             }
 
-            @Override
+           // @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
                     error += e.getMessage();
                 }
-                refreshErrorMessage();
+               // refreshErrorMessage();
             }
         });
 
@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
                     error += e.getMessage();
                 }
 
-                refreshErrorMessage();
+                //refreshErrorMessage();
 
             }
 
@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     error += e.getMessage();
                 }
-                refreshErrorMessage();
+                //refreshErrorMessage();
             }
 
 
