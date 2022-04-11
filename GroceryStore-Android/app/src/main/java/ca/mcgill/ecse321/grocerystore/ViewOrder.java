@@ -57,6 +57,8 @@ public class ViewOrder extends Fragment {
 
     /**
      * @author Matthieu Hakim
+     *
+     * Takes all the orders for the customer currently logged in and displays them as a list
      */
     private void getOrdersOfCustomer(View v) {
 
