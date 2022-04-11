@@ -33,6 +33,14 @@ public class CustomerMenu extends Fragment {
                         .navigate(R.id.action_Menu_to_Update);
             }
         });
+
+        binding.ViewOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(CustomerMenu.this)
+                        .navigate(R.id.action_Menu_to_Orders);
+            }
+        });
     }
 
     @Override

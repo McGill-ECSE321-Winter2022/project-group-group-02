@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -30,6 +31,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TableRow;
+import android.widget.TableLayout;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -138,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         this.userType = type;
     }
 
-    private void createErrorAlertDialog(String message) {
+    void createErrorAlertDialog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage(message)
                 .setTitle("Error!");
@@ -285,84 +288,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * @author Matthieu Hakim
-     */
-    public void getOrdersOfCustomer(View v) {
-        error = "";
-
-        System.out.println("Got in");
-
-        final TextView dateTV = (TextView) findViewById(R.id.orderDateLabel);
-        final TextView timeTV = (TextView) findViewById(R.id.orderTimeLabel);
-        final TextView typeTV = (TextView) findViewById(R.id.orderTypeLabel);
-        final TextView statusTV = (TextView) findViewById(R.id.orderStatusLabel);
-        final TextView totalTV = (TextView) findViewById(R.id.orderTotalLabel);
-
-
-        HttpUtils.get("/view_all_orders_for_customer?email=ralph@me", new RequestParams(), new JsonHttpResponseHandler() {
-
-
-
-            @Override
-            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
-                try {
-                    System.out.println("Success");
-
-
-
-//                    for(int i = 0; i < response.length(); i++) {
-//
-//                        JSONObject serverResp = response.getJSONObject(i);
-//                    }
-
-                    JSONObject serverResp = response.getJSONObject(0);
-
-
-                    String date = serverResp.getString("date");
-                    String time = serverResp.getString("time");
-                    String orderType = serverResp.getString("orderType");
-                    String orderStatus = serverResp.getString("orderStatus");
-                    String subtotal = serverResp.getString("subtotal");
-
-
-                    //TODO: Insert values at the table here
-                    dateTV.setText(date);
-                    timeTV.setText(time);
-                    typeTV.setText(orderType);
-                    statusTV.setText(orderStatus);
-                    totalTV.setText(subtotal);
-
-
-
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                    System.out.println(error);
-                }
-
-                //refreshErrorMessage();
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-
-                    System.out.println("Fail");
-
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-               // refreshErrorMessage();
-            }
-        });
-
-
-
-    }
-
-
-    /**
      * @author Karl Rouhana
      */
 
@@ -452,17 +377,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
-
-
-
-
-
-
-
-
-
-
 
 
 
