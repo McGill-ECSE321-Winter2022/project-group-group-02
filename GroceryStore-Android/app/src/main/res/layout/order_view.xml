@@ -7,30 +7,37 @@
     tools:context="ca.mcgill.ecse321.grocerystore.ViewOrder"
     tools:showIn="@layout/order_view">
 
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp" >
+        android:paddingRight="10dp">
 
 
-        <TableRow android:background="#0079D6" android:padding="5dp">
+        <TableRow
+            android:background="#0079D6"
+            android:padding="5dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Date" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Time" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Type" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,44 +63,64 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=""
-                 />
+                android:text="" />
 
             <TextView
                 android:id="@+id/orderTimeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=""
-                 />
+                android:text="" />
 
             <TextView
                 android:id="@+id/orderTypeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=""
-                />
+                android:text="" />
 
             <TextView
                 android:id="@+id/orderStatusLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=""
-                 />
+                android:text="" />
 
             <TextView
                 android:id="@+id/orderTotalLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=""
-                 />
+                android:text="" />
 
 
         </TableRow>
 
     </TableLayout>
+
+    <Button
+        android:id="@+id/viewOrdersButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="175dp"
+        android:backgroundTint="#00FFFFFF"
+        android:text="Refresh"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#807777"
+        app:iconTint="#E63636"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="45dp"
+        android:layout_weight="5"
+        android:text="My Orders"
+        android:textSize="23sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

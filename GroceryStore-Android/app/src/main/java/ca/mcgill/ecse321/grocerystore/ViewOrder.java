@@ -9,17 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import ca.mcgill.ecse321.grocerystore.databinding.FragmentFirstBinding;
+import ca.mcgill.ecse321.grocerystore.databinding.OrderViewBinding;
 
 public class ViewOrder extends Fragment {
-    private FragmentFirstBinding binding;
+    private OrderViewBinding binding;
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = OrderViewBinding.inflate(inflater, container, false);
 
         return binding.getRoot();
     }
@@ -27,7 +27,12 @@ public class ViewOrder extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((MainActivity)getActivity()).getOrdersOfCustomer(view);
+        binding.viewOrdersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).getOrdersOfCustomer(view);
+            }
+        });
     }
 
     @Override

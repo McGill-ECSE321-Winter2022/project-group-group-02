@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void signInCustomer(View v) {
         error = "";
+
         final TextView emailTextView = (TextView) findViewById(R.id.EmailSignIn);
         final TextView passwordTextView = (TextView) findViewById(R.id.PasswordSignIn);
         final TextView nameTextView = (TextView) findViewById(R.id.NameSignIn);
@@ -252,11 +253,15 @@ public class MainActivity extends AppCompatActivity {
         final TextView statusTV = (TextView) findViewById(R.id.orderStatusLabel);
         final TextView totalTV = (TextView) findViewById(R.id.orderTotalLabel);
 
-        HttpUtils.get("view_all_orders_for_customer?email=Romy@mail", new RequestParams(), new JsonHttpResponseHandler() {
+        HttpUtils.get("/view_all_orders_for_customer?email=ralph@me", new RequestParams(), new JsonHttpResponseHandler() {
+
+
+
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 try {
+
 
 //                    for(int i = 0; i < response.length(); i++) {
 //
@@ -276,8 +281,7 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     error += e.getMessage();
-
-
+                    
                 }
 
                 //refreshErrorMessage();
@@ -287,7 +291,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    System.out.println("Failure method");
 
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
@@ -310,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
 
         error = "";
         System.out.println("itemString");
-        HttpUtils.get("view_all_shoppable_item/", new RequestParams(), new JsonHttpResponseHandler(){
+        HttpUtils.get("/view_all_shoppable_item/", new RequestParams(), new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
