@@ -133,35 +133,36 @@ public class MainActivity extends AppCompatActivity {
         final TextView emailTextView = (TextView) findViewById(R.id.EmailLogin);
         final TextView passwordTextView = (TextView) findViewById(R.id.PasswordLogin);
 
-        if (emailTextView.getText().toString().isEmpty() || passwordTextView.toString().isEmpty()) {
+        if (emailTextView.getText().toString().isEmpty() || passwordTextView.getText().toString().isEmpty()) {
             createAlertDialog("Please fill all the fields!");
-        }
-        try {
-            HttpUtils.post("/login/?email=" + URLEncoder.encode(emailTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) , new RequestParams(), new JsonHttpResponseHandler() {
+        } else {
+            try {
+                HttpUtils.post("/login/?email=" + URLEncoder.encode(emailTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new JsonHttpResponseHandler() {
 
-                @Override
-                public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
-                    //refreshErrorMessage();
-                    try {
-                        customerEmail = response.getString("email");
-                        userType = response.getString("userType");
-                        customerName = response.getString("name");
-                        customerAddress = response.getString("address");
-                        emailTextView.setText("");
-                        passwordTextView.setText("");
-                    } catch (Exception e) {
-                        System.out.println("Non");
+                    @Override
+                    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                        //refreshErrorMessage();
+                        try {
+                            customerEmail = response.getString("email");
+                            userType = response.getString("userType");
+                            customerName = response.getString("name");
+                            customerAddress = response.getString("address");
+                            emailTextView.setText("");
+                            passwordTextView.setText("");
+                        } catch (Exception e) {
+                            System.out.println("Non");
+                        }
+
                     }
 
-                }
-
-                @Override
-                public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
-                    createAlertDialog(errorMessage);
-                }
-            });
-        } catch (Exception e) {
-            System.out.println("Encoding Error");
+                    @Override
+                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
+                        createAlertDialog(errorMessage);
+                    }
+                });
+            } catch (Exception e) {
+                System.out.println("Encoding Error");
+            }
         }
     }
 
@@ -178,11 +179,9 @@ public class MainActivity extends AppCompatActivity {
         final TextView addressTextView = (TextView) findViewById(R.id.AddressSignIn);
         final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordSignIn);
 
-        if (emailTextView.getText().toString().isEmpty() || passwordTextView.toString().isEmpty() || addressTextView.toString().isEmpty() || nameTextView.toString().isEmpty() || confirmPasswordTextView.toString().isEmpty()) {
+        if (emailTextView.getText().toString().isEmpty() || passwordTextView.getText().toString().isEmpty() || addressTextView.getText().toString().isEmpty() || nameTextView.getText().toString().isEmpty() || confirmPasswordTextView.getText().toString().isEmpty()) {
             createAlertDialog("Please fill all the fields!");
-        }
-
-        if (!confirmPasswordTextView.getText().toString().equals(passwordTextView.getText().toString())) {
+        } else if (!confirmPasswordTextView.getText().toString().equals(passwordTextView.getText().toString())) {
             createAlertDialog("The passwords don't match!");
         } else {
             try {
@@ -215,11 +214,9 @@ public class MainActivity extends AppCompatActivity {
         final TextView addressTextView = (TextView) findViewById(R.id.AddressUpdate);
         final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordUpdate);
 
-        if (emailTextView.getText().toString().isEmpty() || passwordTextView.toString().isEmpty() || addressTextView.toString().isEmpty() || nameTextView.toString().isEmpty() || confirmPasswordTextView.toString().isEmpty()) {
+        if (emailTextView.getText().toString().isEmpty() || passwordTextView.getText().toString().isEmpty() || addressTextView.getText().toString().isEmpty() || nameTextView.getText().toString().isEmpty() || confirmPasswordTextView.getText().toString().isEmpty()) {
             createAlertDialog("Please fill all the fields!");
-        }
-
-        if (!confirmPasswordTextView.getText().toString().equals(passwordTextView.getText().toString())) {
+        } else if (!confirmPasswordTextView.getText().toString().equals(passwordTextView.getText().toString())) {
             createAlertDialog("The passwords don't match!");
         } else {
             try {
