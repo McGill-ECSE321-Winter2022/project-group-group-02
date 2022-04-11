@@ -10,9 +10,9 @@
         android:id="@+id/updateCustomer"
         android:layout_width="173dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="192dp"
-        android:text="Update"
+        android:layout_marginBottom="216dp"
         android:onClick="updateCustomer"
+        android:text="Update"
         app:iconTint="#9E9393"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +29,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.406" />
+        app:layout_constraintVertical_bias="0.371" />
 
     <EditText
         android:id="@+id/AddressUpdate"
@@ -37,47 +37,47 @@
         android:layout_height="47dp"
         android:hint="@string/address"
         android:textColor="#F7292626"
-        android:text="getCustomerAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.47" />
+        app:layout_constraintVertical_bias="0.44" />
 
     <EditText
         android:id="@+id/ConfirmPasswordUpdate"
         android:layout_width="388dp"
         android:layout_height="47dp"
         android:hint="@string/confirmPassword"
+        android:inputType="textPassword"
         android:textColor="#F7292626"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:inputType="textPassword"
-        app:layout_constraintVertical_bias="0.597" />
+        app:layout_constraintVertical_bias="0.577" />
 
     <EditText
         android:id="@+id/PasswordUpdate"
         android:layout_width="388dp"
         android:layout_height="47dp"
         android:hint="@string/password"
+        android:inputType="textPassword"
         android:text=""
         android:textColor="#F7292626"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:inputType="textPassword"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.533" />
+        app:layout_constraintVertical_bias="0.508" />
+
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="262dp"
-        android:layout_height="71dp"
+        android:layout_width="249dp"
+        android:layout_height="80dp"
         android:layout_marginStart="120dp"
         android:layout_marginTop="137dp"
         android:layout_marginEnd="120dp"
@@ -89,9 +89,50 @@
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/NameUpdate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/ConfirmPasswordDelete"
+        android:layout_width="388dp"
+        android:layout_height="47dp"
+        android:hint="@string/confirmPassword"
+        android:inputType="textPassword"
+        android:textColor="#F7292626"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.872" />
+
+    <EditText
+        android:id="@+id/PasswordDelete"
+        android:layout_width="388dp"
+        android:layout_height="47dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:text=""
+        android:textColor="#F7292626"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.804" />
+
+    <Button
+        android:id="@+id/deleteCustomer"
+        android:layout_width="173dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="24dp"
+        android:onClick="deleteCustomer"
+        android:text="Delete Account"
+        app:iconTint="#9E9393"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
