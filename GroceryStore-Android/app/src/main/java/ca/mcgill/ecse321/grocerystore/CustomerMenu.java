@@ -51,6 +51,14 @@ public class CustomerMenu extends Fragment {
                         .navigate(R.id.action_CustomerMenu_to_ViewItem);
             }
         });
+
+        binding.LogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(CustomerMenu.this)
+                        .navigate(R.id.action_CustomerMenu_to_Login);
+            }
+        });
     }
 
     @Override

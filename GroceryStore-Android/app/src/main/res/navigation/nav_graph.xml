@@ -60,6 +60,10 @@
             android:id="@+id/action_CustomerMenu_to_ViewItem"
             app:destination="@id/ViewItem" />
 
+        <action
+            android:id="@+id/action_CustomerMenu_to_Login"
+            app:destination="@id/Login" />
+
     </fragment>
 
     <fragment
