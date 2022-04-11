@@ -43,7 +43,9 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private String error = null;
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private String userType = null;
     private String customerName = null;
     private String customerAddress = null;
+    private static Map<String,Integer> cart = new HashMap<String,Integer>();
+
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
@@ -325,8 +329,7 @@ public class MainActivity extends AppCompatActivity {
     public void getShoppableItems(View view){
 
         error = "";
-        System.out.println("itemString");
-        HttpUtils.get("/view_all_shoppable_item/", new RequestParams(), new JsonHttpResponseHandler(){
+        HttpUtils.get("view_all_shoppable_item/", new RequestParams(), new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
@@ -342,17 +345,16 @@ public class MainActivity extends AppCompatActivity {
 
                         JSONObject item = response.getJSONObject(i);
 
-                        String name = item.getJSONObject("name").toString();
-                        String price = item.getJSONObject("price").toString();
-                        String quantityAvailable = item.getJSONObject("quantityAvailable").toString();
+                        String name = item.getString("name");
+                        String price = item.getString("price");
+                        String quantityAvailable = item.getString("quantityAvailable");
 
                         String itemString = "";
                         itemString+=name+", $ "
                                 +price+","
-                                +quantityAvailable+" available";
+                                +quantityAvailable+" in stock";
 
                         allItems[i]=itemString;
-                        //System.out.println(itemString);
 
                     }
 
@@ -391,6 +393,7 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     error += e.getMessage();
+                    System.out.println(error);
                 }
 
                 //refreshErrorMessage();
@@ -403,6 +406,7 @@ public class MainActivity extends AppCompatActivity {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
                     error += e.getMessage();
+                    System.out.println(error);
                 }
                 //refreshErrorMessage();
             }
@@ -410,6 +414,168 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+    }
+
+
+    /**
+     * @author Karl Rouhana
+     */
+
+    public void addToCart(View view){
+
+        final TextView quantityWanted = (TextView) findViewById(R.id.selectedQuantity);
+        final Spinner itemChosen =(Spinner) findViewById(R.id.itemsAvailable);
+
+
+
+        String itemString = itemChosen.getSelectedItem().toString();
+        String[] array = itemString.split(",");
+        itemString = array[0];
+
+        String[] arrayToGetAvailable = array[2].split(" ");
+
+        if(quantityWanted.getText().toString().matches("[0-9]+")) {
+            cart.put(itemString, Integer.parseInt(quantityWanted.getText().toString()));
+        }
+        else{
+            createErrorAlertDialog("Enter a valid quantity !");
+            return;
+        }
+
+        if(Integer.parseInt(quantityWanted.getText().toString()) <= Integer.parseInt(arrayToGetAvailable[0])) {
+            cart.put(itemString, Integer.parseInt(quantityWanted.getText().toString()));
+        }
+        else{
+            createErrorAlertDialog("Enter a valid quantity !");
+            return;
+        }
+
+        ArrayList<String> allItemsInCart = new ArrayList<>();
+
+        for(Map.Entry<String, Integer> entry: cart.entrySet()) {
+            allItemsInCart.add(entry.getKey() + ", Quantity wanted: "+ entry.getValue() );
+        }
+
+        Spinner itemsInCart = findViewById(R.id.itemsInCart);
+        ArrayAdapter<String> allItemsInCartAdapter = new ArrayAdapter (getApplicationContext(),android.R.layout.simple_spinner_item, allItemsInCart);
+        allItemsInCartAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        itemsInCart.setAdapter(allItemsInCartAdapter);
+
+
+    }
+
+
+    /**
+     * @author Karl Rouhana
+     */
+
+    public void removeFromCart(View view){
+
+        final Spinner itemChosen =(Spinner) findViewById(R.id.itemsInCart);
+        String itemString = itemChosen.getSelectedItem().toString();
+        String[] array = itemString.split(",");
+        itemString = array[0];
+
+
+        cart.remove(itemString);
+
+        ArrayList<String> allItemsInCart = new ArrayList<>();
+
+        for(Map.Entry<String, Integer> entry: cart.entrySet()) {
+            allItemsInCart.add(entry.getKey() + ", Quantity wanted: "+ entry.getValue() );
+        }
+
+        Spinner itemsInCart = findViewById(R.id.itemsInCart);
+        ArrayAdapter<String> allItemsInCartAdapter = new ArrayAdapter (getApplicationContext(),android.R.layout.simple_spinner_item, allItemsInCart);
+        allItemsInCartAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        itemsInCart.setAdapter(allItemsInCartAdapter);
+
+
+    }
+
+
+    public void createOrderForCustomer(View view){
+
+        final Spinner orderTypeChosen = findViewById(R.id.orderType);
+
+        RequestParams rp = new RequestParams();
+
+        rp.put("orderType", orderTypeChosen.getSelectedItem().toString());
+        rp.put("email", getCustomerEmail());
+
+        error = "";
+        HttpUtils.post("create_order/", rp, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                try {
+
+
+                    createOrderItemsForCustomer(view, Long.parseLong(response.getString("id")));
+
+
+                    createSuccessAlertDialog("Order placed !");
+
+                } catch (Exception e) {
+                    error += e.getMessage();
+                    System.out.println(error);
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
+                createErrorAlertDialog(errorMessage);
+
+            }
+
+        });
+
+
+    }
+
+
+
+    public void createOrderItemsForCustomer (View view, Long orderId){
+
+        for(Map.Entry<String, Integer> entry: cart.entrySet()) {
+
+            RequestParams rp = new RequestParams();
+
+            rp.put("quantity", entry.getValue() );
+            rp.put("itemName", entry.getKey());
+            rp.put("orderId", orderId);
+
+
+            error = "";
+
+            HttpUtils.post("create_order_item/", rp, new JsonHttpResponseHandler(){
+
+                @Override
+                public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                    try {
+
+
+                    } catch (Exception e) {
+                        error += e.getMessage();
+                        System.out.println(error);
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
+                    createErrorAlertDialog(errorMessage);
+
+                }
+
+            });
+
+        }
 
     }
 
@@ -423,36 +589,33 @@ public class MainActivity extends AppCompatActivity {
 
         HttpUtils.get("view_all_unavailable_item/", new RequestParams(), new JsonHttpResponseHandler() {
 
-
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+            @Override
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 try {
 
 
-                    Spinner allItemsSpinner = findViewById(R.id.itemsAvailable);
+
 
                     String[] allItems = new String[response.length()];
 
 
-                    for (int i = 0; i < response.length(); i++) {
+                    for(int i = 0; i < response.length(); i++){
 
                         JSONObject item = response.getJSONObject(i);
 
-                        String name = item.getJSONObject("name").toString();
-                        String price = item.getJSONObject("price").toString();
+                        String name = item.getString("name");
+                        String price = item.getString("price");
 
                         String itemString = "";
-                        itemString += name + ", $ "
-                                + price + ",";
+                        itemString+=name+", $ "
+                                +price;
 
-                        allItems[i] = itemString;
+                        allItems[i]=itemString;
 
                     }
 
-                    ArrayList<String> list = new ArrayList<>(Arrays.asList(allItems));
+                    Spinner allItemsSpinner = (Spinner) findViewById(R.id.itemsUnavailable);
 
-                    ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, list);
-                    allItemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    allItemsSpinner.setAdapter(allItemsAdapter);
                     allItemsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                         @Override
@@ -475,23 +638,34 @@ public class MainActivity extends AppCompatActivity {
                     });
 
 
+                    ArrayList<String> list = new ArrayList<>(Arrays.asList(allItems));
+
+                    ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, list);
+                    allItemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    allItemsSpinner.setAdapter(allItemsAdapter);
+
+
+
+
                 } catch (JSONException e) {
                     error += e.getMessage();
+                    System.out.println(error);
                 }
 
-               // refreshErrorMessage();
+                //refreshErrorMessage();
 
             }
 
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            @Override
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
                     error += e.getMessage();
+                    System.out.println(error);
                 }
-               // refreshErrorMessage();
+                //refreshErrorMessage();
             }
-
 
         });
 

@@ -24,4 +24,13 @@
     <string name="type">Type</string>
     <string name="status">Status</string>
     <string name="total">Total</string>
+
+
+    <string-array name="orderType">
+        <item>Pick up</item>
+        <item>Delivery</item>
+    </string-array>
+
+
+
 </resources>
