@@ -15,6 +15,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -52,15 +55,23 @@ public class ViewOrder extends Fragment {
     /**
      * @author Matthieu Hakim
      */
-    public void getOrdersOfCustomer(View v) {
+    private void getOrdersOfCustomer(View v) {
 
-        HttpUtils.get("/view_all_orders_for_customer?email=deschamps@me", new RequestParams(), new JsonHttpResponseHandler() {
+        HttpUtils.get("/view_all_orders_for_customer?email=" + ((MainActivity)getActivity()).getCustomerEmail(), new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
 
                 try {
-                    TextView selectOrder = ((MainActivity)getActivity()).findViewById(R.id.list_of_orders);
+
+                    if (response.length() == 0) {
+                        ((MainActivity)getActivity()).createErrorAlertDialog("There are no orders yet");
+                        TextView selectOrder = getActivity().findViewById(R.id.list_of_orders);
+                        selectOrder.setVisibility(View.GONE);
+                        return;
+                    }
+
+                    TextView selectOrder = getActivity().findViewById(R.id.list_of_orders);
 
                     selectOrder.setVisibility(View.VISIBLE);
                     ArrayList<String> displayOrders = new ArrayList<>();
@@ -78,7 +89,7 @@ public class ViewOrder extends Fragment {
 
                     }
 
-                    ListView ordersListView = ((MainActivity)getActivity()).findViewById(R.id.orderViewList);
+                    ListView ordersListView = getActivity().findViewById(R.id.orderViewList);
                     ArrayAdapter<String> orderArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, displayOrders);
                     ordersListView.setAdapter(orderArrayAdapter);
 

@@ -41,6 +41,14 @@ public class CustomerMenu extends Fragment {
                         .navigate(R.id.action_Menu_to_Orders);
             }
         });
+
+        binding.ViewItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(CustomerMenu.this)
+                        .navigate(R.id.action_CustomerMenu_to_ViewItem);
+            }
+        });
     }
 
     @Override
