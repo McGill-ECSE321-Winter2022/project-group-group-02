@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.grocerystore;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.action_itemView) {
            setContentView(R.layout.itemview);
+            //startActivity(new Intent(this, ItemView.class));
             return true;
         }
 
@@ -275,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
 
                     ArrayList<String> list = new ArrayList<>(Arrays.asList(allItems));
 
-                    ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, allItems);
+                    ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, list);
                     allItemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     allItemsSpinner.setAdapter(allItemsAdapter);
 

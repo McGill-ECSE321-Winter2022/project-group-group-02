@@ -12,17 +12,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import ca.mcgill.ecse321.grocerystore.databinding.FragmentFirstBinding;
+import ca.mcgill.ecse321.grocerystore.databinding.ItemviewBinding;
 
-public class ItemView extends Fragment implements AdapterView.OnItemSelectedListener {
+public class ItemView extends Fragment  {
 
-    private FragmentFirstBinding binding;
+    private ItemviewBinding binding;
 
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = ItemviewBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -62,14 +62,14 @@ public class ItemView extends Fragment implements AdapterView.OnItemSelectedList
     }
 
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String text = adapterView.getItemAtPosition(i).toString();
-        Toast.makeText(adapterView.getContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
+//    @Override
+//    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//        String text = adapterView.getItemAtPosition(i).toString();
+//        Toast.makeText(adapterView.getContext(), text, Toast.LENGTH_SHORT).show();
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//    }
 }
