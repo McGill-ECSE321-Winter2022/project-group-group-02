@@ -214,8 +214,40 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Encoding Error");
             }
         }
-        System.out.println("Test");
     }
+
+    public void deleteCustomer(View v) {
+
+        final TextView passwordTextView = (TextView) findViewById(R.id.PasswordDelete);
+        final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordDelete);
+
+        if (confirmPasswordTextView.getText().toString().isEmpty() || passwordTextView.getText().toString().isEmpty()) {
+            createErrorAlertDialog("Please fill all the fields!");
+        } else {
+            try {
+                HttpUtils.delete("/delete_customer/?email=" + customerEmail, new RequestParams(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                        try {
+                            createSuccessAlertDialog("Account successfully deleted!");
+                            List<Fragment> fragments = getSupportFragmentManager().getFragments();
+                            NavHostFragment.findNavController(fragments.get(fragments.size() - 1))
+                                    .navigate(R.id.action_Update_to_Login);
+                        } catch (Exception e) {
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
+                        createErrorAlertDialog(errorMessage);
+                    }
+                });
+            } catch (Exception e) {
+                System.out.println("Encoding Error");
+            }
+        }
+    }
+
 
     /**
      * @author anaelle.drai
