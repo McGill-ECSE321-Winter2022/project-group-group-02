@@ -5,6 +5,7 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="login_label">Login</string>
     <string name="signIn_label">Sign In</string>
+    <string name="viewOrder_label">View Orders</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="password">Password</string>

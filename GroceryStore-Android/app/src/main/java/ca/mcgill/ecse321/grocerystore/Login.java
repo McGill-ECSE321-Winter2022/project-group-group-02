@@ -33,6 +33,15 @@ public class Login extends Fragment {
                         .navigate(R.id.action_Login_to_SignIn);
             }
         });
+        binding.LoginUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (((MainActivity)getActivity()).getUserType().equals("customer")) {
+                    NavHostFragment.findNavController(Login.this)
+                            .navigate(R.id.action_Login_to_Menu);
+                }
+            }
+        });
     }
 
     @Override

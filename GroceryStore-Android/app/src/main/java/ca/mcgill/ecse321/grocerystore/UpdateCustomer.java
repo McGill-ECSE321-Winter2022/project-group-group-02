@@ -27,6 +27,9 @@ public class UpdateCustomer extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        binding.NameUpdate.setText(((MainActivity)getActivity()).getCustomerName());
+        binding.AddressUpdate.setText(((MainActivity)getActivity()).getCustomerAddress());
+
         binding.updateCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
