@@ -34,18 +34,23 @@ public class ShoppableItemService {
 	
 	@Transactional
 	public ShoppableItem createShoppableItem(String name, double price, int quantityAvailable) {
-
+		
+		// if the entered name is empty
 		if (name == null || name.equals(""))
 			throw new IllegalArgumentException("Item name cannot be blank");
-
+		
+		// If the price is negative
 		if (price < 0)
 			throw new IllegalArgumentException("Item price cannot be negative");
-
+		
+		// If the item already exists in the system
 		nameIsValid(name);
-
+		
+		// If the quantity available is negative
 		if (quantityAvailable < 0)
 			throw new IllegalArgumentException("Item quantity cannot be negative");
-
+		
+		// Create an item if informations are valid
 		ShoppableItem item = new ShoppableItem();
 		item.setName(name);
 		item.setPrice(price);
@@ -70,18 +75,19 @@ public class ShoppableItemService {
 
 	@Transactional
 	public ShoppableItem updatePrice(String name, double newPrice) {
-
+		
+		// if the entered name is empty
 		if (name == null || name.equals(""))
 			throw new IllegalArgumentException("Item name cannot be blank");
-
+		// Negative price
 		if (newPrice < 0)
 			throw new IllegalArgumentException("Item price cannot be negative");
 
 		ShoppableItem item = shoppableItemRepository.findByName(name);
-
+		// Item not found in the system
 		if (item == null)
 			throw new IllegalArgumentException("This item does not exist in the system");
-
+		//
 		item.setPrice(newPrice);
 
 		return item;
@@ -100,21 +106,22 @@ public class ShoppableItemService {
 	
 	@Transactional
 	public ShoppableItem updateInventory(String name, int newQuantityAvailable) {
-
+		//Empty name
 		if (name == null || name.equals(""))
 			throw new IllegalArgumentException("Item name cannot be blank");
-
+		//Negative quantity
 		if (newQuantityAvailable < 0)
 			throw new IllegalArgumentException("The quantity cannot be negative");
 
 		ShoppableItem item = shoppableItemRepository.findByName(name);
-
+		//Item not in the system
 		if (item == null)
 			throw new IllegalArgumentException("This item does not exist in the system");
-
+		//quantity the same as before
 		if (newQuantityAvailable == item.getQuantityAvailable())
 			throw new IllegalArgumentException("The quantity is the same");
-
+		
+		//if quantity is the same as before
 		item.setQuantityAvailable(newQuantityAvailable);
 
 		return item;
@@ -132,15 +139,16 @@ public class ShoppableItemService {
 	
 	@Transactional
 	public boolean deleteShoppableItem(String name) {
-
+		//if the name is empty
 		if (name == null || name.equals(""))
 			throw new IllegalArgumentException("Item name cannot be blank");
 
 		ShoppableItem item = shoppableItemRepository.findByName(name);
-
+		//Item not in the system
 		if (item == null)
 			throw new IllegalArgumentException("This item does not exist in the system");
-
+		
+		//If the name is valid, so delete
 		shoppableItemRepository.delete(item);
 		item.delete();
 

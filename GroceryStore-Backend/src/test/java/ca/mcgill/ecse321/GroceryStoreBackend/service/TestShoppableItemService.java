@@ -69,7 +69,9 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
+		// Check that the shoppable item was created and that its parameters are well set
 		assertNotNull(shoppableItem);
+		
 		assertEquals(name, shoppableItem.getName());
 		assertEquals(price, shoppableItem.getPrice());
 		assertEquals(quantityAvailable, shoppableItem.getQuantityAvailable());
@@ -84,6 +86,7 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
+		//Check that the shoppable item was found with bits expected parameters
 		assertNotNull(s);
 		assertEquals(s.getName(), SHOPPABLE_ITEM_NAME);
 		assertEquals(s.getPrice(), SHOPPABLE_ITEM_PRICE);
@@ -101,6 +104,7 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check that the shoppable item was not found and that the correct error message was displayed
 		assertNull(s);
 		assertEquals("This item does not exist in the system", error);
 	}
@@ -118,6 +122,8 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check that the shoppable item was not created and that the correct error message was displayed
+		
 		assertNull(shoppableItem);
 		assertEquals("Item price cannot be negative", error);
 
@@ -136,6 +142,8 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check that the shoppable item was not created and that the correct error message was displayed
+
 		assertNull(shoppableItem);
 		assertEquals("Item quantity cannot be negative", error);
 
@@ -153,6 +161,8 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check that the shoppable item was not created and that the correct error message was displayed
+
 		assertNull(shoppableItem);
 		assertEquals("Item already in the system", error);
 
@@ -171,6 +181,8 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check that the shoppable item was not created and that the correct error message was displayed
+
 		assertNull(shoppableItem);
 		assertEquals("Item name cannot be blank", error);
 
@@ -186,6 +198,8 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
+		//Check that the shoppable item price was successfully updated and that the item price was updated
+
 		assertNotNull(shoppableItem);
 		assertEquals(SHOPPABLE_ITEM_NAME, shoppableItem.getName());
 		assertEquals(newPrice, shoppableItem.getPrice());
@@ -204,6 +218,8 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check that the shoppable item price was not updated and that the correct error message was displayed
+
 		assertNull(shoppableItem);
 		assertEquals("Item name cannot be blank", error);
 	}
@@ -219,6 +235,8 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check that the shoppable item price was not updated and that the correct error message was displayed
+
 		assertNull(shoppableItem);
 		assertEquals("Item price cannot be negative", error);
 	}
@@ -235,6 +253,8 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check that the shoppable item price was not updated and that the correct error message was displayed
+
 		assertNull(shoppableItem);
 		assertEquals("This item does not exist in the system", error);
 	}
@@ -252,6 +272,7 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
+		//Check the shoppable item inventory was successfully updated
 		assertNotNull(shoppableItem);
 		assertEquals(SHOPPABLE_ITEM_NAME, shoppableItem.getName());
 		assertEquals(newQuantity, shoppableItem.getQuantityAvailable());
@@ -270,6 +291,7 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check the shoppable item inventory was not updated and that the correct error message is printed
 		assertNull(shoppableItem);
 		assertEquals("Item name cannot be blank", error);
 	}
@@ -284,6 +306,7 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check the shoppable item inventory was not updated and that the correct error message is printed
 		assertNull(shoppableItem);
 		assertEquals("The quantity cannot be negative", error);
 	}
@@ -300,6 +323,7 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check the shoppable item inventory was not updated and that the correct error message is printed
 		assertNull(shoppableItem);
 		assertEquals("This item does not exist in the system", error);
 	}
@@ -315,6 +339,7 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check the shoppable item inventory was not updated and that the correct error message is printed
 		assertNull(shoppableItem);
 		assertEquals("The quantity is the same", error);
 	}
@@ -331,7 +356,7 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-
+		//Check that the item was successfully deleted from the system
 		assertTrue(deleted);
 	}
 
@@ -346,6 +371,8 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check that the item was not deleted from the system and that the correct error message is displayed
+		
 		shoppableItem = shoppableItemRepository.findByName(SHOPPABLE_ITEM_NAME);
 		assertNotNull(shoppableItem);
 		assertFalse(deleted);
@@ -363,6 +390,8 @@ public class TestShoppableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check that the item was not deleted from the system and that the correct error message is displayed
+
 		shoppableItem = shoppableItemRepository.findByName(SHOPPABLE_ITEM_NAME);
 		assertNotNull(shoppableItem);
 		assertFalse(deleted);

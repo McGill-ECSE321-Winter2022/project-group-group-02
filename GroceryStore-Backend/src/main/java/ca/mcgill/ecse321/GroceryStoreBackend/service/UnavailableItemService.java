@@ -29,19 +29,21 @@ public class UnavailableItemService {
 	
 	@Transactional
 	public UnavailableItem createUnavailableItem(String name, double price) {
-
+		//if name is empty
 		if (name == null || name.equals(""))
 			throw new IllegalArgumentException("Item name cannot be blank");
-
+		//negative price
 		if (price < 0)
 			throw new IllegalArgumentException("Item price cannot be negative");
-
+		//item already in the system
 		nameIsValid(name);
-
+		
+		//create the item if parameters are successful
 		UnavailableItem item = new UnavailableItem();
 		item.setName(name);
 		item.setPrice(price);
-
+		
+		// and add it to the system
 		unavailableItemRepository.save(item);
 
 		return item;
@@ -61,21 +63,21 @@ public class UnavailableItemService {
 	
 	@Transactional
 	public UnavailableItem updatePrice(String name, double newPrice) {
-
+		//empty name
 		if (name == null || name.equals(""))
 			throw new IllegalArgumentException("Item name cannot be blank");
-
+		// negative price
 		if (newPrice < 0)
 			throw new IllegalArgumentException("Item price cannot be negative");
 
 		UnavailableItem item = unavailableItemRepository.findByName(name);
-
+		//item not in the system
 		if (item == null)
 			throw new IllegalArgumentException("This item does not exist in the system");
-
+		//New price same as old price
 		if (newPrice == unavailableItemRepository.findByName(name).getPrice())
 			throw new IllegalArgumentException("The price is the same");
-
+		//Update the price if parameters are valid
 		item.setPrice(newPrice);
 
 		return item;
@@ -94,11 +96,12 @@ public class UnavailableItemService {
 	
 	@Transactional
 	public boolean deleteUnavailableItem(String name) {
+		//Empty name
 		if (name == null || name.equals(""))
 			throw new IllegalArgumentException("Item name cannot be blank");
 
 		UnavailableItem item = unavailableItemRepository.findByName(name);
-
+		//Item not found in the system
 		if (item == null)
 			throw new IllegalArgumentException("This item does not exist in the system");
 

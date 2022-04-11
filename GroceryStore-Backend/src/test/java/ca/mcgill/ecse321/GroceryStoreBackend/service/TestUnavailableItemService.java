@@ -66,6 +66,7 @@ public class TestUnavailableItemService {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
+		// Check that the unavailable item was created and that its parameters are well set
 		assertNotNull(unavailableItem);
 		assertEquals(name, unavailableItem.getName());
 		assertEquals(price, unavailableItem.getPrice());
@@ -80,6 +81,8 @@ public class TestUnavailableItemService {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
+		// Check that the unavailable item was found as well as its expected parameters
+
 		assertNotNull(u);
 		assertEquals(u.getName(), UNAVAILABLE_ITEM_NAME);
 		assertEquals(u.getPrice(), UNAVAILABLE_ITEM_PRICE);
@@ -96,6 +99,8 @@ public class TestUnavailableItemService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		//Check that the unavailable item was not found and that the correct message is displayed
+		
 		assertNull(s);
 		assertEquals("This item does not exist in the system", error);
 	}
