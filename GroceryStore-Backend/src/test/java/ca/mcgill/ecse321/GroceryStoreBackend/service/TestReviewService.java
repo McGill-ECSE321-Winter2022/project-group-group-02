@@ -407,7 +407,6 @@ public class TestReviewService {
 
 		assertNotNull(review);
 		assertEquals(description, review.getDescription());
-		// assertEquals(ORDER_ID, review.getOrder().getId());
 		assertEquals(CUSTOMER_EMAIL, review.getCustomer().getEmail());
 		assertEquals(rating, review.getRating());
 	}
