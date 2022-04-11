@@ -35,6 +35,7 @@ public class Login extends Fragment {
             public void onClick(View view) {
                 NavHostFragment.findNavController(Login.this)
                         .navigate(R.id.action_Login_to_SignIn);
+
             }
         });
     }

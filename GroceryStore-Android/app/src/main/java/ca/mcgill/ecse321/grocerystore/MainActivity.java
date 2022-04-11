@@ -55,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    public String getCustomerEmail(){
+        if(customerEmail == null){
+            return "";
+        }else{
+            return customerEmail;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

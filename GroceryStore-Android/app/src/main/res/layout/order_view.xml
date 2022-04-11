@@ -23,20 +23,19 @@
             android:id="@+id/viewOrders"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:ignore="MissingConstraints">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/list_of_orders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="16sp"
                 android:text="@string/my_orders"
                 android:textSize="18sp" />
 
             <ListView
                 android:id="@+id/orderViewList"
                 android:layout_width="match_parent"
+                android:paddingTop="15sp"
                 android:layout_height="wrap_content" />
 
 
