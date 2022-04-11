@@ -7,7 +7,7 @@
     tools:context=".UpdateCustomer">
 
     <Button
-        android:id="@+id/button_first"
+        android:id="@+id/updateCustomer"
         android:layout_width="173dp"
         android:layout_height="55dp"
         android:layout_marginBottom="192dp"
@@ -37,6 +37,7 @@
         android:layout_height="47dp"
         android:hint="@string/address"
         android:textColor="#F7292626"
+        android:text="getCustomerAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -63,6 +64,7 @@
         android:layout_width="388dp"
         android:layout_height="47dp"
         android:hint="@string/password"
+        android:text="getCustomerName"
         android:textColor="#F7292626"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,19 +73,6 @@
         android:inputType="textPassword"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.533" />
-
-    <EditText
-        android:id="@+id/EmailUpdate"
-        android:layout_width="388dp"
-        android:layout_height="47dp"
-        android:hint="@string/email"
-        android:textColor="#F7292626"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.337" />
 
     <TextView
         android:id="@+id/textView"

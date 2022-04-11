@@ -114,6 +114,14 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public String getCustomerAddress() {
+        return customerAddress;
+    }
+
     private void createAlertDialog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage(message)
@@ -208,23 +216,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateCustomer(View v) {
         error = "";
-        final TextView emailTextView = (TextView) findViewById(R.id.EmailUpdate);
+
         final TextView passwordTextView = (TextView) findViewById(R.id.PasswordUpdate);
         final TextView nameTextView = (TextView) findViewById(R.id.NameUpdate);
         final TextView addressTextView = (TextView) findViewById(R.id.AddressUpdate);
         final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordUpdate);
 
-        if (emailTextView.getText().toString().isEmpty() || passwordTextView.getText().toString().isEmpty() || addressTextView.getText().toString().isEmpty() || nameTextView.getText().toString().isEmpty() || confirmPasswordTextView.getText().toString().isEmpty()) {
+        if (passwordTextView.getText().toString().isEmpty() || addressTextView.getText().toString().isEmpty() || nameTextView.getText().toString().isEmpty() || confirmPasswordTextView.getText().toString().isEmpty()) {
             createAlertDialog("Please fill all the fields!");
         } else if (!confirmPasswordTextView.getText().toString().equals(passwordTextView.getText().toString())) {
             createAlertDialog("The passwords don't match!");
         } else {
             try {
-                HttpUtils.put("/update_customer/?email=" + URLEncoder.encode(emailTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&name=" + URLEncoder.encode(nameTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&address=" + URLEncoder.encode(addressTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new JsonHttpResponseHandler() {
+                HttpUtils.put("/update_customer/?email=" + URLEncoder.encode(customerEmail, StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&name=" + URLEncoder.encode(nameTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&address=" + URLEncoder.encode(addressTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new JsonHttpResponseHandler() {
 
                     @Override
                     public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
-                        emailTextView.setText("");
                         passwordTextView.setText("");
                         confirmPasswordTextView.setText("");
                         nameTextView.setText("");
