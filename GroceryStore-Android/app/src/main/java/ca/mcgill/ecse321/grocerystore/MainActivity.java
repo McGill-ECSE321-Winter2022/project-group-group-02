@@ -1,5 +1,8 @@
 package ca.mcgill.ecse321.grocerystore;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -110,22 +113,28 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-//    private void refreshErrorMessage() {
-//        // set the error message
-//        TextView tvError = (TextView) findViewById(R.id.error);
-//        tvError.setText(error);
-//
-//        if (error == null || error.length() == 0) {
-//            tvError.setVisibility(View.GONE);
-//        } else {
-//            tvError.setVisibility(View.VISIBLE);
-//        }
-//    }
+    private void createAlertDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage(message)
+                .setTitle("Error!");
+// Add the buttons
+        builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
     public void login(View v) {
-        error = "";
+
         final TextView emailTextView = (TextView) findViewById(R.id.EmailLogin);
         final TextView passwordTextView = (TextView) findViewById(R.id.PasswordLogin);
+
+        if (emailTextView.getText().toString().isEmpty() || passwordTextView.toString().isEmpty()) {
+            createAlertDialog("Please fill all the fields!");
+        }
         try {
             HttpUtils.post("/login/?email=" + URLEncoder.encode(emailTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) , new RequestParams(), new JsonHttpResponseHandler() {
 
@@ -146,13 +155,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    try {
-                        error += errorResponse.get("message").toString();
-                    } catch (JSONException e) {
-                        error += e.getMessage();
-                    }
-                    //refreshErrorMessage();
+                public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
+                    createAlertDialog(errorMessage);
                 }
             });
         } catch (Exception e) {
@@ -171,8 +175,13 @@ public class MainActivity extends AppCompatActivity {
         final TextView nameTextView = (TextView) findViewById(R.id.NameSignIn);
         final TextView addressTextView = (TextView) findViewById(R.id.AddressSignIn);
         final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordSignIn);
-        if (!confirmPasswordTextView.getText().equals(passwordTextView)) {
-            error = "The passwords don't match";
+
+        if (emailTextView.getText().toString().isEmpty() || passwordTextView.toString().isEmpty() || addressTextView.toString().isEmpty() || nameTextView.toString().isEmpty() || confirmPasswordTextView.toString().isEmpty()) {
+            createAlertDialog("Please fill all the fields!");
+        }
+
+        if (!confirmPasswordTextView.getText().toString().equals(passwordTextView.getText().toString())) {
+            createAlertDialog("The passwords don't match!");
         } else {
             try {
                 HttpUtils.post("/create_customer/?email=" + URLEncoder.encode(emailTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&name=" + URLEncoder.encode(nameTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&address=" + URLEncoder.encode(addressTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new JsonHttpResponseHandler() {
@@ -186,12 +195,8 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        try {
-                            error += errorResponse.get("message").toString();
-                        } catch (JSONException e) {
-                            error += e.getMessage();
-                        }
+                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
+                        createAlertDialog(errorMessage);
                     }
                 });
             } catch (Exception e) {
@@ -207,8 +212,13 @@ public class MainActivity extends AppCompatActivity {
         final TextView nameTextView = (TextView) findViewById(R.id.NameUpdate);
         final TextView addressTextView = (TextView) findViewById(R.id.AddressUpdate);
         final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordUpdate);
-        if (!confirmPasswordTextView.getText().equals(passwordTextView)) {
-            error = "The passwords don't match";
+
+        if (emailTextView.getText().toString().isEmpty() || passwordTextView.toString().isEmpty() || addressTextView.toString().isEmpty() || nameTextView.toString().isEmpty() || confirmPasswordTextView.toString().isEmpty()) {
+            createAlertDialog("Please fill all the fields!");
+        }
+
+        if (!confirmPasswordTextView.getText().toString().equals(passwordTextView.getText().toString())) {
+            createAlertDialog("The passwords don't match!");
         } else {
             try {
                 HttpUtils.put("/update_customer/?email=" + URLEncoder.encode(emailTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&name=" + URLEncoder.encode(nameTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&address=" + URLEncoder.encode(addressTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new JsonHttpResponseHandler() {
@@ -224,12 +234,8 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        try {
-                            error += errorResponse.get("message").toString();
-                        } catch (JSONException e) {
-                            error += e.getMessage();
-                        }
+                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
+                        createAlertDialog(errorMessage);
                     }
                 });
             } catch (Exception e) {
