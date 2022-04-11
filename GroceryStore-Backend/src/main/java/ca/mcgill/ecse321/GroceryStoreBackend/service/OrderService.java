@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -287,7 +288,10 @@ public class OrderService {
 			Store store = storeRepo.findStoreById((long) 1);
 			Customer tempCustomer = order.getCustomer();
 
-			if(!tempCustomer.getAddress().equals(store.getTown())){
+			String customerAddress = tempCustomer.getAddress();
+			customerAddress = customerAddress.toLowerCase();
+
+			if(!customerAddress.contains(store.getTown().toLowerCase())){
 				total += store.getDeliveryFee();
 			}
 
