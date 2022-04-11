@@ -226,7 +226,6 @@ public class MainActivity extends AppCompatActivity {
                             NavHostFragment.findNavController(fragments.get(fragments.size() - 1))
                                     .navigate(R.id.action_Update_to_Login);
                         } catch (Exception e) {
-                            System.out.println("Non");
                         }
 
                     }
