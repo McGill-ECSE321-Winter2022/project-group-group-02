@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.action_itemView) {
            setContentView(R.layout.itemview);
-            //startActivity(new Intent(this, ItemView.class));
             return true;
         }
 
@@ -249,20 +248,24 @@ public class MainActivity extends AppCompatActivity {
     public void getOrdersOfCustomer(View v) {
         error = "";
 
+        System.out.println("Got in");
+
         final TextView dateTV = (TextView) findViewById(R.id.orderDateLabel);
         final TextView timeTV = (TextView) findViewById(R.id.orderTimeLabel);
         final TextView typeTV = (TextView) findViewById(R.id.orderTypeLabel);
         final TextView statusTV = (TextView) findViewById(R.id.orderStatusLabel);
         final TextView totalTV = (TextView) findViewById(R.id.orderTotalLabel);
 
-        HttpUtils.get("/view_all_orders_for_customer?email=ralph@me", new RequestParams(), new JsonHttpResponseHandler() {
 
+        HttpUtils.get("/view_all_orders_for_customer?email=ralph@me", new RequestParams(), new JsonHttpResponseHandler() {
 
 
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 try {
+                    System.out.println("Success");
+
 
 
 //                    for(int i = 0; i < response.length(); i++) {
@@ -273,17 +276,25 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject serverResp = response.getJSONObject(0);
 
 
+                    String date = serverResp.getString("date");
+                    String time = serverResp.getString("time");
+                    String orderType = serverResp.getString("orderType");
+                    String orderStatus = serverResp.getString("orderStatus");
+                    String subtotal = serverResp.getString("subtotal");
+
+
                     //TODO: Insert values at the table here
-                    dateTV.setText(serverResp.getJSONObject("date").toString());
-                    timeTV.setText(serverResp.getJSONObject("time").toString());
-                    typeTV.setText(serverResp.getJSONObject("orderType").toString());
-                    statusTV.setText(serverResp.getJSONObject("orderStatus").toString());
-                    totalTV.setText(serverResp.getJSONObject("subtotal").toString());
+                    dateTV.setText(date);
+                    timeTV.setText(time);
+                    typeTV.setText(orderType);
+                    statusTV.setText(orderStatus);
+                    totalTV.setText(subtotal);
+
 
 
                 } catch (JSONException e) {
                     error += e.getMessage();
-                    
+                    System.out.println(error);
                 }
 
                 //refreshErrorMessage();
@@ -293,6 +304,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
+
+                    System.out.println("Fail");
 
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {

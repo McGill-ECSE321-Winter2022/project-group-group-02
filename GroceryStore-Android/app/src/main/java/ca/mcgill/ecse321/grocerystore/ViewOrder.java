@@ -33,6 +33,7 @@ public class ViewOrder extends Fragment {
                 ((MainActivity)getActivity()).getOrdersOfCustomer(view);
             }
         });
+        ((MainActivity)getActivity()).getOrdersOfCustomer(view);
     }
 
     @Override
