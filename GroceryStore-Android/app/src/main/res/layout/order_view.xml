@@ -35,22 +35,12 @@
             <ListView
                 android:id="@+id/orderViewList"
                 android:layout_width="match_parent"
-                android:paddingTop="15sp"
+                android:paddingTop="10sp"
                 android:layout_height="wrap_content" />
 
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/viewError"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="16sp"
-            android:text=""
-            android:textAlignment="center"
-            android:textColor="?attr/colorError"
-            android:textSize="18sp"
-            tools:visibility="gone" />
     </LinearLayout>
 
 
