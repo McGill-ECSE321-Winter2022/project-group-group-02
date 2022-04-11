@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.grocerystore;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -170,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void signInCustomer(View v) {
         error = "";
+
         final TextView emailTextView = (TextView) findViewById(R.id.EmailSignIn);
         final TextView passwordTextView = (TextView) findViewById(R.id.PasswordSignIn);
         final TextView nameTextView = (TextView) findViewById(R.id.NameSignIn);
@@ -252,17 +254,25 @@ public class MainActivity extends AppCompatActivity {
     public void getOrdersOfCustomer(View v) {
         error = "";
 
+        System.out.println("Got in");
+
         final TextView dateTV = (TextView) findViewById(R.id.orderDateLabel);
         final TextView timeTV = (TextView) findViewById(R.id.orderTimeLabel);
         final TextView typeTV = (TextView) findViewById(R.id.orderTypeLabel);
         final TextView statusTV = (TextView) findViewById(R.id.orderStatusLabel);
         final TextView totalTV = (TextView) findViewById(R.id.orderTotalLabel);
 
-        HttpUtils.get("view_all_orders_for_customer?email=Romy@mail", new RequestParams(), new JsonHttpResponseHandler() {
+
+        HttpUtils.get("/view_all_orders_for_customer?email=ralph@me", new RequestParams(), new JsonHttpResponseHandler() {
+
+
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 try {
+                    System.out.println("Success");
+
+
 
 //                    for(int i = 0; i < response.length(); i++) {
 //
@@ -272,18 +282,25 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject serverResp = response.getJSONObject(0);
 
 
+                    String date = serverResp.getString("date");
+                    String time = serverResp.getString("time");
+                    String orderType = serverResp.getString("orderType");
+                    String orderStatus = serverResp.getString("orderStatus");
+                    String subtotal = serverResp.getString("subtotal");
+
+
                     //TODO: Insert values at the table here
-                    dateTV.setText(serverResp.getJSONObject("date").toString());
-                    timeTV.setText(serverResp.getJSONObject("time").toString());
-                    typeTV.setText(serverResp.getJSONObject("orderType").toString());
-                    statusTV.setText(serverResp.getJSONObject("orderStatus").toString());
-                    totalTV.setText(serverResp.getJSONObject("subtotal").toString());
+                    dateTV.setText(date);
+                    timeTV.setText(time);
+                    typeTV.setText(orderType);
+                    statusTV.setText(orderStatus);
+                    totalTV.setText(subtotal);
+
 
 
                 } catch (JSONException e) {
                     error += e.getMessage();
-
-
+                    System.out.println(error);
                 }
 
                 //refreshErrorMessage();
@@ -293,7 +310,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    System.out.println("Failure method");
+
+                    System.out.println("Fail");
 
                     error += errorResponse.get("message").toString();
                 } catch (JSONException e) {
@@ -316,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
 
         error = "";
         System.out.println("itemString");
-        HttpUtils.get("view_all_shoppable_item/", new RequestParams(), new JsonHttpResponseHandler(){
+        HttpUtils.get("/view_all_shoppable_item/", new RequestParams(), new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
@@ -372,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
 
                     ArrayList<String> list = new ArrayList<>(Arrays.asList(allItems));
 
-                    ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, allItems);
+                    ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, list);
                     allItemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     allItemsSpinner.setAdapter(allItemsAdapter);
 

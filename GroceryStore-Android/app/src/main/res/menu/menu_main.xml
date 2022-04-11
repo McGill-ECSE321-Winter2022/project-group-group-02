@@ -7,16 +7,16 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
-
+    
     <item
         android:id="@+id/action_itemView"
         android:orderInCategory="100"
-        android:title="Items"
+        android:title="@string/items"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_orderView"
         android:orderInCategory="100"
-        android:title="My Orders"
+        android:title="@string/my_orders"
         app:showAsAction="never" />
 </menu>
