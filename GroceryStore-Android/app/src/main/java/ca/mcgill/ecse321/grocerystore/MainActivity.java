@@ -235,7 +235,6 @@ public class MainActivity extends AppCompatActivity {
                                     .navigate(R.id.action_Update_to_Login);
                         } catch (Exception e) {
                         }
-
                     }
 
                     @Override
