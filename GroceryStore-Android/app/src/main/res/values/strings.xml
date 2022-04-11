@@ -6,7 +6,7 @@
     <string name="login_label">Login</string>
     <string name="update_label">Update Account</string>
     <string name="customerMenu_label">Menu</string>
-    <string name="signIn_label">Sign In</string>
+    <string name="signIn_label">Sign Up</string>
     <string name="viewOrder_label">View Orders</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>

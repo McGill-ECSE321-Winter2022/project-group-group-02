@@ -29,7 +29,7 @@
         android:layout_marginEnd="156dp"
         android:layout_marginBottom="164dp"
         android:backgroundTint="#00FFFFFF"
-        android:text="Sign In"
+        android:text="Sign Up"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#807777"
         app:iconTint="#E63636"
