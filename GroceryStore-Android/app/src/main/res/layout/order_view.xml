@@ -8,119 +8,51 @@
     tools:showIn="@layout/order_view">
 
 
-    <TableLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-
-
-        <TableRow
-            android:background="#0079D6"
-            android:padding="5dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/date" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/time" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/type" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/status" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/total" />
-
-        </TableRow>
-
-
-        <TableRow
-            android:layout_height="139dp"
-            android:background="#DAE8FC"
-            android:padding="5dp">
-
-            <TextView
-                android:id="@+id/orderDateLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/orderTimeLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/orderTypeLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/orderStatusLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/orderTotalLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-
-
-        </TableRow>
-
-    </TableLayout>
-
-    <Button
-        android:id="@+id/viewOrdersButton"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="175dp"
-        android:backgroundTint="#00FFFFFF"
-        android:text="Refresh"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#807777"
-        app:iconTint="#E63636"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="45dp"
-        android:layout_weight="5"
-        android:text="My Orders"
-        android:textSize="23sp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:paddingLeft="20sp"
+        android:paddingRight="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/viewOrders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/list_of_orders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="16sp"
+                android:text="@string/my_orders"
+                android:textSize="18sp" />
+
+            <ListView
+                android:id="@+id/orderViewList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/viewError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16sp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="?attr/colorError"
+            android:textSize="18sp"
+            tools:visibility="gone" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
