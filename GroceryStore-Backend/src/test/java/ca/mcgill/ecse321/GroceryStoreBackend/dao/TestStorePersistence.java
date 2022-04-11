@@ -37,13 +37,13 @@ public class TestStorePersistence {
 
 	@Test
 	public void testPersistAndLoadStore() {
-		
+
 		// Creation of a Store instance with test attributes
 		double deliveryFee = 5;
 		String town = "townn";
 		Long id = (long) 76;
 		Store store = new Store(deliveryFee, town);
-		
+
 		// Creation of a DailySchedule instance with test attributes
 		DailySchedule dailySchedule = new DailySchedule();
 		dailySchedule.setId((long) 54);
@@ -55,20 +55,22 @@ public class TestStorePersistence {
 		// Save the created DailySchedule instance
 		dailyScheduleRepository.save(dailySchedule);
 
-		// Set the dailySchedules attribute of store, because of the one-to-many association
+		// Set the dailySchedules attribute of store, because of the one-to-many
+		// association
 		store.addDailySchedule(dailySchedule);
 
 		// Save the created Store instance
 		storeRepository.save(store);
-		
-		// Set the variable to null, and then try retrieving the saved instance using its id
+
+		// Set the variable to null, and then try retrieving the saved instance using
+		// its id
 		store = null;
 		store = storeRepository.findStoreById(id);
-		
-		// Determine whether the instance is null, if the attribute deliveryFee matches and if the reference to dailySchedules matches
+
+		// Determine whether the instance is null, if the attribute deliveryFee matches
+		// and if the reference to dailySchedules matches
 		assertNotNull(store);
 		assertEquals(deliveryFee, store.getDeliveryFee());
-		//assertEquals(dailySchedule.getId(), store.getDailySchedule(0).getId()); // Checking the ids of all the dailySchedules
 	}
 
 }

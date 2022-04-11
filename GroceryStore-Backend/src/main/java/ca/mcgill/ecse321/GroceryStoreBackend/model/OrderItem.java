@@ -2,14 +2,9 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "OrderedItems")
 public class OrderItem {
-
-	// ------------------------
-	// MEMBER VARIABLES
-	// ------------------------
 
 	// OrderItem Attributes
 	private Long id;
@@ -17,7 +12,6 @@ public class OrderItem {
 
 	// OrderItem Associations
 	private ShoppableItem item;
-	// private Order order;
 
 	// ------------------------
 	// CONSTRUCTOR
@@ -54,13 +48,11 @@ public class OrderItem {
 		return quantity;
 	}
 
-	/* Code from template association_GetOne */
 	@ManyToOne(optional = false)
 	public ShoppableItem getItem() {
 		return item;
 	}
 
-	/* Code from template association_SetUnidirectionalOne */
 	public boolean setItem(ShoppableItem aNewItem) {
 		boolean wasSet = false;
 		if (aNewItem != null) {

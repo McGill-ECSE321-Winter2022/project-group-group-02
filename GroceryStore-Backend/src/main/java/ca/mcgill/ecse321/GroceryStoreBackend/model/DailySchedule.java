@@ -15,10 +15,6 @@ public class DailySchedule {
 		Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
 	}
 
-	// ------------------------
-	// MEMBER VARIABLES
-	// ------------------------
-
 	// DailySchedule Attributes
 
 	private Long id;

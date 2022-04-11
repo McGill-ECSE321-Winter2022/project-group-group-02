@@ -391,48 +391,6 @@ public class TestReviewService {
 		assertEquals("Review already exists for this order", error);
 	}
 
-	// @Test
-	// public void testCreateReviewWithDuplicateId() {
-	// assertEquals(0, reviewService.getAllReviews().size());
-	//
-	// String email = "Customer@mail.com";
-	// String name = "customerName";
-	// String address = "Durocher";
-	// String password = "222";
-	// Customer customer = customerService.createCustomer(email, password, name,
-	// address);
-	// lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
-	//
-	// OrderStatus orderStatus = OrderStatus.Preparing;
-	// OrderType orderType = OrderType.Delivery;
-	// Date orderDate = Date.valueOf("2022-02-02");
-	// Time orderTime = Time.valueOf("11:10:09");
-	// Long orderId = 21L;
-	// Order order = new Order();
-	// order.setOrderStatus(orderStatus);
-	// order.setOrderType(orderType);
-	// order.setDate(orderDate);
-	// order.setTime(orderTime);
-	// order.setId(orderId);
-	// order.setCustomer(customer);
-	// lenient().when(orderRepo.findOrderById(orderId)).thenReturn(order);
-	//
-	// Review review = null;
-	// String description = "Really Cool";
-	// Rating rating = Rating.VeryGood;
-	// Long reviewId = REVIEW_ID;
-	// String error = null;
-	//
-	// try {
-	// review = reviewService.createReview(rating, description, email, orderId);
-	// } catch (IllegalArgumentException e) {
-	// error = e.getMessage();
-	// }
-	//
-	// assertNull(review);
-	// assertEquals("Review with this id already exists", error);
-	// }
-
 	@Test
 	public void testUpdateReview() {
 		assertEquals(0, reviewService.getAllReviews().size());

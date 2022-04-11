@@ -30,14 +30,6 @@ public class DailyScheduleService {
 	@Transactional
 	public DailySchedule createDailySchedule(DayOfWeek dayOfWeek, Time startTime, Time endTime) {
 
-		// check the uniqueness of id
-		// DailySchedule dailyschedulee =
-		// dailyScheduleRepository.findDailyScheduleById(id);
-		//
-		// if (dailyschedulee != null)
-		// throw new IllegalArgumentException("Daily Schedule with the same id already
-		// exists.");
-
 		// check if all the inputs are valid
 		if (dayOfWeek == null)
 			throw new IllegalArgumentException("Please enter a valid day of week");

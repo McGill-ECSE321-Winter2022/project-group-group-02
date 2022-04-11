@@ -74,9 +74,8 @@ public class StoreService {
 		Store store = storeRepository.findStoreById(id);
 
 		if (store == null) {
-			store = createStore((long) 1,town,deliveryFee);
+			store = createStore((long) 1, town, deliveryFee);
 			return store;
-			//throw new IllegalArgumentException("No store found");
 		}
 
 		// check all inputs are valid
@@ -177,12 +176,12 @@ public class StoreService {
 			throw new IllegalArgumentException("Id cannot be empty");
 		}
 
-		//search for the store
+		// search for the store
 		Store store = storeRepository.findStoreById(id);
 		if (store == null)
 			throw new IllegalArgumentException("Store not found");
 
-		//return true if the store is deleted
+		// return true if the store is deleted
 		storeRepository.delete(store);
 		store.delete();
 		return true;

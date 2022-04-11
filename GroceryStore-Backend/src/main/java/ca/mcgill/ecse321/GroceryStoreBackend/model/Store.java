@@ -7,10 +7,6 @@ import javax.persistence.*;
 @Table(name = "Stores")
 public class Store {
 
-	// ------------------------
-	// MEMBER VARIABLES
-	// ------------------------
-
 	// Store Attributes
 	private double deliveryFee;
 	private String town;
@@ -30,7 +26,7 @@ public class Store {
 	}
 
 	public Store() {
-	  dailySchedules = new ArrayList<DailySchedule>();
+		dailySchedules = new ArrayList<DailySchedule>();
 	}
 
 	// ------------------------
@@ -70,13 +66,12 @@ public class Store {
 		return id;
 	}
 
-	/* Code from template association_GetMany */
 	public DailySchedule getDailySchedule(int index) {
 		DailySchedule aDailySchedule = dailySchedules.get(index);
 		return aDailySchedule;
 	}
 
-	@OneToMany(cascade = {CascadeType.ALL})
+	@OneToMany(cascade = { CascadeType.ALL })
 	public List<DailySchedule> getDailySchedules() {
 		return this.dailySchedules;
 	}
@@ -101,17 +96,14 @@ public class Store {
 		return index;
 	}
 
-	/* Code from template association_MinimumNumberOfMethod */
 	public static int minimumNumberOfDailySchedules() {
 		return 0;
 	}
 
-	/* Code from template association_MaximumNumberOfMethod */
 	public static int maximumNumberOfDailySchedules() {
 		return 7;
 	}
 
-	/* Code from template association_AddUnidirectionalOptionalN */
 	public boolean addDailySchedule(DailySchedule aDailySchedule) {
 		boolean wasAdded = false;
 		if (dailySchedules.contains(aDailySchedule)) {
@@ -133,8 +125,6 @@ public class Store {
 		return wasRemoved;
 	}
 
-
-	/* Code from template association_AddIndexControlFunctions */
 	public boolean addDailyScheduleAt(DailySchedule aDailySchedule, int index) {
 		boolean wasAdded = false;
 		if (addDailySchedule(aDailySchedule)) {

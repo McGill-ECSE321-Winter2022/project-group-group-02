@@ -14,10 +14,6 @@ public class Review {
 		VeryPoor, Poor, Okay, Good, VeryGood
 	}
 
-	// ------------------------
-	// MEMBER VARIABLES
-	// ------------------------
-
 	// Review Attributes
 
 	private Long id;
@@ -87,19 +83,16 @@ public class Review {
 		return description;
 	}
 
-	/* Code from template association_GetOne */
 	@ManyToOne(optional = false)
 	public Customer getCustomer() {
 		return customer;
 	}
 
-	/* Code from template association_GetOne */
 	@OneToOne(optional = false)
 	public Order getOrder() {
 		return order;
 	}
 
-	/* Code from template association_SetUnidirectionalOne */
 	public boolean setCustomer(Customer aNewCustomer) {
 		boolean wasSet = false;
 		if (aNewCustomer != null) {
@@ -109,7 +102,6 @@ public class Review {
 		return wasSet;
 	}
 
-	/* Code from template association_SetUnidirectionalOne */
 	public boolean setOrder(Order aNewOrder) {
 		boolean wasSet = false;
 		if (aNewOrder != null) {

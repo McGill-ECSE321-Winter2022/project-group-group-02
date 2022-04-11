@@ -21,10 +21,10 @@ public class OrderItemService {
 	ShoppableItemRepository itemRepo;
 	@Autowired
 	OrderRepository orderRepo;
-	
-	
+
 	/**
 	 * Creates an order item in the system
+	 * 
 	 * @param orderItemId
 	 * @param quantity
 	 * @param itemName
@@ -43,35 +43,30 @@ public class OrderItemService {
 
 		if (quantity <= 0)
 			throw new IllegalArgumentException("Please enter a valid quantity. ");
-		
 
 		ShoppableItem item = itemRepo.findByName(itemName);
-		
 
 		List<OrderItem> list = order.getOrderItems();
-		
-		  if(!list.isEmpty()) {
-		    
-		    for(int i = 0; i < list.size(); i++) {
-		      
-		      if(list.get(i).getItem().getName().equals(itemName))
-		        throw new IllegalArgumentException("Item already in cart. "); 
-		    }
-		  }
+
+		if (!list.isEmpty()) {
+
+			for (int i = 0; i < list.size(); i++) {
+
+				if (list.get(i).getItem().getName().equals(itemName))
+					throw new IllegalArgumentException("Item already in cart. ");
+			}
+		}
 
 		if (item == null)
 			throw new IllegalArgumentException("Please enter a valid item. ");
-		
-		if(item.getQuantityAvailable() < quantity)
-          throw new IllegalArgumentException("Quantity exceeds the amount in inventory. ");
 
-//		if (orderItemRepo.existsById(orderItemId) == true)
-//			throw new IllegalArgumentException("This ID is being used. ");
+		if (item.getQuantityAvailable() < quantity)
+			throw new IllegalArgumentException("Quantity exceeds the amount in inventory. ");
 
 		OrderItem orderItem = new OrderItem();
 		orderItem.setQuantity(quantity);
 		orderItem.setItem(item);
-		//orderItem.setId(orderItemId);
+		// orderItem.setId(orderItemId);
 
 		OrderItem newOrderItem = orderItemRepo.save(orderItem);
 
@@ -81,6 +76,7 @@ public class OrderItemService {
 
 	/**
 	 * Updates an existing order item
+	 * 
 	 * @param orderItemId
 	 * @param quantity
 	 * @param itemName
@@ -104,9 +100,9 @@ public class OrderItemService {
 
 		if (item == null)
 			throw new IllegalArgumentException("Please enter a valid item. ");
-		
-		if(item.getQuantityAvailable() < quantity)
-          throw new IllegalArgumentException("Quantity exceeds the amount in inventory. ");
+
+		if (item.getQuantityAvailable() < quantity)
+			throw new IllegalArgumentException("Quantity exceeds the amount in inventory. ");
 
 		OrderItem orderItem = orderItemRepo.findOrderItemById(orderItemId);
 		if (orderItem == null)
@@ -121,6 +117,7 @@ public class OrderItemService {
 
 	/**
 	 * Deletes an order item from the system
+	 * 
 	 * @param orderItemId
 	 * @return
 	 * @throws IllegalArgumentException
@@ -138,18 +135,17 @@ public class OrderItemService {
 		return true;
 
 	}
-	
-	
-  /**
-   * Returns all order items in the system
-   * @return
-   * @author Karl Rouhana
-   */
+
+	/**
+	 * Returns all order items in the system
+	 * 
+	 * @return
+	 * @author Karl Rouhana
+	 */
 	@Transactional
 	public List<OrderItem> getAllOrderItem() {
 
 		List<OrderItem> allOrderItems = toList(orderItemRepo.findAll());
-
 
 		return allOrderItems;
 
@@ -157,6 +153,7 @@ public class OrderItemService {
 
 	/**
 	 * Returns a specific order item in the system
+	 * 
 	 * @param orderItemId
 	 * @return
 	 * @author Karl Rouhana
@@ -174,12 +171,13 @@ public class OrderItemService {
 
 	}
 
-	  /**
-     * Helper method to return a list of iterable object
-     * @param <T>
-     * @param iterable
-     * @return resultList
-     */
+	/**
+	 * Helper method to return a list of iterable object
+	 * 
+	 * @param <T>
+	 * @param iterable
+	 * @return resultList
+	 */
 	private <T> List<T> toList(Iterable<T> iterable) {
 		List<T> resultList = new ArrayList<T>();
 		for (T t : iterable) {

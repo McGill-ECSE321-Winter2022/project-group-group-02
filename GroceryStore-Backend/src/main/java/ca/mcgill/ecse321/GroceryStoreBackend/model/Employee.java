@@ -6,10 +6,6 @@ import javax.persistence.*;
 @Entity
 public class Employee extends Person {
 
-  // ------------------------
-  // MEMBER VARIABLES
-  // ------------------------
-
   // Employee Attributes
   private double salary;
   private String password;
@@ -46,7 +42,6 @@ public class Employee extends Person {
     return salary;
   }
 
-  /* Code from template association_GetMany */
   public DailySchedule getDailySchedule(int index) {
     DailySchedule aDailySchedule = dailySchedules.get(index);
     return aDailySchedule;
@@ -73,17 +68,14 @@ public class Employee extends Person {
     return index;
   }
 
-  /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfDailySchedules() {
     return 0;
   }
 
-  /* Code from template association_MaximumNumberOfMethod */
   public static int maximumNumberOfDailySchedules() {
     return 7;
   }
 
-  /* Code from template association_AddUnidirectionalOptionalN */
   public boolean addDailySchedule(DailySchedule aDailySchedule) {
     boolean wasAdded = false;
     if (dailySchedules.contains(aDailySchedule)) {
@@ -105,13 +97,11 @@ public class Employee extends Person {
     return wasRemoved;
   }
 
-  /* Code from template association_SetUnidirectionalOptionalN */
   public boolean setDailySchedules(List<DailySchedule> newDailySchedules) {
     this.dailySchedules = newDailySchedules;
     return true;
   }
 
-  /* Code from template association_AddIndexControlFunctions */
   public boolean addDailyScheduleAt(DailySchedule aDailySchedule, int index) {
     boolean wasAdded = false;
     if (addDailySchedule(aDailySchedule)) {

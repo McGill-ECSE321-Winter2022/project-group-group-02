@@ -7,15 +7,7 @@ import javax.persistence.*;
 @Table(name = "Persons")
 public abstract class Person {
 
-	// ------------------------
-	// STATIC VARIABLES
-	// ------------------------
-
 	private static Map<String, Person> personsByEmail = new HashMap<String, Person>();
-
-	// ------------------------
-	// MEMBER VARIABLES
-	// ------------------------
 
 	// Person Attributes
 	private String email;

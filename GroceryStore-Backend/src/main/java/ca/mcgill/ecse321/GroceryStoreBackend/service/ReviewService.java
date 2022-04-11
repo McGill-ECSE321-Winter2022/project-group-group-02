@@ -28,17 +28,16 @@ public class ReviewService {
 	@Autowired
 	private OrderRepository orderRepository;
 
-	
 	/**
-     * @author Matthieu Hakim
-     * Creates a review
-     * @param aRating
-     * @param aDescription
-     * @param customerEmail
-     * @param orderId
-     * @param reviewId
-     * @return Review
-     */
+	 * @author Matthieu Hakim
+	 *         Creates a review
+	 * @param aRating
+	 * @param aDescription
+	 * @param customerEmail
+	 * @param orderId
+	 * @param reviewId
+	 * @return Review
+	 */
 	@Transactional
 	public Review createReview(Rating aRating, String aDescription, String customerEmail, Long orderId) {
 
@@ -69,30 +68,24 @@ public class ReviewService {
 			throw new IllegalArgumentException("Review already exists for this order");
 		}
 
-//		review = reviewRepository.findReviewById(reviewId);
-//		if (review != null) {
-//			throw new IllegalArgumentException("Review with this id already exists");
-//		}
-
 		review = new Review();
 		review.setOrder(order);
 		review.setCustomer(customer);
 		review.setDescription(aDescription);
 		review.setRating(aRating);
-		//review.setId(reviewId);
+		// review.setId(reviewId);
 		Review newReview = reviewRepository.save(review);
 		return newReview;
 	}
 
-	
 	/**
-     * @author Matthieu Hakim
-     * Updates a review
-     * @param orderId
-     * @param newDescription
-     * @param newRating
-     * @return Review
-     */
+	 * @author Matthieu Hakim
+	 *         Updates a review
+	 * @param orderId
+	 * @param newDescription
+	 * @param newRating
+	 * @return Review
+	 */
 	@Transactional
 	public Review updateReview(Long orderId, String newDescription, Rating newRating) {
 
@@ -121,11 +114,11 @@ public class ReviewService {
 	}
 
 	/**
-     * @author Matthieu Hakim
-     * Deletes the review of a specific order
-     * @param orderId
-     * @return true if review has been deleted
-     */
+	 * @author Matthieu Hakim
+	 *         Deletes the review of a specific order
+	 * @param orderId
+	 * @return true if review has been deleted
+	 */
 	@Transactional
 	public boolean deleteReview(Long orderId) {
 		Order order = orderRepository.findOrderById(orderId);
@@ -140,11 +133,11 @@ public class ReviewService {
 	}
 
 	/**
-     * @author Matthieu Hakim
-     * Gets the review of a specific order
-     * @param orderId
-     * @return Review
-     */
+	 * @author Matthieu Hakim
+	 *         Gets the review of a specific order
+	 * @param orderId
+	 * @return Review
+	 */
 	@Transactional
 	public Review getReviewForOrder(Long orderId) {
 
@@ -157,11 +150,11 @@ public class ReviewService {
 	}
 
 	/**
-     * @author Matthieu Hakim
-     * Gets the all reviews of a specific customer
-     * @param customerEmail
-     * @return List<Review>
-     */
+	 * @author Matthieu Hakim
+	 *         Gets the all reviews of a specific customer
+	 * @param customerEmail
+	 * @return List<Review>
+	 */
 	@Transactional
 	public List<Review> getReviewsForCustomer(String customerEmail) {
 
@@ -173,12 +166,11 @@ public class ReviewService {
 		return toList(reviewRepository.findByCustomer(customer));
 	}
 
-	
 	/**
-     * @author Matthieu Hakim
-     * Gets the all reviews in the system
-     * @return List<Review>
-     */
+	 * @author Matthieu Hakim
+	 *         Gets the all reviews in the system
+	 * @return List<Review>
+	 */
 	@Transactional
 	public List<Review> getAllReviews() {
 		return toList(reviewRepository.findAll());

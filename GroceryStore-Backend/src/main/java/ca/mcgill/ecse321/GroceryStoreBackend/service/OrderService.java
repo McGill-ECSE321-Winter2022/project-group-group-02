@@ -64,10 +64,6 @@ public class OrderService {
 		if (aCustomer == null)
 			throw new IllegalArgumentException("Please enter a valid customer. ");
 
-		// Order order = orderRepo.findOrderById(orderId);
-		// if (order != null)
-		// throw new IllegalArgumentException("Order with ID already exists.");
-
 		Order order = new Order(convertOrderType(aOrderType), aOrderStatus, aDate, aTime, aCustomer);
 		Order newOrder = orderRepo.save(order);
 		return newOrder;
@@ -95,10 +91,8 @@ public class OrderService {
 			throw new IllegalArgumentException("Please enter a valid order status. ");
 
 		if (aOrderStatus.equals("Cancelled")) {
-
 			cancelOrder(orderId);
 			return null;
-
 		}
 
 		order.setOrderStatus(convertOrderStatus(aOrderStatus));
@@ -202,8 +196,6 @@ public class OrderService {
 		}
 
 		order.setOrderStatus(convertOrderStatus("Cancelled"));
-		// orderRepo.delete(order);
-		// order.delete();
 		return true;
 
 	}

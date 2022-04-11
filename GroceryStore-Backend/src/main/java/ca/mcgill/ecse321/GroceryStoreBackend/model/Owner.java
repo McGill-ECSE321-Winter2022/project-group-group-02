@@ -5,10 +5,6 @@ import javax.persistence.*;
 @Entity
 public class Owner extends Person {
 
-  // ------------------------
-  // MEMBER VARIABLES
-  // ------------------------
-
   // Owner Attributes
   private String email;
   private String password;

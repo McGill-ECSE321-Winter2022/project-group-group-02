@@ -14,20 +14,19 @@ public class OwnerService {
 	OwnerRepository ownerRepository;
 
 	/**
-     * @author Matthieu Hakim
-     * Creates the owner
-     * @param name
-     * @param password
-     * @param email
-     * @return Owner
-     */
+	 * @author Matthieu Hakim
+	 *         Creates the owner
+	 * @param name
+	 * @param password
+	 * @param email
+	 * @return Owner
+	 */
 	@Transactional
 	public Owner createOwner(String email, String password, String name) {
 
 		if (ownerRepository.findByEmail("admin@grocerystore.com") != null) {
 			throw new IllegalArgumentException("Owner already exists");
 		}
-
 		if (name == null)
 			throw new IllegalArgumentException("Name cannot be null");
 		if (name.isBlank())
@@ -46,13 +45,12 @@ public class OwnerService {
 		return owner;
 	}
 
-	
 	/**
-     * @author Matthieu Hakim
-     * Updates the password of the owner
-     * @param newPassword
-     * @return Owner
-     */
+	 * @author Matthieu Hakim
+	 *         Updates the password of the owner
+	 * @param newPassword
+	 * @return Owner
+	 */
 	@Transactional
 	public Owner updateOwnerPassword(String newPassword) {
 		Owner oldOwner = ownerRepository.findByEmail("admin@grocerystore.com");
@@ -66,13 +64,12 @@ public class OwnerService {
 		return oldOwner;
 	}
 
-	
 	/**
-     * @author Matthieu Hakim
-     * Updates the name of the owner
-     * @param newName
-     * @return Owner
-     */
+	 * @author Matthieu Hakim
+	 *         Updates the name of the owner
+	 * @param newName
+	 * @return Owner
+	 */
 	@Transactional
 	public Owner updateOwnerName(String newName) {
 		Owner oldOwner = ownerRepository.findByEmail("admin@grocerystore.com");
@@ -90,22 +87,21 @@ public class OwnerService {
 	}
 
 	/**
-     * @author Matthieu Hakim
-     * Gets the owner
-     * @return Owner
-     */
+	 * @author Matthieu Hakim
+	 *         Gets the owner
+	 * @return Owner
+	 */
 	@Transactional
 	public Owner getOwner() {
 		Owner owner = ownerRepository.findByEmail("admin@grocerystore.com");
 		return owner;
 	}
 
-	
 	/**
-     * @author Matthieu Hakim
-     * Deletes the owner
-     * @return true if owner has been deleted
-     */
+	 * @author Matthieu Hakim
+	 *         Deletes the owner
+	 * @return true if owner has been deleted
+	 */
 	@Transactional
 	public boolean deleteOwner() throws IllegalArgumentException {
 

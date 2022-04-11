@@ -57,11 +57,9 @@ public class TestOrderItemPersistence {
 		shoppableItemRepository.save(shoppableItem);
 
 		// Creation of an OrderItem instance with test attributes
-		// Long orderItemId = (long) 1234;
 		int quantityWanted = 2;
 		OrderItem orderItem = new OrderItem();
 		orderItem.setQuantity(quantityWanted);
-		// orderItem.setId(orderItemId);
 
 		// Set the ShoppableItem attribute of orderItem, because of the many-to-one
 		// association

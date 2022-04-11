@@ -6,16 +6,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Items")
 public abstract class Item {
-
-	// ------------------------
-	// STATIC VARIABLES
-	// ------------------------
-
 	private static Map<String, Item> itemsByName = new HashMap<String, Item>();
-
-	// ------------------------
-	// MEMBER VARIABLES
-	// ------------------------
 
 	// Item Attributes
 	private String name;

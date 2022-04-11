@@ -396,37 +396,6 @@ public class TestOrderService {
 
 	}
 
-	// @Test
-	// public void testCreateOrderWithOrderIdAlreadyTaken() {
-	// String name = "Karl";
-	// String password = "passwordTest1";
-	// String email = "karl@localTown.com";
-	// String address = "1325 Depaneur Pa Kiwi";
-	//
-	// Customer customer = customerService.createCustomer(email, password, name,
-	// address);
-	// lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
-	//
-	// String aOrderType ="PickUp";
-	// OrderStatus aOrderStatus = OrderStatus.Ready;
-	// Date date = Date.valueOf("2022-05-10");
-	// Time time = Time.valueOf("08:54:00");
-	//
-	// Order order = null;
-	// String error = null;
-	// try {
-	// order = orderService.createOrder(aOrderType, aOrderStatus, date, time,
-	// email);
-	//
-	// } catch (IllegalArgumentException e) {
-	// error = e.getMessage();
-	//
-	// }
-	// assertNull(order);
-	// assertEquals(error, "Order with ID already exists.");
-	//
-	// }
-
 	// -----------------------------------------------------------------------------------------------------------------------------------//
 
 	/**

@@ -21,10 +21,6 @@ public class Order {
 		Confirmed, Preparing, Cancelled, Ready, Delivering, Fulfilled
 	}
 
-	// ------------------------
-	// MEMBER VARIABLES
-	// ------------------------
-
 	// Order Attributes
 
 	private Long id;
@@ -116,12 +112,10 @@ public class Order {
 		return time;
 	}
 
-	/* Code from template association_GetOne */
 	@ManyToOne(optional = false)
 	public Customer getCustomer() {
 		return customer;
 	}
-	/* Code from template association_GetMany */
 
 	public OrderItem getOrderItem(int index) {
 		OrderItem aOrderItem = orderItems.get(index);
@@ -153,17 +147,14 @@ public class Order {
 		return index;
 	}
 
-	/* Code from template association_SetUnidirectionalOne */
 	public void setCustomer(Customer aNewCustomer) {
 		customer = aNewCustomer;
 	}
 
-	/* Code from template association_MinimumNumberOfMethod */
 	public static int minimumNumberOfOrderItems() {
 		return 0;
 	}
 
-	/* Code from template association_AddManyToOne */
 	public OrderItem addOrderItem(int aQuantity, ShoppableItem aItem) {
 
 		OrderItem orderItem = new OrderItem();
@@ -192,7 +183,6 @@ public class Order {
 		return wasRemoved;
 	}
 
-	/* Code from template association_AddIndexControlFunctions */
 	public boolean addOrderItemAt(OrderItem aOrderItem, int index) {
 		boolean wasAdded = false;
 		if (addOrderItem(aOrderItem)) {

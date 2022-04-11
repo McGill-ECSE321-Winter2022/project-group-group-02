@@ -178,7 +178,6 @@ public class TestOrderItemService {
 		}
 
 		assertNotNull(orderItem);
-		// assertEquals(itemId, orderItem.getId());
 		assertEquals(quantityOrder, orderItem.getQuantity());
 		assertEquals(name, orderItem.getItem().getName());
 

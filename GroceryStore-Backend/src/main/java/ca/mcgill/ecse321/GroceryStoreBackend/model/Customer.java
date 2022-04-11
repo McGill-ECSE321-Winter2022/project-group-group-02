@@ -4,11 +4,6 @@ import javax.persistence.*;
 
 @Entity
 public class Customer extends Person {
-
-	// ------------------------
-	// MEMBER VARIABLES
-	// ------------------------
-
 	// Customer Attributes
 	private String address;
 
