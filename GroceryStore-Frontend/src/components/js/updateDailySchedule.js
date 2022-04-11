@@ -1,9 +1,7 @@
 import axios from 'axios'
-import JQuery from 'jquery'
-
 var config = require('../../../config')
 
-
+// Setup frontend and backend urls 
 var backendConfigurer = function(){
 	switch(process.env.NODE_ENV){
       case 'development':
@@ -29,13 +27,6 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
-
-function dailyScheduleDto (dayOfWeek,startTime,endTime) {
-  this.dayOfWeek = dayOfWeek
-  this.startTime = startTime
-  this.endTime = endTime
-}
-
 
 
 export default {

@@ -6,7 +6,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -45,7 +44,7 @@ public class TestLoginService {
 
 	@Mock
 	private OwnerRepository ownerDao;
-	
+
 	@Mock
 	private DailyScheduleRepository dailyScheduleDao;
 
@@ -54,12 +53,12 @@ public class TestLoginService {
 
 	@InjectMocks
 	private DailyScheduleService dailyScheduleService;
-	
+
 	private static final String CUSTOMER_KEY = "testcustomer@mail.ca";
 	private static final String CUSTOMER_NAME = "Test";
 	private static final String CUSTOMER_ADDRESS = "35 St Catherine O, Montreal";
 	private static final String CUSTOMER_PASSWORD = "2222";
-	
+
 	private static final String EMPLOYEE_KEY = "testemployee@mail.ca";
 	private static final String EMPLOYEE_NAME = "Test";
 	private static final Double EMPLOYEE_SALARY = 1250.0;
@@ -68,7 +67,7 @@ public class TestLoginService {
 	private static final String OWNER_KEY = "testowner@mail.ca";
 	private static final String OWNER_NAME = "Test";
 	private static final String OWNER_PASSWORD = "1234";
-	
+
 	static final long DAILYSCHEDULE_KEY = (long) 321;
 	private static final Time DAILYSCHEDULE_STARTTIME = Time.valueOf("08:00:00");
 	private static final Time DAILYSCHEDULE_ENDTIME = Time.valueOf("20:00:00");
@@ -78,7 +77,7 @@ public class TestLoginService {
 	private static final Time DAILYSCHEDULE_STARTTIME2 = Time.valueOf("07:00:00");
 	private static final Time DAILYSCHEDULE_ENDTIME2 = Time.valueOf("21:00:00");
 	private static final DayOfWeek DAILYSCHEDULE_DAYOFWEEK2 = DayOfWeek.Tuesday;
-	
+
 	@BeforeEach
 	public void setMockOutput() {
 		lenient().when(customerDao.findByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
@@ -102,7 +101,7 @@ public class TestLoginService {
 			}
 
 		});
-		
+
 		lenient().when(employeeDao.existsByEmail(anyString())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(EMPLOYEE_KEY)) {
 				return true;
@@ -184,101 +183,113 @@ public class TestLoginService {
 		lenient().when(ownerDao.save(any(Owner.class))).thenAnswer(returnParameterAsAnswer);
 	}
 
-	/*** Test the login service method when a customer logs in.
+	/***
+	 * Test the login service method when a customer logs in.
+	 * 
 	 * @author anaelle.drai
 	 */
 	@Test
 	public void testLoginCustomer() {
-		Customer customer= null;
+		Customer customer = null;
 		try {
 			customer = (Customer) service.login(CUSTOMER_KEY, CUSTOMER_PASSWORD);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		
-		// Check the arguments of the created customer match the ones we passed as argument.
+
+		// Check the arguments of the created customer match the ones we passed as
+		// argument.
 		assertNotNull(customer);
 		assertEquals(CUSTOMER_KEY, customer.getEmail());
 		assertEquals(CUSTOMER_PASSWORD, customer.getPassword());
 		assertEquals(CUSTOMER_NAME, customer.getName());
 		assertEquals(CUSTOMER_ADDRESS, customer.getAddress());
 	}
-	
-	/*** Test the login service method when an employee logs in.
+
+	/***
+	 * Test the login service method when an employee logs in.
+	 * 
 	 * @author anaelle.drai
 	 */
 	@Test
 	public void testLoginEmployee() {
-		Employee employee= null;
+		Employee employee = null;
 		try {
 			employee = (Employee) service.login(EMPLOYEE_KEY, EMPLOYEE_PASSWORD);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		
-		// Check the arguments of the created customer match the ones we passed as argument.
+
+		// Check the arguments of the created customer match the ones we passed as
+		// argument.
 		assertNotNull(employee);
 		assertEquals(EMPLOYEE_KEY, employee.getEmail());
 		assertEquals(EMPLOYEE_PASSWORD, employee.getPassword());
 		assertEquals(EMPLOYEE_NAME, employee.getName());
 		assertEquals(EMPLOYEE_SALARY, employee.getSalary());
 	}
-	
-	/*** Test the login service method when the owner logs in.
+
+	/***
+	 * Test the login service method when the owner logs in.
+	 * 
 	 * @author anaelle.drai
 	 */
 	@Test
 	public void testLoginOwner() {
-		Owner owner= null;
+		Owner owner = null;
 		try {
 			owner = (Owner) service.login(OWNER_KEY, OWNER_PASSWORD);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		
-		// Check the arguments of the created customer match the ones we passed as argument.
+
+		// Check the arguments of the created customer match the ones we passed as
+		// argument.
 		assertNotNull(owner);
 		assertEquals(OWNER_KEY, owner.getEmail());
 		assertEquals(OWNER_PASSWORD, owner.getPassword());
 		assertEquals(OWNER_NAME, owner.getName());
 	}
-	
-	/*** Test the login service method when the user is not found.
+
+	/***
+	 * Test the login service method when the user is not found.
+	 * 
 	 * @author anaelle.drai
 	 */
 	@Test
 	public void testLoginNotFound() {
-		Person test= null;
+		Person test = null;
 		String error = null;
 		try {
 			test = (Owner) service.login("doesnotexist", "1234");
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check the person instance is null
 		assertNull(test);
 		assertEquals(error, "Invalid email");
 	}
-	
-	/*** Test the login service method when the password is incorrect.
+
+	/***
+	 * Test the login service method when the password is incorrect.
+	 * 
 	 * @author anaelle.drai
 	 */
 	@Test
 	public void testLoginWrongPassword() {
-		Person test= null;
+		Person test = null;
 		String error = null;
 		try {
 			test = (Owner) service.login(CUSTOMER_KEY, "wrong");
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check the person instance is null
 		assertNull(test);
 		assertEquals("Incorrect password", error);
 
 	}
-	
-	
+
 }

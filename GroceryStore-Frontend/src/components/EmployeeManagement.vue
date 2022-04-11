@@ -5,8 +5,6 @@
   </div>
   <div class="vertical-center">
 
-
-
   <div class="container">
     <div class="row d-md-flex">
       <div class="col-md-12 col-lg-6 half p-3 py-5 pl-lg-5" id = "firstHeader">
@@ -90,10 +88,6 @@
       </div>
     </div>
   </div>
-
-
-
-
 
     <div class="container">
       <div class="row d-md-flex">
@@ -321,12 +315,6 @@
     </div>
   </div>
 
-
-
-
-
-
-
     <h2 class="mb-4">Employees</h2>
 
     <table id="currentEmployees">
@@ -405,32 +393,16 @@
         style="color: green; padding-top: 20px"
       >{{ sucessUnasign }}</h5>
     </div>
-
-
-
-<br />
-                      <div class="col-md-12">
-              <a href="/#/ownermenu" class="button" id="button-1">Go back to menu</a>
-            </div>
-
-
-
+    <br />
+    <div class="col-md-12">
+    <a href="/#/ownermenu" class="button" id="button-1">Go back to menu</a>
+    </div>
 
 
 
 
 </div>
-
-
-
-
-
 </div>
-
-
-
-
-
 
 
 </template>

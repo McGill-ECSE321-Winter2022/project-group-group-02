@@ -124,15 +124,4 @@ public class Review {
 		order = null;
 	}
 
-	public String toString() {
-		return super.toString() + "[" + "id" + ":" + getId() + "," + "description" + ":" + getDescription() + "]"
-				+ System.getProperties().getProperty("line.separator") + "  " + "rating" + "="
-				+ (getRating() != null
-						? !getRating().equals(this) ? getRating().toString().replaceAll("  ", "    ") : "this"
-						: "null")
-				+ System.getProperties().getProperty("line.separator") + "  " + "customer = "
-				+ (getCustomer() != null ? Integer.toHexString(System.identityHashCode(getCustomer())) : "null")
-				+ System.getProperties().getProperty("line.separator") + "  " + "order = "
-				+ (getOrder() != null ? Integer.toHexString(System.identityHashCode(getOrder())) : "null");
-	}
 }

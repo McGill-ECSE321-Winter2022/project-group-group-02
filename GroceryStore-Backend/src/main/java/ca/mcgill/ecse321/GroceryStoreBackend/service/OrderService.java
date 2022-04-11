@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +37,7 @@ public class OrderService {
 	/**
 	 *
 	 * Creates an order in the system
+	 * 
 	 * @param aOrderType
 	 * @param aOrderStatus
 	 * @param aDate
@@ -51,7 +51,7 @@ public class OrderService {
 	public Order createOrder(String aOrderType, OrderStatus aOrderStatus, Date aDate, Time aTime, String email)
 			throws IllegalArgumentException {
 
-		if (aOrderType == null ||aOrderType.equals("") )
+		if (aOrderType == null || aOrderType.equals(""))
 			throw new IllegalArgumentException("Please enter a valid order type. ");
 		if (aOrderStatus == null)
 			throw new IllegalArgumentException("Please enter a valid order status. ");
@@ -64,9 +64,9 @@ public class OrderService {
 		if (aCustomer == null)
 			throw new IllegalArgumentException("Please enter a valid customer. ");
 
-//		Order order = orderRepo.findOrderById(orderId);
-//		if (order != null)
-//			throw new IllegalArgumentException("Order with ID already exists.");
+		// Order order = orderRepo.findOrderById(orderId);
+		// if (order != null)
+		// throw new IllegalArgumentException("Order with ID already exists.");
 
 		Order order = new Order(convertOrderType(aOrderType), aOrderStatus, aDate, aTime, aCustomer);
 		Order newOrder = orderRepo.save(order);
@@ -74,9 +74,9 @@ public class OrderService {
 
 	}
 
-
 	/**
 	 * Updates an order that is already in the system
+	 * 
 	 * @param aOrderStatus
 	 * @param orderId
 	 * @return order
@@ -91,16 +91,13 @@ public class OrderService {
 		if (order == null)
 			throw new IllegalArgumentException("Please enter a valid order. ");
 
-
 		if (aOrderStatus == null)
 			throw new IllegalArgumentException("Please enter a valid order status. ");
 
-
-		if(aOrderStatus.equals("Cancelled")) {
+		if (aOrderStatus.equals("Cancelled")) {
 
 			cancelOrder(orderId);
 			return null;
-
 
 		}
 
@@ -112,6 +109,7 @@ public class OrderService {
 
 	/**
 	 * Adds an item to the existing order
+	 * 
 	 * @param orderId
 	 * @param orderItemId
 	 * @return boolean
@@ -134,8 +132,7 @@ public class OrderService {
 		added = order.addOrderItem(item);
 
 		item.getItem().setQuantityAvailable(
-				item.getItem().getQuantityAvailable() - item.getQuantity()
-		);
+				item.getItem().getQuantityAvailable() - item.getQuantity());
 
 		return added;
 
@@ -143,6 +140,7 @@ public class OrderService {
 
 	/**
 	 * Removes an item from the existing order
+	 * 
 	 * @param orderId
 	 * @param orderItemId
 	 * @return boolean
@@ -165,14 +163,15 @@ public class OrderService {
 		removed = order.removeOrderItem(item);
 
 		item.getItem().setQuantityAvailable(
-				item.getItem().getQuantityAvailable() + item.getQuantity()
-		);
+				item.getItem().getQuantityAvailable() + item.getQuantity());
 
 		return removed;
 
 	}
+
 	/**
 	 * Delete an order from the system
+	 * 
 	 * @param orderId
 	 * @return boolean
 	 * @throws IllegalArgumentException
@@ -194,8 +193,7 @@ public class OrderService {
 			for (OrderItem item : listOfItems) {
 
 				item.getItem().setQuantityAvailable(
-						item.getItem().getQuantityAvailable() + item.getQuantity()
-				);
+						item.getItem().getQuantityAvailable() + item.getQuantity());
 
 				orderItemRepo.delete(item);
 			}
@@ -203,15 +201,16 @@ public class OrderService {
 			order.getOrderItems().clear();
 		}
 
-
 		order.setOrderStatus(convertOrderStatus("Cancelled"));
-//		orderRepo.delete(order);
-//		order.delete();
+		// orderRepo.delete(order);
+		// order.delete();
 		return true;
 
 	}
+
 	/**
 	 * Gets all the orders in the system
+	 * 
 	 * @return allOrders
 	 * @author Karl Rouhana
 	 */
@@ -221,11 +220,12 @@ public class OrderService {
 
 		List<Order> allOrders = toList(orderRepo.findAll());
 
-
 		return allOrders;
 	}
+
 	/**
 	 * Gets all order by a single customer in the system
+	 * 
 	 * @param email
 	 * @return allOrdersByCustomer
 	 * @throws IllegalArgumentException
@@ -248,6 +248,7 @@ public class OrderService {
 
 	/**
 	 * Gets the specified order
+	 * 
 	 * @param orderId
 	 * @return order
 	 * @throws IllegalArgumentException
@@ -269,6 +270,7 @@ public class OrderService {
 
 	/**
 	 * Gets the order price
+	 * 
 	 * @param orderId
 	 * @return total
 	 * @throws IllegalArgumentException
@@ -281,7 +283,7 @@ public class OrderService {
 			throw new IllegalArgumentException("Please enter a valid order ID. ");
 		Order order = orderRepo.findOrderById(orderId);
 		double total = 0;
-		for (OrderItem orderItem: order.getOrderItems()) {
+		for (OrderItem orderItem : order.getOrderItems()) {
 			total += orderItem.getQuantity() * orderItem.getItem().getPrice();
 		}
 		if (order.getOrderType() == OrderType.Delivery) {
@@ -291,7 +293,7 @@ public class OrderService {
 			String customerAddress = tempCustomer.getAddress();
 			customerAddress = customerAddress.toLowerCase();
 
-			if(!customerAddress.contains(store.getTown().toLowerCase())){
+			if (!customerAddress.contains(store.getTown().toLowerCase())) {
 				total += store.getDeliveryFee();
 			}
 
@@ -302,6 +304,7 @@ public class OrderService {
 
 	/**
 	 * Converts from a string to an order type
+	 * 
 	 * @param type
 	 * @return OrderType
 	 * @author Karl Rouhana
@@ -317,9 +320,9 @@ public class OrderService {
 
 	}
 
-
 	/**
 	 * Converts from a string to an order status
+	 * 
 	 * @param status
 	 * @return OrderStatus
 	 * @author Karl Rouhana
@@ -345,6 +348,7 @@ public class OrderService {
 
 	/**
 	 * Helper method to return a list of iterable object
+	 * 
 	 * @param <T>
 	 * @param iterable
 	 * @return resultList

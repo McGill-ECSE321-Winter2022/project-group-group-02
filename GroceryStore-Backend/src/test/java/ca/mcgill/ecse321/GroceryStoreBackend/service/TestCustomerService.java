@@ -31,7 +31,7 @@ public class TestCustomerService {
 
 	@Mock
 	private EmployeeRepository employeeDao;
-	
+
 	@Mock
 	private OwnerRepository ownerDao;
 
@@ -85,15 +85,16 @@ public class TestCustomerService {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		
-		// Check the arguments of the created customer match the ones we passed as argument.
+
+		// Check the arguments of the created customer match the ones we passed as
+		// argument.
 		assertNotNull(customer);
 		assertEquals(email, customer.getEmail());
 		assertEquals(password, customer.getPassword());
 		assertEquals(name, customer.getName());
 		assertEquals(address, customer.getAddress());
 	}
-	
+
 	@Test
 	public void testCreateCustomerNull() {
 		String error = null;
@@ -149,7 +150,7 @@ public class TestCustomerService {
 		assertNull(customer);
 		assertEquals("This email is already in use for a customer.", error);
 	}
-	
+
 	@Test
 	public void testCreateCustomerEmailInvalid() {
 		String error = null;
@@ -182,7 +183,7 @@ public class TestCustomerService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check the customer was not created and the correct error was thrown.
 		assertNull(customer);
 		assertEquals("Customer password must not be empty!", error);
@@ -201,7 +202,7 @@ public class TestCustomerService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check the customer was not created and the correct error was thrown.
 		assertNull(customer);
 		assertEquals("Customer password must not be empty!", error);
@@ -239,7 +240,7 @@ public class TestCustomerService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check the customer was not created and the correct error was thrown.
 		assertNull(customer);
 		assertEquals("Customer name must not be empty!", error);
@@ -299,6 +300,7 @@ public class TestCustomerService {
 
 		// Check the customer is not null & its arguments match the updated ones.
 		assertNotNull(customer);
+		assertNull(error);
 		assertEquals(CUSTOMER_KEY, customer.getEmail());
 		assertEquals(newAddress, customer.getAddress());
 		assertEquals(newName, customer.getName());
@@ -428,7 +430,7 @@ public class TestCustomerService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check the customer was not updated and the correct error was thrown.
 		assertNull(customer);
 		assertEquals("Customer not found.", error);
@@ -447,6 +449,7 @@ public class TestCustomerService {
 
 		// Check that the customer was successfully deleted.
 		assertTrue(success);
+		assertNull(error);
 	}
 
 	@Test
@@ -487,7 +490,7 @@ public class TestCustomerService {
 		// Check the customer was not deleted and the correct error was thrown.
 		assertEquals("Customer not found.", error);
 	}
-	
+
 	@Test
 	public void testGetCustomer() {
 		String error = null;
@@ -497,16 +500,17 @@ public class TestCustomerService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check we got the customer & its attributes match
 		assertNotNull(customer);
+		assertNull(error);
 		assertEquals(CUSTOMER_KEY, customer.getEmail());
 		assertEquals(CUSTOMER_PASSWORD, customer.getPassword());
 		assertEquals(CUSTOMER_ADDRESS, customer.getAddress());
 		assertEquals(CUSTOMER_NAME, customer.getName());
 
 	}
-	
+
 	@Test
 	public void testGetCustomerNotFound() {
 		String error = null;
@@ -521,5 +525,5 @@ public class TestCustomerService {
 		assertNull(customer);
 		assertEquals("Customer not found.", error);
 	}
-	
+
 }

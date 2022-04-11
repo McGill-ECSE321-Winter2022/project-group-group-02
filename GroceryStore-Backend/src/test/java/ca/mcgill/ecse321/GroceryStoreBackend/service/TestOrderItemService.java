@@ -169,7 +169,6 @@ public class TestOrderItemService {
 		lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
 
 		int quantityOrder = 1;
-		long itemId = 234L;
 		OrderItem orderItem = null;
 		try {
 			orderItem = orderItemService.createOrderItem(quantityOrder, name, ORDER_ID);
@@ -179,7 +178,7 @@ public class TestOrderItemService {
 		}
 
 		assertNotNull(orderItem);
-		//assertEquals(itemId, orderItem.getId());
+		// assertEquals(itemId, orderItem.getId());
 		assertEquals(quantityOrder, orderItem.getQuantity());
 		assertEquals(name, orderItem.getItem().getName());
 
@@ -196,7 +195,6 @@ public class TestOrderItemService {
 		lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
 
 		int quantityOrder = -1;
-		long itemId = 234L;
 		OrderItem orderItem = null;
 		String error = null;
 		try {
@@ -217,7 +215,6 @@ public class TestOrderItemService {
 		String name = "mafi item";
 
 		int quantityOrder = 1;
-		long itemId = 234L;
 		OrderItem orderItem = null;
 		String error = null;
 		try {
@@ -242,7 +239,6 @@ public class TestOrderItemService {
 		lenient().when(shoppableItemRepo.findByName(name)).thenReturn(item);
 
 		int quantityOrder = 1;
-		long itemId = 234L;
 		OrderItem orderItem = null;
 		Long fakeOrderId = 1L;
 		String error = null;
@@ -291,13 +287,12 @@ public class TestOrderItemService {
 		String error = null;
 		try {
 			item = orderItemService.updateOrderItem(ORDER_ITEM_ID, quantityOrdered, SHOPPABLE_ITEM_NAME, ORDER_ID);
-
 		} catch (IllegalArgumentException e) {
-
 			error = e.getMessage();
 		}
 
 		assertEquals(error, "Please enter a valid quantity. ");
+		assertNull(item);
 
 	}
 
@@ -317,7 +312,7 @@ public class TestOrderItemService {
 		}
 
 		assertEquals(error, "Please enter a valid item. ");
-
+		assertNull(item);
 	}
 
 	@Test

@@ -3,26 +3,24 @@ package ca.mcgill.ecse321.GroceryStoreBackend.model;
 import javax.persistence.*;
 
 @Entity
-public class Owner extends Person
-{
+public class Owner extends Person {
 
-  //------------------------
+  // ------------------------
   // MEMBER VARIABLES
-  //------------------------
+  // ------------------------
 
-  //Owner Attributes
+  // Owner Attributes
   private String email;
   private String password;
 
-  //------------------------
+  // ------------------------
   // CONSTRUCTOR
-  //------------------------
+  // ------------------------
 
-  public Owner(String aEmail, String aPassword, String aName)
-  {
+  public Owner(String aEmail, String aPassword, String aName) {
     super(aEmail, aPassword, aName);
-    email = "admin@grocerystore.com";
-    password = "1234";
+    this.email = "admin@grocerystore.com";
+    this.password = "1234";
   }
 
   public Owner() {
@@ -30,21 +28,17 @@ public class Owner extends Person
     email = "admin@grocerystore.com";
     password = "1234";
   }
-  //------------------------
+  // ------------------------
   // INTERFACE
-  //------------------------
+  // ------------------------
 
-
-  public void delete()
-  {
+  public void delete() {
     super.delete();
   }
-  
 
-  public String toString()
-  {
-    return super.toString() + "["+
-            "email" + ":" + getEmail()+ "," +
-            "password" + ":" + getPassword()+ "]";
+  public String toString() {
+    return super.toString() + "[" +
+        "email" + ":" + getEmail() + "," +
+        "password" + ":" + getPassword() + "]";
   }
 }

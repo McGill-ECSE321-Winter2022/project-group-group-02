@@ -4,6 +4,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -143,8 +144,9 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		
-		// Check the arguments of the created employee match the ones we passed as argument.
+
+		// Check the arguments of the created employee match the ones we passed as
+		// argument.
 		assertNotNull(employee);
 		assertEquals(email, employee.getEmail());
 		assertEquals(password, employee.getPassword());
@@ -205,7 +207,7 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check the employee was not created and the correct error was thrown.
 		assertNull(employee);
 		assertEquals("An employee with this email already exists.", error);
@@ -265,7 +267,7 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check the employee was not created and the correct error was thrown.
 		assertNull(employee);
 		assertEquals("Employee password must not be empty!", error);
@@ -347,6 +349,7 @@ public class TestEmployeeService {
 
 		// Check the employee is not null & its arguments match the updated ones.
 		assertNotNull(employee);
+		assertNull(error);
 		assertEquals(EMPLOYEE_KEY, employee.getEmail());
 		assertEquals(newSalary, employee.getSalary());
 		assertEquals(newName, employee.getName());
@@ -461,7 +464,7 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check the employee was not updated and the correct error was thrown.
 		assertNull(employee);
 		assertEquals("Employee not found.", error);
@@ -480,6 +483,7 @@ public class TestEmployeeService {
 
 		// Check that the employee was successfully deleted.
 		assertTrue(success);
+		assertNull(error);
 	}
 
 	@Test
@@ -492,9 +496,10 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check that the dailySchedule was successfully added to the employee
 		assertTrue(success);
+		assertNull(error);
 	}
 
 	@Test
@@ -507,8 +512,9 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check that the dailySchedule was not added and the correct error was thrown.
+		assertFalse(success);
 		assertEquals("Employee not found.", error);
 	}
 
@@ -522,9 +528,10 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check that the dailySchedule was not added and the correct error was thrown.
 		assertEquals("Daily Schedule not found.", error);
+		assertFalse(success);
 	}
 
 	@Test
@@ -537,9 +544,10 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
+
 		// Check that the dailySchedule was not added and the correct error was thrown.
 		assertEquals("Daily Schedule is already assigned to the employee.", error);
+		assertFalse(success);
 	}
 
 	@Test
@@ -552,9 +560,11 @@ public class TestEmployeeService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
-		// Check that the dailySchedule was successfully removed from the employee's dailySchedules
+
+		// Check that the dailySchedule was successfully removed from the employee's
+		// dailySchedules
 		assertTrue(success);
+		assertNull(error);
 	}
 
 	@Test
@@ -568,8 +578,10 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
-		// Check that the dailySchedule was not removed and the correct error was thrown.
+		// Check that the dailySchedule was not removed and the correct error was
+		// thrown.
 		assertEquals("Employee not found.", error);
+		assertFalse(success);
 	}
 
 	@Test
@@ -583,8 +595,10 @@ public class TestEmployeeService {
 			error = e.getMessage();
 		}
 
-		// Check that the dailySchedule was not removed and the correct error was thrown.
+		// Check that the dailySchedule was not removed and the correct error was
+		// thrown.
 		assertEquals("Daily Schedule not found.", error);
+		assertFalse(success);
 	}
 
 	@Test
@@ -593,16 +607,17 @@ public class TestEmployeeService {
 		String error = null;
 		boolean success = false;
 		try {
-			success = service.removeDailySchedule(EMPLOYEE_KEY,  123L);
+			success = service.removeDailySchedule(EMPLOYEE_KEY, 123L);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		
-		// Check that the dailySchedule was not removed and the correct error was thrown.
-		//assertEquals("Daily Schedule is not assigned to the employee.", error);
+
+		// Check that the dailySchedule was not removed and the correct error was
+		// thrown.
+		// assertEquals("Daily Schedule is not assigned to the employee.", error);
 		assertTrue(success);
+		assertNull(error);
 	}
-	
 
 	@Test
 	public void testDeleteEmployeeEmpty() {

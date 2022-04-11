@@ -225,7 +225,6 @@ public class TestOrderService {
 		Customer customer = customerService.createCustomer(email, password, name, address);
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
-		Long orderId = 558L;
 		String aOrderType = "PickUp";
 		OrderStatus aOrderStatus = OrderStatus.Confirmed;
 		Date date = Date.valueOf("2022-03-10");
@@ -253,8 +252,7 @@ public class TestOrderService {
 
 		String email = "noOneHas@thatEmail.com";
 
-		Long orderId = 557L;
-		String aOrderType ="Delivery";
+		String aOrderType = "Delivery";
 		OrderStatus aOrderStatus = OrderStatus.Ready;
 		Date date = Date.valueOf("2022-01-10");
 		Time time = Time.valueOf("06:00:00");
@@ -285,7 +283,6 @@ public class TestOrderService {
 		Customer customer = customerService.createCustomer(email, password, name, address);
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
-		Long orderId = 537L;
 		String aOrderType = null;
 		OrderStatus aOrderStatus = OrderStatus.Fulfilled;
 		Date date = Date.valueOf("2022-03-15");
@@ -317,7 +314,6 @@ public class TestOrderService {
 		Customer customer = customerService.createCustomer(email, password, name, address);
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
-		Long orderId = 5874L;
 		String aOrderType = "PickUp";
 		OrderStatus aOrderStatus = null;
 		Date date = Date.valueOf("2022-04-10");
@@ -349,7 +345,6 @@ public class TestOrderService {
 		Customer customer = customerService.createCustomer(email, password, name, address);
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
-		Long orderId = 55894L;
 		String aOrderType = "PickUp";
 		OrderStatus aOrderStatus = OrderStatus.Cancelled;
 		Date date = Date.valueOf("2022-03-10");
@@ -381,7 +376,6 @@ public class TestOrderService {
 		Customer customer = customerService.createCustomer(email, password, name, address);
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
-		Long orderId = 5536L;
 		String aOrderType = "PickUp";
 		OrderStatus aOrderStatus = OrderStatus.Delivering;
 		Date date = null;
@@ -402,34 +396,36 @@ public class TestOrderService {
 
 	}
 
-//	@Test
-//	public void testCreateOrderWithOrderIdAlreadyTaken() {
-//		String name = "Karl";
-//		String password = "passwordTest1";
-//		String email = "karl@localTown.com";
-//		String address = "1325 Depaneur Pa Kiwi";
-//
-//		Customer customer = customerService.createCustomer(email, password, name, address);
-//		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
-//
-//		String aOrderType ="PickUp";
-//		OrderStatus aOrderStatus = OrderStatus.Ready;
-//		Date date = Date.valueOf("2022-05-10");
-//		Time time = Time.valueOf("08:54:00");
-//
-//		Order order = null;
-//		String error = null;
-//		try {
-//			order = orderService.createOrder(aOrderType, aOrderStatus, date, time, email);
-//
-//		} catch (IllegalArgumentException e) {
-//			error = e.getMessage();
-//
-//		}
-//		assertNull(order);
-//		assertEquals(error, "Order with ID already exists.");
-//
-//	}
+	// @Test
+	// public void testCreateOrderWithOrderIdAlreadyTaken() {
+	// String name = "Karl";
+	// String password = "passwordTest1";
+	// String email = "karl@localTown.com";
+	// String address = "1325 Depaneur Pa Kiwi";
+	//
+	// Customer customer = customerService.createCustomer(email, password, name,
+	// address);
+	// lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
+	//
+	// String aOrderType ="PickUp";
+	// OrderStatus aOrderStatus = OrderStatus.Ready;
+	// Date date = Date.valueOf("2022-05-10");
+	// Time time = Time.valueOf("08:54:00");
+	//
+	// Order order = null;
+	// String error = null;
+	// try {
+	// order = orderService.createOrder(aOrderType, aOrderStatus, date, time,
+	// email);
+	//
+	// } catch (IllegalArgumentException e) {
+	// error = e.getMessage();
+	//
+	// }
+	// assertNull(order);
+	// assertEquals(error, "Order with ID already exists.");
+	//
+	// }
 
 	// -----------------------------------------------------------------------------------------------------------------------------------//
 
@@ -442,11 +438,10 @@ public class TestOrderService {
 
 		String aOrderStatus = "Confirmed";
 
-
 		Order order = null;
 
 		try {
-			order = orderService.updateOrder( aOrderStatus, ORDER_ID);
+			order = orderService.updateOrder(aOrderStatus, ORDER_ID);
 
 		} catch (IllegalArgumentException e) {
 			fail();
@@ -459,18 +454,15 @@ public class TestOrderService {
 
 	}
 
-	
-
 	@Test
 	public void testUpdateOrderNullStatus() {
 
 		String aOrderStatus = null;
 
-
 		Order order = null;
 		String error = null;
 		try {
-			order = orderService.updateOrder(aOrderStatus,  ORDER_ID);
+			order = orderService.updateOrder(aOrderStatus, ORDER_ID);
 
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -481,18 +473,16 @@ public class TestOrderService {
 
 	}
 
-	
 	@Test
 	public void testUpdateOrderWithInvalidOrderId() {
 
 		String aOrderStatus = "Cancelled";
 
-
 		Long fakeId = 34L;
 		Order order = null;
 		String error = null;
 		try {
-			order = orderService.updateOrder( aOrderStatus,  fakeId);
+			order = orderService.updateOrder(aOrderStatus, fakeId);
 
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
@@ -503,7 +493,7 @@ public class TestOrderService {
 
 	}
 
-//-----------------------------------------------------------------------------------------------------------------------------------//
+	// -----------------------------------------------------------------------------------------------------------------------------------//
 
 	/**
 	 * Tests for add items to order
@@ -551,6 +541,8 @@ public class TestOrderService {
 		}
 
 		assertFalse(added);
+		assertNull(order);
+		assertNull(orderItem);
 		assertEquals(error, "Please enter a valid item to add to the order. ");
 	}
 
@@ -558,8 +550,6 @@ public class TestOrderService {
 	public void testAddItemsToOrderInvalidOrder() {
 
 		boolean added = false;
-		Order order = null;
-		OrderItem orderItem = null;
 		String error = null;
 		Long fakeOrderId = 1256L;
 
@@ -574,7 +564,7 @@ public class TestOrderService {
 		assertEquals(error, "Please enter a valid order. ");
 	}
 
-//-----------------------------------------------------------------------------------------------------------------------------------//
+	// -----------------------------------------------------------------------------------------------------------------------------------//
 
 	/**
 	 * Tests for remove items from order
@@ -608,8 +598,6 @@ public class TestOrderService {
 	public void testRemoveItemsToOrderInvalidOrderItem() {
 
 		boolean removed = false;
-		Order order = null;
-		OrderItem orderItem = null;
 		String error = null;
 		Long fakeOrderItemId = 1256L;
 
@@ -628,8 +616,6 @@ public class TestOrderService {
 	public void testRemoveItemsToOrderInvalidOrder() {
 
 		boolean removed = false;
-		Order order = null;
-		OrderItem orderItem = null;
 		String error = null;
 		Long fakeOrderId = 1256L;
 
@@ -662,7 +648,7 @@ public class TestOrderService {
 		lenient().when(customerRepo.findByEmail(email)).thenReturn(customer);
 
 		Long orderId = 558L;
-		String aOrderType ="PickUp";
+		String aOrderType = "PickUp";
 		OrderStatus aOrderStatus = OrderStatus.Confirmed;
 		Date date = Date.valueOf("2022-03-10");
 		Time time = Time.valueOf("08:00:00");
@@ -745,7 +731,6 @@ public class TestOrderService {
 
 	}
 
-	
 	// -----------------------------------------------------------------------------------------------------------------------------------//
 
 	/**

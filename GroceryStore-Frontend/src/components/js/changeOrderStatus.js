@@ -1,6 +1,7 @@
 import axios from 'axios'
 var config = require('../../../config')
 
+// Setup frontend and backend urls
 var backendConfigurer = function(){
 	switch(process.env.NODE_ENV){
       case 'development':
@@ -169,11 +170,5 @@ export default {
 
         })
     },
-
-
-
-
   }
-
-
 }

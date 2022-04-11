@@ -35,7 +35,6 @@ public class TestDailyScheduleService {
 	private static final Time DAILYSCHEDULE_STARTTIME = Time.valueOf("08:00:00");
 	private static final Time DAILYSCHEDULE_ENDTIME = Time.valueOf("20:00:00");
 	private static final DayOfWeek DAILYSCHEDULE_DAYOFWEEK = DayOfWeek.Monday;
-	
 
 	@BeforeEach
 	public void setMockOutput() {
@@ -63,13 +62,12 @@ public class TestDailyScheduleService {
 	}
 
 	@Test
-	public void testCreateDailySchedule() {//Normal use case
+	public void testCreateDailySchedule() {// Normal use case
 		assertEquals(0, dailyScheduleService.getAllDailySchedules().size());
 
 		DayOfWeek dayOfWeek = DayOfWeek.Monday;
 		Time startTime = Time.valueOf("08:00:00");
 		Time endTime = Time.valueOf("20:00:00");
-		Long did = 220L;
 		DailySchedule dailySchedule = null;
 
 		try {
@@ -79,7 +77,7 @@ public class TestDailyScheduleService {
 			// Check that no error occurred
 			fail();
 		}
-        //check the inputs are correctly passed
+		// check the inputs are correctly passed
 		assertNotNull(dailySchedule);
 		assertEquals(dayOfWeek, dailySchedule.getDayOfWeek());
 		assertEquals(startTime, dailySchedule.getStartTime());
@@ -89,11 +87,10 @@ public class TestDailyScheduleService {
 	@Test
 	public void testCreateDailyScheduleNullDOW() {
 		String error = null;
-		DayOfWeek dayOfWeek = null; //Null day of week
+		DayOfWeek dayOfWeek = null; // Null day of week
 		Time startTime = Time.valueOf("08:00:00");
 		Time endTime = Time.valueOf("20:00:00");
 		DailySchedule dailySchedule = null;
-		Long did = 222L;
 
 		try {
 			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
@@ -101,7 +98,7 @@ public class TestDailyScheduleService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-        //check if the dailyschedule is not created
+		// check if the dailyschedule is not created
 		assertNull(dailySchedule);
 		// check if the error message is correct
 		assertEquals("Please enter a valid day of week", error);
@@ -114,7 +111,6 @@ public class TestDailyScheduleService {
 		Time startTime = null;
 		Time endTime = Time.valueOf("20:00:00");
 		DailySchedule dailySchedule = null;
-		Long did = 222L;
 
 		try {
 			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
@@ -122,8 +118,8 @@ public class TestDailyScheduleService {
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-        
-		//check the inputs are correctly passed
+
+		// check the inputs are correctly passed
 		assertNull(dailySchedule);
 		// check error
 		assertEquals("Please enter a valid start time", error);
@@ -136,7 +132,6 @@ public class TestDailyScheduleService {
 		Time startTime = Time.valueOf("08:00:00");
 		Time endTime = null;
 		DailySchedule dailySchedule = null;
-		Long did = 222L;
 
 		try {
 			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
@@ -145,47 +140,40 @@ public class TestDailyScheduleService {
 			error = e.getMessage();
 		}
 
-		//check if the dailyschedule is not created
+		// check if the dailyschedule is not created
 		assertNull(dailySchedule);
 		// check error
 		assertEquals("Please enter a valid end time", error);
 	}
- 
 
-
-    @Test
+	@Test
 	public void testCreateDailyScheduleInvalidTimePeriod() {
-        String error = null;
-        DayOfWeek dayOfWeek = DayOfWeek.Monday;
+		String error = null;
+		DayOfWeek dayOfWeek = DayOfWeek.Monday;
 		Time startTime = Time.valueOf("20:00:00");
 		Time endTime = Time.valueOf("08:00:00");
 		DailySchedule dailySchedule = null;
-		Long did = 289L;
 
 		try {
 			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
 
-    } catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 
-		//check if the dailyschedule is not created
+		// check if the dailyschedule is not created
 		assertNull(dailySchedule);
 		// check error
 		assertEquals("Daily Schedule end time cannot be before start time", error);
 	}
 
-
-
-
 	@Test
-	public void testUpdateDailySchedule() { //Normal use case
+	public void testUpdateDailySchedule() { // Normal use case
 		String error = null;
 		DayOfWeek dayOfWeek = DayOfWeek.Tuesday;
 		Time startTime = Time.valueOf("09:00:00");
 		Time endTime = Time.valueOf("21:00:00");
 		DailySchedule dailySchedule = null;
-		Long did = 222L;
 
 		try {
 			dailySchedule = dailyScheduleService.createDailySchedule(dayOfWeek, startTime, endTime);
@@ -194,8 +182,9 @@ public class TestDailyScheduleService {
 			error = e.getMessage();
 		}
 
-		 //check the inputs are correctly passed
+		// check the inputs are correctly passed
 		assertNotNull(dailySchedule);
+		assertNull(error);
 		assertEquals(dayOfWeek, dailySchedule.getDayOfWeek());
 		assertEquals(startTime, dailySchedule.getStartTime());
 		assertEquals(endTime, dailySchedule.getEndTime());
@@ -216,7 +205,7 @@ public class TestDailyScheduleService {
 			error = e.getMessage();
 		}
 
-		//check if the dailyschedule is not updated
+		// check if the dailyschedule is not updated
 		assertNull(dailySchedule);
 		assertEquals("No daily schedule found", error);
 	}
@@ -236,7 +225,7 @@ public class TestDailyScheduleService {
 			error = e.getMessage();
 		}
 
-		//check if the dailyschedule is not updated
+		// check if the dailyschedule is not updated
 		assertNull(dailySchedule);
 		assertEquals("Please enter a valid day of week", error);
 	}
@@ -256,7 +245,7 @@ public class TestDailyScheduleService {
 			error = e.getMessage();
 		}
 
-		//check if the dailyschedule is not updated
+		// check if the dailyschedule is not updated
 		assertNull(dailySchedule);
 		assertEquals("Please enter a valid start time", error);
 	}
@@ -276,35 +265,34 @@ public class TestDailyScheduleService {
 			error = e.getMessage();
 		}
 
-		//check if the dailyschedule is not updated
+		// check if the dailyschedule is not updated
 		assertNull(dailySchedule);
 		assertEquals("Please enter a valid end time", error);
 	}
 
 	@Test
 	public void testUpdateDailyScheduleInvalidTimePeriod() {
-        String error = null;
-        DayOfWeek dayOfWeek = DayOfWeek.Tuesday;
+		String error = null;
+		DayOfWeek dayOfWeek = DayOfWeek.Tuesday;
 		Time startTime = Time.valueOf("20:00:00");
 		Time endTime = Time.valueOf("08:00:00");
 		DailySchedule dailySchedule = null;
 
 		try {
-			dailySchedule = dailyScheduleService.updateDailySchedule(DAILYSCHEDULE_KEY,dayOfWeek, startTime, endTime);
+			dailySchedule = dailyScheduleService.updateDailySchedule(DAILYSCHEDULE_KEY, dayOfWeek, startTime, endTime);
 
-    } catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 
-		//check if the dailyschedule is not updated
+		// check if the dailyschedule is not updated
 		assertNull(dailySchedule);
 		// check if the error message is correct
 		assertEquals("Daily Schedule end time cannot be before start time", error);
 	}
 
-
-    @Test
-	public void testDeleteDailySchedule() { //normal use case
+	@Test
+	public void testDeleteDailySchedule() { // normal use case
 
 		String error = null;
 		boolean success = false;
@@ -315,8 +303,9 @@ public class TestDailyScheduleService {
 			error = e.getMessage();
 		}
 
-		//check if the daily schedule is deleted
+		// check if the daily schedule is deleted
 		assertTrue(success);
+		assertNull(error);
 	}
 
 	@Test
@@ -328,7 +317,7 @@ public class TestDailyScheduleService {
 			error = e.getMessage();
 		}
 
-		//check if the error message is correct
+		// check if the error message is correct
 		assertEquals("Id cannot be empty", error);
 	}
 
@@ -343,7 +332,7 @@ public class TestDailyScheduleService {
 			error = e.getMessage();
 		}
 
-		//check if the error message is correct
+		// check if the error message is correct
 		assertEquals("Daily schedule not found", error);
 	}
 }

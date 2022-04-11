@@ -1,6 +1,7 @@
 import axios from 'axios'
 var config = require('../../../config')
 
+// Setup the frontend and backend urls
 var backendConfigurer = function(){
 	switch(process.env.NODE_ENV){
       case 'development':
@@ -27,7 +28,6 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
-
 
 
 export default {
@@ -94,16 +94,9 @@ export default {
           this.errorViewEmployees = e.response.data
           console.log(this.errorViewEmployees)
         })
-
-
-
     },
 
-
-
     methods:{
-
-
       /**
        * @author Karl Rouhana
        * @param {String} email
@@ -118,17 +111,12 @@ export default {
         //Call backend with correct parameters
         AXIOS.post('/create_employee',{},{
           params:{
-
             email: email,
             password: password,
             name: name,
             salary: salary,
-
           }
-
-
         })
-
           .then(response =>{
 
             //Refresh the employees
@@ -250,9 +238,7 @@ export default {
                 this.errorFire = e.response.data
                 console.log(this.errorFire)
               })
-
-
-
+              
           })
           .catch(e => {
             this.successFire = ''
@@ -323,8 +309,6 @@ export default {
 
 
 
-
-
       /**
       * @author Karl Rouhana
       * @param {Employee} employee 
@@ -343,7 +327,6 @@ export default {
           }
 
         })
-
           .then(response =>{
 
             AXIOS.get('/view_employees', {})
@@ -368,9 +351,6 @@ export default {
                 this.errorUnassign = e.response.data
                 console.log(this.errorUnassign)
               })
-
-
-
           })
           .catch(e => {
             this.errorUnassign = e.response.data

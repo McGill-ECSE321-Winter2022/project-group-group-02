@@ -1,6 +1,7 @@
 import axios from 'axios'
 var config = require('../../../config')
 
+// Setup the frontend and backend urls
 var backendConfigurer = function(){
 	switch(process.env.NODE_ENV){
       case 'development':
@@ -27,11 +28,6 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
-
-function BasketItemDTO (itemName, quantityDesired) {
-    this.itemName = itemName
-    this.quantityDesired = quantityDesired
-}
 
 
 export default {

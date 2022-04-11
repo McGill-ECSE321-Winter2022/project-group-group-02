@@ -22,15 +22,14 @@ public class OwnerController {
 	@Autowired
 	private OwnerService ownerService;
 
-	
 	/**
-     * @author Matthieu Hakim
-     * Gets the owner
-     * @return OwnerDto
-     */
+	 * @author Matthieu Hakim
+	 *         Gets the owner
+	 * @return OwnerDto
+	 */
 	@GetMapping(value = { "/view_owner/", "/view_owner" })
 	public ResponseEntity<?> viewOwner() {
-		if (ownerService.getOwner() == null)  {
+		if (ownerService.getOwner() == null) {
 			return new ResponseEntity<>("Owner not created", HttpStatus.INTERNAL_SERVER_ERROR);
 		} else {
 			return new ResponseEntity<>(convertToDTO(ownerService.getOwner()), HttpStatus.OK);
@@ -38,13 +37,13 @@ public class OwnerController {
 	}
 
 	/**
-     * @author Matthieu Hakim
-     * Creates the owner
-     * @param name
-     * @param password
-     * @param email
-     * @return OwnerDTO
-     */
+	 * @author Matthieu Hakim
+	 *         Creates the owner
+	 * @param name
+	 * @param password
+	 * @param email
+	 * @return OwnerDTO
+	 */
 	@PostMapping(value = { "/create_owner/", "/create_owner" })
 	public ResponseEntity<?> createOwner(@RequestParam("name") String name, @RequestParam("password") String password,
 			@RequestParam("email") String email) {
@@ -60,59 +59,58 @@ public class OwnerController {
 	}
 
 	/**
-     * @author Matthieu Hakim
-     * Updates the password of the owner
-     * @param newPassword
-     * @return OwnerDTO
-     */
+	 * @author Matthieu Hakim
+	 *         Updates the password of the owner
+	 * @param newPassword
+	 * @return OwnerDTO
+	 */
 	@PutMapping(value = { "/update_owner_password/", "/update_owner_password" })
 	public ResponseEntity<?> updateOwnerPassword(@RequestParam("newPassword") String newPassword) {
 		try {
 			Owner owner = ownerService.updateOwnerPassword(newPassword);
 			return new ResponseEntity<>(convertToDTO(owner), HttpStatus.OK);
 
-		}catch(IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	/**
-     * @author Matthieu Hakim
-     * Updates the name of the owner
-     * @param newName
-     * @return OwnerDTO
-     */
+	 * @author Matthieu Hakim
+	 *         Updates the name of the owner
+	 * @param newName
+	 * @return OwnerDTO
+	 */
 	@PutMapping(value = { "/update_owner_name/", "/update_owner_name" })
 	public ResponseEntity<?> updateOwnerName(@RequestParam("newName") String newName) {
 		try {
 			Owner owner = ownerService.updateOwnerName(newName);
 			return new ResponseEntity<>(convertToDTO(owner), HttpStatus.OK);
 
-		}catch(IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	/**
-     * @author Matthieu Hakim
-     * Deletes the owner
-     * @return true if owner has been deleted
-     */
+	 * @author Matthieu Hakim
+	 *         Deletes the owner
+	 * @return true if owner has been deleted
+	 */
 	@DeleteMapping(value = { "/delete_owner", "/delete_owner/" })
 	public boolean deleteCustomer() throws Exception {
 		try {
 			return ownerService.deleteOwner();
 		} catch (Exception e) {
-			String error = e.getMessage();
 			return false;
 		}
 	}
 
 	/**
-     * @author Matthieu Hakim
-     * Converts Owner object to OwnerDto
-     * @return OwnerDto
-     */
+	 * @author Matthieu Hakim
+	 *         Converts Owner object to OwnerDto
+	 * @return OwnerDto
+	 */
 	public static OwnerDto convertToDTO(Owner owner) {
 		if (owner == null)
 			return null;

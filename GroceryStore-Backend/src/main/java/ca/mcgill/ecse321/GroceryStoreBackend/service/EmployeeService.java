@@ -12,7 +12,6 @@ import ca.mcgill.ecse321.GroceryStoreBackend.dao.CustomerRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.DailyScheduleRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.EmployeeRepository;
 import ca.mcgill.ecse321.GroceryStoreBackend.dao.OwnerRepository;
-import ca.mcgill.ecse321.GroceryStoreBackend.model.Customer;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.DailySchedule;
 import ca.mcgill.ecse321.GroceryStoreBackend.model.Employee;
 
@@ -21,18 +20,19 @@ public class EmployeeService {
 
 	@Autowired
 	CustomerRepository customerRepository;
-	
+
 	@Autowired
 	EmployeeRepository employeeRepository;
 
 	@Autowired
 	OwnerRepository ownerRepository;
 
-
 	@Autowired
 	DailyScheduleRepository dailyScheduleRepository;
 
-	/*** Service method for the creation of an employee. Returns the created instance if there was no error.
+	/***
+	 * Service method for the creation of an employee. Returns the created instance
+	 * if there was no error.
 	 * 
 	 * @author anaelle.drai
 	 * @param email
@@ -59,15 +59,14 @@ public class EmployeeService {
 		// Checking the employee does not already exist in the system
 		Employee employee = employeeRepository.findByEmail(email);
 
-		
-		if (customerRepository.existsByEmail(email) ) {
+		if (customerRepository.existsByEmail(email)) {
 			throw new IllegalArgumentException("This email is already in use for a customer.");
 		}
-		
-		if (ownerRepository.existsByEmail(email) ) {
+
+		if (ownerRepository.existsByEmail(email)) {
 			throw new IllegalArgumentException("This is the owner's email.");
 		}
-		
+
 		if (employee != null) {
 			throw new IllegalArgumentException("An employee with this email already exists.");
 		}
@@ -82,7 +81,9 @@ public class EmployeeService {
 		return employee;
 	}
 
-	/*** Updates the employee information, and returns the updated instance if there was no error.
+	/***
+	 * Updates the employee information, and returns the updated instance if there
+	 * was no error.
 	 *
 	 * @author anaelle.drai
 	 * @param email
@@ -117,8 +118,9 @@ public class EmployeeService {
 		return employee;
 	}
 
-	
-	/*** Adds a dailySchedule to the dailySchedules of an employee, returns a boolean for success.
+	/***
+	 * Adds a dailySchedule to the dailySchedules of an employee, returns a boolean
+	 * for success.
 	 * 
 	 * @author anaelle.drai
 	 * @param email
@@ -148,7 +150,7 @@ public class EmployeeService {
 				throw new IllegalArgumentException("Daily Schedule is already assigned to the employee.");
 			}
 		}
-		
+
 		// Add the dailySchedule
 		dailySchedules.add(dailySchedule);
 		employee.setDailySchedules(dailySchedules);
@@ -156,7 +158,9 @@ public class EmployeeService {
 		return true;
 	}
 
-	/*** Removes a dailySchedule from the employee's dailySchedules and returns a boolean for success.
+	/***
+	 * Removes a dailySchedule from the employee's dailySchedules and returns a
+	 * boolean for success.
 	 * 
 	 * @author anaelle.drai
 	 * @param email
@@ -177,26 +181,29 @@ public class EmployeeService {
 		} else if (dailySchedule == null) {
 			throw new IllegalArgumentException("Daily Schedule not found.");
 		}
-		
+
 		employee.removeDailySchedule(dailySchedule);
 		employeeRepository.save(employee);
 		return true;
-		
-		// Checking the dailySchedule is in the employee's dailySchedyles and in that case, remove it and return.
-//		List<DailySchedule> dailySchedules = employee.getDailySchedules();
-//
-//		for (DailySchedule d : dailySchedules) {
-//			if (d.getId() == id) {
-//				dailySchedules.remove(d);
-//				employee.setDailySchedules(dailySchedules);
-//				employeeRepository.save(employee);
-//				return true;
-//			}
-//		}
-		//throw new IllegalArgumentException("Daily Schedule is not assigned to the employee.");
+
+		// Checking the dailySchedule is in the employee's dailySchedyles and in that
+		// case, remove it and return.
+		// List<DailySchedule> dailySchedules = employee.getDailySchedules();
+		//
+		// for (DailySchedule d : dailySchedules) {
+		// if (d.getId() == id) {
+		// dailySchedules.remove(d);
+		// employee.setDailySchedules(dailySchedules);
+		// employeeRepository.save(employee);
+		// return true;
+		// }
+		// }
+		// throw new IllegalArgumentException("Daily Schedule is not assigned to the
+		// employee.");
 	}
 
-	/*** Returns a list of all the employees in the system.
+	/***
+	 * Returns a list of all the employees in the system.
 	 * 
 	 * @author anaelle.drai
 	 * @return employees
@@ -206,7 +213,8 @@ public class EmployeeService {
 		return toList(employeeRepository.findAll());
 	}
 
-	/*** Return the employee associated with the email if it exists in the system.
+	/***
+	 * Return the employee associated with the email if it exists in the system.
 	 * 
 	 * @author anaelle.drai
 	 * @param email
@@ -219,11 +227,13 @@ public class EmployeeService {
 		if (employee == null) {
 			throw new IllegalArgumentException("Employee not found.");
 		}
-		
+
 		return employee;
 	}
 
-	/*** Deletes the employee from the system if there is no error and returns true in this case.
+	/***
+	 * Deletes the employee from the system if there is no error and returns true in
+	 * this case.
 	 * 
 	 * @author anaelle.drai
 	 * @param email
@@ -231,7 +241,7 @@ public class EmployeeService {
 	 */
 	@Transactional
 	public boolean deleteEmployee(String email) {
-		
+
 		// Checking the input is valid
 		if (email == null || email.isEmpty()) {
 			throw new IllegalArgumentException("Employee email cannot be empty!");
@@ -246,10 +256,11 @@ public class EmployeeService {
 
 		// Delete the employee
 		employeeRepository.deleteByEmail(email);
-		return true;      
+		return true;
 	}
 
-	/*** Converts an iterable into a list.
+	/***
+	 * Converts an iterable into a list.
 	 * 
 	 * @author anaelle.drai
 	 * @param <T>

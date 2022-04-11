@@ -1,8 +1,7 @@
 import axios from 'axios'
-import JQuery from 'jquery'
-let $ = JQuery
 var config = require('../../../config')
 
+// Setup the backend and frontend urls
 var backendConfigurer = function(){
 	switch(process.env.NODE_ENV){
       case 'development':

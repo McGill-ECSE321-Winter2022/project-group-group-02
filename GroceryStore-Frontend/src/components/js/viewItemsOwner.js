@@ -1,8 +1,7 @@
 import axios from 'axios'
-
 var config = require('../../../config')
 
-
+// Setup the backend and frontend urls
 var backendConfigurer = function(){
 	switch(process.env.NODE_ENV){
       case 'development':
@@ -28,7 +27,6 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
-
 
 
 export default {

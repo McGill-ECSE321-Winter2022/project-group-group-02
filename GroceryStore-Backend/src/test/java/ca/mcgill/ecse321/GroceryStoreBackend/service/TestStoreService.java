@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.lenient;
 
@@ -89,7 +88,6 @@ public class TestStoreService {
 				dailySchedule.setStartTime(DAILYSCHEDULE_STARTTIME);
 				dailySchedule.setEndTime(DAILYSCHEDULE_ENDTIME);
 				dailySchedule.setId(DAILYSCHEDULE_KEY);
-	
 
 				return dailySchedule;
 			} else if (invocation.getArgument(0).equals(DAILYSCHEDULE_KEY2)) {
@@ -113,34 +111,34 @@ public class TestStoreService {
 	}
 
 	@Test
-	public void testCreateStore() { //normal use case
+	public void testCreateStore() { // normal use case
 		assertEquals(0, storeService.getAllStores().size());
 		String town = "FakeTown";
 		Double delifee = 45d;
 		Store store = null;
 		Long sid = 222L;
 
-      try {
+		try {
 
-        store = storeService.createStore(sid, town,delifee);
-    } catch (IllegalArgumentException e) {
-        // Check that no error occurred
-        fail();
-    }
+			store = storeService.createStore(sid, town, delifee);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
 
-	//check the inputs are correctly passed
-    assertNotNull(store);
-    assertEquals(town, store.getTown());
-    assertEquals(delifee, store.getDeliveryFee());
-    
-}
-   
-@Test
+		// check the inputs are correctly passed
+		assertNotNull(store);
+		assertEquals(town, store.getTown());
+		assertEquals(delifee, store.getDeliveryFee());
+
+	}
+
+	@Test
 	public void testCreateStoreNullTown() {
-        String error = null;
-        String town = null;
-	    Double delifee = 45d;
-        Store store = null;
+		String error = null;
+		String town = null;
+		Double delifee = 45d;
+		Store store = null;
 		Long sid = 222L;
 
 		try {
@@ -149,18 +147,18 @@ public class TestStoreService {
 			error = e.getMessage();
 		}
 
-		//check if the store is not created
+		// check if the store is not created
 		assertNull(store);
 		// check error
 		assertEquals("Please enter a town", error);
 	}
 
-    @Test
+	@Test
 	public void testCreateStoreEmptyTown() {
-        String error = null;
-        String town = "";
-	    Double delifee = 45d;
-        Store store = null;
+		String error = null;
+		String town = "";
+		Double delifee = 45d;
+		Store store = null;
 		Long sid = 222L;
 
 		try {
@@ -169,7 +167,7 @@ public class TestStoreService {
 			error = e.getMessage();
 		}
 
-		//check if the store is not created
+		// check if the store is not created
 		assertNull(store);
 		// check error
 		assertEquals("Please enter a town", error);
@@ -189,7 +187,7 @@ public class TestStoreService {
 			error = e.getMessage();
 		}
 
-		//check if the store is not created
+		// check if the store is not created
 		assertNull(store);
 		// check error
 		assertEquals("Please enter a delivery fee", error);
@@ -209,29 +207,29 @@ public class TestStoreService {
 			error = e.getMessage();
 		}
 
-		//check if the store is not created
+		// check if the store is not created
 		assertNull(store);
 		// check error
 		assertEquals("The delivery fee cannot be negative", error);
 	}
 
 	@Test
-	public void testUpdateStore() { //Normal use case
+	public void testUpdateStore() { // Normal use case
 		String error = null;
 		String town = "FakeTown";
 		Double delifee = 45d;
 		Store store = null;
 
-
 		try {
-       
+
 			store = storeService.updateStore(STORE_KEY, town, delifee);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 
-		//check the inputs are correctly passed
+		// check the inputs are correctly passed
 		assertNotNull(store);
+		assertNull(error);
 		assertEquals(STORE_KEY, store.getId());
 		assertEquals(town, store.getTown());
 		assertEquals(delifee, store.getDeliveryFee());
@@ -246,18 +244,18 @@ public class TestStoreService {
 		Long sid = 000L;
 		Store store = null;
 
-		
 		try {
-           
+
 			store = storeService.updateStore(sid, town, delifee);
 
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 
-		//check if the store is not updated
+		// check if the store is not updated
 		assertNotNull(store);
-		//assertEquals(STORE_KEY, store.getId());
+		assertNull(error);
+		// assertEquals(STORE_KEY, store.getId());
 		assertEquals(town, store.getTown());
 		assertEquals(delifee, store.getDeliveryFee());
 
@@ -276,9 +274,9 @@ public class TestStoreService {
 			error = e.getMessage();
 		}
 
-		//check if the store is not updated
+		// check if the store is not updated
 		assertNull(store);
-		//check error message
+		// check error message
 		assertEquals("Please enter a town", error);
 	}
 
@@ -295,9 +293,9 @@ public class TestStoreService {
 			error = e.getMessage();
 		}
 
-		//check if the store is not updated
+		// check if the store is not updated
 		assertNull(store);
-		//check error message
+		// check error message
 		assertEquals("Please enter a town", error);
 	}
 
@@ -314,9 +312,9 @@ public class TestStoreService {
 			error = e.getMessage();
 		}
 
-		//check if the store is not updated
+		// check if the store is not updated
 		assertNull(store);
-		//check error message
+		// check error message
 		assertEquals("Please enter a delivery fee", error);
 	}
 
@@ -333,14 +331,14 @@ public class TestStoreService {
 			error = e.getMessage();
 		}
 
-		//check if the store is not updated
+		// check if the store is not updated
 		assertNull(store);
-		//check error message
+		// check error message
 		assertEquals("The delivery fee cannot be negative", error);
 	}
 
 	@Test
-	public void testDeleteStore() { //normal use case
+	public void testDeleteStore() { // normal use case
 
 		String error = null;
 		boolean success = false;
@@ -351,8 +349,9 @@ public class TestStoreService {
 			error = e.getMessage();
 		}
 
-		//check if the store is deleted
+		// check if the store is deleted
 		assertTrue(success);
+		assertNull(error);
 	}
 
 	@Test
@@ -364,7 +363,7 @@ public class TestStoreService {
 			error = e.getMessage();
 		}
 
-		//check error message
+		// check error message
 		assertEquals("Id cannot be empty", error);
 	}
 
@@ -379,23 +378,24 @@ public class TestStoreService {
 			error = e.getMessage();
 		}
 
-		//check error message
+		// check error message
 		assertEquals("Store not found", error);
 	}
 
 	@Test
-	public void testAddDailyScheduleForStore() { //normal use case
+	public void testAddDailyScheduleForStore() { // normal use case
 		String error = null;
-	
+
 		boolean success = false;
 		try {
-			success = storeService.addDailyScheduleToStore(STORE_KEY,DAILYSCHEDULE_KEY2);
+			success = storeService.addDailyScheduleToStore(STORE_KEY, DAILYSCHEDULE_KEY2);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 
-		//check if daily schedule is added to the store
+		// check if daily schedule is added to the store
 		assertTrue(success);
+		assertNull(error);
 	}
 
 	@Test
@@ -403,41 +403,42 @@ public class TestStoreService {
 		String error = null;
 		boolean success = false;
 		try {
-			success = storeService.addDailyScheduleToStore(77L ,DAILYSCHEDULE_KEY2);
+			success = storeService.addDailyScheduleToStore(77L, DAILYSCHEDULE_KEY2);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertFalse(success);
-		//check error message
+		// check error message
 		assertEquals("Store not found", error);
 	}
 
 	@Test
 	public void testAddDailyScheduleForStoreDailyScheduleNotFound() {
 		String error = null;
-	
+
 		boolean success = false;
 		try {
-			success = storeService.addDailyScheduleToStore(STORE_KEY ,77L);
+			success = storeService.addDailyScheduleToStore(STORE_KEY, 77L);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertFalse(success);
-		//check error message
+		// check error message
 		assertEquals("Daily schedule not found", error);
 	}
 
 	@Test
-	public void testDeleteDailyScheduleForStore() { //normal use case
+	public void testDeleteDailyScheduleForStore() { // normal use case
 		String error = null;
 		boolean success = false;
 		try {
-			success = storeService.deleteDailyScheduleToStore(STORE_KEY ,DAILYSCHEDULE_KEY2);
+			success = storeService.deleteDailyScheduleToStore(STORE_KEY, DAILYSCHEDULE_KEY2);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		//check if the dailyschedule is deleted
+		// check if the dailyschedule is deleted
 		assertTrue(success);
+		assertNull(error);
 	}
 
 	@Test
@@ -445,28 +446,28 @@ public class TestStoreService {
 		String error = null;
 		boolean success = false;
 		try {
-			success = storeService.deleteDailyScheduleToStore(77L ,DAILYSCHEDULE_KEY2);
+			success = storeService.deleteDailyScheduleToStore(77L, DAILYSCHEDULE_KEY2);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertFalse(success);
-		//check error message
+		// check error message
 		assertEquals("Store not found", error);
 	}
 
 	@Test
 	public void tesDeleteDailyScheduleForStoreDailyScheduleNotFound() {
 		String error = null;
-	
+
 		boolean success = false;
 		try {
-			success = storeService.deleteDailyScheduleToStore(STORE_KEY ,77L);
+			success = storeService.deleteDailyScheduleToStore(STORE_KEY, 77L);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertFalse(success);
-		//check error message
+		// check error message
 		assertEquals("Daily schedule not found", error);
 	}
-  
+
 }

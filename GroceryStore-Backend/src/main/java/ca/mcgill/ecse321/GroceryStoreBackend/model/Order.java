@@ -229,31 +229,11 @@ public class Order {
 
 	public void delete() {
 		customer = null;
-	    while (orderItems.size() > 0)
-	    {
-	      OrderItem aOrderItem = orderItems.get(orderItems.size() - 1);
-	      aOrderItem.delete();
-	      orderItems.remove(aOrderItem);
-	    }
+		while (orderItems.size() > 0) {
+			OrderItem aOrderItem = orderItems.get(orderItems.size() - 1);
+			aOrderItem.delete();
+			orderItems.remove(aOrderItem);
+		}
 	}
 
-	public String toString() {
-		return super.toString() + "[" + "id" + ":" + getId() + "]"
-				+ System.getProperties().getProperty("line.separator") + "  " + "orderType" + "="
-				+ (getOrderType() != null
-						? !getOrderType().equals(this) ? getOrderType().toString().replaceAll("  ", "    ") : "this"
-						: "null")
-				+ System.getProperties().getProperty("line.separator") + "  " + "orderStatus" + "="
-				+ (getOrderStatus() != null
-						? !getOrderStatus().equals(this) ? getOrderStatus().toString().replaceAll("  ", "    ") : "this"
-						: "null")
-				+ System.getProperties().getProperty("line.separator") + "  " + "date" + "="
-				+ (getDate() != null ? !getDate().equals(this) ? getDate().toString().replaceAll("  ", "    ") : "this"
-						: "null")
-				+ System.getProperties().getProperty("line.separator") + "  " + "time" + "="
-				+ (getTime() != null ? !getTime().equals(this) ? getTime().toString().replaceAll("  ", "    ") : "this"
-						: "null")
-				+ System.getProperties().getProperty("line.separator") + "  " + "customer = "
-				+ (getCustomer() != null ? Integer.toHexString(System.identityHashCode(getCustomer())) : "null");
-	}
 }
