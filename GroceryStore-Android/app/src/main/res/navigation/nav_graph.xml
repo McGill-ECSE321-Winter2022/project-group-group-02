@@ -16,7 +16,7 @@
 
         <action
             android:id="@+id/action_Login_to_Menu"
-            app:destination="@id/ViewOrder" />
+            app:destination="@id/CustomerMenu" />
     </fragment>
 
 
@@ -29,6 +29,24 @@
         <action
             android:id="@+id/action_SignIn_to_Login"
             app:destination="@id/Login" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/UpdateCustomer"
+        android:name="ca.mcgill.ecse321.grocerystore.UpdateCustomer"
+        android:label="@string/update_label"
+        tools:layout="@layout/update_customer">
+    </fragment>
+
+    <fragment
+        android:id="@+id/CustomerMenu"
+        android:name="ca.mcgill.ecse321.grocerystore.CustomerMenu"
+        android:label="@string/customerMenu_label"
+        tools:layout="@layout/customer_menu">
+
+        <action
+            android:id="@+id/action_Menu_to_Update"
+            app:destination="@id/UpdateCustomer" />
     </fragment>
 
     <fragment

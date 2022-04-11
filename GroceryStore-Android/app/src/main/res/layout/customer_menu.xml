@@ -11,9 +11,15 @@
         android:id="@+id/UpdateAccountButton"
         android:layout_width="215dp"
         android:layout_height="49dp"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="238dp"
+        android:layout_marginEnd="98dp"
+        android:layout_marginBottom="17dp"
         android:text="Update Account"
-        tools:layout_editor_absoluteX="98dp"
-        tools:layout_editor_absoluteY="238dp" />
+        app:layout_constraintBottom_toTopOf="@+id/ViewItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/ViewOrderButton"

@@ -29,13 +29,6 @@ public class UpdateCustomer extends Fragment {
 
         binding.NameUpdate.setText(((MainActivity)getActivity()).getCustomerName());
         binding.AddressUpdate.setText(((MainActivity)getActivity()).getCustomerAddress());
-
-        binding.updateCustomer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
     @Override

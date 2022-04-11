@@ -124,8 +124,18 @@ public class MainActivity extends AppCompatActivity {
     public String getCustomerAddress() {
         return customerAddress;
     }
-    public String getUserType() {
-        return userType;
+
+    public void setCustomerName(String name) {
+        this.customerName = name;
+    }
+    public void setCustomerEmail(String email) {
+        this.customerEmail = email;
+    }
+    public void setCustomerAddress(String address) {
+        this.customerAddress = address;
+    }
+    public void setUserType(String type) {
+        this.userType = type;
     }
 
     private void createErrorAlertDialog(String message) {
@@ -252,7 +262,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             try {
                 HttpUtils.put("/update_customer/?email=" + URLEncoder.encode(customerEmail, StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&name=" + URLEncoder.encode(nameTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&address=" + URLEncoder.encode(addressTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new JsonHttpResponseHandler() {
-
                     @Override
                     public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                         passwordTextView.setText("");
