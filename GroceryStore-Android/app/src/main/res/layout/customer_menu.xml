@@ -25,24 +25,42 @@
         android:id="@+id/ViewOrderButton"
         android:layout_width="215dp"
         android:layout_height="49dp"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="98dp"
+        android:layout_marginBottom="19dp"
         android:text="View My Orders"
-        tools:layout_editor_absoluteX="98dp"
-        tools:layout_editor_absoluteY="373dp" />
+        app:layout_constraintBottom_toTopOf="@+id/LogoutButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ViewItem" />
 
     <Button
         android:id="@+id/LogoutButton"
         android:layout_width="215dp"
         android:layout_height="49dp"
+        android:layout_marginStart="98dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="98dp"
+        android:layout_marginBottom="241dp"
         android:text="Logout"
-        tools:layout_editor_absoluteX="98dp"
-        tools:layout_editor_absoluteY="441dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ViewOrderButton" />
 
     <Button
         android:id="@+id/ViewItem"
         android:layout_width="215dp"
         android:layout_height="49dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="98dp"
+        android:layout_marginBottom="20dp"
         android:text="View Items"
-        tools:layout_editor_absoluteX="98dp"
-        tools:layout_editor_absoluteY="304dp" />
+        app:layout_constraintBottom_toTopOf="@+id/ViewOrderButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UpdateAccountButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
