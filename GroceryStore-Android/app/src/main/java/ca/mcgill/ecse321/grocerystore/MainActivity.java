@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -39,6 +40,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private String error = null;
@@ -164,10 +166,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             try {
                 HttpUtils.post("/login/?email=" + URLEncoder.encode(emailTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new JsonHttpResponseHandler() {
-
                     @Override
                     public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
-                        //refreshErrorMessage();
                         try {
                             customerEmail = response.getString("email");
                             userType = response.getString("userType");
@@ -175,8 +175,9 @@ public class MainActivity extends AppCompatActivity {
                             customerAddress = response.getString("address");
                             emailTextView.setText("");
                             passwordTextView.setText("");
-                            getSupportFragmentManager().beginTransaction().replace(androidx.navigation.fragment.R.id.nav_host_fragment_container,
-                                    new ViewOrder()).commit();
+                            List<Fragment> fragments = getSupportFragmentManager().getFragments();
+                            NavHostFragment.findNavController(fragments.get(fragments.size() - 1))
+                                    .navigate(R.id.action_Login_to_Menu);
                         } catch (Exception e) {
                             System.out.println("Non");
                         }
@@ -192,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Encoding Error");
             }
         }
+        System.out.println("Test");
     }
 
     /**
@@ -215,13 +217,13 @@ public class MainActivity extends AppCompatActivity {
             try {
                 HttpUtils.post("/create_customer/?email=" + URLEncoder.encode(emailTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&name=" + URLEncoder.encode(nameTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&address=" + URLEncoder.encode(addressTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new JsonHttpResponseHandler() {
                     @Override
-                    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
+                    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                         emailTextView.setText("");
                         passwordTextView.setText("");
                         confirmPasswordTextView.setText("");
                         nameTextView.setText("");
                         addressTextView.setText("");
-                        createSuccessAlertDialog("Your account was created successfully, please login now! ");
+                        createSuccessAlertDialog("Your account was created successfully, please login now!");
                     }
 
                     @Override
@@ -252,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
                 HttpUtils.put("/update_customer/?email=" + URLEncoder.encode(customerEmail, StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&name=" + URLEncoder.encode(nameTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&address=" + URLEncoder.encode(addressTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new JsonHttpResponseHandler() {
 
                     @Override
-                    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
+                    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                         passwordTextView.setText("");
                         confirmPasswordTextView.setText("");
                         nameTextView.setText("");

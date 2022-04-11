@@ -46,11 +46,11 @@
         android:layout_marginTop="34dp"
         android:layout_marginBottom="260dp"
         android:text="Login"
+        android:onClick="login"
         app:iconTint="#9E9393"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:onClick="login"
         app:layout_constraintTop_toBottomOf="@+id/PasswordLogin" />
 
     <EditText
