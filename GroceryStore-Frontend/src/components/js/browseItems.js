@@ -68,9 +68,14 @@ export default {
         .then(response => {
           // JSON responses are automatically parsed.
           this.unavailableItems = response.data
+          this.successOrder=''
+          this.errorOrder = ''
+          this.errorItem=''
         })
         .catch(e => {
+          this.successOrder=''
           this.errorOrder = e.response.data
+          this.errorItem=''
         })
 
     },
@@ -88,6 +93,8 @@ export default {
                         
                         if(this.shoppableItems[i].quantityAvailable < quantityDesired){
                             this.errorOrder = "There is not enough items in the store. Please order less than the quantity available."
+                            this.errorItem=''
+                            this.successOrder=''
                             return this.errorOrder
                         }
                     }
@@ -141,10 +148,13 @@ export default {
                       
                           // JSON responses are automatically parsed.
                           this.orderItems.push(response.data)
+                          this.errorOrder=''
+                          this.errorItem = ''
                 
                         })
                         .catch(e => {
                             this.errorOrder = e.response.data
+                            this.errorItem = ''
                         })
     
                   }
