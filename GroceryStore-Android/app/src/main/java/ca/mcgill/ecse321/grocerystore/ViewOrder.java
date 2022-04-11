@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.grocerystore;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 
 import ca.mcgill.ecse321.grocerystore.databinding.OrderViewBinding;
@@ -65,7 +68,7 @@ public class ViewOrder extends Fragment {
                 try {
 
                     if (response.length() == 0) {
-                        ((MainActivity)getActivity()).createErrorAlertDialog("There are no orders yet");
+                        createNoOrderDialog("You have no orders yet");
                         TextView selectOrder = getActivity().findViewById(R.id.list_of_orders);
                         selectOrder.setVisibility(View.GONE);
                         return;
@@ -104,4 +107,21 @@ public class ViewOrder extends Fragment {
             }
         });
     }
+
+    void createNoOrderDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(message)
+                .setTitle("No Orders yet!");
+// Add the buttons
+        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
 }

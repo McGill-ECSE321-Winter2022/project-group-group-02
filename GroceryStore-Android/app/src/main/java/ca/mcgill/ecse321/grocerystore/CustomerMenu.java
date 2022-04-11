@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.grocerystore;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +58,7 @@ public class CustomerMenu extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 
 
 }
