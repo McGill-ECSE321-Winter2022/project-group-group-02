@@ -51,6 +51,11 @@
         <action
             android:id="@+id/action_Menu_to_Orders"
             app:destination="@id/ViewOrder" />
+
+        <action
+            android:id="@+id/action_CustomerMenu_to_ViewItem"
+            app:destination="@id/ViewItem" />
+
     </fragment>
 
     <fragment
@@ -59,5 +64,12 @@
         android:label="@string/viewOrder_label"
         tools:layout="@layout/order_view">
     </fragment>
+
+
+    <fragment
+        android:name="ca.mcgill.ecse321.grocerystore.ItemView"
+        android:label="View Items"
+        android:id="@+id/ViewItem"
+        tools:layout="@layout/itemview"/>
 
 </navigation>
