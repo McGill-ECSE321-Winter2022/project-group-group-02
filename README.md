@@ -2,6 +2,8 @@
 
 ## The Project
 
+Here are the URLs for our Backend and Frontend implementations
+
 Frontend: https://grocerystore-frontend-best.herokuapp.com
 
 Backend: https://grocerystore-backend-best.herokuapp.com
