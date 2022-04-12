@@ -94,6 +94,7 @@ export default {
 					.catch(e => {
 						// Display the error message.
 						this.errorUpdate = e.response.data
+						this.successUpdate = ''
 						console.log(this.errorUpdate)
 					})
 
