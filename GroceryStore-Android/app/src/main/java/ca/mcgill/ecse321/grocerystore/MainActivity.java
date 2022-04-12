@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -23,7 +24,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import ca.mcgill.ecse321.grocerystore.databinding.ActivityMainBinding;
-import cz.msebera.android.httpclient.entity.mime.Header;
+import cz.msebera.android.httpclient.Header;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     private String userType = null;
     private String customerName = null;
     private String customerAddress = null;
+    private String customerPassword = null;
+
     private static Map<String,Integer> cart = new HashMap<String,Integer>();
 
 
@@ -148,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage(message)
                 .setTitle("Error!");
-// Add the buttons
+        // Add the buttons
         builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
             }
@@ -189,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
                             userType = response.getString("userType");
                             customerName = response.getString("name");
                             customerAddress = response.getString("address");
+                            customerPassword = response.getString("password");
                             emailTextView.setText("");
                             passwordTextView.setText("");
                             List<Fragment> fragments = getSupportFragmentManager().getFragments();
@@ -218,23 +222,28 @@ public class MainActivity extends AppCompatActivity {
 
         if (confirmPasswordTextView.getText().toString().isEmpty() || passwordTextView.getText().toString().isEmpty()) {
             createErrorAlertDialog("Please fill all the fields!");
+        } else if (!confirmPasswordTextView.getText().toString().equals(passwordTextView.getText().toString())) {
+            createErrorAlertDialog("Passwords don't match!");
+        } else if (!customerPassword.equals(confirmPasswordTextView.getText().toString())) {
+            createErrorAlertDialog("Incorrect password");
         } else {
             try {
-                HttpUtils.delete("/delete_customer/?email=" + customerEmail, new RequestParams(), new JsonHttpResponseHandler() {
+                HttpUtils.delete("/delete_customer/?email=" + customerEmail, new RequestParams(), new AsyncHttpResponseHandler() {
                     @Override
-                    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] response) {
                         try {
                             createSuccessAlertDialog("Account successfully deleted!");
                             List<Fragment> fragments = getSupportFragmentManager().getFragments();
                             NavHostFragment.findNavController(fragments.get(fragments.size() - 1))
                                     .navigate(R.id.action_Update_to_Login);
                         } catch (Exception e) {
+                            System.out.print(e.getMessage());
                         }
                     }
 
                     @Override
-                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
-                        createErrorAlertDialog(errorMessage);
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        createErrorAlertDialog(responseBody.toString());
                     }
                 });
             } catch (Exception e) {
