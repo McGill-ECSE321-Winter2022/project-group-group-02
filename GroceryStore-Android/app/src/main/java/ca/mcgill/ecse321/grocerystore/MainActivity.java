@@ -333,6 +333,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * @author Karl Rouhana
+     * Get all the shoppable items from the system
      */
 
     public void getShoppableItems(View view){
@@ -344,33 +345,34 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 try {
 
-
-
-
                     String[] allItems = new String[response.length()];
 
-
+                    //Loop through all shoppable items in system
                     for(int i = 0; i < response.length(); i++){
 
                         JSONObject item = response.getJSONObject(i);
 
+                        //Get the correct attributes
                         String name = item.getString("name");
                         String price = item.getString("price");
                         String quantityAvailable = item.getString("quantityAvailable");
 
                         String itemString = "";
-                        itemString+=name+", $ "
-                                +price+","
-                                +quantityAvailable+" in stock";
+
+                        //Add the fields
+                        itemString+=name+", $ " +price+"," +quantityAvailable+" in stock";
 
                         allItems[i]=itemString;
 
                     }
 
+                    //Get the correct dropdown
                     Spinner allItemsSpinner = (Spinner) findViewById(R.id.itemsAvailable);
 
+                    //Add a listener to get the item chosen
                     allItemsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+                        //Show that the item has been selected
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view,
                                                    int position, long id) {
@@ -381,135 +383,144 @@ public class MainActivity extends AppCompatActivity {
                             }
                             Toast.makeText(MainActivity.this, "Selected",
                                     Toast.LENGTH_SHORT).show();
-
                         }
 
                         @Override
                         public void onNothingSelected(AdapterView<?> adapterView) {
-
                         }
                     });
 
-
                     ArrayList<String> list = new ArrayList<>(Arrays.asList(allItems));
 
+                    //Output the list on the dropdown menu
                     ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, list);
                     allItemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     allItemsSpinner.setAdapter(allItemsAdapter);
 
-
-
-
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     error += e.getMessage();
                     System.out.println(error);
+                    createErrorAlertDialog(error);
                 }
-
-                //refreshErrorMessage();
-
             }
 
             @Override
-            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                    System.out.println(error);
-                }
-                //refreshErrorMessage();
+            public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
+                 createErrorAlertDialog(errorMessage);
             }
-
         });
-
-
-
     }
 
 
     /**
      * @author Karl Rouhana
+     * Add the items the customer wants to a temporary hash map to keep
+     * track of which items are wanted and how many of them
      */
 
     public void addToCart(View view){
 
-        final TextView quantityWanted = (TextView) findViewById(R.id.selectedQuantity);
+        //Get the proper fields and item
+        final TextView quantityWantedView = (TextView) findViewById(R.id.selectedQuantity);
         final Spinner itemChosen =(Spinner) findViewById(R.id.itemsAvailable);
-
-
-
         String itemString = itemChosen.getSelectedItem().toString();
+
+        //Since we know the name is right before the first "," I can get it this way
         String[] array = itemString.split(",");
         itemString = array[0];
 
-        String[] arrayToGetAvailable = array[2].split(" ");
+        //Since we also know that the quantity is after the second "," I can get it this was
 
-        if(quantityWanted.getText().toString().matches("[0-9]+")) {
-            cart.put(itemString, Integer.parseInt(quantityWanted.getText().toString()));
-        }
-        else{
+        int availableInSystem = 0;
+        try{
+            String[] availableInSystemString = array[2].split(" ");
+             availableInSystem = Integer.parseInt(availableInSystemString[0]);
+        }catch(Exception e){
             createErrorAlertDialog("Enter a valid quantity !");
             return;
         }
 
-        if(Integer.parseInt(quantityWanted.getText().toString()) <= Integer.parseInt(arrayToGetAvailable[0])) {
-            cart.put(itemString, Integer.parseInt(quantityWanted.getText().toString()));
-        }
-        else{
+
+        //Check if integer
+        if(quantityWantedView.getText().toString().matches("[0-9]+")) {
+            cart.put(itemString, Integer.parseInt(quantityWantedView.getText().toString()));
+        } else{
             createErrorAlertDialog("Enter a valid quantity !");
             return;
         }
+        int quantityWanted = Integer.parseInt(quantityWantedView.getText().toString());
+
+        //Check if there's enough items in system
+        if( quantityWanted <= availableInSystem) {
+            cart.put(itemString, quantityWanted);
+        } else{
+            createErrorAlertDialog("There not enough items in the store !");
+            return;
+        }
+
 
         ArrayList<String> allItemsInCart = new ArrayList<>();
 
+        //Get all items in the cart from the hash map
         for(Map.Entry<String, Integer> entry: cart.entrySet()) {
-            allItemsInCart.add(entry.getKey() + ", Quantity wanted: "+ entry.getValue() );
+            allItemsInCart.add(entry.getKey() + ", Quantity wanted: "+ entry.getValue());
         }
 
+        //Add the items in cart in the dropdown
         Spinner itemsInCart = findViewById(R.id.itemsInCart);
         ArrayAdapter<String> allItemsInCartAdapter = new ArrayAdapter (getApplicationContext(),android.R.layout.simple_spinner_item, allItemsInCart);
         allItemsInCartAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         itemsInCart.setAdapter(allItemsInCartAdapter);
-
 
     }
 
 
     /**
      * @author Karl Rouhana
+     * Remove the items the customer does not want to a temporary hash map to keep
+     * track of which items are wanted and how many of them
      */
 
     public void removeFromCart(View view){
 
-        final Spinner itemChosen =(Spinner) findViewById(R.id.itemsInCart);
+        //Get the proper item
+        final Spinner itemChosen = (Spinner) findViewById(R.id.itemsInCart);
+
+        //Since we know the name is right before the first "," I can get it this way
         String itemString = itemChosen.getSelectedItem().toString();
         String[] array = itemString.split(",");
         itemString = array[0];
 
 
+        //Remove the item we don't want
         cart.remove(itemString);
 
         ArrayList<String> allItemsInCart = new ArrayList<>();
-
+        //Get all items in the cart from the hash map
         for(Map.Entry<String, Integer> entry: cart.entrySet()) {
             allItemsInCart.add(entry.getKey() + ", Quantity wanted: "+ entry.getValue() );
         }
 
+        //Add the items in cart in the dropdown
         Spinner itemsInCart = findViewById(R.id.itemsInCart);
         ArrayAdapter<String> allItemsInCartAdapter = new ArrayAdapter (getApplicationContext(),android.R.layout.simple_spinner_item, allItemsInCart);
         allItemsInCartAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         itemsInCart.setAdapter(allItemsInCartAdapter);
 
-
     }
 
 
+    /**
+     * @author Karl Rouhana
+     * Create an order for the customer
+     */
     public void createOrderForCustomer(View view){
 
+        //Get the proper item
         final Spinner orderTypeChosen = findViewById(R.id.orderType);
 
+        //Put the correct parameters
         RequestParams rp = new RequestParams();
-
         rp.put("orderType", orderTypeChosen.getSelectedItem().toString());
         rp.put("email", getCustomerEmail());
 
@@ -520,25 +531,23 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                 try {
 
-
-                    createOrderItemsForCustomer(view, Long.parseLong(response.getString("id")));
-
+                    //get the order id
+                    Long orderId = Long.parseLong(response.getString("id"));
+                    //create the order items for the order
+                    createOrderItemsForCustomer(view, orderId);
 
                     createSuccessAlertDialog("Order placed !");
 
                 } catch (Exception e) {
                     error += e.getMessage();
                     System.out.println(error);
+                    createErrorAlertDialog(error);
                 }
-
-
-
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
                 createErrorAlertDialog(errorMessage);
-
             }
 
         });
@@ -546,18 +555,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
+    /**
+     * @author Karl Rouhana
+     * Create order items for the order
+     */
     public void createOrderItemsForCustomer (View view, Long orderId){
 
+        //Check each entry of the cart
         for(Map.Entry<String, Integer> entry: cart.entrySet()) {
 
+            //Put each params
             RequestParams rp = new RequestParams();
-
             rp.put("quantity", entry.getValue() );
             rp.put("itemName", entry.getKey());
             rp.put("orderId", orderId);
-
 
             error = "";
 
@@ -567,25 +578,19 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                     try {
 
-
                     } catch (Exception e) {
                         error += e.getMessage();
                         System.out.println(error);
+                        createErrorAlertDialog(error);
                     }
-
-
                 }
 
                 @Override
                 public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
                     createErrorAlertDialog(errorMessage);
-
                 }
-
             });
-
         }
-
     }
 
     /**
@@ -602,31 +607,34 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONArray response) {
                 try {
 
-
-
-
                     String[] allItems = new String[response.length()];
 
-
+                    //Loop through all unavailable items in system
                     for(int i = 0; i < response.length(); i++){
 
                         JSONObject item = response.getJSONObject(i);
 
+                        //Get the correct attributes
                         String name = item.getString("name");
                         String price = item.getString("price");
 
+
                         String itemString = "";
-                        itemString+=name+", $ "
-                                +price;
+
+                        //Add the fields
+                        itemString+=name+", $ " +price;
 
                         allItems[i]=itemString;
 
                     }
 
+                    //Get the correct dropdown
                     Spinner allItemsSpinner = (Spinner) findViewById(R.id.itemsUnavailable);
 
+                    //Add a listener to get the item chosen
                     allItemsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+                        //Show that the item has been selected
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view,
                                                    int position, long id) {
@@ -649,31 +657,28 @@ public class MainActivity extends AppCompatActivity {
 
                     ArrayList<String> list = new ArrayList<>(Arrays.asList(allItems));
 
+                    //Output the list on the dropdown menu
                     ArrayAdapter<String> allItemsAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, list);
                     allItemsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     allItemsSpinner.setAdapter(allItemsAdapter);
 
-
-
-
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     error += e.getMessage();
                     System.out.println(error);
+                    createErrorAlertDialog(error);
                 }
-
-                //refreshErrorMessage();
-
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     error += e.getMessage();
                     System.out.println(error);
+                    createErrorAlertDialog(error);
                 }
-                //refreshErrorMessage();
+
             }
 
         });
