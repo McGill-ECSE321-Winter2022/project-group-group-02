@@ -7,24 +7,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import ca.mcgill.ecse321.grocerystore.databinding.ItemviewBinding;
 
@@ -46,19 +32,14 @@ public class ItemView extends Fragment implements AdapterView.OnItemSelectedList
 
         Spinner orderTypeSpinner = view.findViewById(R.id.orderType);
 
-        ArrayAdapter<CharSequence> ordertypeAdapter = ArrayAdapter.createFromResource(this.getContext(),R.array.orderType, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> orderTypeAdapter = ArrayAdapter.createFromResource(this.getContext(),R.array.orderType, android.R.layout.simple_spinner_item);
 
-        ordertypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        orderTypeSpinner.setAdapter(ordertypeAdapter);
+        orderTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        orderTypeSpinner.setAdapter(orderTypeAdapter);
         orderTypeSpinner.setOnItemSelectedListener(this);
 
         ((MainActivity)getActivity()).getShoppableItems(view);
         ((MainActivity)getActivity()).getUnavailableItems(view);
-
-
-
-
-
     }
 
     @Override

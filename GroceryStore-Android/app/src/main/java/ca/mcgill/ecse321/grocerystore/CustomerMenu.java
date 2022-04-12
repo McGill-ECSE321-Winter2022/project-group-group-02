@@ -1,7 +1,5 @@
 package ca.mcgill.ecse321.grocerystore;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +26,7 @@ public class CustomerMenu extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Go to the update account page
         binding.UpdateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,6 +35,7 @@ public class CustomerMenu extends Fragment {
             }
         });
 
+        // Go to the View Orders page
         binding.ViewOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,6 +44,7 @@ public class CustomerMenu extends Fragment {
             }
         });
 
+        // Go to the View Items page
         binding.ViewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +53,7 @@ public class CustomerMenu extends Fragment {
             }
         });
 
+        // Logout of the system
         binding.LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,13 +1,8 @@
 package ca.mcgill.ecse321.grocerystore;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -32,12 +27,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TableRow;
-import android.widget.TableLayout;
 import android.widget.Toast;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
@@ -51,7 +43,6 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     private String error = null;
     private String customerEmail = null;
-    private String userType = null;
     private String customerName = null;
     private String customerAddress = null;
     private String customerPassword = null;
@@ -62,12 +53,56 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    /** Returns the email of the customer currently logged in
+     * @author anaelle.drai
+     * @return customerEmail
+     */
     public String getCustomerEmail(){
         if(customerEmail == null){
             return "";
         }else{
             return customerEmail;
         }
+    }
+
+    /** Returns the name of the customer currently logged in
+     * @author anaelle.drai
+     * @return customerName
+     */
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    /** Returns the address of the customer currently logged in
+     * @author anaelle.drai
+     * @return customerAddress
+     */
+    public String getCustomerAddress() {
+        return customerAddress;
+    }
+
+    /** Sets the name of the customer currently logged in
+     *
+     * @author anaelle.drai
+     */
+    public void setCustomerName(String name) {
+        this.customerName = name;
+    }
+
+    /** Sets the email of the customer currently logged in
+     *
+     * @author anaelle.drai
+     */
+    public void setCustomerEmail(String email) {
+        this.customerEmail = email;
+    }
+
+    /** Sets the address of the customer currently logged in
+     *
+     * @author anaelle.drai
+     */
+    public void setCustomerAddress(String address) {
+        this.customerAddress = address;
     }
 
     @Override
@@ -84,18 +119,8 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-//        binding.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
         binding.fab.setVisibility(View.GONE);
 
-        // initialize error message text view
-        //refreshErrorMessage();
     }
 
     @Override
@@ -112,10 +137,6 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -126,60 +147,53 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public String getCustomerAddress() {
-        return customerAddress;
-    }
-
-    public void setCustomerName(String name) {
-        this.customerName = name;
-    }
-    public void setCustomerEmail(String email) {
-        this.customerEmail = email;
-    }
-    public void setCustomerAddress(String address) {
-        this.customerAddress = address;
-    }
-    public void setUserType(String type) {
-        this.userType = type;
-    }
-
-    void createErrorAlertDialog(String message) {
+    /** Creates an error alert dialog with the message passed as arguments
+     *
+     * @author anaelle.drai
+     * @param message
+     */
+    public void createErrorAlertDialog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage(message)
                 .setTitle("Error!");
-        // Add the buttons
-        builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-            }
+        // Add the button
+        builder.setPositiveButton("Retry", (dialog, id) -> {
         });
 
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
-    private void createSuccessAlertDialog(String message) {
+    /** Creates a success alert dialog with the message passed as arguments
+     *
+     * @author anaelle.drai
+     * @param message
+     */
+    public void createSuccessAlertDialog(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage(message)
                 .setTitle("Success!");
-// Add the buttons
-        builder.setPositiveButton("Ok!", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-            }
+        // Add the button
+        builder.setPositiveButton("Ok!", (dialog, id) -> {
         });
 
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
+    /** Method to login the customer, displays an error dialog with the error message in case of an erro
+     * otherwise brings the customer to the menu.
+     *
+     * @author anaelle.drai
+     * @param v
+     */
     public void login(View v) {
 
+        // Get values from the view text fields
         final TextView emailTextView = (TextView) findViewById(R.id.EmailLogin);
         final TextView passwordTextView = (TextView) findViewById(R.id.PasswordLogin);
 
+        // Check all the fields are filled
         if (emailTextView.getText().toString().isEmpty() || passwordTextView.getText().toString().isEmpty()) {
             createErrorAlertDialog("Please fill all the fields!");
         } else {
@@ -188,24 +202,27 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                         try {
+                            // Save the information of the customer that logs in
                             customerEmail = response.getString("email");
-                            userType = response.getString("userType");
                             customerName = response.getString("name");
                             customerAddress = response.getString("address");
                             customerPassword = response.getString("password");
+                            // Empty text view fields
                             emailTextView.setText("");
                             passwordTextView.setText("");
+                            // Go to Customer menu
                             List<Fragment> fragments = getSupportFragmentManager().getFragments();
                             NavHostFragment.findNavController(fragments.get(fragments.size() - 1))
                                     .navigate(R.id.action_Login_to_Menu);
                         } catch (Exception e) {
-                            System.out.println("Non");
+                            System.out.println(e.getMessage());
                         }
 
                     }
 
                     @Override
                     public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
+                        // Create an error alert dialog with the error message
                         createErrorAlertDialog(errorMessage);
                     }
                 });
@@ -215,16 +232,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /** Method to delete the customer, displays an error dialog with the error message in case of an error
+     * otherwise changes the screen to the login screen.
+     *
+     * @author anaelle.drai
+     * @param v
+     */
     public void deleteCustomer(View v) {
 
+        // Get values from the view text fields
         final TextView passwordTextView = (TextView) findViewById(R.id.PasswordDelete);
         final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordDelete);
 
+        // Check all the fields are filled, and that the passwords match and are correct.
         if (confirmPasswordTextView.getText().toString().isEmpty() || passwordTextView.getText().toString().isEmpty()) {
             createErrorAlertDialog("Please fill all the fields!");
         } else if (!confirmPasswordTextView.getText().toString().equals(passwordTextView.getText().toString())) {
             createErrorAlertDialog("Passwords don't match!");
         } else if (!customerPassword.equals(confirmPasswordTextView.getText().toString())) {
+            System.out.println(customerPassword);
+            System.out.println(confirmPasswordTextView.getText().toString());
             createErrorAlertDialog("Incorrect password");
         } else {
             try {
@@ -232,18 +259,21 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] response) {
                         try {
+                            // Show a success alert dialog
                             createSuccessAlertDialog("Account successfully deleted!");
+                            // Bring the customer with deleted account back to login
                             List<Fragment> fragments = getSupportFragmentManager().getFragments();
                             NavHostFragment.findNavController(fragments.get(fragments.size() - 1))
                                     .navigate(R.id.action_Update_to_Login);
                         } catch (Exception e) {
-                            System.out.print(e.getMessage());
+                            System.out.println(e.getMessage());
                         }
                     }
 
                     @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        createErrorAlertDialog(responseBody.toString());
+                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                        // Create an error alert dialog with the error message
+                        createErrorAlertDialog(new String(responseBody));
                     }
                 });
             } catch (Exception e) {
@@ -253,28 +283,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /**
+    /** Method to sign in the customer, shows an error dialog in case of error,
+     * otherwise shows a success alert dialog.
+     *
      * @author anaelle.drai
      * @param v
      */
     public void signInCustomer(View v) {
-        error = "";
 
+        // Get values from the view text fields
         final TextView emailTextView = (TextView) findViewById(R.id.EmailSignIn);
         final TextView passwordTextView = (TextView) findViewById(R.id.PasswordSignIn);
         final TextView nameTextView = (TextView) findViewById(R.id.NameSignIn);
         final TextView addressTextView = (TextView) findViewById(R.id.AddressSignIn);
         final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordSignIn);
 
+        // Check all the fields are filled, and that the passwords match.
         if (emailTextView.getText().toString().isEmpty() || passwordTextView.getText().toString().isEmpty() || addressTextView.getText().toString().isEmpty() || nameTextView.getText().toString().isEmpty() || confirmPasswordTextView.getText().toString().isEmpty()) {
             createErrorAlertDialog("Please fill all the fields!");
         } else if (!confirmPasswordTextView.getText().toString().equals(passwordTextView.getText().toString())) {
             createErrorAlertDialog("The passwords don't match!");
         } else {
             try {
-                HttpUtils.post("/create_customer/?email=" + URLEncoder.encode(emailTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&name=" + URLEncoder.encode(nameTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&address=" + URLEncoder.encode(addressTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new JsonHttpResponseHandler() {
+                HttpUtils.post("/create_customer/?email=" + URLEncoder.encode(emailTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&name=" + URLEncoder.encode(nameTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&address=" + URLEncoder.encode(addressTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new AsyncHttpResponseHandler() {
                     @Override
-                    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                    public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] response) {
+                        // Empty the text fields and create a success alert dialog.
                         emailTextView.setText("");
                         passwordTextView.setText("");
                         confirmPasswordTextView.setText("");
@@ -284,8 +318,9 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
-                        createErrorAlertDialog(errorMessage);
+                    public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error) {
+                        // Create an error alert dialog with the error message
+                        createErrorAlertDialog(new String(responseBody));
                     }
                 });
             } catch (Exception e) {
@@ -294,14 +329,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /** Method to update the customer account information, shows an error dialog in case of error,
+     * otherwise shows a success alert dialog.
+     *
+     * @author anaelle.drai
+     * @param v
+     */
     public void updateCustomer(View v) {
-        error = "";
 
+        // Get values from the view text fields
         final TextView passwordTextView = (TextView) findViewById(R.id.PasswordUpdate);
         final TextView nameTextView = (TextView) findViewById(R.id.NameUpdate);
         final TextView addressTextView = (TextView) findViewById(R.id.AddressUpdate);
         final TextView confirmPasswordTextView = (TextView) findViewById(R.id.ConfirmPasswordUpdate);
 
+        // Check all the fields are filled, and that the passwords match.
         if (passwordTextView.getText().toString().isEmpty() || addressTextView.getText().toString().isEmpty() || nameTextView.getText().toString().isEmpty() || confirmPasswordTextView.getText().toString().isEmpty()) {
             createErrorAlertDialog("Please fill all the fields!");
         } else if (!confirmPasswordTextView.getText().toString().equals(passwordTextView.getText().toString())) {
@@ -311,6 +353,7 @@ public class MainActivity extends AppCompatActivity {
                 HttpUtils.put("/update_customer/?email=" + URLEncoder.encode(customerEmail, StandardCharsets.UTF_8.toString()) + "&password=" + URLEncoder.encode(passwordTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&name=" + URLEncoder.encode(nameTextView.getText().toString(), StandardCharsets.UTF_8.toString()) + "&address=" + URLEncoder.encode(addressTextView.getText().toString(), StandardCharsets.UTF_8.toString()), new RequestParams(), new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                        // Empty the text fields and create a success alert dialog.
                         passwordTextView.setText("");
                         confirmPasswordTextView.setText("");
                         nameTextView.setText("");
@@ -320,6 +363,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String errorMessage, Throwable throwable) {
+                        // Create an error alert dialog with the error message
                         createErrorAlertDialog(errorMessage);
                     }
                 });
@@ -431,7 +475,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Since we also know that the quantity is after the second "," I can get it this was
 
-        int availableInSystem = 0;
+        int availableInSystem;
         try{
             String[] availableInSystemString = array[2].split(" ");
              availableInSystem = Integer.parseInt(availableInSystemString[0]);
@@ -576,13 +620,6 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
-                    try {
-
-                    } catch (Exception e) {
-                        error += e.getMessage();
-                        System.out.println(error);
-                        createErrorAlertDialog(error);
-                    }
                 }
 
                 @Override
@@ -593,8 +630,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /** Method to get unavailable items
      * @author Ralph Nassar
+     * @param view
      */
 
     public void getUnavailableItems(View view){
@@ -682,11 +720,5 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
-
     }
-
-
-
-
 }

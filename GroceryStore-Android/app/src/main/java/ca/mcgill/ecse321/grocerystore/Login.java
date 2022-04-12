@@ -25,10 +25,10 @@ public class Login extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // Log the customer out everytime the login page is created
         ((MainActivity)getActivity()).setCustomerName(null);
         ((MainActivity)getActivity()).setCustomerEmail(null);
         ((MainActivity)getActivity()).setCustomerAddress(null);
-        ((MainActivity)getActivity()).setUserType(null);
 
         binding.goToSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
