@@ -30,8 +30,13 @@ var AXIOS = axios.create({
 })
 
 
+function BasketItemDTO (itemName, quantityDesired) {
+  this.itemName = itemName
+  this.quantityDesired = quantityDesired
+}
+
 export default {
-    
+
     name: 'item',
     data () {
       return {
@@ -59,7 +64,7 @@ export default {
         .catch(e => {
           this.errorItem = e
         })
-  
+
         AXIOS.get('/view_all_unavailable_item')
         .then(response => {
           // JSON responses are automatically parsed.
@@ -86,7 +91,7 @@ export default {
 
                 for (let i = 0; i < this.shoppableItems.length; i++) {
                     if(this.shoppableItems[i].name == newItemName){
-                        
+
                         if(this.shoppableItems[i].quantityAvailable < quantityDesired){
                             this.errorOrder = "There is not enough items in the store. Please order less than the quantity available."
                             this.errorItem=''
@@ -109,12 +114,12 @@ export default {
 
         removeFromBasket: function(nameToDelete){
             for (let i = 0; i < this.basketItems.length; i++) {
-              
+
                 if(this.basketItems[i].itemName == nameToDelete){
                     this.basketItems.splice(i, 1);
                 }
             }
-            
+
         },
 
         createOrder: function(type){
@@ -127,12 +132,12 @@ export default {
                 }
               })
                 .then(response => {
-              
+
                   // JSON responses are automatically parsed.
                     this.order = response.data
 
                   for (let i = 0; i < this.basketItems.length; i++) {
-        
+
                     AXIOS.post('/create_order_item', {}, {
                         params: {
                             quantity: this.basketItems[i].quantityDesired,
@@ -141,18 +146,18 @@ export default {
                         }
                       })
                         .then(response => {
-                      
+
                           // JSON responses are automatically parsed.
                           this.orderItems.push(response.data)
                           this.errorOrder=''
                           this.errorItem = ''
-                
+
                         })
                         .catch(e => {
                             this.errorOrder = e.response.data
                             this.errorItem = ''
                         })
-    
+
                   }
                   this.basketItems = [];
                   this.successOrder = 'Order confirmed!'
