@@ -530,6 +530,11 @@ public class MainActivity extends AppCompatActivity {
         //Get the proper item
         final Spinner itemChosen = (Spinner) findViewById(R.id.itemsInCart);
 
+        if(cart.isEmpty()) {
+            createErrorAlertDialog("No item in cart !");
+            return;
+        }
+
         //Since we know the name is right before the first "," I can get it this way
         String itemString = itemChosen.getSelectedItem().toString();
         String[] array = itemString.split(",");
@@ -559,6 +564,11 @@ public class MainActivity extends AppCompatActivity {
      * Create an order for the customer
      */
     public void createOrderForCustomer(View view){
+
+        if(cart.isEmpty()) {
+            createErrorAlertDialog("No item in cart !");
+            return;
+        }
 
         //Get the proper item
         final Spinner orderTypeChosen = findViewById(R.id.orderType);
