@@ -72,7 +72,18 @@ Click for [Project Report Deliverable 3] !
 [Project Report Deliverable 3]:https://github.com/McGill-ECSE321-Winter2022/project-group-group-02/wiki/Project-Report-Deliverable-3
 
 
+### Roles and Time Spent
+| Name  | Roles/Tasks |Time Spent (Hours)|
+| ------------- | ------------- |---|
+| Matthieu Hakim | Implementation of View Orders, User documentation, project report | 35 |
+| Cora Cheung | Implementation of Main Menu, User documentation, project report | 35 |
+| Karl Rouhana | Implementation of Create Order, User documentation, project report| 35 |
+| Ralph Nassar | Implementation of Browse Items, User documentation, project report | 35 |
+| Anaëlle Drai Laguéns | Implementation of Login, Sign In and Update Customer page, User documentation, project report | 35 |
 
+Click for [Project Report Deliverable 4] !
+
+[Project Report Deliverable 4]:https://github.com/McGill-ECSE321-Winter2022/project-group-group-02/wiki/Project-Report-Deliverable-4
 
 
 
