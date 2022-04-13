@@ -7,7 +7,7 @@ Frontend: https://grocerystore-frontend-best.herokuapp.com
 
 Backend: https://grocerystore-backend-best.herokuapp.com
 
-You can find how to use the backend service endpoints [here].
+You can find how to use the backend service endpoints [here]. 
 
 [here]:https://github.com/McGill-ECSE321-Winter2022/project-group-group-02/wiki/RESTful-service-documentation
 
